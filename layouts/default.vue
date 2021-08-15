@@ -1,5 +1,6 @@
 <template>
     <div>
+        <header-base />
         <Nuxt />
         <tooltip-manager />
     </div>

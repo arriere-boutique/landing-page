@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-pro": "^5.15.1",
-    "@instant-coffee/core": "^1.1.0",
+    "@instant-coffee/core": "^1.2.5",
     "@nuxtjs/axios": "^5.12.2",
     "core-js": "^3.6.5",
     "moment": "^2.29.1",

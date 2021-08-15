@@ -1,6 +1,16 @@
 @import "../../node_modules/@fortawesome/fontawesome-pro/css/light.min.css";
 @import "../../node_modules/@fortawesome/fontawesome-pro/css/fontawesome.min.css";
 
+@import url("https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,400;0,500;0,700;1,400&display=swap");
+
+
+@font-face {
+    font-family: "Sunflower";
+    src: url("../fonts/sunflower/sunflower.woff2") format("woff2"), url("../fonts/sunflower/sunflower.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+}
+
 html {
     scroll-behavior: smooth;    
 }

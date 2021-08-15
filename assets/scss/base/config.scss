@@ -6,7 +6,8 @@ $breakpoints: (
 );
 
 $block-widths: (
-    "m": 650
+    "s": 320,
+    "m": 500
 );
 
 $spacings: (
@@ -14,10 +15,10 @@ $spacings: (
     "3xs": 3,
     "2xs": 5,
     "xs": 10,
-    "s": 20,
-    "s-m": 30,
-    "s-l": 40,
-    "m": 50,
+    "s": 15,
+    "s-m": 20,
+    "s-l": 30,
+    "m": 40,
     "l": 60,
     "xl": 100,
     "2xl": 150
@@ -34,23 +35,58 @@ $gutters: (
 );
 
 $colors: (
-    "ft": #101010,
+    "ft": #000000,
+    "ft-weak": #C6C6C6,
     "ft-light": #ffffff,
 
-    "bg-light": #ffffff,
-    "border": #dadada,
+    "amethyst": #5D0B64,
+    "amethyst-weak": #AB83AC,
+    "amethyst-xweak": #E6CEE8,
+    "amethyst-2xweak": #FEF1FF,
 
-    "primary": #10c773,
+    "amber": #FFB400,
+    "amber-weak": #FFC757,
+    "amber-xweak": #FFF1D2,
+    "amber-2xweak": #FEF7E8,
+    
+    "amazonite": #196051,
+    "amazonite-weak": #75A5A8,
+    "amazonite-xweak": #D0F2EA,
+    "amazonite-2xweak": #EEFEFB,
+
+    "bg-light": #ffffff,
+    "bg-weak": #C6C6C6,
+    "bg-xweak": #FBFBFB,
+
+    "border": #dadada,
+    "border-weak": #f1f1f1,
 
     "error": #FF2D42,
     "confirm": #10c773
 );
 
+$main-colors: ("amethyst", "amber", "amazonite");
+
 $fonts: (
     "ft": (
-        "name": "sans-serif",
+        "name": "Rubik, sans-serif",
         "sizes": (
-            "m": "16px/1.6"
+            "s": "14px/1.6",
+            "m": "16px/1.6",
+            "l": "18px/1.6",
+        ),
+        "weights": (
+            "medium": 500,
+            "bold": 700
+        )
+    ),
+    "ft-title": (
+        "name": "Sunflower, serif",
+        "sizes": (
+            "m": "16px/1.2",
+            "l": "24px/1.2",
+            "xl": "28px/1.1",
+            "2xl": "36px/1.2"
         )
     )
 );
