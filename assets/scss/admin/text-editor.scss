@@ -7,7 +7,14 @@
     margin-top: 20px;
 
     .ProseMirror {
+        min-height: 200px;
+        border: 1px solid var(--color-border);
         outline: none;
+
+        &:focus {
+            border-color: transparent;
+            border-bottom-color: var(--color-border);
+        }
     }
 }
 
@@ -20,7 +27,7 @@
 
 .TextEditor_first,
 .TextEditor_second {
-    background-color: var(--color-bg-weak);
+    background-color: var(--color-bg-light);
     display: flex;
     align-items: center;
     padding: 5px;
@@ -36,7 +43,7 @@
     bottom: 0;
     left: 0;
     width: 100%;
-    background-color: var(--color-bg-xweak);
+    background-color: var(--color-bg-2xweak);
     border: 1px solid var(--color-border);
     transform: translateY(0%);
     transition: all 100ms ease;

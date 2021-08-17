@@ -26,8 +26,6 @@ exports.getEntities = async function (req, res) {
             let query = req.query
             delete query.type
 
-            console.log(Entity)
-
             result = await Entity.model.find(query)
         }
         

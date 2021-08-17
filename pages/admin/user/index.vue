@@ -13,11 +13,6 @@
                         v-model="form.name"
                     />
 
-                    <customize-user
-                        :is-form="false"
-                        @input="(v) => form.theme = v"
-                    />
-
                     <div class="d-flex fx-justify-end mt-20">
                         <button-base :modifiers="['s']" :attrs="{ type: 'submit' }">
                             Enregistrer

@@ -12,7 +12,14 @@
                 <div class="ArticleBlock_footer">
                     <div class="ArticleBlock_date">Publié il y 5 jours</div>
 
-                    <button-base icon-after="long-arrow-alt-right">
+                    <button-base
+                        tag="nuxt-link"
+                        icon-after="long-arrow-alt-right"
+                        :attrs="{
+                            to: localePath({ name: 'blog-slug', params: { slug } })
+                        }"
+                        v-if="slug"
+                    >
                         Lire la suite
                     </button-base>
                 </div>
@@ -32,7 +39,8 @@ export default {
         modifiers: { type: Array, default: () => [] },
         excerpt: { type: String },
         image: { type: String },
-        category: { type: String }
+        category: { type: String },
+        slug: { type: String }
     }
 }
 </script>

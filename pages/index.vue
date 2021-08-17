@@ -1,5 +1,5 @@
 <template>
-    <div class="Homepage">
+    <div class="Homearticle">
         <div class="pv-100">
             <div class="Wrapper d-flex">
                 <div class="fx-grow pr-20">
@@ -26,30 +26,26 @@
             </div>
         </div>
 
-        <div class="bg-amethyst-2xweak pv-60">
+        <div class="bg-amethyst-2xweak pv-60" v-if="featuredArticle">
             <div class="Wrapper Wrapper--l">
                 <h2 class="ft-title-xl-bold color-amethyst mb-20">Dernier article populaire</h2>
 
                 <article-block
                     :modifiers="['l']"
-                    title="Faut-il créer une ou plusieurs fiches produits ?"
-                    excerpt="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis mollis non eros sit amet ornare."
+                    v-bind="{ ...featuredArticle, image: featuredArticle.thumbnail }"
                     category="Etsy SEO"
-                    image="https://images.pexels.com/photos/3975585/pexels-photo-3975585.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+                    :key="featuredArticle.slug"
                 />
             </div>
         </div>
 
         <div class="Wrapper pv-40">
             <article-block
-                v-for="page in pages"
+                v-for="article in articles"
                 class="mv-20"
-                :title="page.title"
-                :excerpt="page.excerpt"
+                v-bind="{ ...article, image: article.thumbnail }"
                 category="Etsy SEO"
-                image="https://images.pexels.com/photos/3975585/pexels-photo-3975585.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-                
-                :key="page.slug"
+                :key="article.slug"
             />
         </div>
     </div>
@@ -57,14 +53,15 @@
 
 <script>
 export default {
-    name: 'Homepage',
+    name: 'Homearticle',
     async fetch () {
         await this.$store.dispatch('articles/fetch', {
             query: {}
         })
     },
     computed: {
-        pages () { return this.$store.getters['articles/find']() },
+        articles () { return this.$store.getters['articles/find']() },
+        featuredArticle () { return this.articles.length > 0 ? this.articles[0] : null }
     },
     head () {
         let meta = {

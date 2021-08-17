@@ -33,13 +33,14 @@ export default {
                 return null
             }
         },
-        async get ({ commit }, _id) {
+        async get ({ commit }, params) {
             try {
                 const response = await this.$axios.$get(storeUtils.getQuery('/entities', {
-                    _id, type: 'article'
+                    ...params.query,
+                    type: 'article'
                 }))
                 
-                commit('updateOne', response.data)
+                commit('updateOne', response.data[0])
 
                 return response.data
             } catch (e) {
@@ -90,10 +91,15 @@ export default {
             return Object.values(state.items).map(item => {
                 let thumbnail = ''
                 let cover = ''
-            
+
                 if (item.image) {
-                    if (item.image.medias.find(m => m.size == 's')) thumbnail = item.image.medias.find(m => m.size == 's').src
-                    if (item.image.medias.find(m => m.size == 'm')) cover = item.image.medias.find(m => m.size == 'm').src
+                    item.media = { ...item.image }
+                    delete item.image
+                }
+
+                if (item.media) {
+                    if (item.media.medias.find(m => m.size == 's')) thumbnail = item.media.medias.find(m => m.size == 's').src
+                    if (item.media.medias.find(m => m.size == 'm')) cover = item.media.medias.find(m => m.size == 'm').src
                 }
 
                 return {

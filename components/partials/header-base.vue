@@ -1,11 +1,13 @@
 <template>
     <header class="HeaderBase" :class="{ 'is-scrolled': state.isScrolled }">
         <div class="HeaderBase_wrapper Wrapper Wrapper--l">
-            <icon-base
-                class="HeaderBase_logo fill-amber"
-                name="logo/logo-main"
-                :width="state.isScrolled ? 65 : 85"
-            />
+            <nuxt-link :to="localePath({ name: '/' })">
+                <icon-base
+                    class="HeaderBase_logo fill-amber"
+                    name="logo/logo-main"
+                    :width="state.isScrolled ? 65 : 85"
+                />
+            </nuxt-link>
 
             <nav class="HeaderBase_nav">
                 <div class="HeaderBase_navParent" v-for="(item, key) in items" :key="key">

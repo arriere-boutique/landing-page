@@ -42,10 +42,6 @@
             </div>
 
             <p class="mv-10 ft-m-bold color-user">{{ user.name }}</p>
-
-            <div class="p-20">
-                <customize-user @update="state.profile = false" ref="form" />
-            </div>
         </div>
     </header>
 </template>
