@@ -1,0 +1,18 @@
+.InputBase {
+    border-radius: 6px;
+
+    &.is-focused {
+
+        .InputBase_element::placeholder {
+            opacity: 1;
+        }
+    }
+}
+
+.InputBase_element {
+    
+    &::placeholder {
+        color: var(--color-ft-xweak);
+        opacity: 0;
+    }
+}

@@ -1,0 +1,88 @@
+:root {
+    --nav-base: 220px;
+    --banner-base: 180px;
+}
+
+.LayoutAdmin {
+    display: flex;
+    min-height: 100vh;
+    background-color: var(--color-bg-light);
+}
+
+.LayoutAdmin_body {
+    flex-grow: 1;
+    position: relative;
+}
+
+.LayoutAdmin_background {
+    @include absolute-fill;
+    left: var(--nav-base);
+    width: auto;
+    right: 0;
+    height: var(--banner-base);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+
+    @each $color in $main-colors {
+
+        &.is-#{$color} {
+            background: var(--color-#{$color}-xweak);
+        }
+    }
+}
+
+.LayoutAdmin_title {
+    font: var(--ft-title-xl-bold);
+    padding: 0 3.5%;
+}
+
+.LayoutAdmin_pattern {
+    position: absolute;
+    width: 120%;
+    height: 120%;
+    top: -10%;
+    left: -10%;
+    line-height: 1;
+    font-size: 0;
+    transform: rotate(-2deg);
+    opacity: 0.065;
+}
+
+.LayoutAdmin_patternIcon {
+    font-size: 30px;
+    width: 40px;
+    height: 30px;
+    margin: 10px;
+}
+
+.LayoutAdmin_patternRow {
+    white-space: nowrap;
+    
+    &:nth-child(odd) {
+        margin-left: -25px;
+    }
+}
+
+.LayoutAdmin_nav {
+    width: var(--nav-base);
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    z-index: 100;
+}
+
+.LayoutAdmin_header {
+    position: fixed;
+    left: var(--nav-base);
+    right: 0;
+    top: 0;
+    z-index: 110;
+}
+
+.LayoutAdmin_content {
+    position: relative;
+    min-height: calc(100vh - var(--header-base));
+    margin-left: var(--nav-base);
+    margin-top: calc(var(--banner-base) - 20px);
+}

@@ -1,0 +1,45 @@
+.NavAdmin {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 5px;
+    background-color: var(--color-bg-light);
+    @include box-shadow;
+}
+
+.NavAdmin_items {
+    width: calc(100% - 20px);
+}
+
+.NavAdmin_item {
+    margin: 2px 0;
+    position: relative;
+
+    &:hover .NavAdmin_sub {
+        display: block;
+    }
+}
+
+.NavAdmin_sub {
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translateX(100%);
+    background-color: var(--color-bg-light);
+    padding: 5px;
+    border: 1px solid var(--color-border);
+    @include box-shadow;
+    display: none;
+}
+
+.NavAdmin_logo {
+    height: var(--header-base);
+    width: var(--nav-base);
+    border-bottom: 1px solid var(--color-border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    font: var(--ft-title-l-medium);
+}

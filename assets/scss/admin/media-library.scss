@@ -1,0 +1,8 @@
+.MediaLibrary_media {
+    background-image: var(--background);
+    background-size: contain;
+    background-color: var(--color-bg-weak);
+    background-repeat: no-repeat;
+    background-position: center;
+    @include ratio(50);
+}

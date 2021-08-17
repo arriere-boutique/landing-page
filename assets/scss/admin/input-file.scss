@@ -1,0 +1,28 @@
+.InputFile {
+    background-color: var(--color-bg-xweak);
+    border: 2px dotted var(--color-border-weak);
+    border-radius: 4px;
+    min-height: 150px;
+    height: 100%;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 100ms ease;
+
+    &:hover {
+        background-color: var(--color-bg-weak);
+    }
+    
+    input {
+        opacity: 0;
+        pointer-events: none;
+        position: absolute;
+    }
+}
+
+.InputFile_title {
+    font: var(--ft-s-medium);
+    text-align: center;
+}

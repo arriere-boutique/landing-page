@@ -1,0 +1,16 @@
+.IconBase {
+    display: inline-block;
+    font-size: 0;
+    vertical-align: text-bottom;
+    min-width: var(--width);
+    min-height: var(--height);
+    max-width: var(--width);
+    max-height: var(--height);
+}
+
+.IconBase--height {
+
+    svg {
+        height: 100%;
+    }
+}

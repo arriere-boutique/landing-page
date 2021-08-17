@@ -1,0 +1,64 @@
+.Flashbag {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 10000;
+}
+
+.FlashMessage {
+    padding: 15px;
+    background: white;
+    color: var(--color-success);
+    font: var(--ft-title-m-medium);
+    margin: 10px;
+    width: 300px;
+    position: relative;
+    border-radius: 2px;
+    @include box-shadow;
+    overflow: hidden;
+
+    &::after {
+        content: "";
+        display: block;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        transform-origin: left;
+        width: 100%;
+        height: 2px;
+        transform: scaleX(0);
+        background-color: var(--color-success);
+
+        animation: flash-load 4s linear;
+        animation-fill-mode: forwards;
+    }
+}
+
+.FlashMessage_text {
+
+    &::before {
+        content: "";
+        display: inline-block;
+        width: 2px;
+        background-color: var(--color-success);
+    }
+}
+
+@keyframes flash-load {
+    0% {
+        transform: scaleX(0);
+    }
+    100% {
+        transform: scaleX(1);
+    }
+}
+
+/* MODIFIERS */
+
+.FlashMessage--error {
+    color: var(--color-error);
+
+    &::after {
+        background-color: var(--color-error);
+    }
+}

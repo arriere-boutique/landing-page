@@ -1,0 +1,85 @@
+.FileUploader {
+    border-radius: 4px;
+    border: 1px solid var(--color-border);
+}
+
+.FileUploader_body {
+    padding: 10px;
+    max-height: 250px;
+    display: flex;
+    align-items: stretch;
+}
+
+.FileUploader_upload {
+    padding-left: 10px;
+    width: 0%;
+    overflow: hidden;
+    transition: all 200ms ease;
+
+    &.is-active {
+        overflow: auto;
+        width: 50%;
+    }
+}
+
+.FileUploader_input {
+    flex-grow: 1;
+}
+
+.FileUploader_file {
+    font: var(--ft-s);
+    color: var(--color-ft-weak);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2px 10px;
+    margin: 1px 0;
+    flex-grow: 1;
+    position: relative;
+
+    &:first-child { margin-top: 0; }
+    &:last-child { margin-bottom: 0; }
+
+    &.is-loading {
+        color: var(--color-ft-xweak);
+    }
+
+    &.is-loaded {
+        color: var(--color-ft);
+    }
+}
+
+.FileUploader_title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding-right: 10px;
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+}
+
+.FileUploader_status {
+    width: 20px;
+    text-align: right;
+}
+
+.FileUploader_actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    flex-shrink: 0;
+    background-color: var(--color-bg-weak);
+    padding: 0 5px;
+    height: 0px;
+    overflow: hidden;
+    transition: all 200ms ease;
+    opacity: 0;
+
+    &.is-active {
+        opacity: 1;
+        height: 50px;
+    }
+}

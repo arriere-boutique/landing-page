@@ -5,20 +5,27 @@
     color: var(--color-ft);
     text-transform: uppercase;
     border: 2px solid var(--color-border);
-    padding: 15px 15px;
+    padding: 0;
+}
+
+.ButtonBase_content {
+    min-height: 50px;
+    padding: 5px 15px;
 }
 
 .ButtonBase_iconAfter {
     margin-left: 10px;
+    font-size: 18px;
 }
 
 .ButtonBase_iconBefore {
     margin-right: 10px;
+    font-size: 18px;
 }
 
 
 .ButtonBase--display {
-    font: var(--ft-m-bold);
+    font: var(--ft-m-medium);
     line-height: 1;
     text-transform: unset;
     letter-spacing: unset;
@@ -47,4 +54,9 @@
       }
 
     
+}
+
+.ButtonBase.is-disabled {
+    opacity: 0.5;
+    pointer-events: none;
 }

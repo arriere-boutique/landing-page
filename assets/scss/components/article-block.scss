@@ -17,7 +17,9 @@
 
 .ArticleBlock_content {
     flex-grow: 1;
-    padding: 30px 20px 30px 30px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
 }
 
 .ArticleBlock_category {
@@ -29,7 +31,7 @@
 }
 
 .ArticleBlock_title {
-    font: var(--ft-title-l);
+    font: var(--ft-title-l-bold);
 }
 
 .ArticleBlock_excerpt {
@@ -55,11 +57,11 @@
 .ArticleBlock--l {
 
     .ArticleBlock_content {
-        padding: 40px 20px 40px 40px;
+        padding: 20px 30px;
     }
 
     .ArticleBlock_title {
-        font: var(--ft-title-xl);
+        font: var(--ft-title-l-bold);
     }
 
     .ArticleBlock_image {

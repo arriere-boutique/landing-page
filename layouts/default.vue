@@ -1,7 +1,11 @@
 <template>
-    <div>
+    <div class="LayoutDefault bg-amber-2xweak">
         <header-base />
-        <Nuxt />
+        
+        <div class="LayoutDefault_content">
+            <Nuxt />
+        </div>
+
         <tooltip-manager />
     </div>
 </template>

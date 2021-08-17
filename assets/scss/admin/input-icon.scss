@@ -1,0 +1,46 @@
+.InputIcon {
+    font: var(--ft-s);
+    color: var(--color-ft-weak);
+    text-align: left;
+
+    input {
+        margin: 0;
+    }
+}
+
+.InputIcon_choice {
+    flex-shrink: 0;
+    flex-grow: 0;
+    position: relative;
+
+    &::after {
+        content: "";
+        @include ratio(100);
+    }
+
+    &:hover .InputIcon_icon {
+        font-size: 19px;
+        opacity: 0.75;
+        border-color: var(--color-border);
+    }
+}
+
+.InputIcon_input:checked ~ .InputIcon_icon {
+    border-color: var(--color-border);
+    font-size: 15px;
+    opacity: 0.5;
+}
+
+.InputIcon_icon {
+    @include absolute-fill;
+    color: var(--color-ft);
+    border-radius: 4px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: all 100ms ease;
+    font-size: 17px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

@@ -1,0 +1,26 @@
+.UserPicture {
+    position: relative;   
+}
+
+.UserPicture_image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-size: cover;
+    background-image: var(--image);
+    position: relative;
+}
+
+.UserPicture_status {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 1px solid var(--color-border);
+    background-color: var(--color-bg-light);
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}

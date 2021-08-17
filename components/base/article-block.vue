@@ -3,17 +3,19 @@
         <div class="ArticleBlock_image" :style="{ backgroundImage: `url(${image})` }"></div>
 
         <div class="ArticleBlock_content">
-            <h4 class="ArticleBlock_category">{{ category }}</h4>
-            <h4 class="ArticleBlock_title">{{ title }}</h4>
-            
-            <p class="ArticleBlock_excerpt">{{ excerpt }}</p>
+            <div>
+                <h4 class="ArticleBlock_category">{{ category|specials }}</h4>
+                <h4 class="ArticleBlock_title">{{ title|specials }}</h4>
+                
+                <p class="ArticleBlock_excerpt">{{ excerpt|specials }}</p>
 
-            <div class="ArticleBlock_footer">
-                <div class="ArticleBlock_date">Publié il y 5 jours</div>
+                <div class="ArticleBlock_footer">
+                    <div class="ArticleBlock_date">Publié il y 5 jours</div>
 
-                <button-base icon-after="long-arrow-right">
-                    Lire la suite
-                </button-base>
+                    <button-base icon-after="long-arrow-alt-right">
+                        Lire la suite
+                    </button-base>
+                </div>
             </div>
         </div>
     </article>

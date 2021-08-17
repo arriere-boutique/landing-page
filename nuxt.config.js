@@ -27,7 +27,8 @@ export default {
 
     modules: [
         '@nuxtjs/axios',
-        'nuxt-i18n'
+        'nuxt-i18n',
+        '@nuxtjs/auth'
     ],
 
     i18n: {
@@ -40,6 +41,28 @@ export default {
         lazy: true
     },
 
+    serverMiddleware: {
+        '/api': '~/api'
+    },
+
+    auth: {
+        redirect: {
+            logout: '/',
+            login: '/admin/dashboard',
+            home: '/',
+            callback: false
+        },
+        strategies: {
+            local: {
+                endpoints: {
+                    login: { url: process.env.NUXT_ENV_API_URL + '/user', method: 'post', propertyName: 'token' },
+                    logout: { url: process.env.NUXT_ENV_API_URL + '/user/logout', method: 'post' },
+                    user: { url: process.env.NUXT_ENV_API_URL + '/user', method: 'get', propertyName: 'user' }
+                }
+            }
+        }
+    },
+
     build: {
         extend (config) {
             config.module.rules.push({
@@ -47,5 +70,14 @@ export default {
                 loader: 'raw-loader'
             })
         }
+    },
+    
+    axios: {
+        baseURL: process.env.NUXT_ENV_API_URL
+    },
+
+    router: {
+        linkActiveClass: 'is-active',
+        linkExactActiveClass: 'is-active'
     }
 }

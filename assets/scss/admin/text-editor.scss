@@ -1,0 +1,114 @@
+.TextEditor {
+
+}
+
+.TextEditor_content {
+    outline: none;
+    margin-top: 20px;
+
+    .ProseMirror {
+        outline: none;
+    }
+}
+
+.TextEditor_menu {
+    position: sticky;
+    z-index: 5;
+    top: var(--header-base);
+    border: 1px solid var(--color-border);
+}
+
+.TextEditor_first,
+.TextEditor_second {
+    background-color: var(--color-bg-weak);
+    display: flex;
+    align-items: center;
+    padding: 5px;
+}
+
+.TextEditor_first {
+    position: relative;
+    z-index: 2;
+}
+
+.TextEditor_second {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: var(--color-bg-xweak);
+    border: 1px solid var(--color-border);
+    transform: translateY(0%);
+    transition: all 100ms ease;
+
+    &.is-active {
+        transform: translateY(100%);
+    }
+}
+
+.TextEditor_group {
+    display: flex;
+    align-items: center;
+}
+
+.TextEditor_button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    width: 30px;
+    height: 30px;
+    background-color: transparent;
+    cursor: pointer;
+    border-radius: 0;
+    transition: all 150ms ease;
+    border-bottom: 2px solid transparent;
+    position: relative;
+    color: var(--color-ft-weak);
+    
+    &.is-active {
+        background-color: var(--color-user-bg);
+        color: var(--color-user);
+        border-color: var(--color-user);
+    }
+
+    &:hover {
+        background-color: var(--color-bg-light);
+        color: var(--color-ft);
+    }
+}
+
+.TextEditor_button--sub {
+
+    &:hover {
+        
+        .TextEditor_list {
+            opacity: 1;
+            pointer-events: all;
+            transform: translateY(100%);
+        }
+    }
+}
+
+.TextEditor_list {
+    position: absolute;
+    z-index: 5;
+    bottom: -2px;
+    left: 0;
+    width: 350px;
+    background-color: var(--color-bg-light);
+    border: 1px solid var(--color-border);
+    transform: translateY(calc(100% - 10px));
+    opacity: 0;
+    pointer-events: none;
+    border-radius: 6px;
+    transition: all 100ms ease;
+    @include box-shadow;
+}
+
+.TextEditor_separator {
+    width: 1px;
+    height: 20px;
+    margin: 0 10px;
+    background-color: var(--color-border);
+}

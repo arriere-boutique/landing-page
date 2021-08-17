@@ -14,6 +14,19 @@ const BasePlugin = {
 }
 
 Vue.mixin({
+    filters: {
+        specials: (value) => {
+            if (!value || process.server) return ''
+
+            let characters = ['?', '!', ':']
+            
+            characters.forEach(char => {
+                value = value.replaceAll(' ' + char, ' ' + char)
+            })
+
+            return value
+        }
+    },
     methods: {
         randomBetween: (min, max) => {
             Math.floor(Math.random() * (max - min + 1) + min)

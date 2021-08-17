@@ -1,0 +1,44 @@
+.PopinBase {
+    
+    .PopinBase_body {
+        border-radius: 6px;
+        overflow: hidden;
+    }
+}
+
+.PopinBase--s {
+    
+    .PopinBase_body {
+        max-width: 450px;
+    }
+}
+
+.PopinBase--xs {
+    
+    .PopinBase_body {
+        max-width: 300px;
+    }
+}
+
+.PopinBase--no-header {
+
+    .PopinBase_header {
+        display: none;
+    }
+}
+
+.PopinBase--absolute-header {
+
+    .PopinBase_header {
+        position: absolute;
+        top: 0;
+        right: 0;
+        border: none;
+        padding: 0;
+        display: block;
+    }
+    
+    .PopinBase_close {
+        padding: 15px;
+    }
+}
