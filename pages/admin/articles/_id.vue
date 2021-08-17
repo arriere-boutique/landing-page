@@ -107,7 +107,7 @@ export default {
             return thumbnail ? `url(${thumbnail.src})` : ''
         },
         cover () {
-            let cover = this.$data.formData.image && this.$data.formData.image.medias.find(m => m.size == 'm')
+            let cover = this.$data.formData.thumbnail && this.$data.formData.image.medias.find(m => m.size == 'm')
             return cover ? `url(${cover.src})` : ''
         },
     },

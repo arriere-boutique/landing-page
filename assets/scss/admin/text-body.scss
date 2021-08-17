@@ -1,5 +1,6 @@
 .TextBody {
     font: var(--ft-l);
+    line-height: 2;
     color: var(--color-ft);
 
     h1 {
@@ -40,6 +41,7 @@
     blockquote {
         font: var(--ft-title-xl);
         color: var(--color-ft);
+        line-height: 1.5;
         padding: 0 0 0 40px;
         width: 80%;
         margin: 50px 0;

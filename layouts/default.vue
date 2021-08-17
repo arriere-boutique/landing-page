@@ -1,5 +1,5 @@
 <template>
-    <div class="LayoutDefault bg-amber-2xweak">
+    <div class="LayoutDefault LayoutDefault--ruby">
         <header-base />
         
         <div class="LayoutDefault_content">

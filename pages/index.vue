@@ -38,15 +38,17 @@
                 />
             </div>
         </div>
-
-        <div class="Wrapper pv-40">
-            <article-block
-                v-for="article in articles"
-                class="mv-20"
-                v-bind="{ ...article, image: article.thumbnail }"
-                category="Etsy SEO"
-                :key="article.slug"
-            />
+        
+        <div class="bg-bg-light pv-40">
+            <div class="Wrapper">
+                <article-block
+                    v-for="article in articles"
+                    class="mv-20"
+                    v-bind="{ ...article, image: article.thumbnail }"
+                    category="Etsy SEO"
+                    :key="article.slug"
+                />
+            </div>
         </div>
     </div>
 </template>

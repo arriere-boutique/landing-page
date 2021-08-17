@@ -1,15 +1,16 @@
 <template>
-    <div class="ArticlePage" v-if="article">
-        <div class="LayoutDefault_banner">
-            <div class="Wrapper Wrapper--xs">
-                <h1 class="ft-title-3xl-bold color-cherry">{{ article.title }}</h1>
-                <p class="ft-l-medium mt-20 max-width-m" v-if="article.excerpt">{{ article.excerpt }}</p>
+    <div class="ArticlePage ArticlePage--ruby bg-bg-light" v-if="article">
+        <div class="ArticlePage_banner pt-20 pb-100">
+            <div class="Wrapper">
+                <p class="ArticlePage_category Title_secondary mb-5">Valeur perçue</p>
+                <h1 class="ArticlePage_title ft-title-3xl-bold">{{ article.title|specials }}</h1>
+                <p class="ft-title-m mt-20" v-if="article.excerpt">{{ article.excerpt|specials }}</p>
             </div>
         </div>
 
-        <div class="Wrapper Wrapper--xs mt-60 mb-150">
+        <div class="Wrapper n-mt-40">
             <div v-if="article.cover">
-                <img class="width-100 n-mt-100 mb-40 br-12" :src="article.cover" />
+                <img class="width-100" :src="article.cover" />
             </div>
 
             <text-body class="TextBody" :value="article.content"></text-body>

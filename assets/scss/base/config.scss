@@ -58,6 +58,11 @@ $colors: (
     "amazonite-xweak": #D0F2EA,
     "amazonite-2xweak": #EEFEFB,
 
+    "ruby": #9E0745,
+    "ruby-weak": #D1416D,
+    "ruby-xweak": #FBBDC4,
+    "ruby-2xweak": #f8d5de,
+
     "bg-light": #ffffff,
     "bg-weak": #C6C6C6,
     "bg-xweak": #FBFBFB,
@@ -73,7 +78,7 @@ $colors: (
     "shadow": rgba(207, 215, 231, 0.3)
 );
 
-$main-colors: ("amethyst", "amber", "amazonite");
+$main-colors: ("amethyst", "amber", "amazonite", "ruby");
 
 $fonts: (
     "ft": (
@@ -81,7 +86,7 @@ $fonts: (
         "sizes": (
             "s": "14px/1.6",
             "m": "16px/1.6",
-            "l": "18px/1.6",
+            "l": "19px/1.6",
         ),
         "weights": (
             "regular": 400,
@@ -92,10 +97,11 @@ $fonts: (
     "ft-title": (
         "name": "'STIX Two Text', serif",
         "sizes": (
-            "m": "16px/1.2",
-            "l": "26px/1.2",
+            "m": "22px/1.6",
+            "l": "26px/1.4",
             "xl": "32px/1.1",
-            "2xl": "36px/1.2"
+            "2xl": "36px/1.2",
+            "3xl": "40px/1.2"
         ),
         "weights": (
             "regular": 400,
