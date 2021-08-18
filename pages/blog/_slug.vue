@@ -2,7 +2,10 @@
     <div class="ArticlePage ArticlePage--ruby bg-bg-light" v-if="article">
         <div class="ArticlePage_banner pt-20 pb-100">
             <div class="Wrapper">
-                <p class="ArticlePage_category Title_secondary mb-5">Valeur perçue</p>
+                <p class="ArticlePage_category Title_secondary mb-5">
+                    {{ $t(`blog.categories.${article.category}.label`) }}
+                </p>
+
                 <h1 class="ArticlePage_title ft-title-3xl-bold">{{ article.title|specials }}</h1>
                 <p class="ft-title-m mt-20" v-if="article.excerpt">{{ article.excerpt|specials }}</p>
             </div>
@@ -38,7 +41,14 @@ export default {
             title: this.article.title
         }
 
-        this.$store.commit('page/setColor', 'ruby')
+        switch (this.article.category) {
+            case 'news': this.$store.commit('page/setColor', 'amber'); break;
+            case 'identity': this.$store.commit('page/setColor', 'amethyst'); break;
+            case 'value': this.$store.commit('page/setColor', 'ruby'); break;
+            case 'seo': this.$store.commit('page/setColor', 'amazonite'); break;
+            default: this.$store.commit('page/setColor', 'amber'); break;
+        }
+        
         this.$store.commit('page/setProperty', meta)
 
         return meta

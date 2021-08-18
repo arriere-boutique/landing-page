@@ -9,7 +9,7 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-pro": "^5.15.1",
+    "@fortawesome/fontawesome-pro": "^6.0.0-beta1",
     "@instant-coffee/core": "^1.2.5",
     "@nuxtjs/auth": "^4.9.1",
     "@nuxtjs/axios": "^5.12.2",

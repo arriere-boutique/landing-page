@@ -33,7 +33,6 @@
                 <article-block
                     :modifiers="['l']"
                     v-bind="{ ...featuredArticle, image: featuredArticle.thumbnail }"
-                    category="Etsy SEO"
                     :key="featuredArticle.slug"
                 />
             </div>
@@ -45,7 +44,6 @@
                     v-for="article in articles"
                     class="mv-20"
                     v-bind="{ ...article, image: article.thumbnail }"
-                    category="Etsy SEO"
                     :key="article.slug"
                 />
             </div>

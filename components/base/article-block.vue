@@ -3,8 +3,8 @@
         <div class="ArticleBlock_image" :style="{ backgroundImage: `url(${image})` }"></div>
 
         <div class="ArticleBlock_content">
-            <div>
-                <h4 class="ArticleBlock_category">{{ category|specials }}</h4>
+            <div class="fx-grow">
+                <h4 class="ArticleBlock_category">{{ $t(`blog.categories.${category}.label`) }}</h4>
                 <h4 class="ArticleBlock_title ellipsis-2">{{ title|specials }}</h4>
                 
                 <p class="ArticleBlock_excerpt ellipsis-2">{{ excerpt|specials }}</p>

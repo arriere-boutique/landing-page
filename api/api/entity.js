@@ -24,9 +24,30 @@ exports.getEntities = async function (req, res) {
             if (!result[0]) throw 'id-not-found' 
         } else {
             let query = req.query
+            let parsedQuery = query
             delete query.type
+            
+            Object.keys(query).forEach((key, value) => {
+                value = query[key]
+                
+                if (key.startsWith('$or')) {
+                    if (value) {
+                        let fieldName = key.replace('$or', '').toLowerCase()
 
-            result = await Entity.model.find(query)
+                        value = value.split(',').map(v => ({
+                            [fieldName]: v
+                        }))
+
+                        parsedQuery.$or = value
+                    }
+
+                    delete parsedQuery[key]
+                }
+            })
+
+            console.log(parsedQuery)
+
+            result = await Entity.model.find(parsedQuery)
         }
         
         if (!result) throw 'search-not-found'

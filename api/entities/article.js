@@ -6,11 +6,12 @@ let Article = {
     fields: new mongoose.Schema({
         title: { type: String, write: 'editor' },
         excerpt: { type: String, write: 'editor' },
+        category: { type: String, write: 'editor' },
         content: { type: String, write: 'editor' },
         status: { type: String, write: 'editor' },
         slug: { type: String, write: 'editor'},
         medias: { type: mongoose.Schema.Types.ObjectId, ref: 'mediaCollection', write: 'editor' }
-    })
+    }, { timestamps: true })
 }
 
 Article.fields.pre('find', function () {

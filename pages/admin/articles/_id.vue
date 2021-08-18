@@ -43,6 +43,14 @@
                             @delete="deleteEntity"
                             @save="update"
                         >
+                            <select-base
+                                class="mt-10"
+                                :value="formData.category"
+                                v-model="formData.category"
+                                :options="CATEGORIES"
+                                :multiple="false"
+                            />
+                            
                             <input-base
                                 label="ID de la page"
                                 class="mt-10"
@@ -63,6 +71,13 @@
 </template>
 
 <script>
+const CATEGORIES = [
+    { id: 0, label: `Actualités`, value: 'news' },
+    { id: 1, label: 'Référencement SEO', value: 'seo' },
+    { id: 2, label: 'Valeur perçue', value: 'value' },
+    { id: 3, label: 'Identité de marque', value: 'identity' },
+]
+
 import { InputBase, SelectBase } from '@instant-coffee/core'
 import {} from '@/utils/base'
 import moment from 'moment'
@@ -78,6 +93,7 @@ export default {
     },
     data: () => ({
         _id: '',
+        CATEGORIES,
         state: {
             isLoading: true,
             mediaLibrary: false
@@ -89,6 +105,7 @@ export default {
             excerpt: '',
             content: '',
             medias: null,
+            category: 0,
             status: 'draft'
         }
     }),
@@ -147,12 +164,14 @@ export default {
             if (!form) return {}
 
             return {
-                ...form
+                ...form,
+                category: CATEGORIES.find(i => i.value == form.category)?.id,
             }
         },
         parseForm (form) {
             return {
-                ...form
+                ...form,
+                category: CATEGORIES.find(i => i.id == this.$data.formData.category).value,
             }
         },
         async deleteEntity () {
