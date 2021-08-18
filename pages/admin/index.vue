@@ -1,6 +1,6 @@
 <template>
-    <div class="LayoutLogin">
-        <form class="LayoutLogin_form" @submit.prevent="onSubmit">
+    <div class="LayoutLogin pv-100">
+        <form class="Wrapper Wrapper--s" @submit.prevent="onSubmit">
             <input-base
                 v-for="(row, key) in form"
                 class="mv-10"
@@ -53,7 +53,7 @@ export default {
             if (response.data.status != 1) {
                 this.$data.errors = response.data.errors
             } else {
-                this.$router.push({ path: this.localePath('/dashboard') });
+                this.$router.push({ path: this.localePath({ name: 'admin-dashboard' }) });
             }
         }
     }

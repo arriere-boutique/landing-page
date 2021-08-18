@@ -9,12 +9,12 @@ let Article = {
         content: { type: String, write: 'editor' },
         status: { type: String, write: 'editor' },
         slug: { type: String, write: 'editor'},
-        image: { type: mongoose.Schema.Types.ObjectId, ref: 'mediaCollection', write: 'editor' }
+        medias: { type: mongoose.Schema.Types.ObjectId, ref: 'mediaCollection', write: 'editor' }
     })
 }
 
 Article.fields.pre('find', function () {
-    this.populate('image')
+    this.populate('medias')
 })
 
 Article.model = global.Article ? global.Article.model : mongoose.model('article', Article.fields)

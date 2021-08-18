@@ -55,9 +55,8 @@
 
 <script>
 export default {
-    name: 'Homearticle',
+    name: 'Homepage',
     async fetch () {
-        this.$store.commit('page/setColor', 'ruby')
         await this.$store.dispatch('articles/fetch', {
             query: {}
         })
@@ -71,6 +70,7 @@ export default {
             title: 'Pages'
         }
 
+        this.$store.commit('page/setColor', 'amber')
         this.$store.commit('page/setProperty', meta)
 
         return meta

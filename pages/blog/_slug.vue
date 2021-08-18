@@ -9,11 +9,13 @@
         </div>
 
         <div class="Wrapper n-mt-40">
-            <div v-if="article.cover">
+            <div class="ArticlePage_cover" v-if="article.cover">
                 <img class="width-100" :src="article.cover" />
             </div>
+        </div>
 
-            <text-body class="TextBody" :value="article.content"></text-body>
+        <div class="Wrapper Wrapper--s mt-40">
+            <text-body class="TextBody" :value="article.content" />
         </div>
     </div>
 </template>
@@ -30,6 +32,16 @@ export default {
                 slug: this.$route.params.slug
             })
         }
+    },
+    head () {
+        let meta = {
+            title: this.article.title
+        }
+
+        this.$store.commit('page/setColor', 'ruby')
+        this.$store.commit('page/setProperty', meta)
+
+        return meta
     }
 }
 </script>

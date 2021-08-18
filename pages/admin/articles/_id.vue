@@ -7,7 +7,7 @@
                         <action-menu
                             :items="[
                                 { icon: 'pencil-alt', onClick: () => state.mediaLibrary = true },
-                                { icon: 'trash-alt', onClick: () => formData.image = '' },
+                                { icon: 'trash-alt', onClick: () => formData.medias = '' },
                             ]"
                         />
 
@@ -56,7 +56,7 @@
 
         <media-library
             :is-active="state.mediaLibrary"
-            v-model="formData.image"
+            v-model="formData.medias"
             @close="state.mediaLibrary = false"
         />
     </div>
@@ -88,7 +88,7 @@ export default {
             slug: '',
             excerpt: '',
             content: '',
-            image: null,
+            medias: null,
             status: 'draft'
         }
     }),
@@ -103,11 +103,11 @@ export default {
             return JSON.stringify(this.parseForm(this.$data.formData)) != JSON.stringify(this.parseForm(this.$data.prevFormData))
         },
         thumbnail () {
-            let thumbnail = this.$data.formData.image && this.$data.formData.image.medias.find(m => m.size == 's')
+            let thumbnail = this.$data.formData.medias && this.$data.formData.medias.medias.find(m => m.size == 's')
             return thumbnail ? `url(${thumbnail.src})` : ''
         },
         cover () {
-            let cover = this.$data.formData.thumbnail && this.$data.formData.image.medias.find(m => m.size == 'm')
+            let cover = this.$data.formData.medias && this.$data.formData.medias.medias.find(m => m.size == 'm')
             return cover ? `url(${cover.src})` : ''
         },
     },

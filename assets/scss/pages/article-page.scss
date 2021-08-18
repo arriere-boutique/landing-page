@@ -12,3 +12,16 @@
 .ArticlePage_category {
     color: var(--color-current-weak);
 }
+
+.ArticlePage_cover {
+    height: 300px;
+    overflow: hidden;
+    background-color: var(--color-current-weak);
+    border-radius: 4px;
+
+    img {
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+    }
+}

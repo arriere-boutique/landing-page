@@ -5,9 +5,9 @@
         <div class="ArticleBlock_content">
             <div>
                 <h4 class="ArticleBlock_category">{{ category|specials }}</h4>
-                <h4 class="ArticleBlock_title">{{ title|specials }}</h4>
+                <h4 class="ArticleBlock_title ellipsis-2">{{ title|specials }}</h4>
                 
-                <p class="ArticleBlock_excerpt">{{ excerpt|specials }}</p>
+                <p class="ArticleBlock_excerpt ellipsis-2">{{ excerpt|specials }}</p>
 
                 <div class="ArticleBlock_footer">
                     <div class="ArticleBlock_date">Publié il y 5 jours</div>

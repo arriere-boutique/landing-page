@@ -2,6 +2,7 @@
     position: fixed;
     top: 0;
     left: 0;
+    z-index: 100;
     width: 100%;
     transition: all 150ms ease;
 }
@@ -65,7 +66,8 @@
 
 .HeaderBase.is-scrolled {
     background-color: var(--color-bg-light);
-
+    @include box-shadow;
+    
     .HeaderBase_wrapper {
         height: 70px;
     }

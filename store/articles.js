@@ -92,14 +92,9 @@ export default {
                 let thumbnail = ''
                 let cover = ''
 
-                if (item.image) {
-                    item.media = { ...item.image }
-                    delete item.image
-                }
-
-                if (item.media) {
-                    if (item.media.medias.find(m => m.size == 's')) thumbnail = item.media.medias.find(m => m.size == 's').src
-                    if (item.media.medias.find(m => m.size == 'm')) cover = item.media.medias.find(m => m.size == 'm').src
+                if (item.medias) {
+                    if (item.medias.medias.find(m => m.size == 's')) thumbnail = item.medias.medias.find(m => m.size == 's').src
+                    if (item.medias.medias.find(m => m.size == 'm')) cover = item.medias.medias.find(m => m.size == 'm').src
                 }
 
                 return {
