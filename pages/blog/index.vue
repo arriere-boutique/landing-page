@@ -78,7 +78,8 @@ export default {
         })
     },
     data: () => ({
-        categories: []
+        categories: [],
+        cancelToken: null
     }),
     computed: {
         articles () { return this.$store.getters['articles/find']() },
@@ -88,9 +89,18 @@ export default {
         categories: {
             immediate: true,
             async handler (v) {
+                if (this.$data.cancelToken) {
+                    this.$data.cancelToken.cancel()
+                }
+
+                this.$data.cancelToken = this.$axios.CancelToken.source()
+
                 let search = await this.$store.dispatch('articles/fetch', {
-                    query: { $orCategory: v ? v.join(',') : undefined }
+                    query: { $orCategory: v ? v.join(',') : undefined },
+                    cancelToken: this.$data.cancelToken
                 })
+                
+                
             }
         }
     },

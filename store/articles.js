@@ -18,12 +18,13 @@ export default {
         }
     },
     actions: { 
-        async fetch ({ commit }, params) {
+        async fetch ({ state, commit }, params) {
+
             try {
                 const response = await this.$axios.$get(storeUtils.getQuery('/entities', {
                     ...params.query,
-                    type: 'article'
-                }))
+                    type: 'article',
+                }), { cancelToken: params.cancelToken ? params.cancelToken.token : undefined })
 
                 if (params.refresh !== false) commit('refresh', response.data)
 
