@@ -1,15 +1,17 @@
 <template>
-    <article class="ArticleBlock" :class="{ ...$modifiers }">
+    <article class="ArticleBlock" :class="[ $modifiers, `ArticleBlock--${$theme(category).color}` ]">
         <div class="ArticleBlock_image" :style="{ backgroundImage: `url(${image})` }"></div>
 
         <div class="ArticleBlock_content">
             <div class="fx-grow">
-                <h4 class="ArticleBlock_category">{{ $t(`blog.categories.${category}.label`) }}</h4>
+                <h4 class="ArticleBlock_category">
+                    <i class="fa-thin mr-3" :class="[ $theme(category).fa ]"></i> {{ $t(`blog.categories.${category}.label`) }}
+                </h4>
                 <h4 class="ArticleBlock_title ellipsis-2">{{ title|specials }}</h4>
                 
-                <p class="ArticleBlock_excerpt ellipsis-2">{{ excerpt|specials }}</p>
+                <p class="ArticleBlock_excerpt">{{ excerpt|specials }}</p>
 
-                <div class="ArticleBlock_footer">
+                <!-- <div class="ArticleBlock_footer">
                     <div class="ArticleBlock_date">Publié il y 5 jours</div>
 
                     <button-base
@@ -22,7 +24,7 @@
                     >
                         Lire la suite
                     </button-base>
-                </div>
+                </div> -->
             </div>
         </div>
     </article>

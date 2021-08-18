@@ -4,15 +4,6 @@ import { ButtonBase, PopinBase } from '@instant-coffee/core'
 
 moment.locale('fr')
 
-const BasePlugin = {
-    
-    install (Vue, options) {
-        Vue.randomBetween = function (min, max) {
-            return Math.floor(Math.random() * (max - min + 1) + min)
-        }
-    }
-}
-
 Vue.mixin({
     filters: {
         specials: (value) => {
@@ -38,6 +29,18 @@ Vue.mixin({
         },
         tooltipClose () {
             this.$store.commit('tooltips/close')
+        },
+        $theme (value) {
+            let theme = { color: 'amber', fa: 'fa-heart' }
+
+            switch (value) {
+                case 'news': theme = { color: 'amber', fa: 'fa-thumbtack' }; break;
+                case 'seo': theme = { color: 'amazonite', fa: 'fa-search' }; break;
+                case 'identity': theme = { color: 'amethyst', fa: 'fa-aperture' }; break;
+                case 'value': theme = { color: 'ruby', fa: 'fa-gem' }; break;
+            }
+
+            return theme
         }
     }
 })

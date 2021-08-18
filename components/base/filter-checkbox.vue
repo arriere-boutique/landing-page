@@ -1,7 +1,7 @@
 <template>
     <div class="FilterCheckbox" :class="{ ...$modifiers, 'is-active': isActive }">
         <div class="FilterCheckbox_fa">
-            <i class="fa-thin" :class="['fa-' + fa]"></i>
+            <i class="fa-thin" :class="[ fa ]"></i>
         </div>
         <div class="FilterCheckbox_content">
             <p class="FilterCheckbox_title">{{ title|specials }}</p>

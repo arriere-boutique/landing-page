@@ -1,7 +1,9 @@
 .ArticleBlock {
     display: flex;
     background: var(--color-bg-light);
-    border: 2px solid var(--color-border-weak);
+    border: 1px solid var(--color-border-weak);
+    transition: all 150ms ease;
+    cursor: pointer;
 }
 
 .ArticleBlock_image {
@@ -9,6 +11,7 @@
     background-size: cover;
     width: 30%;
     flex-shrink: 0;
+    transition: all 150ms ease;
 
     &::after {
         content: "";
@@ -18,14 +21,14 @@
 
 .ArticleBlock_content {
     flex-grow: 1;
-    padding: 20px;
+    padding: 20px 30px;
     display: flex;
     align-items: center;
 }
 
 .ArticleBlock_category {
-    font: var(--ft-m-medium);
-    color: var(--color-ft-weak);
+    font: var(--ft-xs);
+    color: var(--color-amethyst-weak);
     text-transform: uppercase;
     letter-spacing: 1px;
     margin-bottom: 5px;
@@ -33,12 +36,14 @@
 
 .ArticleBlock_title {
     font: var(--ft-title-l-bold);
+    transition: all 150ms ease;
 }
 
 .ArticleBlock_excerpt {
     font: var(--ft-m);
     margin-top: 10px;
     max-width: 400px;
+    @extend .ellipsis-2;
 }
 
 .ArticleBlock_footer {
@@ -50,7 +55,7 @@
 }
 
 .ArticleBlock_date {
-    font: var(--ft-s-medium);
+    font: var(--ft-s);
     color: var(--color-ft-weak);
     letter-spacing: 1px;
     text-transform: uppercase;
@@ -58,8 +63,12 @@
 
 .ArticleBlock--l {
 
+    .ArticleBlock_excerpt {
+        @extend .ellipsis-3;
+    }
+
     .ArticleBlock_content {
-        padding: 20px 30px;
+        padding: 20px 40px;
     }
 
     .ArticleBlock_title {
@@ -71,6 +80,30 @@
 
         &::after {
             @include ratio(75);
+        }
+    }
+}
+
+@each $color in $main-colors {
+
+    .ArticleBlock--#{$color} {
+
+        &:hover {
+            background-color: var(--color-#{$color}-2xweak);
+            border-color: var(--color-#{$color});
+            box-shadow: 5px 5px 0 0 var(--color-#{$color}-xweak);
+
+            .ArticleBlock_title {
+                color: var(--color-#{$color});
+            }
+
+            .ArticleBlock_image {
+                opacity: 0.75;
+            }
+        }
+
+        .ArticleBlock_category {
+            color: var(--color-#{$color});
         }
     }
 }

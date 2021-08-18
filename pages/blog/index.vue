@@ -2,11 +2,11 @@
     <div class="">
         <div class="pv-40">
             
-            <div class="Wrapper">
+            <div class="Wrapper Wrapper">
                 <div class="row-xs">
                     <div class="col-6">
                         <filter-checkbox
-                            fa="thumbtack"
+                            :fa="$theme('news').fa"
                             :modifiers="['amber']"
                             :is-checked="categories.includes('news')"
                             :is-active="categories.length == 0 || categories.includes('news')"
@@ -18,7 +18,7 @@
 
                         <filter-checkbox
                             class="mt-10"
-                            fa="camera"
+                            :fa="$theme('identity').fa"
                             :modifiers="['amethyst']"
                             :is-checked="categories.includes('identity')"
                             :is-active="categories.length == 0 || categories.includes('identity')"
@@ -30,7 +30,7 @@
                     </div>
                     <div class="col-6">
                         <filter-checkbox
-                            fa="heart"
+                            :fa="$theme('value').fa"
                             :modifiers="['ruby']"
                             :is-checked="categories.includes('value')"
                             :is-active="categories.length == 0 || categories.includes('value')"
@@ -42,7 +42,7 @@
 
                         <filter-checkbox
                             class="mt-10"
-                            fa="search"
+                            :fa="$theme('seo').fa"
                             :modifiers="['amazonite']"
                             :is-checked="categories.includes('seo')"
                             :is-active="categories.length == 0 || categories.includes('seo')"
@@ -57,7 +57,7 @@
         </div>
 
         <div class="bg-bg-light pv-40">
-            <div class="Wrapper">
+            <div class="Wrapper Wrapper--s">
                 <article-block
                     v-for="article in articles"
                     class="mv-20"
