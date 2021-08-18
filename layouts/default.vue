@@ -1,5 +1,5 @@
 <template>
-    <div class="LayoutDefault LayoutDefault--ruby">
+    <div class="LayoutDefault" :class="[`LayoutDefault--${color}`]">
         <header-base />
         
         <div class="LayoutDefault_content">
@@ -15,6 +15,9 @@ import { TooltipManager } from '@instant-coffee/core'
 
 export default {
     name: 'LayoutDefault',
-    components: { TooltipManager }
+    components: { TooltipManager },
+    computed: {
+        color () { return this.$store.state.page.body.color }
+    }
 }
 </script>

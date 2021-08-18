@@ -2,13 +2,17 @@ export default {
     namespaced: true,
     state: () => ({
         body: {
-            classes: []
+            classes: [],
+            color: 'amber'
         },
         meta: {
             title: ''
         }    
     }),
     mutations: {
+        setColor (state, color) {
+            state.body = { ...state.body, color }
+        },
         addClasses (state, classes) {
             state.body.classes = [ ...state.body.classes, ...classes]
         },

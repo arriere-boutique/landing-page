@@ -57,6 +57,7 @@
 export default {
     name: 'Homearticle',
     async fetch () {
+        this.$store.commit('page/setColor', 'ruby')
         await this.$store.dispatch('articles/fetch', {
             query: {}
         })
