@@ -35,7 +35,7 @@
 }
 
 .FilterCheckbox_title {
-    font: var(--ft-m-bold);
+    font: var(--ft-title-s-bold);
     line-height: 1;
     margin-bottom: 5px;
 }
@@ -68,8 +68,12 @@
 
     .FilterCheckbox--#{$color} {
 
+        .FilterCheckbox_title {
+            color: var(--color-#{$color});
+        }
+
         .FilterCheckbox_fa {
-            color: var(--color-#{$color}-weak);
+            color: var(--color-#{$color});
         }
     }
 }
