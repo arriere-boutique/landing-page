@@ -26,27 +26,33 @@
             </div>
         </div>
 
-        <div class="bg-amethyst-2xweak pv-60" v-if="featuredArticle">
+        <div class="pv-60" :class="[`bg-${$theme(category).color}-2xweak`]" v-for="category in categories" :key="category">
             <div class="Wrapper Wrapper--l">
-                <h2 class="ft-title-xl-bold color-amethyst mb-20">Dernier article populaire</h2>
+                <h2 class="ft-title-xl-bold mb-10" :class="[`color-${$theme(category).color}`]">
+                    <i class="fa-thin mr-10" :class="[ $theme(category).fa ]"></i>
+                    {{ $t(`blog.categories.${category}.label`) }}
+                </h2>
+
+                <p class="ft-l mb-20">{{ $t(`blog.categories.${category}.description`) }}</p>
 
                 <article-block
                     :modifiers="['l']"
                     v-bind="{ ...featuredArticle, image: featuredArticle.thumbnail }"
                     :key="featuredArticle.slug"
                 />
+
+                <div class="row-s">
+                    <div class="col-6 mv-20" v-for="article in articles.slice(0, 2)" :key="article.slug">
+                        <article-block
+                            :modifiers="['s']"
+                            v-bind="{ ...article, image: article.thumbnail }"
+                        />
+                    </div>
+                </div>
             </div>
         </div>
         
         <div class="bg-bg-light pv-40">
-            <div class="Wrapper">
-                <article-block
-                    v-for="article in articles"
-                    class="mv-20"
-                    v-bind="{ ...article, image: article.thumbnail }"
-                    :key="article.slug"
-                />
-            </div>
         </div>
     </div>
 </template>
@@ -59,6 +65,9 @@ export default {
             query: {}
         })
     },
+    data: () => ({
+        categories: ['identity', 'value', 'seo']
+    }),
     computed: {
         articles () { return this.$store.getters['articles/find']() },
         featuredArticle () { return this.articles.length > 0 ? this.articles[0] : null }

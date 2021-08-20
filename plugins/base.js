@@ -36,7 +36,7 @@ Vue.mixin({
             switch (value) {
                 case 'news': theme = { color: 'amber', fa: 'fa-thumbtack' }; break;
                 case 'seo': theme = { color: 'amazonite', fa: 'fa-search' }; break;
-                case 'identity': theme = { color: 'amethyst', fa: 'fa-aperture' }; break;
+                case 'identity': theme = { color: 'amethyst', fa: 'fa-store' }; break;
                 case 'value': theme = { color: 'ruby', fa: 'fa-gem' }; break;
             }
 

@@ -2,12 +2,12 @@
     <div class="ArticlePage ArticlePage--ruby bg-bg-light" v-if="article">
         <div class="ArticlePage_banner pt-20 pb-100">
             <div class="Wrapper">
-                <p class="ArticlePage_category Title_secondary mb-5">
-                    {{ $t(`blog.categories.${article.category}.label`) }}
+                <p class="ArticlePage_category mb-5">
+                    <i class="fa-thin mr-5" :class="[ $theme(article.category).fa ]"></i> {{ $t(`blog.categories.${article.category}.label`) }}
                 </p>
 
                 <h1 class="ArticlePage_title ft-title-3xl-bold">{{ article.title|specials }}</h1>
-                <p class="ft-title-m mt-20" v-if="article.excerpt">{{ article.excerpt|specials }}</p>
+                <p class="ArticlePage_excerpt mt-20" v-if="article.excerpt">{{ article.excerpt|specials }}</p>
             </div>
         </div>
 

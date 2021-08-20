@@ -1,5 +1,5 @@
 <template>
-    <article class="ArticleBlock" :class="[ $modifiers, `ArticleBlock--${$theme(category).color}` ]">
+    <nuxt-link tag="article" class="ArticleBlock" :class="[ $modifiers, `ArticleBlock--${$theme(category).color}` ]" :to="localePath({ name: 'blog-slug', params: { slug } })">
         <div class="ArticleBlock_image" :style="{ backgroundImage: `url(${image})` }"></div>
 
         <div class="ArticleBlock_content">
@@ -10,24 +10,9 @@
                 <h4 class="ArticleBlock_title ellipsis-2">{{ title|specials }}</h4>
                 
                 <p class="ArticleBlock_excerpt">{{ excerpt|specials }}</p>
-
-                <!-- <div class="ArticleBlock_footer">
-                    <div class="ArticleBlock_date">Publié il y 5 jours</div>
-
-                    <button-base
-                        tag="nuxt-link"
-                        icon-after="long-arrow-alt-right"
-                        :attrs="{
-                            to: localePath({ name: 'blog-slug', params: { slug } })
-                        }"
-                        v-if="slug"
-                    >
-                        Lire la suite
-                    </button-base>
-                </div> -->
             </div>
         </div>
-    </article>
+    </nuxt-link>
 </template>
 
 <script>

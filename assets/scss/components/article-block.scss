@@ -27,7 +27,7 @@
 }
 
 .ArticleBlock_category {
-    font: var(--ft-xs);
+    font: var(--ft-s);
     color: var(--color-amethyst-weak);
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -64,6 +64,7 @@
 .ArticleBlock--l {
 
     .ArticleBlock_excerpt {
+        max-width: 600px;
         @extend .ellipsis-3;
     }
 
@@ -76,11 +77,23 @@
     }
 
     .ArticleBlock_image {
-        width: 40%;
+        width: 35%;
 
         &::after {
             @include ratio(75);
         }
+    }
+}
+
+.ArticleBlock--s {
+
+    .ArticleBlock_title {
+        font: var(--ft-title-m-bold);
+        @extend .ellipsis-3;
+    }
+
+    .ArticleBlock_excerpt {
+        display: none;
     }
 }
 
@@ -89,7 +102,7 @@
     .ArticleBlock--#{$color} {
 
         &:hover {
-            background-color: var(--color-#{$color}-2xweak);
+            // background-color: var(--color-#{$color}-2xweak);
             border-color: var(--color-#{$color});
             box-shadow: 5px 5px 0 0 var(--color-#{$color}-xweak);
 
