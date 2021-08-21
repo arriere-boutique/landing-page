@@ -10,8 +10,11 @@
 }
 
 .ArticlePage_excerpt {
-    font: var(--ft-title-m);
-    line-height: 1.6;
+
+    &.TextBody {
+        font: var(--ft-title-m);
+        line-height: 1.6;
+    }
 }
 
 .ArticlePage_category {

@@ -1,16 +1,38 @@
 .ButtonBase {
-    font: var(--ft-s-bold);
+    display: inline-flex;
+    font: var(--ft-s-medium);
     line-height: 1;
-    letter-spacing: 2px;
-    color: var(--color-ft);
-    text-transform: uppercase;
-    border: 2px solid var(--color-border);
+    color: var(--color-ft-light);
     padding: 0;
+    border: 1px solid transparent;
+    transition: all 100ms ease;
+    border-radius: 4px;
+    background-color: var(--color-onyx);
+
+    &:hover {
+        box-shadow: 0 0 0 2px var(--color-onyx-xweak);
+
+        .ButtonBase_content {
+            opacity: 0.75;
+            transform: scale(0.98);
+        }
+    }
+
+    &:active {
+        box-shadow: 0 0 0 2px var(--color-onyx-weak);
+        border: 1px solid var(--color-onyx-xweak);
+
+        .ButtonBase_content {
+            opacity: 0.5;
+            transform: scale(0.95);
+        }
+    }
 }
 
 .ButtonBase_content {
     min-height: 50px;
-    padding: 5px 15px;
+    padding: 5px 20px;
+    transition: all 100ms ease;
 }
 
 .ButtonBase_iconAfter {
@@ -23,9 +45,68 @@
     font-size: 18px;
 }
 
+@each $color in $main-colors {
+
+    .ButtonBase--#{$color} {
+        background-color: var(--color-#{$color});
+
+        &:hover {
+            box-shadow: 0 0 0 2px var(--color-#{$color}-xweak);
+        }
+
+        &:active {
+            box-shadow: 0 0 0 2px var(--color-#{$color}-weak);
+            border-color: var(--color-#{$color}-xweak);
+        }
+    }
+}
+
+.ButtonBase--amber {
+    color: var(--color-ft);
+}
+
+.ButtonBase--secondary {
+    color: var(--color-onyx);
+    background-color: transparent;
+
+    &:hover {
+
+        .ButtonBase_content {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    &:active {
+
+        .ButtonBase_content {
+            opacity: 0.75;
+            transform: scale(0.98);
+        }
+    }
+
+    @each $color in $main-colors {
+
+        &.ButtonBase--#{$color} {
+            color: var(--color-#{$color});
+            border: 1px solid var(--color-#{$color});
+
+            &:hover {
+                color: var(--color-ft-light);
+                background-color: var(--color-#{$color});
+            }
+    
+            .ButtonBase_iconBefore {
+                color: var(--color-#{$color}-xweak);
+            }
+        }
+    }
+}
+
 
 .ButtonBase--display {
     font: var(--ft-m-medium);
+    color: var(--color-ft);
     line-height: 1;
     text-transform: unset;
     letter-spacing: unset;
@@ -51,9 +132,7 @@
                 color: var(--color-#{$color}-xweak);
             }
         }
-      }
-
-    
+    }
 }
 
 .ButtonBase.is-disabled {

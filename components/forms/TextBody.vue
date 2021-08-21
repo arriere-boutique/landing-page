@@ -9,6 +9,8 @@
 import { Editor, EditorContent } from 'tiptap'
 import { Heading, Bold, Blockquote, Image, Italic, OrderedList, BulletList, ListItem } from 'tiptap-extensions'
 import Link from '@/plugins/tiptap/Link'
+import StyledBlock from '@/plugins/tiptap/StyledBlock'
+import Iframe from '@/plugins/tiptap/Iframe'
 
 export default {
     name: 'TextEditor',
@@ -28,7 +30,7 @@ export default {
                 new OrderedList(), new BulletList(), new ListItem(),
                 new Blockquote(),
                 new Image(),
-                new Link()
+                new Link(), new Iframe(), new StyledBlock()
             ],
             content: this.$props.value,
         })

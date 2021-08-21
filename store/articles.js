@@ -40,8 +40,8 @@ export default {
                     ...params.query,
                     type: 'article'
                 }))
-                
-                commit('updateOne', response.data[0])
+   
+                commit('updateOne', Array.isArray(response.data) ? response.data[0] : response.data)
 
                 return response.data
             } catch (e) {
@@ -106,6 +106,23 @@ export default {
         },
         find: (state, getters) => (search, raw = false) => {
             let items = raw ? Object.values(state.items) : getters.items
+            return items
+        },
+        groupBy: (state, getters) => (property) => {
+            let items = getters.items
+
+            items = items.reduce((obj, item) => {
+                let newObj = { ...obj }
+
+                if (!newObj[item[property]]) {
+                    newObj[item[property]] = [ item ]
+                } else {
+                    newObj[item[property]].push(item)
+                }
+
+                return newObj
+            }, {})
+
             return items
         },
         findOne: (state, getters) => (search, raw = false) => {

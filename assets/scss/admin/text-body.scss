@@ -1,15 +1,19 @@
 .TextBody {
-    font: var(--ft-l);
-    line-height: 2;
+    font: var(--ft-xl);
+    line-height: 1.8;
     color: var(--color-ft);
+
+    h1, h2, h3, h4 {
+        color: var(--color-ft);
+        max-width: 85%;
+        margin-left: -30px;
+    }
 
     h1 {
         font: var(--ft-title-3xl);
         font-weight: bold;
-        color: var(--color-ft);
         margin-top: 80px;
         margin-bottom: 20px;
-        max-width: 85%;
 
         &:first-child {
             margin-top: 0;
@@ -19,10 +23,8 @@
     h2 {
         font: var(--ft-title-2xl);
         font-weight: bold;
-        color: var(--color-ft);
         margin-top: 60px;
         margin-bottom: 30px;
-        max-width: 85%;
 
         &:first-child {
             margin-top: 0;
@@ -31,15 +33,18 @@
 
     h3 {
         font: var(--ft-xl);
-        color: var(--color-ft);
         font-weight: bold;
         margin-top: 60px;
-        margin-bottom: 10px;
-        max-width: 85%;
+        margin-bottom: 20px;
+    }
+
+    h4 {
+        width: auto;
+        margin-bottom: 20px;
     }
 
     blockquote {
-        font: var(--ft-title-xl);
+        font: var(--ft-title-l);
         color: var(--color-ft);
         line-height: 1.5;
         padding: 0 0 0 40px;
@@ -62,10 +67,11 @@
         margin: 10px 0 20px 0;
 
         li {
-            margin: 3px 0 3px 40px;
+            margin: 20px 0 20px 40px;
+            line-height: 1.6;
 
             &:last-child {
-                margin-bottom: 0;
+                // margin-bottom: 0;
             }
         }
 
@@ -78,12 +84,62 @@
         margin: 40px 0;
     }
 
-    .StyledBlock {
-        margin: 40px 0;
+    .Block {
+        max-width: calc(100% + 60px);
+        margin: 40px -30px;
+        padding: 15px 30px 30px 30px;
+    }
+
+    .VideoIframe {
+        @include ratio(60.8);
+        position: relative;
+        max-width: calc(100% + 60px);
+        margin: 40px -30px;
+
+        iframe {
+            @include absolute-fill;
+        }
     }
 
     a {
         text-decoration: underline;
+    }
+}
+
+.TextEditor .TextBody {
+    font: var(--ft-l);
+    line-height: 1.4;
+
+    h1 {
+        font: var(--ft-title-xl-bold);
+    }
+
+    h2 {
+        font: var(--ft-title-xl-bold);
+    }
+
+    h3 {
+        font: var(--ft-l-bold);
+    }
+
+    h1, h2, h3, h4 {
+        max-width: 100%;
+        margin-left: 0px;
+    }
+
+    .VideoIframe {
+        margin: 40px 0px;
+        max-width: 100%;
+    }
+
+    blockquote {
+        font: var(--ft-title-m);
+        width: 100%;
+    }
+
+    .Block {
+        width: 100%;
+        margin: 40px 0;
     }
 }
 

@@ -1,68 +1,37 @@
 <template>
     <div class="TextEditor">
-        <editor-menu-bar :editor="editor" v-slot="{ commands, isActive, getMarkAttrs, getNodeAttrs }" v-if="editable">
-            <div>
-                <div class="TextEditor_menu">
-                    <div class="TextEditor_first">
-                        <div class="TextEditor_group" v-for="(group, i) in groups" :key="i">
-                            <component
-                                v-for="command in group"
-                                :is="command.component || 'button-editor'"
-                                :is-active="isActive[command.id] ? isActive[command.id]() : false"
-                                :icon="command.icon"
-                                :current-node="command.isNode ? getNodeAttrs(command.value) : (command.isMark ? getMarkAttrs(command.value) : null)"
-                                @click="command.setCurrent ? state.current = command.id : editor.commands[command.id]()"
-                                @update="(v) => command.onUpdate(v) || undefined"
-                                :key="command.id"
-                            />
+        <editor-menu-bar :editor="editor" v-slot="{ isActive, getMarkAttrs, getNodeAttrs }" v-if="editable">
+            <div class="TextEditor_menu">
+                <div class="TextEditor_first">
+                    <div class="TextEditor_group" v-for="(group, i) in groups" :key="i">
+                        <component
+                            v-for="command in group"
+                            :is="command.component || 'button-editor'"
+                            :is-active="isActive[command.id] ? isActive[command.id]() : false"
+                            :icon="command.icon"
+                            :current-node="command.isNode ? getNodeAttrs(command.value) : (command.isMark ? getMarkAttrs(command.value) : null)"
+                            @click="command.setCurrent ? state.current = command.id : editor.commands[command.id]()"
+                            @update="(v) => command.onUpdate(v) || undefined"
+                            :key="command.id"
+                        />
 
-                            <div class="TextEditor_separator"></div>
-                        </div>
+                        <div class="TextEditor_separator"></div>
                     </div>
                 </div>
-
-                <popin-link
-                    :is-active="state.current == 'linkSelect'"
-                    @input="commands.link"
-                    @close="state.current = ''"
-                />
-
-                <!-- <div class="TextEditor_second" :class="{ 'is-active': state.current == 'linkSelect' }">
-                    <input type="text" placeholder="Lien" v-model="link.href">
-                    <label class="fx-no-shrink">
-                        <input type="checkbox" v-model="link.blank">Nouvel onglet
-                    </label>
-                    <button type="button" class="Button" @click="onInsertLink(commands.link)">Insérer</button>
-                </div>
-
-                <div class="TextEditor_second" :class="{ 'is-active': state.current == 'blockSelect' }">
-                    <select v-model="block">
-                        <option value="StyledBlock--pink">Pink</option>
-                        <option value="StyledBlock--cyan">Cyan</option>
-                        <option value="StyledBlock--blue">Blue</option>
-                        <option value="StyledBlock--gold">Gold</option>
-                    </select>
-                    <button type="button" class="Button" @click="commands.styledBlock({ block: block })">
-                        Insérer
-                    </button>
-                </div>
-
-                <div class="TextEditor_second" :class="{ 'is-active': state.current == 'styleSelect' }">
-                    <div class="TextEditor_group">
-                        <button
-                            v-for="(command, i) in style"
-                            class="TextEditor_button"
-                            :class="{ 'is-active': isActive[command.id] ? isActive[command.id]() : false }"
-                            type="button"
-                            @click="command.onClick ? command.onClick() : commands[command.id]()"
-                            :key="i"
-                        >
-                            <i class="fal" :class="{ ['fa-' + command.fa]: true }"></i>
-                        </button>
-                    </div>
-                </div> -->
             </div>
         </editor-menu-bar>
+
+        <!-- <popin-link
+            :is-active="state.current == 'linkSelect'"
+            @input="commands.link"
+            @close="state.current = ''"
+        /> -->
+
+        <popin-youtube
+            :is-active="state.current == 'iframe'"
+            @input="insertIframe"
+            @close="state.current = ''"
+        />
 
         <div class="TextBody" v-html="value" v-if="!editor"></div>
         <editor-content class="TextEditor_content TextBody" :editor="editor" ref="text" v-if="editor" />
@@ -73,13 +42,15 @@
 import { Editor, EditorContent, EditorMenuBar } from 'tiptap'
 import { Heading, Bold, Blockquote, Image, History, Italic, OrderedList, BulletList, ListItem } from 'tiptap-extensions'
 import Link from '@/plugins/tiptap/Link'
+import Iframe from '@/plugins/tiptap/Iframe'
 import StyledBlock from '@/plugins/tiptap/StyledBlock'
 import ButtonEditor from './components/button-editor'
 import ButtonHeadings from './components/button-headings'
+import ButtonBlocks from './components/button-blocks'
 
 export default {
     name: 'TextEditor',
-    components: { EditorContent, EditorMenuBar, StyledBlock, ButtonEditor, ButtonHeadings },
+    components: { EditorContent, EditorMenuBar, ButtonEditor, ButtonHeadings, ButtonBlocks },
     props: {
         value: { type: String, default: '' },
         editable: { type: Boolean, default: true }
@@ -107,7 +78,7 @@ export default {
                 new Blockquote(),
                 new Image(),
                 new History(),
-                new Link(), new StyledBlock()
+                new Link(), new StyledBlock(), new Iframe
             ],
             content: this.$props.value,
         })
@@ -123,11 +94,12 @@ export default {
             ], [
                 { id: 'fileSelect', label: 'Image', icon: 'image' },
                 { id: 'linkSelect', icon: 'link', setCurrent: true },
+                { id: 'iframe', icon: 'play', setCurrent: true },
                 { id: 'blockquote', label: 'Citation', icon: 'quote-right' },
                 { id: 'bullet_list', label: 'Liste', icon: 'list-ul' },
                 { id: 'ordered_list', label: 'Liste numérotée', icon: 'list-ol' },
             ], [
-                { id: 'blockSelect', label: 'Bloc', icon: 'lightbulb-on' },
+                { id: 'styledBlock', component: 'button-blocks', value: 'styledBlock', isNode: true, onUpdate: (v) => this.$data.editor.commands.styledBlock(v) },
             ]
         ]
 
@@ -144,6 +116,12 @@ export default {
         },
         onInsertLink (command) {
             command(this.$data.link)
+        },
+        insertBlock () {
+            this.$data.editor.commands.styledBlock()
+        },
+        insertIframe (data) {
+            this.$data.editor.commands.iframe(data)
         }
     }
 }

@@ -6,13 +6,13 @@
     >
         <template slot="content">
             <div class="p-20">
-                <p class="ft-m-bold mb-20">Créer un lien</p>
+                <p class="ft-m-bold mb-20">Insérer une vidéo youtube</p>
 
                 <input-base
-                    label="Lien"
-                    v-model="formData.link"
+                    label="ID de la vidéo"
+                    v-model="formData.src"
                     :attrs="{
-                        placeholder: 'https://antiswipe.lgbt'
+                        placeholder: 'DjSGmh4-sHc'
                     }"
                 />
             </div>
@@ -35,14 +35,14 @@
 import { InputBase } from '@instant-coffee/core'
 
 export default {
-    name: 'PopinLink',
+    name: 'PopinYoutube',
     components: { InputBase },
     props: {
         isActive: { type: Boolean, default: false }
     },
     data: () => ({
         formData: {
-            link: ''
+            src: ''
         }
     }),
     methods: {

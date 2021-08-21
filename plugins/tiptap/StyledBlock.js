@@ -1,5 +1,4 @@
 import { Node } from 'tiptap'
-import { toggleBlockType, toggleWrap } from 'tiptap-commands'
 import { wrapIn } from 'prosemirror-commands'
 
 export default class StyledBlock extends Node {
@@ -19,15 +18,15 @@ export default class StyledBlock extends Node {
             isolating: true,
             draggable: false,
             parseDOM: [{
-                tag: '.StyledBlock',
+                tag: '.Block',
                 getAttrs: dom => {
                     return {
-                        block: dom.getAttribute('class').replace('StyledBlock ', '')
+                        block: dom.getAttribute('class').replace('Block Block--', '')
                     }
                 },
             }],
             toDOM: node => ['div', {
-                class: `StyledBlock ${node.attrs.block}`
+                class: `Block Block--${node.attrs.block}`
             }, 0]
         }
     }

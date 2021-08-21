@@ -1,6 +1,6 @@
 <template>
     <div class="EditorPage">
-        <div class="Wrapper pv-60">
+        <div class="Wrapper Wrapper--l pv-60">
             <div class="row">
                 <div class="col-7">
                     <div class="EditorPage_image ActionMenu_hover" :style="{ '--background': cover }" @click="state.mediaLibrary = true">
@@ -23,11 +23,9 @@
                         v-model="formData.title"
                     />
 
-                    <input-base
-                        label="Introduction de la page"
-                        type="textarea"
-                        class="mv-20"
+                    <text-editor
                         v-model="formData.excerpt"
+                        v-if="!state.isLoading"
                     />
 
                     <text-editor
@@ -51,11 +49,16 @@
                                 :multiple="false"
                             />
                             
-                            <input-base
-                                label="ID de la page"
-                                class="mt-10"
-                                v-model="formData.slug"
-                            />
+                            <div class="d-flex fx-align-center mt-10">
+                                <input-base
+                                    label="ID de la page"
+                                    v-model="formData.slug"
+                                />
+
+                                <div @click="generateSlug" class="ml-10">
+                                    <i class="fal fa-redo"></i>
+                                </div>
+                            </div>
                         </entity-control>
                     </div>
                 </div>
@@ -81,6 +84,7 @@ const CATEGORIES = [
 import { InputBase, SelectBase } from '@instant-coffee/core'
 import {} from '@/utils/base'
 import moment from 'moment'
+import slugify from 'slugify'
 
 export default {
     name: 'ArticlePage',
@@ -89,7 +93,7 @@ export default {
     async fetch () {
         this.$data._id = this.$route.params.id
 
-        this.$data._id && (this.$data._id != 'new' || this.$route.query.clone) ? await this.$store.dispatch('articles/get', this.$data._id) : {}
+        this.$data._id && this.$data._id != 'new' && !this.$route.query.clone ? await this.$store.dispatch('articles/get', { query: { _id: this.$data._id } }) : {}
     },
     data: () => ({
         _id: '',
@@ -133,6 +137,7 @@ export default {
             immediate: true,
             deep: true,
             handler (v) {
+                console.log(v)
                 let form = this.decodeForm(v)
 
                 this.$data.formData = {
@@ -147,14 +152,14 @@ export default {
         ['formData.title']: {
             immediate: true,
             handler (v) {
-               this.$store.commit('article/setProperty', { title: v })
+               this.$store.commit('page/setProperty', { title: v })
             }
         }
     },
     mounted () {
         this.$data.formData = {
             ...this.decodeForm(this.$data.formData),
-            ...this.decodeForm(this.serverEvent)
+            ...this.decodeForm(this.serverEntity)
         }
 
         this.$data.state.isLoading = false
@@ -173,6 +178,10 @@ export default {
                 ...form,
                 category: CATEGORIES.find(i => i.id == this.$data.formData.category).value,
             }
+        },
+        generateSlug () {
+            let slug = this.$data.formData.title
+            this.$data.formData.slug = slugify(slug, { lower: true, strict: true })
         },
         async deleteEntity () {
             let response = await this.$store.dispatch('articles/delete', this.$data._id)

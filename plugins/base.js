@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import moment from 'moment'
 import { ButtonBase, PopinBase } from '@instant-coffee/core'
+import LogoYellow from '@/assets/img/logo/logo-yellow.png'
 
 moment.locale('fr')
 
@@ -35,12 +36,27 @@ Vue.mixin({
 
             switch (value) {
                 case 'news': theme = { color: 'amber', fa: 'fa-thumbtack' }; break;
-                case 'seo': theme = { color: 'amazonite', fa: 'fa-search' }; break;
+                case 'seo': theme = { color: 'malachite', fa: 'fa-search' }; break;
                 case 'identity': theme = { color: 'amethyst', fa: 'fa-store' }; break;
                 case 'value': theme = { color: 'ruby', fa: 'fa-gem' }; break;
             }
 
             return theme
+        },
+        $absolute (value) {
+            return process.env.BASE_URL + value
+        },
+        $authorData () {
+            return {
+                "@type": "Person",
+                name: "Théotime Colin",
+                brand: {
+                    "@type": "Organization",
+                    name: "L'Arrière Boutique",
+                    email: "contact@arriere-boutique.fr",
+                    logo: this.$absolute(LogoYellow),
+                }
+            }
         }
     }
 })

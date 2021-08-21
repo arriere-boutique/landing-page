@@ -56,3 +56,27 @@
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
 }
+
+.p-sticky {
+    top: calc(var(--header-base) + var(--offset, 0px));
+}
+
+@each $color in $main-colors {
+
+    .is-#{$color} {
+        --current: var(--color-#{$color});
+        --current-weak: var(--color-#{$color}-weak);
+        --current-xweak: var(--color-#{$color}-xweak);
+        --current-2xweak: var(--color-#{$color}-2xweak);
+    }
+}
+
+.color-current {
+    color: var(--current);
+}
+
+.Separator {
+    border: none;
+    height: 1px;
+    background-color: var(--color-border);
+}

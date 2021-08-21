@@ -2,7 +2,7 @@ require('dotenv').config()
 
 export default {
     head: {
-        title: `L'Arrière Boutique - Propulsez votre boutique Etsy`,
+        title: `L'Arrière Boutique, propulsez votre boutique Etsy`,
         meta: [
             { charset: 'utf-8' },
             { name: 'viewport', content: 'width=device-width, initial-scale=1' },

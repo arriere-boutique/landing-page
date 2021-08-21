@@ -1,5 +1,5 @@
 <template>
-    <div class="ArticlePage ArticlePage--ruby bg-bg-light" v-if="article">
+    <article class="ArticlePage ArticlePage--ruby bg-bg-light" v-if="article">
         <div class="ArticlePage_banner pt-20 pb-100">
             <div class="Wrapper">
                 <p class="ArticlePage_category mb-5">
@@ -7,7 +7,8 @@
                 </p>
 
                 <h1 class="ArticlePage_title ft-title-3xl-bold">{{ article.title|specials }}</h1>
-                <p class="ArticlePage_excerpt mt-20" v-if="article.excerpt">{{ article.excerpt|specials }}</p>
+
+                <text-body class="ArticlePage_excerpt mt-20" :value="article.excerpt" v-if="article.excerpt" />
             </div>
         </div>
 
@@ -18,9 +19,25 @@
         </div>
 
         <div class="Wrapper Wrapper--s mt-40">
-            <text-body class="TextBody" :value="article.content" />
+            <text-body :value="article.content" />
         </div>
-    </div>
+
+        <div class="bg-amber-2xweak pv-60 mt-60">
+            <div class="Wrapper Wrapper--l">
+
+                <div class="d-flex">
+                    <p class="ft-title-xl-bold width-xs fx-no-shrink">5000€ / mois sans rien faire ?</p>
+                    <div class="ft-l">
+                        <p>
+                            <b>Soyons sérieux !</b> Développer une marque et commencer à vivre de ses créations prend du temps et beaucoup d'efforts. Je n'ai aucun intérêt à te vendre du rêve. Mais je suis là pour t'aider à faire rêver à tes clients grâce à tes créations originales.
+                        </p>
+
+                        <button-base class="mt-20" :modifiers="['amber']">Découvrir l'Arrière Boutique</button-base>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </article>
 </template>
 
 <script>
@@ -38,18 +55,37 @@ export default {
     },
     head () {
         let meta = {
-            title: this.article.title
+            title: this.article.title + ` / L'Arrière Boutique, propulsez votre boutique Etsy`,
+            meta: [
+                { hid: 'description', name: 'description', content: this.article.excerpt.replace(/(<([^>]+)>)/gi, "") }
+            ],
+            script: [
+                {
+                    type: 'application/ld+json', json: {
+                        structuredData: {
+                            "@context": "http://schema.org",
+                            "@type": "Article",
+                            articleSection: this.$t(`blog.categories.${this.article.category}.label`),
+                            articleBody: this.article.content.replace(/(<([^>]+)>)/gi, ""),
+                            name: this.article.title,
+                            image: this.article.cover,
+                            thumbnailUrl: this.article.thumbnail,
+                            dateCreated: this.article.createdAt,
+                            dateUpdated: this.article.updatedAt,
+                            author: this.$authorData()
+                        }
+                    }
+                }
+            ]
         }
 
         switch (this.article.category) {
             case 'news': this.$store.commit('page/setColor', 'amber'); break;
             case 'identity': this.$store.commit('page/setColor', 'amethyst'); break;
             case 'value': this.$store.commit('page/setColor', 'ruby'); break;
-            case 'seo': this.$store.commit('page/setColor', 'amazonite'); break;
+            case 'seo': this.$store.commit('page/setColor', 'malachite'); break;
             default: this.$store.commit('page/setColor', 'amber'); break;
         }
-        
-        this.$store.commit('page/setProperty', meta)
 
         return meta
     }

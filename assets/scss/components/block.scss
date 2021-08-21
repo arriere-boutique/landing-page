@@ -1,0 +1,16 @@
+.Block {
+    padding: 30px;
+    border-radius: 10px;
+}
+
+@each $color in $main-colors {
+
+    .Block--#{$color} {
+        background-color: var(--color-#{$color}-2xweak);
+
+        b, strong {
+            color: var(--color-#{$color});
+        }
+    }
+
+}

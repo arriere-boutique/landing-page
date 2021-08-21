@@ -6,6 +6,7 @@ $breakpoints: (
 );
 
 $block-widths: (
+    "xs": 280,
     "s": 320,
     "m": 500
 );
@@ -43,6 +44,11 @@ $colors: (
     
     "white": #ffffff,
 
+    "onyx": #000000,
+    "onyx-weak": #4b4b4b,
+    "onyx-xweak": #585858,
+    "onyx-2xweak": #e6e6e6,
+
     "amethyst": #5D0B64,
     "amethyst-weak": #AB83AC,
     "amethyst-xweak": #E6CEE8,
@@ -53,10 +59,10 @@ $colors: (
     "amber-xweak": #FFF1D2,
     "amber-2xweak": #FEF7E8,
     
-    "amazonite": #196051,
-    "amazonite-weak": #75A5A8,
-    "amazonite-xweak": #D0F2EA,
-    "amazonite-2xweak": #EEFEFB,
+    "malachite": #196051,
+    "malachite-weak": #75A5A8,
+    "malachite-xweak": #D0F2EA,
+    "malachite-2xweak": #EEFEFB,
 
     "ruby": #9E0745,
     "ruby-weak": #D1416D,
@@ -78,20 +84,21 @@ $colors: (
     "shadow": rgba(207, 215, 231, 0.3)
 );
 
-$main-colors: ("amethyst", "amber", "amazonite", "ruby");
+$main-colors: ("onyx", "amethyst", "amber", "malachite", "ruby");
 
 $fonts: (
     "ft": (
         "name": "Rubik, sans-serif",
         "sizes": (
-            "xs": "12px/1.6",
-            "s": "14px/1.6",
-            "m": "16px/1.6",
-            "l": "20px/1.6",
+            "xs": "12px/1.5",
+            "s": "14px/1.5",
+            "m": "16px/1.5",
+            "l": "18px/1.5",
+            "xl": "20px/1.5",
         ),
         "weights": (
             "regular": 400,
-            "medium": 600,
+            "medium": 500,
             "bold": 700
         )
     ),

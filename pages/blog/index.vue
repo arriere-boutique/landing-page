@@ -43,7 +43,7 @@
                         <filter-checkbox
                             class="mt-10"
                             :fa="$theme('seo').fa"
-                            :modifiers="['amazonite']"
+                            :modifiers="['malachite']"
                             :is-checked="categories.includes('seo')"
                             :is-active="categories.length == 0 || categories.includes('seo')"
                             :title="$t('blog.categories.seo.label')"
@@ -73,8 +73,13 @@
 export default {
     name: 'Homearticle',
     async fetch () {
+        if (this.$route.query.category) {
+            this.$data.categories = [ this.$route.query.category ]
+        }
+
         await this.$store.dispatch('articles/fetch', {
-            query: {}
+            query: { $orCategory: this.$data.categories ? this.$data.categories.join(',') : undefined },
+            cancelToken: this.$data.cancelToken
         })
     },
     data: () => ({
@@ -89,18 +94,13 @@ export default {
         categories: {
             immediate: true,
             async handler (v) {
-                if (this.$data.cancelToken) {
-                    this.$data.cancelToken.cancel()
-                }
-
+                if (this.$data.cancelToken) this.$data.cancelToken.cancel()
                 this.$data.cancelToken = this.$axios.CancelToken.source()
 
                 let search = await this.$store.dispatch('articles/fetch', {
                     query: { $orCategory: v ? v.join(',') : undefined },
                     cancelToken: this.$data.cancelToken
                 })
-                
-                
             }
         }
     },

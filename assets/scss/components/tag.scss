@@ -1,0 +1,17 @@
+.Tag {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    height: 35px;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font: var(--ft-s-medium);
+    color: var(--color-ft);
+    text-transform: uppercase;
+    background-color: var(--color-onyx-2xweak);
+    transition: all 100ms ease;
+
+    &:hover {
+        color: var(--color-onyx-weak);
+    }
+}
