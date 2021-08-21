@@ -85,7 +85,10 @@
     padding: 10px 15px;
     transition: all 100ms ease;
     position: relative;
-    cursor: pointer;
+
+    a {
+        cursor: pointer;
+    }
 
     &::after {
         content: "";

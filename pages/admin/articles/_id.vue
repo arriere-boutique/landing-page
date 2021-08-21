@@ -137,7 +137,6 @@ export default {
             immediate: true,
             deep: true,
             handler (v) {
-                console.log(v)
                 let form = this.decodeForm(v)
 
                 this.$data.formData = {

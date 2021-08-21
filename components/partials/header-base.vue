@@ -10,8 +10,10 @@
 
             <nav class="HeaderBase_nav">
                 <div class="HeaderBase_navParent" :class="{ 'is-parent': item.items != undefined }" v-for="(item, key) in items" :key="key">
-                    <component :is="item.path ? 'nuxt-link' : 'a'" :to="localePath(item.path)" :href="item.href" class="HeaderBase_navLink" :target="item.href ? '_blank' : ''">
-                        {{ item.label }}
+                    <div class="HeaderBase_navLink">
+                        <component :is="item.path ? 'nuxt-link' : 'a'" :to="localePath(item.path)" :href="item.href" :target="item.href ? '_blank' : ''">
+                            {{ item.label }}
+                        </component>
 
                         <div class="HeaderBase_subNav HeaderBase_subNav--blog" v-if="key == 'articles'">
                             <div class="Wrapper Wrapper--l">
@@ -34,14 +36,22 @@
 
                                 <hr class="Separator mv-20">
 
-                                <div class="">
-                                    <nuxt-link class="Tag mr-5" v-for="(tag, j) in items.articles.tags" :to="localePath(tag.path)" :key="j">
-                                        #{{ tag.label }}
-                                    </nuxt-link>
+                                <div class="d-flex fx-align-center fx-justify-between">
+                                    <div class="max-width-l pr-20">
+                                        <p class="ft-m-bold mb-10">Sujets populaires</p>
+
+                                        <nuxt-link class="Tag mr-5 mb-10" v-for="(tag, j) in items.articles.tags" :to="localePath(tag.path)" :key="j">
+                                            #{{ tag.label }}
+                                        </nuxt-link>
+                                    </div>
+
+                                    <button-base :modifiers="['secondary', 'onyx']" icon-after="long-arrow-right">
+                                        Tous les articles
+                                    </button-base>
                                 </div>
                             </div>
                         </div>
-                    </component>
+                    </div>
                 </div>
             </nav>
         </div>
@@ -73,9 +83,15 @@ export default {
                 { category: 'value', path: { name: 'blog', query: { category: 'value' } } },
                 { category: 'seo', path: { name: 'blog', query: { category: 'seo' } } }
             ], tags: [
-                { label: 'identity', path: { name: 'blog' } },
-                { label: 'value', path: { name: 'blog' } },
-                { label: 'seo', path: { name: 'blog' } }
+                { label: 'Photographie', path: { name: 'blog', query: { tag: 'identity' } } },
+                { label: 'Frais de livraison', path: { name: 'blog', query: { tag: 'identity' } } },
+                { label: 'Prix', path: { name: 'blog', query: { tag: 'identity' } } },
+                { label: 'Packaging', path: { name: 'blog', query: { tag: 'identity' } } },
+                { label: 'Mots-clés', path: { name: 'blog', query: { tag: 'identity' } } },
+                { label: 'Inspiration', path: { name: 'blog', query: { tag: 'identity' } } },
+                { label: 'Taux de conversion', path: { name: 'blog', query: { tag: 'identity' } } },
+                { label: 'Visibilité', path: { name: 'blog', query: { tag: 'identity' } } },
+                { label: 'Logo', path: { name: 'blog', query: { tag: 'identity' } } },
             ] },
             youtube: { label: 'La chaîne Youtube', href: 'https://www.youtube.com/channel/UCn1oYqWvUQvbE9DwlEVTgNg' },
             about: { label: 'Qui suis-je ?', path: { name: 'about-me' } },

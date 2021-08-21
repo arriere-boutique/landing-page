@@ -1,15 +1,13 @@
 <template>
     <div class="Homearticle">
         <div class="pt-30 pb-100">
-            <div class="Wrapper d-flex">
+            <div class="Wrapper Wrapper--l d-flex">
                 <div class="fx-grow pr-20">
                     <p class="Title_secondary color-amber-weak">Bienvenue dans</p>
                     <h1 class="ft-title-3xl-bold">L'Arrière Boutique</h1>
 
-                    <p class="max-width-m mt-10 ft-l">
-                        <b>Toi et moi,</b> nous avons un rêve commun : faire connaître nos créations et valoriser le fait-main français.
-                        <br>
-                        C'est pour cette raison que j'ai créé l'Arrière Boutique. Te transmettre mon expérience de manière simple et pragmatique pour que <b>tu puisses te concentrer sur ce qui te fait vibrer : la création. </b>
+                    <p class="max-width-l mt-10 ft-l">
+                        <b>Toi et moi,</b> nous avons un rêve commun : faire connaître nos créations et valoriser le fait-main français. C'est pour cette raison que j'ai créé l'Arrière Boutique. Te transmettre mon expérience de manière simple et pragmatique pour que <b>tu puisses te concentrer sur ce qui te fait vibrer : la création. </b>
                     </p>
                 </div>
                 <div class="width-xs fx-no-shrink">

@@ -1,7 +1,6 @@
 <template>
-    <div class="">
+    <div class="BlogPage">
         <div class="pv-40">
-            
             <div class="Wrapper Wrapper">
                 <div class="row-xs">
                     <div class="col-6">
@@ -73,13 +72,10 @@
 export default {
     name: 'Homearticle',
     async fetch () {
-        if (this.$route.query.category) {
-            this.$data.categories = [ this.$route.query.category ]
-        }
-
+        if (this.$route.query.category) this.$data.categories = [ this.$route.query.category ]
+        
         await this.$store.dispatch('articles/fetch', {
-            query: { $orCategory: this.$data.categories ? this.$data.categories.join(',') : undefined },
-            cancelToken: this.$data.cancelToken
+            query: { $orCategory: this.$data.categories ? this.$data.categories.join(',') : undefined }
         })
     },
     data: () => ({
@@ -91,17 +87,17 @@ export default {
         featuredArticle () { return this.articles.length > 0 ? this.articles[0] : null }
     },
     watch: {
-        categories: {
-            immediate: true,
-            async handler (v) {
-                if (this.$data.cancelToken) this.$data.cancelToken.cancel()
-                this.$data.cancelToken = this.$axios.CancelToken.source()
+        '$route.query.category' (v) {
+            this.$data.categories = v ? [ v ] : []
+        },
+        async categories (v) {
+            if (this.$data.cancelToken) this.$data.cancelToken.cancel()
+            this.$data.cancelToken = this.$axios.CancelToken.source()
 
-                let search = await this.$store.dispatch('articles/fetch', {
-                    query: { $orCategory: v ? v.join(',') : undefined },
-                    cancelToken: this.$data.cancelToken
-                })
-            }
+            await this.$store.dispatch('articles/fetch', {
+                query: { $orCategory: v ? v.join(',') : undefined },
+                cancelToken: this.$data.cancelToken
+            })
         }
     },
     methods: {
@@ -114,9 +110,7 @@ export default {
         }
     },
     head () {
-        let meta = {
-            title: 'Pages'
-        }
+        let meta = { }
 
         this.$store.commit('page/setProperty', meta)
 
