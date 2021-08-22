@@ -69,6 +69,14 @@
         --current-xweak: var(--color-#{$color}-xweak);
         --current-2xweak: var(--color-#{$color}-2xweak);
     }
+
+    .fill-#{$color} {
+        fill: var(--color-#{$color});
+
+        svg, path {
+            fill: var(--color-#{$color});
+        }
+    }
 }
 
 .color-current {
@@ -79,4 +87,13 @@
     border: none;
     height: 1px;
     background-color: var(--color-border);
+}
+
+.link {
+    font-weight: 500;
+    color: var(--color-ft);
+    
+    &:hover {
+        text-decoration: underline;
+    }
 }

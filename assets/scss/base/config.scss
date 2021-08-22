@@ -47,8 +47,8 @@ $colors: (
 
     "onyx": #000000,
     "onyx-weak": #4b4b4b,
-    "onyx-xweak": #585858,
-    "onyx-2xweak": #e6e6e6,
+    "onyx-xweak": #c2c2c2,
+    "onyx-2xweak": #f0f0f0,
 
     "amethyst": #5D0B64,
     "amethyst-weak": #AB83AC,
@@ -68,7 +68,7 @@ $colors: (
     "ruby": #9E0745,
     "ruby-weak": #D1416D,
     "ruby-xweak": #FBBDC4,
-    "ruby-2xweak": #f8d5de,
+    "ruby-2xweak": #fff0f4,
 
     "bg-light": #ffffff,
     "bg-weak": #C6C6C6,
@@ -106,7 +106,8 @@ $fonts: (
     "ft-title": (
         "name": "'STIX Two Text', serif",
         "sizes": (
-            "s": "17px/1.6",
+            "xs": "17px/1.2",
+            "s": "19px/1.2",
             "m": "22px/1.2",
             "l": "26px/1.2",
             "xl": "32px/1.1",

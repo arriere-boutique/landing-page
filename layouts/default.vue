@@ -4,6 +4,8 @@
         
         <div class="LayoutDefault_content">
             <Nuxt />
+
+            <footer-base />
         </div>
 
         <tooltip-manager />

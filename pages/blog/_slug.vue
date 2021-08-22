@@ -18,24 +18,8 @@
             </div>
         </div>
 
-        <div class="Wrapper Wrapper--s mt-40">
+        <div class="Wrapper Wrapper--s mt-40 pb-100">
             <text-body :value="article.content" />
-        </div>
-
-        <div class="bg-amber-2xweak pv-60 mt-60">
-            <div class="Wrapper Wrapper--l">
-
-                <div class="d-flex">
-                    <p class="ft-title-xl-bold width-xs fx-no-shrink">5000€ / mois sans rien faire ?</p>
-                    <div class="ft-l">
-                        <p>
-                            <b>Soyons sérieux !</b> Développer une marque et commencer à vivre de ses créations prend du temps et beaucoup d'efforts. Je n'ai aucun intérêt à te vendre du rêve. Mais je suis là pour t'aider à faire rêver à tes clients grâce à tes créations originales.
-                        </p>
-
-                        <button-base class="mt-20" :modifiers="['amber']">Découvrir l'Arrière Boutique</button-base>
-                    </div>
-                </div>
-            </div>
         </div>
     </article>
 </template>

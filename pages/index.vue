@@ -27,18 +27,17 @@
         </div>
 
         <div class="pv-60" :class="[`bg-${$theme(category).color}-2xweak`]" v-for="category in categories.filter(c => articlesByCategory[c])" :key="category">
-            <div class="Wrapper Wrapper--l">
+            <div class="Wrapper">
                 <div class="d-flex fx-align-end mb-20">
                     <div class="fx-grow">
                         <h2 class="ft-title-xl-bold mb-10" :class="[`color-${$theme(category).color}`]">
-                            <i class="fa-thin mr-10" :class="[ $theme(category).fa ]"></i>
                             {{ $t(`blog.categories.${category}.label`) }}
                         </h2>
 
                         <p class="ft-l">{{ $t(`blog.categories.${category}.description`) }}</p>
                     </div>
 
-                    <button-base class="fx-no-shrink" :modifiers="[$theme(category).color, 'secondary']" icon-after="long-arrow-right">
+                    <button-base tag="nuxt-link" class="fx-no-shrink" :modifiers="[$theme(category).color, 'secondary']" icon-after="long-arrow-right" :attrs="{ to: localePath({ name: 'blog', query: { category } }) }">
                         Toute la catégorie
                     </button-base>
                 </div>
@@ -58,9 +57,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-        
-        <div class="bg-bg-light pv-40">
         </div>
     </div>
 </template>

@@ -1,0 +1,26 @@
+.FooterBase_nav {
+    display: flex;
+}
+
+.FooterBase_brand {
+    text-align: center;
+    width: 300px;
+    flex-shrink: 0;
+    padding: 30px;
+    background-color: var(--color-amber-2xweak);
+    border-bottom: 4px solid var(--color-amber);
+    margin-top: -20px;
+}
+
+.FooterBase_navLink {
+    margin: 5px 0;
+    padding-left: 10px;
+}
+
+.FooterBase_socials {
+    margin: 0 2px;
+
+    &:hover {
+        opacity: 0.5;
+    }
+}

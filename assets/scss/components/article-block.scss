@@ -88,8 +88,12 @@
 .ArticleBlock--s {
 
     .ArticleBlock_title {
-        font: var(--ft-title-m-bold);
+        font: var(--ft-title-s-bold);
         @extend .ellipsis-3;
+    }
+
+    .ArticleBlock_content {
+        padding: 15px 20px;
     }
 
     .ArticleBlock_excerpt {
@@ -111,7 +115,8 @@
             }
 
             .ArticleBlock_image {
-                opacity: 0.75;
+                // opacity: 0.75;
+                transform: scale(0.9);
             }
         }
 

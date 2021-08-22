@@ -45,7 +45,7 @@
                                         </nuxt-link>
                                     </div>
 
-                                    <button-base :modifiers="['secondary', 'onyx']" icon-after="long-arrow-right">
+                                    <button-base tag="nuxt-link" :modifiers="['secondary', 'onyx']" icon-after="long-arrow-right" :attrs="{ to: localePath({ name: 'blog' }) }">
                                         Tous les articles
                                     </button-base>
                                 </div>
@@ -78,7 +78,7 @@ export default {
     },
     mounted () {
         this.$data.items = {
-            articles: { label: 'Articles', path: { name: 'blog' }, items: [
+            articles: { label: 'Améliorer sa boutique', path: { name: 'blog' }, items: [
                 { category: 'identity', path: { name: 'blog', query: { category: 'identity' } } },
                 { category: 'value', path: { name: 'blog', query: { category: 'value' } } },
                 { category: 'seo', path: { name: 'blog', query: { category: 'seo' } } }
@@ -93,7 +93,7 @@ export default {
                 { label: 'Visibilité', path: { name: 'blog', query: { tag: 'identity' } } },
                 { label: 'Logo', path: { name: 'blog', query: { tag: 'identity' } } },
             ] },
-            youtube: { label: 'La chaîne Youtube', href: 'https://www.youtube.com/channel/UCn1oYqWvUQvbE9DwlEVTgNg' },
+            youtube: { label: 'Apprendre en vidéos', href: 'https://www.youtube.com/channel/UCn1oYqWvUQvbE9DwlEVTgNg' },
             about: { label: 'Qui suis-je ?', path: { name: 'about-me' } },
         }
 

@@ -72,7 +72,10 @@
 export default {
     name: 'Homearticle',
     async fetch () {
-        if (this.$route.query.category) this.$data.categories = [ this.$route.query.category ]
+        if (this.$route.query.category) {
+            this.$data.categories = [ this.$route.query.category ]
+            return
+        }
         
         await this.$store.dispatch('articles/fetch', {
             query: { $orCategory: this.$data.categories ? this.$data.categories.join(',') : undefined }
