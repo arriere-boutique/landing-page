@@ -1,5 +1,5 @@
 <template>
-    <nuxt-link tag="article" class="ArticleBlock" :class="[ $modifiers, `ArticleBlock--${$theme(category).color}` ]" :to="localePath({ name: 'blog-slug', params: { slug } })">
+    <nuxt-link tag="article" class="ArticleBlock" :class="[ $modifiers, `ArticleBlock--${$theme(category).color}` ]" :to="localePath({ name: 'category-slug', params: { category: $theme(category).slug, slug } })">
         <div class="ArticleBlock_image" :style="{ backgroundImage: `url(${image})` }"></div>
 
         <div class="ArticleBlock_content">

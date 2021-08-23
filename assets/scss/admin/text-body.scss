@@ -183,3 +183,47 @@
         }
     }
 }
+
+
+@include breakpoint-s {
+
+    .TextBody {
+    
+        h1, h2, h3, h4 {
+            max-width: 100%;
+            margin-left: 0px;
+        }
+
+        h1 {
+            font: var(--ft-title-xl);
+        }
+    
+        h2 {
+            font: var(--ft-title-xl);
+        }
+    
+        h3 {
+            font: var(--ft-l);
+        }
+
+        .VideoIframe {
+            max-width: 100%;
+            margin: 40px 0;
+            padding-bottom: 56.5%;
+        }
+
+        img {
+            max-width: 100%;
+            margin: 40px 0;
+        }
+
+        blockquote {
+            font: var(--ft-title-l);
+            line-height: 1.5;
+            padding: 0 0 0 20px;
+            width: auto;
+            margin: 40px 0;
+        }
+    }
+
+}

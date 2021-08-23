@@ -6,7 +6,7 @@
                     <i class="fa-thin mr-5" :class="[ $theme(article.category).fa ]"></i> {{ $t(`blog.categories.${article.category}.label`) }}
                 </p>
 
-                <h1 class="ArticlePage_title ft-title-3xl-bold">{{ article.title|specials }}</h1>
+                <h1 class="ArticlePage_title ft-title-3xl-bold ft-title-xl-bold@s">{{ article.title|specials }}</h1>
 
                 <text-body class="ArticlePage_excerpt mt-20" :value="article.excerpt" v-if="article.excerpt" />
             </div>

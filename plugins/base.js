@@ -19,6 +19,14 @@ Vue.mixin({
             return value
         }
     },
+    data: () => ({
+        $categories: {
+            news: { color: 'amber', fa: 'fa-thumbtack', slug: 'actualite' },
+            seo: { color: 'malachite', fa: 'fa-search', slug: 'referencement-seo' },
+            identity: { color: 'amethyst', fa: 'fa-store', slug: 'identite-de-marque' },
+            value: { color: 'ruby', fa: 'fa-gem', slug: 'valeur-percue' }
+        }
+    }),
     methods: {
         randomBetween: (min, max) => {
             Math.floor(Math.random() * (max - min + 1) + min)
@@ -34,15 +42,19 @@ Vue.mixin({
         $theme (value) {
             let theme = { color: 'amber', fa: 'fa-heart' }
 
-            switch (value) {
-                case 'news': theme = { color: 'amber', fa: 'fa-thumbtack' }; break;
-                case 'seo': theme = { color: 'malachite', fa: 'fa-search' }; break;
-                case 'identity': theme = { color: 'amethyst', fa: 'fa-store' }; break;
-                case 'value': theme = { color: 'ruby', fa: 'fa-gem' }; break;
-            }
+            theme = this.$data.$categories[value]
 
             return theme
         },
+        $slugToCategory (slug) {
+            let result = ''
+
+            Object.keys(this.$data.$categories).forEach(key => {
+                if (this.$data.$categories[key].slug == slug) result = key
+            })
+
+            return result
+        },  
         $absolute (value) {
             return process.env.BASE_URL + value
         },

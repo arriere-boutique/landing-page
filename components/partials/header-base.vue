@@ -37,7 +37,7 @@
                                 <hr class="Separator mv-20">
 
                                 <div class="d-flex fx-align-center fx-justify-between">
-                                    <div class="max-width-l pr-20">
+                                    <div class="max-width-l pr-20" v-if="items.articles.tags.length > 0">
                                         <p class="ft-m-bold mb-10">Sujets populaires</p>
 
                                         <nuxt-link class="Tag mr-5 mb-10" v-for="(tag, j) in items.articles.tags" :to="localePath(tag.path)" :key="j">
@@ -45,7 +45,7 @@
                                         </nuxt-link>
                                     </div>
 
-                                    <button-base tag="nuxt-link" :modifiers="['secondary', 'onyx']" icon-after="long-arrow-right" :attrs="{ to: localePath({ name: 'blog' }) }">
+                                    <button-base tag="nuxt-link" :modifiers="['secondary', 'onyx']" icon-after="long-arrow-right" :attrs="{ to: localePath({ name: 'category' }) }">
                                         Tous les articles
                                     </button-base>
                                 </div>
@@ -54,6 +54,24 @@
                     </div>
                 </div>
             </nav>
+
+            <div class="HeaderBase_burger" @click="state.isMenu = true">
+                <i class="fa-thin fa-bars"></i>
+            </div>
+
+            <div class="HeaderBase_menu" :class="{ 'is-active': state.isMenu }">
+                <div class="HeaderBase_navParent" v-for="(item, key) in items" :key="key">
+                    <div class="HeaderBase_navLink">
+                        <component :is="item.path ? 'nuxt-link' : 'a'" :to="localePath(item.path)" :href="item.href" :target="item.href ? '_blank' : ''">
+                            {{ item.label }}
+                        </component>
+                    </div>
+                </div>
+
+                <div class="HeaderBase_close" @click="state.isMenu = false">
+                    <i class="fa-thin fa-times"></i>
+                </div>
+            </div>
         </div>
     </header>
 </template>
@@ -65,10 +83,14 @@ export default {
         scroll: process.client ? window.pageYOffset : 0,
         items: null,
         state: {
-            isScrolled: false
+            isScrolled: false,
+            isMenu: false
         }
     }),
     watch: {
+        '$route' () {
+            this.$data.state.isMenu = false
+        },
         scroll: {
             immediate: true,
             handler (v) {
@@ -78,23 +100,13 @@ export default {
     },
     mounted () {
         this.$data.items = {
-            articles: { label: 'Améliorer sa boutique', path: { name: 'blog' }, items: [
-                { category: 'identity', path: { name: 'blog', query: { category: 'identity' } } },
-                { category: 'value', path: { name: 'blog', query: { category: 'value' } } },
-                { category: 'seo', path: { name: 'blog', query: { category: 'seo' } } }
-            ], tags: [
-                { label: 'Photographie', path: { name: 'blog', query: { tag: 'identity' } } },
-                { label: 'Frais de livraison', path: { name: 'blog', query: { tag: 'identity' } } },
-                { label: 'Prix', path: { name: 'blog', query: { tag: 'identity' } } },
-                { label: 'Packaging', path: { name: 'blog', query: { tag: 'identity' } } },
-                { label: 'Mots-clés', path: { name: 'blog', query: { tag: 'identity' } } },
-                { label: 'Inspiration', path: { name: 'blog', query: { tag: 'identity' } } },
-                { label: 'Taux de conversion', path: { name: 'blog', query: { tag: 'identity' } } },
-                { label: 'Visibilité', path: { name: 'blog', query: { tag: 'identity' } } },
-                { label: 'Logo', path: { name: 'blog', query: { tag: 'identity' } } },
-            ] },
+            articles: { label: 'Améliorer sa boutique', path: { name: 'category', params: { category: 'blog' } }, items: [
+                { category: 'identity', path: { name: 'category', params: { category: this.$theme('identity').slug } } },
+                { category: 'value', path: { name: 'category', params: { category: this.$theme('value').slug } } },
+                { category: 'seo', path: { name: 'category', params: { category: this.$theme('seo').slug } } }
+            ], tags: [] },
             youtube: { label: 'Apprendre en vidéos', href: 'https://www.youtube.com/channel/UCn1oYqWvUQvbE9DwlEVTgNg' },
-            about: { label: 'Qui suis-je ?', path: { name: 'about-me' } },
+            about: { label: `Groupe d'entraide`, href: "https://www.facebook.com/groups/etsy.en.france" },
         }
 
         if (process.server) return

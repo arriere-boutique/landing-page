@@ -2,8 +2,8 @@
     <div class="BlogPage">
         <div class="pv-40">
             <div class="Wrapper Wrapper">
-                <div class="row-xs">
-                    <div class="col-6">
+                <div class="row-xs fx-wrap">
+                    <div class="col-6 mv-5 col-12@s">
                         <filter-checkbox
                             :fa="$theme('news').fa"
                             :modifiers="['amber']"
@@ -14,9 +14,9 @@
                         >
                             {{ $t('blog.categories.news.description') }}
                         </filter-checkbox>
-
+                    </div>
+                    <div class="col-6 mv-5 col-12@xs">
                         <filter-checkbox
-                            class="mt-10"
                             :fa="$theme('identity').fa"
                             :modifiers="['amethyst']"
                             :is-checked="categories.includes('identity')"
@@ -27,7 +27,7 @@
                             {{ $t('blog.categories.identity.description') }}
                         </filter-checkbox>
                     </div>
-                    <div class="col-6">
+                    <div class="col-6 mv-5 col-12@xs">
                         <filter-checkbox
                             :fa="$theme('value').fa"
                             :modifiers="['ruby']"
@@ -38,9 +38,9 @@
                         >
                             {{ $t('blog.categories.value.description') }}
                         </filter-checkbox>
-
+                    </div>
+                    <div class="col-6 mv-5 col-12@xs">
                         <filter-checkbox
-                            class="mt-10"
                             :fa="$theme('seo').fa"
                             :modifiers="['malachite']"
                             :is-checked="categories.includes('seo')"
@@ -70,10 +70,10 @@
 
 <script>
 export default {
-    name: 'Homearticle',
+    name: 'HomeBlog',
     async fetch () {
-        if (this.$route.query.category) {
-            this.$data.categories = [ this.$route.query.category ]
+        if (this.$route.params.category && this.$route.params.category != 'blog') {
+            this.$data.categories = [ this.$slugToCategory(this.$route.params.category) ]
             return
         }
         

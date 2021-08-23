@@ -14,3 +14,11 @@
     width: 85%;
     max-width: 1000px;
 }
+
+@include breakpoint-xs {
+
+    .Wrapper {
+        width: auto;
+        padding: 0 30px;
+    }
+}

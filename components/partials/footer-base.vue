@@ -18,14 +18,17 @@
 
         <div class="bg-onyx-2xweak">
             <div class="FooterBase_nav Wrapper Wrapper--l">
-                <div class="fx-grow row-xs">
-                    <div class="col-4 pv-60" v-for="(item, i) in items" :key="i">
+                <div class="FooterBase_links fx-grow row-xs">
+                    <div class="col-4 pv-60 col-12@s pv-20@s" v-for="(item, i) in items" :key="i">
                         <p class="ft-m-bold">{{ item.label }}</p>
 
                         <div class="FooterBase_navLink" v-for="(link, j) in item.items" :key="j">
-                            <nuxt-link class="link" :to="link.path">
+                            <nuxt-link class="link" :to="link.path" v-if="link.path">
                                 {{ link.label }}
                             </nuxt-link>
+                            <a class="link" :href="link.href" target="_blank" v-else>
+                                {{ link.label }}
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -59,23 +62,15 @@ export default {
     name: 'FooterBase',
     data: () => ({
         items: [
-            { label: "Liens importants", items: [
-                { label: 'Qui suis-je ?', path: { name: 'about-me' } },
-                { label: 'Qui suis-je ?', path: { name: 'about-me' } },
-                { label: 'Qui suis-je ?', path: { name: 'about-me' } },
-                { label: 'Qui suis-je ?', path: { name: 'about-me' } }
+            { label: `Nous rejoindre`, items: [
+                { label: `Chaîne Youtube`, href: "https://www.youtube.com/channel/UCn1oYqWvUQvbE9DwlEVTgNg" },
+                { label: `Groupe d'entraide`, href: "https://www.facebook.com/groups/etsy.en.france" },
+            ] },
+            { label: "À propos", items: [
+
             ] },
             { label: "Liens importants", items: [
-                { label: 'Qui suis-je ?', path: { name: 'about-me' } },
-                { label: 'Qui suis-je ?', path: { name: 'about-me' } },
-                { label: 'Qui suis-je ?', path: { name: 'about-me' } },
-                { label: 'Qui suis-je ?', path: { name: 'about-me' } }
-            ] },
-            { label: "Liens importants", items: [
-                { label: 'Qui suis-je ?', path: { name: 'about-me' } },
-                { label: 'Qui suis-je ?', path: { name: 'about-me' } },
-                { label: 'Qui suis-je ?', path: { name: 'about-me' } },
-                { label: 'Qui suis-je ?', path: { name: 'about-me' } }
+                
             ] }
         ]
     })
