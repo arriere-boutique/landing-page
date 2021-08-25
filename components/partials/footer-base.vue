@@ -21,8 +21,12 @@
                                     <input-base label="Ton adresse e-mail" v-model="formData.email" type="text" />
                                 </div>
                                 <div class="col-6 col-12@xs mt-15@xs d-flex fx-align-center">
-                                    <label class="InputChoice mr-15"><input type="radio" name="frequency" checked> Quinzomadaire</label>
-                                    <label class="InputChoice"><input type="radio" name="frequency"> Mensuel</label>
+                                    <label class="InputChoice mr-15">
+                                        <input type="radio" name="frequency" @click="formData.frequency = true" :checked="formData.frequency"> Quinzomadaire <i class="fal fa-question-circle fa-sm ml-5" @mouseenter="(e) => tooltipOpen('Tous les 15 jours, pour toujours rester à la page !', e)" @mouseleave="tooltipClose"></i>
+                                    </label>
+                                    <label class="InputChoice">
+                                        <input type="radio" name="frequency" @click="formData.frequency = false" :checked="!formData.frequency"> Mensuel <i class="fal fa-question-circle fa-sm ml-5" @mouseenter="(e) => tooltipOpen('Le concentré de toutes les nouveautés du mois.', e)" @mouseleave="tooltipClose"></i>
+                                    </label>
                                 </div>
                             </div>
 
@@ -61,7 +65,6 @@
                         </nuxt-link>
                     </div>
 
-
                     <div class="Title_secondary Title_secondary--s color-ft mv-40">Le seul endroit où vos rêves sont impossibles, c'est dans votre tête</div>
 
                     <div>
@@ -99,7 +102,8 @@ export default {
             ] }
         ],
         formData: {
-            email: ''
+            email: '',
+            frequency: true
         }
     }),
     methods: {
@@ -107,7 +111,9 @@ export default {
             const token = await this.$recaptcha.execute('login')
 
             let response = await this.$store.dispatch('subscribe/create', {
-                ...this.$data.formData, token
+                ...this.$data.formData,
+                frequency: this.$data.formData.frequency ? 'biweekly' : 'monthly',
+                token
             })
 
             console.log(response)

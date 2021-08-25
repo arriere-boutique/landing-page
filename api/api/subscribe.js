@@ -39,8 +39,19 @@ exports.createSubscriber = async function (req, res) {
 exports.getSubscribers = async function (req, res) {
     let user = await authenticate(req.headers)
     let errors = []
+    let data = []
+
+    try {
+        if (!user || user.role !== 'admin') throw 'not-authorized'
+
+        data = await Entities['subscriber'].model.find()
+    } catch (err) {
+        console.error(err)
+        errors.push(err)
+    }
 
     res.send({
+        data,
         status: errors.length > 0 ? 0 : 1,
         errors
     })

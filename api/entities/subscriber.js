@@ -5,7 +5,7 @@ let SubscriberEntity = {
     write: 'public',
     fields: new mongoose.Schema({
         email: { type: String, write: 'public' },
-        frequence: { type: String, write: 'public' },
+        frequency: { type: String, write: 'public' },
     }, { timestamps: true })
 }
 

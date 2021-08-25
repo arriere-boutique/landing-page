@@ -43,6 +43,7 @@ export default {
             { label: 'Tableau de bord', icon: 'mug-tea', exact: true, link: 'admin-dashboard' },
             { label: 'Articles', icon: 'newspaper', link: 'admin-articles' },
             { label: 'Pages', icon: 'file-alt', link: 'admin-pages' },
+            { label: 'Gazette', icon: 'scroll', link: 'admin-newsletter' },
             { label: 'Bibliothèque de médias', icon: 'image', link: 'admin-other-medias' },
             { label: 'Mes paramètres', icon: 'user', link: 'admin-user' }
         ]
