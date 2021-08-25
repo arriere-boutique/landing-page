@@ -1,4 +1,21 @@
 .AuthorBlock {
-    padding: 30px;
+    font: var(--ft-m);
+    color: var(--color-ft);
+    padding: 20px;
     background-color: var(--color-bg-light);
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+    max-width: 600px;
+    border: 3px solid var(--color-current-2xweak);
+}
+
+.AuthorBlock_image {
+    width: 100px;
+    height: 100px;
+    flex-shrink: 0;
+    margin-right: 20px;
+    background-position: center;
+    background-size: cover;
+    border-radius: 50%;
 }

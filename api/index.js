@@ -16,6 +16,7 @@ const app = express()
 require('./entities/index')
 const { createEntity, getEntities, deleteEntity } = require('./api/entity');
 const { logUser, logOut, getUser } = require('./api/user');
+const { createSubscriber, getSubscribers, deleteSubscriber } = require('./api/subscribe')
 
 app.use(morgan('combined'))
 app.use(bodyParser.json({ limit: '10mb', extended: true }))
@@ -50,6 +51,10 @@ mongoose.connection.once('open', async () => {
     app.post('/user', logUser)
     app.get('/user', getUser)
     app.post('/user/logout', logOut)
+
+    app.post('/subscribe', createSubscriber)
+    app.get('/subscribers', getSubscribers)
+    app.delete('/subscribe', deleteSubscriber)
 })
 
 module.exports = app

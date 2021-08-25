@@ -28,8 +28,19 @@ export default {
     modules: [
         '@nuxtjs/axios',
         'nuxt-i18n',
-        '@nuxtjs/auth'
+        '@nuxtjs/auth',
+        [ '@nuxtjs/recaptcha', {
+            hideBadge: true,
+            version: 3,
+            siteKey: process.env.RECAPTCHA
+        } ],
     ],
+
+    publicRuntimeConfig: {
+        recaptcha: {
+            siteKey: process.env.RECAPTCHA
+        }
+    },
 
     i18n: {
         locales: [

@@ -20,6 +20,16 @@ export default {
     components: { TooltipManager },
     computed: {
         color () { return this.$store.state.page.body.color }
+    },
+    async mounted () {
+        try {
+            await this.$recaptcha.init()
+        } catch (e) {
+            console.error(e);
+        }
+    },
+    beforeDestroy() {
+       this.$recaptcha.destroy()
     }
 }
 </script>

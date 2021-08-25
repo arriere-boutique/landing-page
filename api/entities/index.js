@@ -8,6 +8,8 @@ const Token = require('./token')
 const Page = require('./page')
 const Article = require('./article')
 const Reaction = require('./reaction')
+const Subscriber = require('./subscriber')
+
 
 mongoose.connect(process.env.MONGO, { useNewUrlParser: true })
 
@@ -18,5 +20,6 @@ exports.article = Article
 exports.media = Media
 exports.mediaCollection = MediaCollection
 exports.reaction = Reaction
+exports.subscriber = Subscriber
 
 exports.Token = mongoose.model('token', Token)

@@ -22,24 +22,22 @@
             <text-body :value="article.content" />
         </div>
 
-        <div class="bg-amber-2xweak pv-30">
-            <div class="Wrapper Wrapper--s">
-                <author-block />
-            </div>
-        </div>
+        <div class="pv-40" :class="[ 'bg-current-2xweak' ]" v-if="similarArticles.length > 0">
+            <div class="Wrapper Wrapper--l">
+                <author-block class="n-mt-60 mb-40" />
 
-        <div class="pv-40" :class="[ 'bg-current-2xweak' ]">
-            <div class="Wrapper Wrapper--l text-center">
-                <p class="ft-title-xl-bold color-current mb-30">
-                    À lire ensuite
-                </p>
+                <div class="text-center">
+                    <p class="ft-title-l-bold color-current mb-20">
+                        À lire ensuite
+                    </p>
 
-                <div class="row-xs">
-                    <div class="col-4 col-12@xs mv-5" v-for="similar in similarArticles" :key="similar._id">
-                        <article-block
-                            :modifiers="['horizontal']"
-                            v-bind="{ ...similar, image: similar.thumbnail }"
-                        />
+                    <div class="row-xs">
+                        <div class="col-4 col-12@xs mv-5" v-for="similar in similarArticles" :key="similar._id">
+                            <article-block
+                                :modifiers="['horizontal']"
+                                v-bind="{ ...similar, image: similar.thumbnail }"
+                            />
+                        </div>
                     </div>
                 </div>
             </div>
@@ -65,7 +63,7 @@ export default {
                 category: this.article.category
             })
 
-            // articles = articles.filter(article => article._id !== this.article._id)
+            articles = articles.filter(article => article._id !== this.article._id)
 
             return articles
         }
