@@ -27,6 +27,7 @@ export default {
         excerpt: { type: String },
         image: { type: String },
         category: { type: String },
+        content: { type: String },
         slug: { type: String }
     }
 }

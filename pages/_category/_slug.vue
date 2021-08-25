@@ -1,5 +1,5 @@
 <template>
-    <article class="ArticlePage ArticlePage--ruby bg-bg-light" v-if="article">
+    <article class="ArticlePage ArticlePage--ruby bg-bg-light" :class="[ 'is-' + $theme(article.category).color ]" v-if="article">
         <div class="ArticlePage_banner pt-20 pb-100">
             <div class="Wrapper">
                 <p class="ArticlePage_category mb-5">
@@ -21,6 +21,29 @@
         <div class="Wrapper Wrapper--s mt-40 pb-100">
             <text-body :value="article.content" />
         </div>
+
+        <div class="bg-amber-2xweak pv-30">
+            <div class="Wrapper Wrapper--s">
+                <author-block />
+            </div>
+        </div>
+
+        <div class="pv-40" :class="[ 'bg-current-2xweak' ]">
+            <div class="Wrapper Wrapper--l text-center">
+                <p class="ft-title-xl-bold color-current mb-30">
+                    À lire ensuite
+                </p>
+
+                <div class="row-xs">
+                    <div class="col-4 col-12@xs mv-5" v-for="similar in similarArticles" :key="similar._id">
+                        <article-block
+                            :modifiers="['horizontal']"
+                            v-bind="{ ...similar, image: similar.thumbnail }"
+                        />
+                    </div>
+                </div>
+            </div>
+        </div>
     </article>
 </template>
 
@@ -29,12 +52,22 @@ export default {
     name: 'ArticlePage',
     async fetch () {
         await this.$store.dispatch('articles/get', { query: { slug: this.$route.params.slug }})
+        await this.$store.dispatch('articles/fetch')
     },
     computed: {
         article () {
             return this.$store.getters['articles/findOne']({
                 slug: this.$route.params.slug
             })
+        },
+        similarArticles () {
+            let articles = this.$store.getters['articles/find']({
+                category: this.article.category
+            })
+
+            // articles = articles.filter(article => article._id !== this.article._id)
+
+            return articles
         }
     },
     head () {

@@ -18,7 +18,7 @@ export default {
         }
     },
     actions: { 
-        async fetch ({ state, commit }, params) {
+        async fetch ({ state, commit }, params = {}) {
 
             try {
                 const response = await this.$axios.$get(storeUtils.getQuery('/entities', {
@@ -34,7 +34,7 @@ export default {
                 return null
             }
         },
-        async get ({ commit }, params) {
+        async get ({ commit }, params = {}) {
             try {
                 const response = await this.$axios.$get(storeUtils.getQuery('/entities', {
                     ...params.query,
@@ -49,7 +49,7 @@ export default {
                 return null
             }
         },
-        async create ({ commit }, params) {
+        async create ({ commit }, params = {}) {
             try {
                 const response = await this.$axios.$post('/entities', {
                     ...params,
@@ -106,6 +106,9 @@ export default {
         },
         find: (state, getters) => (search, raw = false) => {
             let items = raw ? Object.values(state.items) : getters.items
+            
+            if (search) items = items.filter(item => item[Object.keys(search)[0]] == Object.values(search)[0])
+
             return items
         },
         groupBy: (state, getters) => (property) => {

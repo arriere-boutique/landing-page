@@ -83,6 +83,12 @@
     color: var(--current);
 }
 
+.bg-current { background-color: var(--current); }
+.bg-current-weak { background-color: var(--current-weak); }
+.bg-current-xweak { background-color: var(--current-xweak); }
+.bg-current-2xweak { background-color: var(--current-2xweak); }
+
+
 .Separator {
     border: none;
     height: 1px;

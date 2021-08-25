@@ -4,6 +4,14 @@
     border: 1px solid var(--color-border-weak);
     transition: all 150ms ease;
     cursor: pointer;
+    text-align: left;
+
+    &:hover {
+        
+        .ArticleBlock_image {
+            opacity: 0.75;
+        }
+    }
 }
 
 .ArticleBlock_image {
@@ -101,22 +109,56 @@
     }
 }
 
+.ArticleBlock--horizontal {
+    flex-direction: column;
+    text-align: center;
+
+    &:hover {
+
+        .ArticleBlock_image {
+            transform: none;
+        }
+    }
+
+    .ArticleBlock_image {
+        width: auto;
+        height: 100px;
+
+        &::after {
+            display: none;
+        }
+    }
+
+    .ArticleBlock_title {
+        font: var(--ft-title-s-bold);
+        @extend .ellipsis-2;
+    }
+
+    .ArticleBlock_category {
+        font: var(--ft-xs-medium);
+        margin-bottom: 5px;
+
+        i {
+            font-size: 0;
+        }
+    }
+
+    .ArticleBlock_content {
+        padding: 20px;
+        min-height: 180px;
+    }
+}
+
 @each $color in $main-colors {
 
     .ArticleBlock--#{$color} {
 
         &:hover {
-            // background-color: var(--color-#{$color}-2xweak);
             border-color: var(--color-#{$color});
             box-shadow: 5px 5px 0 0 var(--color-#{$color}-xweak);
 
             .ArticleBlock_title {
                 color: var(--color-#{$color});
-            }
-
-            .ArticleBlock_image {
-                // opacity: 0.75;
-                transform: scale(0.9);
             }
         }
 
@@ -129,7 +171,7 @@
 
 @include breakpoint-xs {
 
-    .ArticleBlock,
+    .ArticleBlock:not(.ArticleBlock--horizontal),
     .ArticleBlock--l {
 
         .ArticleBlock_content {
