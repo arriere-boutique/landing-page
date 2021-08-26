@@ -83,6 +83,7 @@ export default {
                             articleSection: this.$t(`blog.categories.${this.article.category}.label`),
                             articleBody: this.article.content.replace(/(<([^>]+)>)/gi, ""),
                             name: this.article.title,
+                            headline: this.article.title,
                             image: this.article.cover,
                             thumbnailUrl: this.article.thumbnail,
                             dateCreated: this.article.createdAt,

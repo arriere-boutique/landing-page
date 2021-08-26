@@ -9,7 +9,7 @@
                 </h4>
                 <h4 class="ArticleBlock_title ellipsis-2">{{ title|specials }}</h4>
                 
-                <p class="ArticleBlock_excerpt">{{ excerpt|specials }}</p>
+                <p class="ArticleBlock_excerpt">{{ excerpt|striptags|specials }}</p>
             </div>
         </div>
     </nuxt-link>

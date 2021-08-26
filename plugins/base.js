@@ -17,6 +17,9 @@ Vue.mixin({
             })
 
             return value
+        },
+        striptags: (value) => {
+            return value.replace(/(<([^>]+)>)/gi, "")
         }
     },
     data: () => ({
