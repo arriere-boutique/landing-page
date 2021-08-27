@@ -23,7 +23,9 @@ export default {
 
     components: true,
 
-    buildModules: [],
+    buildModules: [
+        '@nuxtjs/google-analytics'
+    ],
 
     modules: [
         '@nuxtjs/axios',
@@ -39,7 +41,15 @@ export default {
     publicRuntimeConfig: {
         recaptcha: {
             siteKey: process.env.RECAPTCHA
+        },
+        googleAnalytics: {
+            id: process.env.GA_ID,
+            dev: process.env.NODE_ENV !== 'PRODUCTION'
         }
+    },
+
+    googleAnalytics: {
+        id: process.env.GA_ID
     },
 
     i18n: {

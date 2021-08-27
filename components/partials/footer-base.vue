@@ -20,11 +20,11 @@
                                 <div class="col-6 col-12@xs">
                                     <input-base label="Ton adresse e-mail" v-model="formData.email" type="text" />
                                 </div>
-                                <div class="col-6 col-12@xs mt-15@xs d-flex fx-align-center">
+                                <div class="col-6 col-12@xs mt-15@xs d-flex fx-align-center d-block@xs">
                                     <label class="InputChoice mr-15">
                                         <input type="radio" name="frequency" @click="formData.frequency = true" :checked="formData.frequency"> Quinzomadaire <i class="fal fa-question-circle fa-sm ml-5" @mouseenter="(e) => tooltipOpen('Tous les 15 jours, pour toujours rester à la page !', e)" @mouseleave="tooltipClose"></i>
                                     </label>
-                                    <label class="InputChoice">
+                                    <label class="InputChoice mt-15@xs">
                                         <input type="radio" name="frequency" @click="formData.frequency = false" :checked="!formData.frequency"> Mensuel <i class="fal fa-question-circle fa-sm ml-5" @mouseenter="(e) => tooltipOpen('Le concentré de toutes les nouveautés du mois.', e)" @mouseleave="tooltipClose"></i>
                                     </label>
                                 </div>

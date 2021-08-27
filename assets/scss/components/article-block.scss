@@ -183,22 +183,26 @@
         }
     
         .ArticleBlock_title {
-            font: var(--ft-title-m-bold);
+            font: var(--ft-title-s-bold);
         }
     
         .ArticleBlock_image {
-            width: 75px;
+            width: 50px;
         }
     }
 
     .ArticleBlock--s {
+
+        .ArticleBlock_title {
+            font: var(--ft-title-s-bold);
+        }
 
         .ArticleBlock_content {
             padding: 20px;
         }
 
         .ArticleBlock_image {
-            width: 75px;
+            width: 50px;
 
             &::after {
                 display: none;
