@@ -31,6 +31,7 @@ export default {
         '@nuxtjs/axios',
         'nuxt-i18n',
         '@nuxtjs/auth',
+        '@nuxtjs/google-analytics',
         [ '@nuxtjs/recaptcha', {
             hideBadge: true,
             version: 3,
@@ -43,8 +44,7 @@ export default {
             siteKey: process.env.RECAPTCHA
         },
         googleAnalytics: {
-            id: process.env.GA_ID,
-            dev: process.env.NODE_ENV !== 'PRODUCTION'
+            id: process.env.GA_ID
         }
     },
 
