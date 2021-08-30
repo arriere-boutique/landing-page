@@ -11,6 +11,7 @@ import { Heading, Bold, Blockquote, Image, Italic, OrderedList, BulletList, List
 import Link from '@/plugins/tiptap/Link'
 import StyledBlock from '@/plugins/tiptap/StyledBlock'
 import Iframe from '@/plugins/tiptap/Iframe'
+import Gallery from '@/plugins/tiptap/Gallery'
 
 export default {
     name: 'TextEditor',
@@ -30,7 +31,7 @@ export default {
                 new OrderedList(), new BulletList(), new ListItem(),
                 new Blockquote(),
                 new Image(),
-                new Link(), new Iframe(), new StyledBlock()
+                new Link(), new Iframe(), new StyledBlock(), new Gallery()
             ],
             content: this.$props.value,
         })

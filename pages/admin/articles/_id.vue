@@ -30,6 +30,7 @@
 
                     <text-editor
                         v-model="formData.content"
+                        @open-library="openLibrary"
                         v-if="!state.isLoading"
                     />
                 </div>
@@ -67,8 +68,10 @@
 
         <media-library
             :is-active="state.mediaLibrary"
-            v-model="formData.medias"
-            @close="state.mediaLibrary = false"
+            v-bind="library.props"
+            @input="library.onInput"
+            @close="library.onClose"
+            v-if="library.onInput"
         />
     </div>
 </template>
@@ -111,7 +114,8 @@ export default {
             medias: null,
             category: 0,
             status: 'draft'
-        }
+        },
+        library: {}
     }),
     computed: {
         isClone () {
@@ -161,9 +165,36 @@ export default {
             ...this.decodeForm(this.serverEntity)
         }
 
+        this.resetLibrary()
+
         this.$data.state.isLoading = false
     },
     methods: {
+        resetLibrary () {
+            this.$data.library = {
+                props: {
+                    value: this.$data.formData.medias
+                },
+                onInput: (v) => this.$data.formData.medias = v,
+                onClose: () => this.$data.state.mediaLibrary = false
+            }
+        },
+        openLibrary (options) {
+            this.$data.library = {
+                ...options,
+                onClose: () => {
+                    this.$data.state.mediaLibrary = false
+
+                    if (options.onClose) options.onClose()
+
+                    this.resetLibrary()
+                }
+            }
+
+            this.$data.state.mediaLibrary = true
+
+            console.log(this.$data.library)
+        },
         decodeForm (form) {
             if (!form) return {}
 

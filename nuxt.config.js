@@ -54,8 +54,7 @@ export default {
 
     i18n: {
         locales: [
-            { code: 'fr', iso: 'fr-FR', file: 'fr.js' },
-            { code: 'en', iso: 'en-EN', file: 'en.js' }
+            { code: 'fr', iso: 'fr-FR', file: 'fr.js' }
         ],
         langDir: '/translations/',
         defaultLocale: 'fr',

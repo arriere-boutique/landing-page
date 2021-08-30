@@ -1,5 +1,6 @@
 <template>
     <popin-base
+        :id="id"
         class="MediaLibrary"
         :modifiers="['panel']"
         :is-active="isActive"
@@ -45,6 +46,7 @@ export default {
         })
     },
     props: {
+        id: { type: String, default: Math.random().toString() },
         value: { type: [String, Object] },
         max: { type: Number, default: 1 },
         isActive: { type: Boolean, default: false }

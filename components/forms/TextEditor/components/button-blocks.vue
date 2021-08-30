@@ -31,6 +31,7 @@ export default {
             { label: 'ruby', value: 'ruby', classes: ['Block--ruby'] },
             { label: 'onyx', value: 'onyx', classes: ['Block--onyx'] },
             { label: 'malachite', value: 'malachite', classes: ['Block--malachite'] },
+            { label: 'Image display', value: 'display', classes: ['Block--display'] },
         ]) }
     },
     data: () => ({

@@ -1,0 +1,21 @@
+.GalleryCompact {
+    margin: -5px;
+    overflow: auto;
+}
+
+.GalleryCompact_rail {
+    display: flex;
+    flex-wrap: wrap;
+    min-width: 600px;
+}
+
+.GalleryCompact_item {
+    flex-grow: 0;
+    flex-shrink: 0;
+    padding: 5px;
+
+    img {
+        width: 100%;
+        height: 100%;
+    }
+}

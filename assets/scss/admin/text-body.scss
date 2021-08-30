@@ -58,10 +58,16 @@
         margin-top: 20px;
     }
 
-    img {
+    & > img,
+    p > img {
         max-width: calc(100% + 60px);
         margin: 40px -30px;
         display: block;
+    }
+
+    .GalleryCompact {
+        width: calc(100% + 60px);
+        margin: 40px -30px;
     }
 
     ul, ol {
@@ -213,7 +219,8 @@
             padding-bottom: 56.5%;
         }
 
-        img {
+        & > img,
+        p > img {
             max-width: 100%;
             margin: 40px 0;
         }

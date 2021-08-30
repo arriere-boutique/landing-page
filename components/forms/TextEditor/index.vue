@@ -10,7 +10,7 @@
                             :is-active="isActive[command.id] ? isActive[command.id]() : false"
                             :icon="command.icon"
                             :current-node="command.isNode ? getNodeAttrs(command.value) : (command.isMark ? getMarkAttrs(command.value) : null)"
-                            @click="command.setCurrent ? state.current = command.id : editor.commands[command.id]()"
+                            @click="command.setCurrent ? state.current = command.id : (command.command ? command.command() : editor.commands[command.id]())"
                             @update="(v) => command.onUpdate(v) || undefined"
                             :key="command.id"
                         />
@@ -33,6 +33,19 @@
             @close="state.current = ''"
         />
 
+        <!-- <media-library
+            :is-active="state.current == 'fileSelect'"
+            @input="insertImage"
+            @close="state.current = ''"
+        />
+
+        <media-library
+            :is-active="state.current == 'gallery'"
+            :max="3"
+            @input="insertGallery"
+            @close="state.current = ''"
+        /> -->
+
         <div class="TextBody" v-html="value" v-if="!editor"></div>
         <editor-content class="TextEditor_content TextBody" :editor="editor" ref="text" v-if="editor" />
     </div>
@@ -43,14 +56,16 @@ import { Editor, EditorContent, EditorMenuBar } from 'tiptap'
 import { Heading, Bold, Blockquote, Image, History, Italic, OrderedList, BulletList, ListItem } from 'tiptap-extensions'
 import Link from '@/plugins/tiptap/Link'
 import Iframe from '@/plugins/tiptap/Iframe'
+import Gallery from '@/plugins/tiptap/Gallery'
 import StyledBlock from '@/plugins/tiptap/StyledBlock'
 import ButtonEditor from './components/button-editor'
 import ButtonHeadings from './components/button-headings'
 import ButtonBlocks from './components/button-blocks'
+import MediaLibrary from '@/components/interactive/media-library.vue'
 
 export default {
     name: 'TextEditor',
-    components: { EditorContent, EditorMenuBar, ButtonEditor, ButtonHeadings, ButtonBlocks },
+    components: { EditorContent, EditorMenuBar, ButtonEditor, ButtonHeadings, ButtonBlocks, MediaLibrary },
     props: {
         value: { type: String, default: '' },
         editable: { type: Boolean, default: true }
@@ -78,7 +93,7 @@ export default {
                 new Blockquote(),
                 new Image(),
                 new History(),
-                new Link(), new StyledBlock(), new Iframe
+                new Link(), new StyledBlock(), new Iframe, new Gallery()
             ],
             content: this.$props.value,
         })
@@ -92,12 +107,17 @@ export default {
                 { id: 'bold', label: 'Gras', icon: 'bold' },
                 { id: 'italic', label: 'Italique', icon: 'italic' },
             ], [
-                { id: 'fileSelect', label: 'Image', icon: 'image' },
+                { id: 'fileSelect', label: 'Image', icon: 'image', command: () => this.$emit('open-library', {
+                    props: { max: 1 }, onInput: (v) => this.insertImage(v)
+                }) },
                 { id: 'linkSelect', icon: 'link', setCurrent: true },
                 { id: 'iframe', icon: 'play', setCurrent: true },
                 { id: 'blockquote', label: 'Citation', icon: 'quote-right' },
                 { id: 'bullet_list', label: 'Liste', icon: 'list-ul' },
                 { id: 'ordered_list', label: 'Liste numérotée', icon: 'list-ol' },
+                { id: 'gallery', label: 'Galerie', icon: 'image', command: () => this.$emit('open-library', {
+                    props: { max: 3 }, onInput: (v) => this.insertGallery(v)
+                }) },
             ], [
                 { id: 'styledBlock', component: 'button-blocks', value: 'styledBlock', isNode: true, onUpdate: (v) => this.$data.editor.commands.styledBlock(v) },
             ]
@@ -122,6 +142,12 @@ export default {
         },
         insertIframe (data) {
             this.$data.editor.commands.iframe(data)
+        },
+        insertImage (media) {
+            this.$data.editor.commands.image({ src: media.sizes.m.src })
+        },
+        insertGallery (medias) {
+            this.$data.editor.commands.gallery({ medias })
         }
     }
 }
