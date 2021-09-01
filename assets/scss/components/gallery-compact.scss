@@ -80,3 +80,26 @@
         box-shadow: 0 0 0 15px rgba(255, 255, 255, 0);
     }
 }
+
+@include breakpoint-s {
+
+    .GalleryCompact_info {
+        display: none;
+    }
+
+    .GalleryCompact_item {
+       height: auto !important;
+        padding: 10px;
+    
+        img {
+            width: 100%;
+            height: auto;
+            position: relative;
+            margin: 0px;
+        }
+    
+        figcaption {
+            font: var(--ft-s);
+        }
+    }
+}
