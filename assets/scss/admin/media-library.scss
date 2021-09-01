@@ -6,3 +6,13 @@
     background-position: center;
     @include ratio(50);
 }
+
+.MediaLibrary_item {
+    border: 1px solid var(--color-border);
+}
+
+.MediaLibrary_itemImage {
+    height: 120px;
+    background-size: cover;
+    background-position: center;
+}

@@ -33,19 +33,6 @@
             @close="state.current = ''"
         />
 
-        <!-- <media-library
-            :is-active="state.current == 'fileSelect'"
-            @input="insertImage"
-            @close="state.current = ''"
-        />
-
-        <media-library
-            :is-active="state.current == 'gallery'"
-            :max="3"
-            @input="insertGallery"
-            @close="state.current = ''"
-        /> -->
-
         <div class="TextBody" v-html="value" v-if="!editor"></div>
         <editor-content class="TextEditor_content TextBody" :editor="editor" ref="text" v-if="editor" />
     </div>

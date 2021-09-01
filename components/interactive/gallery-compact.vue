@@ -10,7 +10,7 @@
                 }"
                 :key="i"
             >
-                <img :src="image.src" :width="image.width" :height="image.height">
+                <img :src="image.src" :width="image.width" :height="image.height" :alt="image.alt" :title="image.title">
             </div>
         </div>
     </div>
@@ -35,7 +35,14 @@ export default {
     },
     methods: {
         updateBounds () {
-            let images = this.$props.node.attrs.medias.map(media => media.sizes.m)
+            let images = this.$props.node.attrs.medias.map(media => ({
+                title: media.title,
+                alt: media.alt,
+                source: media.source,
+                link: media.sourceLink,
+                ...media.sizes.m
+            }))
+            
             this.$data.images = images
 
             if (!this.$refs.container) return

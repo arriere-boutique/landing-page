@@ -192,8 +192,6 @@ export default {
             }
 
             this.$data.state.mediaLibrary = true
-
-            console.log(this.$data.library)
         },
         decodeForm (form) {
             if (!form) return {}

@@ -8,7 +8,27 @@
     >
         <template slot="content">
             <div class="p-40">
-                <file-uploader @upload="onUpload" />
+                <file-uploader @upload="onUpload" v-if="selected.length <= 0"/>
+                
+                <div v-else>
+                    <p class="ft-m-bold mb-20">Sélectionnés</p>
+
+                    <div class="row-xs">
+                        <div class="col-4" v-for="(media, i) in selected" :key="i">
+                            <div class="MediaLibrary_item" v-if="media.sizes">
+                                <div class="MediaLibrary_itemImage" :style="{ backgroundImage: `url(${ media.sizes.s.src })` }">
+                                </div>
+
+                                <div class="p-10">
+                                    <input-base label="Alt" class="mv-5" v-model="media.alt" />
+                                    <input-base label="Titre" class="mv-5" v-model="media.title" />
+                                    <input-base label="Source" class="mv-5" v-model="media.source" />
+                                    <input-base label="Lien source" class="mv-5" v-model="media.sourceLink" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 <div class="mt-40">
                     <p class="ft-m-bold mb-20">Bibliothèque de médias</p>
@@ -35,10 +55,12 @@
 </template>
 
 <script>
+import { InputBase } from '@instant-coffee/core'
 import { sortDate } from '@/utils/base'
 
 export default {
-    name: 'MediaLibrary', 
+    name: 'MediaLibrary',
+    components: { InputBase },
     async fetch () {
         await this.$store.dispatch('library/fetch', {
             type: 'mediaCollection',
