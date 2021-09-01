@@ -10,7 +10,20 @@
                 }"
                 :key="i"
             >
-                <img :src="image.src" :width="image.width" :height="image.height" :alt="image.alt" :title="image.title">
+                <component
+                    :is="image.link ? 'a' : 'div'"
+                    class="GalleryCompact_info"
+                    :href="image.link"
+                    target="_blank"
+                    @mouseenter="(e) => tooltipOpen(image.title, e)"
+                    @mouseleave="tooltipClose"
+                    v-if="image.title"
+                >
+                    <p>{{ image.title.slice(0, 100) }}</p>
+                </component>
+            
+                <img :src="image.src" :width="image.width" :height="image.height" :alt="image.alt">
+                <figcaption v-if="image.title">{{ image.title }}</figcaption>
             </div>
         </div>
     </div>
@@ -42,7 +55,7 @@ export default {
                 link: media.sourceLink,
                 ...media.sizes.m
             }))
-            
+
             this.$data.images = images
 
             if (!this.$refs.container) return

@@ -14,7 +14,6 @@ export default class Gallery extends Node {
         }
       },
       group: "block",
-      selectable: false,
       parseDOM: [
         {
           tag: "div[data-medias]",

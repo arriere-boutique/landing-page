@@ -1,4 +1,6 @@
 .TooltipBase {
     font: var(--ft-s-medium);
     border-radius: 6px;
+    pointer-events: none;
+    max-width: 850px;
 }

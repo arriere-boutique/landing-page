@@ -131,7 +131,11 @@ export default {
             this.$data.editor.commands.iframe(data)
         },
         insertImage (media) {
-            this.$data.editor.commands.image({ src: media.sizes.m.src })
+            this.$data.editor.commands.image({
+                src: media.sizes.m.src,
+                alt: media.alt,
+                title: media.title
+            })
         },
         insertGallery (medias) {
             this.$data.editor.commands.gallery({ medias })

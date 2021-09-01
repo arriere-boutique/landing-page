@@ -91,6 +91,7 @@ $fonts: (
     "ft": (
         "name": "Rubik, sans-serif",
         "sizes": (
+            "2xs": "8px/1.5",
             "xs": "12px/1.5",
             "s": "14px/1.5",
             "m": "16px/1.5",
@@ -119,6 +120,17 @@ $fonts: (
             "regular": 400,
             "medium": 500,
             "bold": 700
+        )
+    ),
+    "ft-icon": (
+        "name": "'Font Awesome 6 Pro'",
+        "sizes": (
+            "xs": "12px/1",
+            "s": "14px/1",
+            "m": "16px/1"
+        ),
+        "weights": (
+            "regular": 300
         )
     )
 );
