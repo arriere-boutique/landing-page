@@ -22,7 +22,7 @@
                                 </div>
                                 <div class="col-6 col-12@xs mt-15@xs d-flex fx-align-center d-block@xs">
                                     <label class="InputChoice mr-15">
-                                        <input type="radio" name="frequency" @click="formData.frequency = true" :checked="formData.frequency"> Quinzomadaire <i class="fal fa-question-circle fa-sm ml-5" @mouseenter="(e) => tooltipOpen('Tous les 15 jours, pour toujours rester à la page !', e)" @mouseleave="tooltipClose"></i>
+                                        <input type="radio" name="frequency" @click="formData.frequency = true" :checked="formData.frequency"> Dès que possible <i class="fal fa-question-circle fa-sm ml-5" @mouseenter="(e) => tooltipOpen('Reçois les dernières infos, guides et astuces dès que ça sort !', e)" @mouseleave="tooltipClose"></i>
                                     </label>
                                     <label class="InputChoice mt-15@xs">
                                         <input type="radio" name="frequency" @click="formData.frequency = false" :checked="!formData.frequency"> Mensuel <i class="fal fa-question-circle fa-sm ml-5" @mouseenter="(e) => tooltipOpen('Le concentré de toutes les nouveautés du mois.', e)" @mouseleave="tooltipClose"></i>
@@ -45,7 +45,7 @@
         <div class="bg-onyx-2xweak">
             <div class="FooterBase_nav Wrapper Wrapper--l">
                 <div class="FooterBase_links fx-grow row-xs">
-                    <div class="col-4 pv-60 col-12@s pv-20@s" v-for="(item, i) in items" :key="i">
+                    <div class="col-6 pv-60 col-12@s pv-20@s" v-for="(item, i) in items" :key="i">
                         <p class="ft-m-bold">{{ item.label }}</p>
 
                         <div class="FooterBase_navLink" v-for="(link, j) in item.items" :key="j">
@@ -75,6 +75,10 @@
                         <a class="FooterBase_socials fill-amber"  href="https://www.facebook.com/groups/etsy.en.france" target="_blank">
                             <icon-base name="brands/facebook" :width="20" />
                         </a>
+
+                        <a class="FooterBase_socials fill-amber"  href="https://www.instagram.com/arriereboutiquefr" target="_blank">
+                            <icon-base name="brands/instagram" :width="16" />
+                        </a>
                     </div>
                 </div>
             </div>
@@ -90,15 +94,13 @@ export default {
     components: { InputBase },
     data: () => ({
         items: [
-            { label: `Nous rejoindre`, items: [
-                { label: `Chaîne Youtube`, href: "https://www.youtube.com/channel/UCn1oYqWvUQvbE9DwlEVTgNg" },
-                { label: `Groupe d'entraide`, href: "https://www.facebook.com/groups/etsy.en.france" },
+            { label: `Apprenons ensemble !`, items: [
+                { label: `Apprendre sur Youtube`, href: "https://www.youtube.com/channel/UCn1oYqWvUQvbE9DwlEVTgNg" },
+                { label: `Me suivre sur Instagram`, href: "https://www.instagram.com/arriereboutiquefr" },
+                { label: `Rejoindre notre groupe d'entraide`, href: "https://www.facebook.com/groups/etsy.en.france" },
             ] },
             { label: "À propos", items: [
 
-            ] },
-            { label: "Liens importants", items: [
-                
             ] }
         ],
         formData: {

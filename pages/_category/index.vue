@@ -52,10 +52,19 @@
                         </filter-checkbox>
                     </div>
                 </div>
+
+                <div class="text-center">
+                    <button-base class="mt-10" :modifiers="['secondary', 'amber']" @click="categories = []" v-show="categories.length > 0">
+                        Voir tous les articles
+                    </button-base>
+                </div>
             </div>
         </div>
 
         <div class="bg-bg-light pv-40">
+            <div class="Wrapper">
+                <h2 class="ft-title-l-bold mb-30">Articles trouvés ({{ articles.length }})</h2>
+            </div>
             <div class="Wrapper Wrapper--s">
                 <article-block
                     v-for="article in articles"
@@ -113,9 +122,18 @@ export default {
         }
     },
     head () {
-        let meta = { }
+        let category = null
 
-        this.$store.commit('page/setProperty', meta)
+        if (this.$route.params.category && this.$route.params.category != 'blog') {
+            category = this.$slugToCategory(this.$route.params.category)
+        }
+
+        let meta = {
+            title: (category ? this.$t(`blog.categories.${category}.description`) : "Toutes les clés pour améliorer sa boutique Etsy") + this.$t('meta.append'),
+            meta: [
+                { hid: 'description', name: 'description', content: category ? `Tous mes conseils et astuces pour ` + this.$t(`blog.categories.${category}.description`).toLowerCase() : undefined }
+            ]
+        }
 
         return meta
     }

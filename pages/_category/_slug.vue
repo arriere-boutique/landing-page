@@ -20,13 +20,18 @@
 
         <div class="Wrapper Wrapper--s mt-40 pb-100">
             <text-body :value="article.content" />
+
+            <div class="mt-20 text-right">
+                <p v-if="updatedDate">Mis à jour le {{ updatedDate }}</p>
+                <p :class="{ 'color-ft-weak': updatedDate }">Publié le {{ createdDate }}</p>
+            </div>
         </div>
 
-        <div class="pv-40" :class="[ 'bg-current-2xweak' ]" v-if="similarArticles.length > 0">
+        <div class="pv-40" :class="[ 'bg-current-2xweak' ]">
             <div class="Wrapper Wrapper--l">
-                <author-block class="n-mt-60 mb-40" />
+                <!-- <author-block class="n-mt-60 mb-40" /> -->
 
-                <div class="text-center">
+                <div class="text-center" v-if="similarArticles.length > 0">
                     <p class="ft-title-l-bold color-current mb-20">
                         À lire ensuite
                     </p>
@@ -66,11 +71,17 @@ export default {
             articles = articles.filter(article => article._id !== this.article._id)
 
             return articles
+        },
+        updatedDate () {
+            return this.article.createdAt.isSame(this.article.updatedAt) ? null : this.article.updatedAt.format('DD MMM YYYY')
+        },
+        createdDate () {
+            return this.article.createdAt.format('DD MMM YYYY')
         }
     },
     head () {
         let meta = {
-            title: this.article.title + ` / L'Arrière Boutique, propulsez votre boutique Etsy`,
+            title: this.article.title + this.$t('meta.append'),
             meta: [
                 { hid: 'description', name: 'description', content: this.article.excerpt.replace(/(<([^>]+)>)/gi, "") }
             ],

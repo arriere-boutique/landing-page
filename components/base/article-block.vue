@@ -6,10 +6,12 @@
             <div class="fx-grow">
                 <h4 class="ArticleBlock_category">
                     <i class="fa-thin mr-3" :class="[ $theme(category).fa ]"></i> {{ $t(`blog.categories.${category}.label`) }}
+                    <span class="ArticleBlock_date"><i class="fa-thin fa-clock mr-3"></i> {{ date }}</span>
                 </h4>
                 <h4 class="ArticleBlock_title ellipsis-2">{{ title|specials }}</h4>
                 
                 <p class="ArticleBlock_excerpt">{{ excerpt|striptags|specials }}</p>
+
             </div>
         </div>
     </nuxt-link>
@@ -17,6 +19,7 @@
 
 <script>
 import { ModifiersMixin } from '@instant-coffee/core'
+import moment from 'moment'
 
 export default {
     name: 'ArticleBlock',
@@ -28,7 +31,14 @@ export default {
         image: { type: String },
         category: { type: String },
         content: { type: String },
-        slug: { type: String }
+        slug: { type: String },
+        createdAt: { type: Object },
+        updatedAt: { type: Object }
+    },
+    computed: {
+        date () {
+            return this.$props.updatedAt.fromNow()
+        }
     }
 }
 </script>

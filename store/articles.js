@@ -100,7 +100,9 @@ export default {
 
                 return {
                     ...item,
-                    thumbnail, cover
+                    thumbnail, cover,
+                    createdAt: moment(item.createdAt),
+                    updatedAt: moment(item.updatedAt)
                 }
             })
         },
