@@ -1,4 +1,5 @@
 require('dotenv').config()
+import redirectSSL from 'redirect-ssl'
 
 export default {
     head: {
@@ -61,9 +62,10 @@ export default {
         lazy: true
     },
 
-    serverMiddleware: {
-        '/api': '~/api'
-    },
+    serverMiddleware: [
+        { path: '/api', handler: '~/api' },
+        redirectSSL.create({ enabled: process.env.NODE_ENV === 'PRODUCTION' })
+    ],
 
     auth: {
         redirect: {

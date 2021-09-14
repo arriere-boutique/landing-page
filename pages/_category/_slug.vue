@@ -97,8 +97,8 @@ export default {
                             headline: this.article.title,
                             image: this.article.cover,
                             thumbnailUrl: this.article.thumbnail,
-                            dateCreated: this.article.createdAt,
-                            dateUpdated: this.article.updatedAt,
+                            dateCreated: this.article.createdAt.toISOString(),
+                            dateUpdated: this.article.updatedAt.toISOString(),
                             author: this.$authorData()
                         }
                     }

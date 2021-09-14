@@ -39,6 +39,7 @@
     "nuxt-i18n": "^6.15.4",
     "ohmyfetch": "^0.2.0",
     "raw-loader": "^4.0.2",
+    "redirect-ssl": "^3.0.0",
     "sequelize": "^4.38.1",
     "sharp": "^0.25.2",
     "shortid": "^2.2.15",
