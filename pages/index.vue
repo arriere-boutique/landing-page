@@ -15,7 +15,7 @@
                         <b>Toi et moi,</b> nous avons un rêve commun : faire connaître nos créations et valoriser le fait-main français. C'est pour cette raison que j'ai créé l'Arrière Boutique. Te transmettre mon expérience de manière simple et pragmatique pour que <b>tu puisses te concentrer sur ce qui te fait vibrer : la création. </b>
                     </p>
 
-                    <p class="ft-hand-xl text-right">Théotime.</p>
+                    <p class="ft-hand-l text-right">Théotime.</p>
                 </div>
             </div>
         </div>
