@@ -77,8 +77,11 @@ export default {
     },
     head () {
         let meta = {
+            meta: [
+                { hid: 'description', name: 'description', content: `J'ai créé l'Arrière Boutique pour te transmettre mon expérience de manière simple et pragmatique pour que tu puisses te concentrer sur ce qui te fait vibrer : la création.` }
+            ]
         }
-
+        
         this.$store.commit('page/setColor', 'amber')
         this.$store.commit('page/setProperty', meta)
 

@@ -131,7 +131,7 @@ export default {
         let meta = {
             title: (category ? this.$t(`blog.categories.${category}.description`) : "Toutes les clés pour améliorer sa boutique Etsy") + this.$t('meta.append'),
             meta: [
-                { hid: 'description', name: 'description', content: category ? `Tous mes conseils et astuces pour ` + this.$t(`blog.categories.${category}.description`).toLowerCase() : undefined }
+                { hid: 'description', name: 'description', content: category ? `Tous mes conseils et astuces pour ` + this.$t(`blog.categories.${category}.description`).toLowerCase() : `Bienvenue sur le blog de l'Arrière Boutique, où je te partage mes astuces et guides pour que tu puisses réussi sur Etsy.` }
             ]
         }
 
