@@ -57,7 +57,7 @@
 
 <script>
 import portrait1 from '@/assets/img/about/portrait_1.jpg'
-import outside1 from '@/assets/img/ambient/outside1.jpg'
+import outside1 from '@/assets/img/ambient/outside_1.jpg'
 
 export default {
     name: 'Homepage',
@@ -81,7 +81,7 @@ export default {
                 { hid: 'description', name: 'description', content: `J'ai créé l'Arrière Boutique pour te transmettre mon expérience de manière simple et pragmatique pour que tu puisses te concentrer sur ce qui te fait vibrer : la création.` }
             ]
         }
-        
+
         this.$store.commit('page/setColor', 'amber')
         this.$store.commit('page/setProperty', meta)
 
