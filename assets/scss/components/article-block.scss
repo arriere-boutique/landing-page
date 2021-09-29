@@ -97,7 +97,13 @@
 
     .ArticleBlock_title {
         font: var(--ft-title-s-bold);
-        @extend .ellipsis-3;
+        @extend .ellipsis-2;
+    }
+
+    .ArticleBlock_date {
+        display: block;
+        margin-left: 0;
+        @extend .ellipsis-1;
     }
 
     .ArticleBlock_content {

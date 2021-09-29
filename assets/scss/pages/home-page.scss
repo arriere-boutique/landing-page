@@ -1,0 +1,24 @@
+
+.HomePage_pictures {
+    width: 40%;
+    max-width: 500px;
+    flex-shrink: 0;
+    position: relative;
+    @include ratio(5);
+    margin-bottom: 40px;
+}
+
+.HomePage_picture {
+    width: 60%;
+    background-size: cover;
+    background-position: center;
+    border: 10px solid var(--color-bg-light);
+    @include ratio(75);
+}
+
+.HomePage_picture--2 {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    z-index: 5;
+}

@@ -6,22 +6,40 @@
     width: 100%;
     transition: all 150ms ease;
 
-    --header-height: 100px;
-}
+    --header-height: 90px;
 
-.HeaderBase_logo {
-    transition: all 150ms ease;
-    fill: var(--color-current);
-    position: relative;
-    z-index: 50;
+    &:hover {
+        background-color: var(--color-bg-light);
+    }
 }
 
 .HeaderBase_wrapper {
     height: var(--header-height);
     display: flex;
     align-items: center;
+    width: 100%;
     justify-content: space-between;
     transition: all 150ms ease;
+    padding: 0 20px;
+}
+
+.HeaderBase_left,
+.HeaderBase_right {
+    width: 40%;
+    flex-grow: 0;
+}
+
+.HeaderBase_right {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.HeaderBase_logo {
+    display: block;
+    transition: all 150ms ease;
+    fill: var(--color-current);
+    position: relative;
+    z-index: 50;
 }
 
 .HeaderBase_subNav {
@@ -180,10 +198,10 @@
 .HeaderBase.is-scrolled {
     background-color: var(--color-bg-light);
     @include box-shadow;
-    --header-height: 70px;
+    --header-height: 80px;
 
     .HeaderBase_logo {
-        transition: all 150ms ease;
+        transition: all 250ms ease;
         fill: var(--color-amber);
     }
 
@@ -194,7 +212,8 @@
 
 @include breakpoint-s {
 
-    .HeaderBase_nav {
+    .HeaderBase_left,
+    .HeaderBase_right  {
         display: none;
     }
 
