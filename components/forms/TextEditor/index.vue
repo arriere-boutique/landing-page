@@ -21,11 +21,12 @@
             </div>
         </editor-menu-bar>
 
-        <!-- <popin-link
+        <popin-link
             :is-active="state.current == 'linkSelect'"
-            @input="commands.link"
+            @input="editor.commands.link"
             @close="state.current = ''"
-        /> -->
+            v-if="editor"
+        />
 
         <popin-youtube
             :is-active="state.current == 'iframe'"

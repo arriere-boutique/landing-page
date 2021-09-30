@@ -13,6 +13,7 @@ export default class Link extends Mark {
         return {
             attrs: {
                 link: { default: null },
+                target: { default: '_self' },
                 context: { default: null }
             },
             inclusive: false,
@@ -21,13 +22,15 @@ export default class Link extends Mark {
                 getAttrs: dom => {
                     return {
                         link: dom.getAttribute('href'),
+                        target: dom.getAttribute('target'),
                         context: JSON.parse(dom.getAttribute('data-context')),
                     }
                 },
             }],
             toDOM: node => ['a', {
                 ['data-context']: JSON.stringify(node.attrs.context).replace('&quot;', `'`),
-                href: node.attrs.link
+                href: node.attrs.link,
+                target: node.attrs.target
             }, 0]
         }
     }
@@ -42,7 +45,7 @@ export default class Link extends Mark {
         }
     }
 
-    get view() {
-        return LinkBase
-    }
+    // get view() {
+    //     return LinkBase
+    // }
 }

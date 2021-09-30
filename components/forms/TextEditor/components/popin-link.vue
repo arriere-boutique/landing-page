@@ -15,6 +15,8 @@
                         placeholder: 'https://antiswipe.lgbt'
                     }"
                 />
+
+                <input type="checkbox" v-model="blank"> Blank
             </div>
         </template>
 
@@ -23,7 +25,7 @@
 
             <button-base
                 :modifiers="['s']"
-                @click="$emit('input', getForm())"
+                @click="onSubmit"
             >
                 Insérer le lien
             </button-base>
@@ -41,15 +43,22 @@ export default {
         isActive: { type: Boolean, default: false }
     },
     data: () => ({
+        blank: true,
         formData: {
-            link: ''
+            link: '',
+            target: '_blank',
         }
     }),
     methods: {
         getForm () {
             return {
-                ...this.formData
+                ...this.formData,
+                target: this.$data.blank ? '_blank' : '_self'
             }
+        },
+        onSubmit () {
+            this.$emit('input', this.getForm())
+            this.$emit('close')
         }
     }
 }
