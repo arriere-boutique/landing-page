@@ -87,7 +87,7 @@ export default {
         }
         
         await this.$store.dispatch('articles/fetch', {
-            query: { $orCategory: this.$data.categories ? this.$data.categories.join(',') : undefined }
+            query: { $orCategory: this.$data.categories ? this.$data.categories.join(',') : undefined, status: 'published' }
         })
     },
     data: () => ({
@@ -95,7 +95,7 @@ export default {
         cancelToken: null
     }),
     computed: {
-        articles () { return this.$store.getters['articles/find']() },
+        articles () { return this.$store.getters['articles/find']({ status: 'published' }) },
         featuredArticle () { return this.articles.length > 0 ? this.articles[0] : null }
     },
     watch: {

@@ -14,8 +14,6 @@
                     <p class="max-width-l mt-10 ft-l">
                         <b>Toi et moi,</b> nous avons un rêve commun : faire connaître nos créations et valoriser le fait-main français. C'est pour cette raison que j'ai créé l'Arrière Boutique. Te transmettre mon expérience de manière simple et pragmatique pour que <b>tu puisses te concentrer sur ce qui te fait vibrer : la création. </b>
                     </p>
-
-                    <p class="ft-hand-l text-right">Théotime.</p>
                 </div>
             </div>
         </div>
@@ -63,7 +61,7 @@ export default {
     name: 'Homepage',
     async fetch () {
         await this.$store.dispatch('articles/fetch', {
-            query: {}
+            query: { status: 'published' }
         })
     },
     data: () => ({
@@ -71,7 +69,7 @@ export default {
         categories: ['identity', 'value', 'seo']
     }),
     computed: {
-        articles () { return this.$store.getters['articles/find']() },
+        articles () { return this.$store.getters['articles/find']({ status: 'published' }) },
         articlesByCategory () { return this.$store.getters['articles/groupBy']('category') },
         featuredArticle () { return this.articles.length > 0 ? this.articles[0] : null }
     },
