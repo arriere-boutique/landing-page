@@ -1,5 +1,5 @@
 <template>
-    <div class="Block">
+    <div class="b">
         <div class="p-15" v-if="currentStatus">
             <p class="ft-m-bold mb-20">Options de publication</p>
 

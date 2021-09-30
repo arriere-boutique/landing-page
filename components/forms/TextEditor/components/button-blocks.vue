@@ -2,17 +2,17 @@
     <button-editor
         :sub-menu="true"
         :is-active="state.active || (currentNode && currentNode.level ? true : false)"
-        icon="text-size"
+        icon="cube"
         @click="state.active = !state.active"
     >
         <template slot="list">
             <div
                 v-for="option in options"
-                class="TextBody item Block ellipsis-1"
+                class="TextBody item Block"
                 :class="[{ 'is-active': currentNode && option.value == currentNode.level }, ...option.classes]"
                 @click="$emit('update', { block: option.value })"
                 :key="option.value"
-                v-html="sample"
+                v-html="option.label + ' | ' + sample"
             >
             </div>
         </template>
@@ -23,15 +23,15 @@
 export default {
     name: 'ButtonHeadings',
     props: {
-        sample: { type: String, default: '<b>Voyez ce koala</b> fou qui mange des journaux et des photos dans un bungalow. ' },
+        sample: { type: String, default: '<b>Voyez ce koala</b> fou qui mange des journaux. ' },
         currentNode: { type: [Object, Boolean], default: false },
         options: { type: Array, default: () => ([
+            { label: 'Image', value: 'image', classes: ['Block--image'] },
             { label: 'Amber', value: 'amber', classes: ['Block--amber'] },
             { label: 'amethyst', value: 'amethyst', classes: ['Block--amethyst'] },
             { label: 'ruby', value: 'ruby', classes: ['Block--ruby'] },
             { label: 'onyx', value: 'onyx', classes: ['Block--onyx'] },
-            { label: 'malachite', value: 'malachite', classes: ['Block--malachite'] },
-            { label: 'Image display', value: 'display', classes: ['Block--display'] },
+            { label: 'malachite', value: 'malachite', classes: ['Block--malachite'] }
         ]) }
     },
     data: () => ({
@@ -50,5 +50,7 @@ export default {
         border-radius: 6px;
         color: var(--color-ft);
         text-align: left;
+        overflow: hidden;
+        margin: 5px 0;
     }
 </style>

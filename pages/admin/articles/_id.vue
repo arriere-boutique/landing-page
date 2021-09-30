@@ -1,8 +1,8 @@
 <template>
     <div class="EditorPage">
-        <div class="Wrapper Wrapper--l pv-60">
+        <div class="p-60">
             <div class="row">
-                <div class="col-7">
+                <div class="col-8">
                     <div class="EditorPage_image ActionMenu_hover" :style="{ '--background': cover }" @click="state.mediaLibrary = true">
                         <action-menu
                             :items="[
@@ -29,12 +29,13 @@
                     />
 
                     <text-editor
+                        class="mt-30"
                         v-model="formData.content"
                         @open-library="openLibrary"
                         v-if="!state.isLoading"
                     />
                 </div>
-                <div class="col-5">
+                <div class="col-4">
                     <div class="p-sticky" style="--offset: 40px;">
                         <entity-control
                             :status="formData.status"

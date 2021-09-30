@@ -111,11 +111,32 @@
     a {
         text-decoration: underline;
     }
+
+    .Block--image {
+        padding: 0;
+        font-size: 0;
+
+        img {
+            margin: 0;
+        }
+
+        p:not(:first-child) { 
+            font: var(--ft-m);
+            margin: 5px 0 0 0;
+            padding-top: 15px;
+            padding-left: 15px;
+            border-left: 2px solid var(--color-border);
+        }
+    }
 }
 
 .TextEditor .TextBody {
     font: var(--ft-l);
     line-height: 1.4;
+    
+    .ProseMirror {
+        padding: 40px;
+    }
 
     h1 {
         font: var(--ft-title-xl-bold);
@@ -148,6 +169,20 @@
         width: 100%;
         margin: 40px 0;
     }
+
+    & > img,
+    p > img {
+        max-width: 100%;
+        margin: 40px 0;
+    }
+
+    .Block--image {
+
+        img {
+            margin: 0;
+        }
+    }
+
 }
 
 .TextBody--s {

@@ -102,7 +102,7 @@ export default {
                 { id: 'blockquote', label: 'Citation', icon: 'quote-right' },
                 { id: 'bullet_list', label: 'Liste', icon: 'list-ul' },
                 { id: 'ordered_list', label: 'Liste numérotée', icon: 'list-ol' },
-                { id: 'gallery', label: 'Galerie', icon: 'image', command: () => this.$emit('open-library', {
+                { id: 'gallery', label: 'Galerie', icon: 'images', command: () => this.$emit('open-library', {
                     props: { max: 3 }, onInput: (v) => this.insertGallery(v)
                 }) },
             ], [

@@ -4,17 +4,12 @@
 
 .TextEditor_content {
     outline: none;
-    margin-top: 20px;
 
     .ProseMirror {
         min-height: 200px;
         border: 1px solid var(--color-border);
+        border-top: none;
         outline: none;
-
-        &:focus {
-            border-color: transparent;
-            border-bottom-color: var(--color-border);
-        }
     }
 }
 
