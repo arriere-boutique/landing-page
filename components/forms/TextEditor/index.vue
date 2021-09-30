@@ -44,7 +44,7 @@ import { Heading, Bold, Blockquote, Image, History, Italic, OrderedList, BulletL
 import Link from '@/plugins/tiptap/Link'
 import Iframe from '@/plugins/tiptap/Iframe'
 import Gallery from '@/plugins/tiptap/Gallery'
-import InsertBlock from '@/plugins/tiptap/insertBlock'
+import InsertBlock from '@/plugins/tiptap/InsertBlock'
 import StyledBlock from '@/plugins/tiptap/StyledBlock'
 import ButtonEditor from './components/button-editor'
 import ButtonHeadings from './components/button-headings'
