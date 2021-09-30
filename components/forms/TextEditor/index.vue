@@ -44,15 +44,17 @@ import { Heading, Bold, Blockquote, Image, History, Italic, OrderedList, BulletL
 import Link from '@/plugins/tiptap/Link'
 import Iframe from '@/plugins/tiptap/Iframe'
 import Gallery from '@/plugins/tiptap/Gallery'
+import InsertBlock from '@/plugins/tiptap/insertBlock'
 import StyledBlock from '@/plugins/tiptap/StyledBlock'
 import ButtonEditor from './components/button-editor'
 import ButtonHeadings from './components/button-headings'
+import ButtonInsert from './components/button-insert'
 import ButtonBlocks from './components/button-blocks'
 import MediaLibrary from '@/components/interactive/media-library.vue'
 
 export default {
     name: 'TextEditor',
-    components: { EditorContent, EditorMenuBar, ButtonEditor, ButtonHeadings, ButtonBlocks, MediaLibrary },
+    components: { EditorContent, EditorMenuBar, ButtonEditor, ButtonHeadings, ButtonInsert, ButtonBlocks, MediaLibrary },
     props: {
         value: { type: String, default: '' },
         editable: { type: Boolean, default: true }
@@ -80,7 +82,8 @@ export default {
                 new Blockquote(),
                 new Image(),
                 new History(),
-                new Link(), new StyledBlock(), new Iframe, new Gallery()
+                new Link(), new StyledBlock(), new Iframe, new Gallery(),
+                new InsertBlock()
             ],
             content: this.$props.value,
         })
@@ -107,6 +110,7 @@ export default {
                 }) },
             ], [
                 { id: 'styledBlock', component: 'button-blocks', value: 'styledBlock', isNode: true, onUpdate: (v) => this.$data.editor.commands.styledBlock(v) },
+                { id: 'insertBlock', component: 'button-insert', value: 'insertBlock', isNode: true, onUpdate: (v) => this.$data.editor.commands.insertBlock(v) },
             ]
         ]
 
