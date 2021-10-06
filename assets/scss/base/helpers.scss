@@ -63,13 +63,6 @@
 
 @each $color in $main-colors {
 
-    .is-#{$color} {
-        --current: var(--color-#{$color});
-        --current-weak: var(--color-#{$color}-weak);
-        --current-xweak: var(--color-#{$color}-xweak);
-        --current-2xweak: var(--color-#{$color}-2xweak);
-    }
-
     .fill-#{$color} {
         fill: var(--color-#{$color});
 
@@ -79,9 +72,9 @@
     }
 }
 
-.color-current {
-    color: var(--current);
-}
+.color-current { color: var(--current); }
+.color-accent { color: var(--color-accent); }
+.color-accent-weak { color: var(--color-accent-weak); }
 
 .bg-current { background-color: var(--current); }
 .bg-current-weak { background-color: var(--current-weak); }
@@ -112,4 +105,17 @@
     color: var(--current);
     border-radius: 4px;
     background-color: var(--current-2xweak);
+}
+
+.marker {
+    line-height: 1;
+    position: absolute;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    transform: translate3d(-20%, -90%, 0) rotate(-10deg);
+}
+
+.strike {
+    text-decoration: line-through;
 }

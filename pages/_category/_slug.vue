@@ -1,12 +1,12 @@
 <template>
-    <article class="ArticlePage ArticlePage--ruby bg-bg-light" :class="[ 'is-' + $theme(article.category).color ]" v-if="article">
+    <article class="ArticlePage bg-bg-light" v-if="article">
         <div class="ArticlePage_banner pt-20 pb-100">
             <div class="Wrapper">
                 <p class="ArticlePage_category mb-5">
                     <i class="fa-thin mr-5" :class="[ $theme(article.category).fa ]"></i> {{ $t(`blog.categories.${article.category}.label`) }}
                 </p>
 
-                <h1 class="ArticlePage_title ft-title-3xl-bold ft-title-xl-bold@s">{{ article.title|specials }}</h1>
+                <h1 class="ArticlePage_title ft-3xl-bold ft-xl-bold@s">{{ article.title|specials }}</h1>
 
                 <text-body class="ArticlePage_excerpt mt-20" :value="article.excerpt" v-if="article.excerpt" />
             </div>
@@ -28,16 +28,16 @@
         </div>
 
         <div class="pv-40" :class="[ 'bg-current-2xweak' ]">
-            <div class="Wrapper Wrapper--l">
+            <div class="Wrapper Wrapper--m">
                 <!-- <author-block class="n-mt-60 mb-40" /> -->
 
                 <div class="text-center" v-if="similarArticles.length > 0">
-                    <p class="ft-title-l-bold color-current mb-20">
+                    <p class="ft-l-bold color-current mb-20">
                         À lire ensuite
                     </p>
 
                     <div class="row-xs">
-                        <div class="col-4 col-12@xs mv-5" v-for="similar in similarArticles" :key="similar._id">
+                        <div class="col-3 col-12@xs mv-5" v-for="similar in similarArticles" :key="similar._id">
                             <article-block
                                 :modifiers="['horizontal']"
                                 v-bind="{ ...similar, image: similar.thumbnail }"
@@ -106,13 +106,7 @@ export default {
             ]
         }
 
-        switch (this.article.category) {
-            case 'news': this.$store.commit('page/setColor', 'amber'); break;
-            case 'identity': this.$store.commit('page/setColor', 'amethyst'); break;
-            case 'value': this.$store.commit('page/setColor', 'ruby'); break;
-            case 'seo': this.$store.commit('page/setColor', 'malachite'); break;
-            default: this.$store.commit('page/setColor', 'amber'); break;
-        }
+        this.$store.commit('page/setColor', this.$theme(this.article.category).color);
 
         return meta
     }

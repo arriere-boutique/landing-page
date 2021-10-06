@@ -3,7 +3,7 @@ export default {
     state: () => ({
         body: {
             classes: [],
-            color: 'amber'
+            color: 'gum'
         },
         meta: {
             title: ''

@@ -2,34 +2,33 @@
 }
 
 .ArticlePage_title {
-    color: var(--color-current);
+    color: var(--color-accent);
 }
 
 .ArticlePage_banner {
-    background-color: var(--color-current-2xweak);
+    background-color: var(--color-current-xweak);
 }
 
 .ArticlePage_excerpt {
 
     &.TextBody {
-        font: var(--ft-title-m);
+        font: var(--ft-l);
         line-height: 1.6;
     }
 }
 
 .ArticlePage_category {
     font: var(--ft-m-medium);
-    color: var(--color-amethyst-weak);
     text-transform: uppercase;
     letter-spacing: 2px;
     margin-bottom: 15px;
-    color: var(--color-current-weak);
+    color: var(--color-accent-weak);
 }
 
 .ArticlePage_cover {
     height: 300px;
     overflow: hidden;
-    background-color: var(--color-current-weak);
+    background-color: var(--color-accent-weak);
     border-radius: 4px;
 
     img {

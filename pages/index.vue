@@ -3,49 +3,48 @@
         <div class="">
             <div class="Wrapper Wrapper--l d-flex fx-align-center">
                 <div class="HomePage_pictures d-none@s">
-                    <div class="HomePage_picture HomePage_picture--1" :style="{ backgroundImage: `url(${assets.outside1})` }"></div>
-                    <div class="HomePage_picture HomePage_picture--2" :style="{ backgroundImage: `url(${assets.portrait1})` }"></div>
+                    <img class="HomePage_picture" :src="assets.blob1">
                 </div>
 
-                <div class="fx-grow pl-60 pl-0@s pb-40@s">
-                    <p class="Title_secondary color-amber-weak">Bienvenue dans</p>
-                    <h1 class="ft-title-3xl-bold ft-title-xl-bold@xs">L'Arrière Boutique</h1>
+                <div class="fx-grow pl-30 pl-0@s pb-40@s p-relative">
+                    <div class="marker ft-hand-xl color-accent">Bienvenue !</div>
 
-                    <p class="max-width-l mt-10 ft-l">
-                        <b>Toi et moi,</b> nous avons un rêve commun : faire connaître nos créations et valoriser le fait-main français. C'est pour cette raison que j'ai créé l'Arrière Boutique. Te transmettre mon expérience de manière simple et pragmatique pour que <b>tu puisses te concentrer sur ce qui te fait vibrer : la création. </b>
-                    </p>
+                    <div class="max-width-l mt-10 ft-l">
+                        <p><b>Toi et moi,</b> nous avons un rêve commun : faire connaître nos créations et valoriser le fait-main français. C'est pour cette raison que j'ai créé l'Arrière Boutique.</p>
+
+                        <p class="mt-20 color-accent ft-bold">Te transmettre mon expérience de manière simple et pragmatique pour que <b>tu puisses te concentrer sur ce qui te fait vibrer : la création. </b></p>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="pv-60" :class="[`bg-${$theme(category).color}-2xweak`]" v-for="category in categories.filter(c => articlesByCategory[c])" :key="category">
+        <div class="pv-60" :class="[`bg-bg-light`]">
             <div class="Wrapper">
-                <div class="d-flex fx-align-end mb-20">
-                    <div class="fx-grow">
-                        <h2 class="ft-title-xl-bold mb-10 ft-title-l-bold@xs" :class="[`color-${$theme(category).color}`]">
-                            {{ $t(`blog.categories.${category}.label`) }}
-                        </h2>
+                <h2 class="ft-2xl-bold">Articles qui pourraient t'intéresser</h2>
+                <p class="max-width-l mt-5">Te transmettre mon expérience de manière simple et pragmatique pour que tu puisses te concentrer sur ce qui te fait vibrer : la création.</p>
 
-                        <p class="ft-l">{{ $t(`blog.categories.${category}.description`) }}</p>
+                <div class="mt-30 row-s">
+                    <div class="col-4">
+                        <article-block :modifiers="['story']" v-bind="{ ...articles[0], image: articles[0].thumbnail }" />
                     </div>
-
-                    <button-base tag="nuxt-link" class="fx-no-shrink d-none@xs" :modifiers="[$theme(category).color, 'secondary']" icon-after="long-arrow-right" :attrs="{ to: localePath({ name: 'category', params: { category: $theme(category).slug } }) }">
-                        Toute la catégorie
-                    </button-base>
+                    <div class="col-8">
+                        <div class="row-s">
+                            <div v-for="article in articles.slice(1, 7)" class="col-4 mb-30" :key="article.slug">
+                                <article-block v-bind="{ ...article, image: article.thumbnail }" />
+                            </div>
+                        </div>
+                    </div>
                 </div>
+            </div>
+        </div>
+        <div class="pv-60" :class="[`bg-gum-xweak`]">
+            <div class="Wrapper">
+                <h2 class="ft-2xl-bold">Les vidéos <span class="color-accent strike">pour ceux qui n'aiment pas lire</span></h2>
+                <p class="max-width-l mt-5">Te transmettre mon expérience de manière simple et pragmatique pour que tu puisses te concentrer sur ce qui te fait vibrer : la création.</p>
 
-                <article-block
-                    :modifiers="['l']"
-                    v-bind="{ ...articlesByCategory[category][0], image: articlesByCategory[category][0].thumbnail }"
-                    :key="articlesByCategory[category][0].slug"
-                />
-
-                <div class="row-s">
-                    <div class="col-4 mv-20 col-12@s" v-for="article in articlesByCategory[category].slice(1, 3)" :key="article.slug">
-                        <article-block
-                            :modifiers="['horizontal']"
-                            v-bind="{ ...article, image: article.thumbnail }"
-                        />
+                <div class="mt-30 row-xs">
+                    <div v-for="article in articles.slice(0, 4)" class="col-3" :key="article.slug">
+                        <article-block v-bind="{ ...article, image: article.thumbnail }" :modifiers="['story']" />
                     </div>
                 </div>
             </div>
@@ -54,8 +53,7 @@
 </template>
 
 <script>
-import portrait1 from '@/assets/img/about/portrait_1.jpg'
-import outside1 from '@/assets/img/ambient/outside_1.jpg'
+import blob1 from '@/assets/img/blob/blob-home.jpg'
 
 export default {
     name: 'Homepage',
@@ -65,13 +63,10 @@ export default {
         })
     },
     data: () => ({
-        assets: { portrait1, outside1 },
-        categories: ['identity', 'value', 'seo']
+        assets: { blob1 }
     }),
     computed: {
-        articles () { return this.$store.getters['articles/find']({ status: 'published' }) },
-        articlesByCategory () { return this.$store.getters['articles/groupBy']('category') },
-        featuredArticle () { return this.articles.length > 0 ? this.articles[0] : null }
+        articles () { return [ ...this.$store.getters['articles/find']({ status: 'published' }), ...this.$store.getters['articles/find']({ status: 'published' }) ] }
     },
     head () {
         let meta = {
@@ -80,7 +75,7 @@ export default {
             ]
         }
 
-        this.$store.commit('page/setColor', 'amber')
+        this.$store.commit('page/setColor', 'gum')
         this.$store.commit('page/setProperty', meta)
 
         return meta

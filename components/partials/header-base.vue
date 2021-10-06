@@ -51,10 +51,7 @@
             </div>
 
             <nuxt-link class="HeaderBase_logo" :to="localePath({ name: '/' })">
-                <icon-base
-                    name="logo/logo-main"
-                    :width="state.isScrolled ? 65 : 85"
-                />
+                L'Arrière Boutique
             </nuxt-link>
 
             <div class="HeaderBase_right">
@@ -116,12 +113,12 @@ export default {
     },
     mounted () {
         this.$data.itemsLeft = {
-            articles: { label: 'Améliorer sa boutique', path: { name: 'category', params: { category: 'blog' } }, items: [
+            articles: { label: 'Comprendre', path: { name: 'category', params: { category: 'blog' } }, items: [
                 { category: 'identity', path: { name: 'category', params: { category: this.$theme('identity').slug } } },
                 { category: 'value', path: { name: 'category', params: { category: this.$theme('value').slug } } },
                 { category: 'seo', path: { name: 'category', params: { category: this.$theme('seo').slug } } }
             ], tags: [] },
-            youtube: { label: 'Apprendre en vidéos', href: 'https://www.youtube.com/channel/UCn1oYqWvUQvbE9DwlEVTgNg' }
+            youtube: { label: 'Boutique', href: 'https://www.youtube.com/channel/UCn1oYqWvUQvbE9DwlEVTgNg' }
         }
 
         if (process.server) return

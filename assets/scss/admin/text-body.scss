@@ -4,13 +4,13 @@
     color: var(--color-ft);
 
     h1, h2, h3, h4 {
-        color: var(--color-ft);
+        color: var(--color-accent);
         max-width: 85%;
         margin-left: -30px;
     }
 
     h1 {
-        font: var(--ft-title-3xl);
+        font: var(--ft-3xl);
         font-weight: bold;
         margin-top: 80px;
         margin-bottom: 20px;
@@ -21,7 +21,7 @@
     }
 
     h2 {
-        font: var(--ft-title-2xl);
+        font: var(--ft-2xl);
         font-weight: bold;
         margin-top: 60px;
         margin-bottom: 30px;
@@ -45,7 +45,7 @@
     }
 
     blockquote {
-        font: var(--ft-title-l);
+        font: var(--ft-l);
         color: var(--color-ft);
         line-height: 1.5;
         padding: 0 0 0 40px;
@@ -139,11 +139,11 @@
     }
 
     h1 {
-        font: var(--ft-title-xl-bold);
+        font: var(--ft-xl-bold);
     }
 
     h2 {
-        font: var(--ft-title-xl-bold);
+        font: var(--ft-xl-bold);
     }
 
     h3 {
@@ -153,6 +153,7 @@
     h1, h2, h3, h4 {
         max-width: 100%;
         margin-left: 0px;
+        color: var(--color-ft);
     }
 
     .VideoIframe {
@@ -161,7 +162,7 @@
     }
 
     blockquote {
-        font: var(--ft-title-m);
+        font: var(--ft-m);
         width: 100%;
     }
 
@@ -237,11 +238,11 @@
         }
 
         h1 {
-            font: var(--ft-title-xl);
+            font: var(--ft-xl);
         }
     
         h2 {
-            font: var(--ft-title-xl);
+            font: var(--ft-xl);
         }
     
         h3 {
@@ -261,7 +262,7 @@
         }
 
         blockquote {
-            font: var(--ft-title-l);
+            font: var(--ft-l);
             line-height: 1.5;
             padding: 0 0 0 20px;
             width: auto;

@@ -63,7 +63,7 @@
 
         <div class="bg-bg-light pv-40">
             <div class="Wrapper">
-                <h2 class="ft-title-l-bold mb-30">Articles trouvés ({{ articles.length }})</h2>
+                <h2 class="ft-l-bold mb-30">Articles trouvés ({{ articles.length }})</h2>
             </div>
             <div class="Wrapper Wrapper--s">
                 <article-block

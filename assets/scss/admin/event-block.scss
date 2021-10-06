@@ -31,7 +31,7 @@
 }
 
 .EventBlock_title {
-    font: var(--ft-title-l-medium);
+    font: var(--ft-l-medium);
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
@@ -80,7 +80,7 @@
 .EventBlock--s {
 
     .EventBlock_title {
-        font: var(--ft-title-m-medium);
+        font: var(--ft-m-medium);
         -webkit-line-clamp: 1;
         min-height: 0;
         margin: 10px 0;

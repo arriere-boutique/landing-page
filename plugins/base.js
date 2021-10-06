@@ -24,10 +24,10 @@ Vue.mixin({
     },
     data: () => ({
         $categories: {
-            news: { color: 'amber', fa: 'fa-thumbtack', slug: 'actualite' },
-            seo: { color: 'malachite', fa: 'fa-search', slug: 'referencement-seo' },
-            identity: { color: 'amethyst', fa: 'fa-store', slug: 'identite-de-marque' },
-            value: { color: 'ruby', fa: 'fa-gem', slug: 'valeur-percue' }
+            news: { color: 'gum', fa: 'fa-thumbtack', slug: 'actualite' },
+            seo: { color: 'pond', fa: 'fa-search', slug: 'referencement-seo' },
+            identity: { color: 'skylight', fa: 'fa-store', slug: 'identite-de-marque' },
+            value: { color: 'mango', fa: 'fa-gem', slug: 'valeur-percue' }
         }
     }),
     methods: {
@@ -43,7 +43,7 @@ Vue.mixin({
             this.$store.commit('tooltips/close')
         },
         $theme (value) {
-            let theme = { color: 'amber', fa: 'fa-heart' }
+            let theme = { color: 'pond', fa: 'fa-heart' }
 
             theme = this.$data.$categories[value]
 

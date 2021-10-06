@@ -4,6 +4,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=STIX+Two+Text:wght@500;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
+@font-face {
+    font-family: 'Kindness Matters';
+    src: url('../fonts/kindness/KindnessMatters-Regular.woff2') format('woff2'),
+        url('../fonts/kindness/KindnessMatters-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
 
 html {
     scroll-behavior: smooth;
@@ -16,4 +24,9 @@ body {
 
 b b {
     font-weight: 800;
+}
+
+.ft-hand-l,
+.ft-hand-xl {
+    letter-spacing: -0.05em;
 }

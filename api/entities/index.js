@@ -11,7 +11,7 @@ const Reaction = require('./reaction')
 const Subscriber = require('./subscriber')
 
 
-mongoose.connect(process.env.MONGO, { useNewUrlParser: true })
+mongoose.connect(process.env.MONGO, { useNewUrlParser: true, useUnifiedTopology: true })
 
 exports.user = User
 exports.event = Event

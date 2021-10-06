@@ -3,16 +3,12 @@
         <div class="ArticleBlock_image" :style="{ backgroundImage: `url(${image})` }"></div>
 
         <div class="ArticleBlock_content">
-            <div class="fx-grow">
-                <h4 class="ArticleBlock_category">
-                    <i class="fa-thin mr-3" :class="[ $theme(category).fa ]"></i> {{ $t(`blog.categories.${category}.label`) }}
-                    <span class="ArticleBlock_date"><i class="fa-thin fa-clock mr-3"></i> {{ date }}</span>
-                </h4>
-                <h4 class="ArticleBlock_title ellipsis-2">{{ title|specials }}</h4>
-                
-                <p class="ArticleBlock_excerpt">{{ excerpt|striptags|specials }}</p>
+            <h4 class="ArticleBlock_category">
+                {{ $t(`blog.categories.${category}.label`) }}
+                <!-- <span class="ArticleBlock_date"><i class="fa-thin fa-clock mr-3"></i> {{ date }}</span> -->
+            </h4>
 
-            </div>
+            <h4 class="ArticleBlock_title ellipsis-3">{{ title|specials }}</h4>
         </div>
     </nuxt-link>
 </template>

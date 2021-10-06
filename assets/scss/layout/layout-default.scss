@@ -1,5 +1,5 @@
 .LayoutDefault {
-    background-color: var(--color-current-2xweak);
+    background-color: var(--color-current-xweak);
 }
 
 .LayoutDefault_content {
@@ -12,6 +12,8 @@
         --color-current: var(--color-#{$color});
         --color-current-weak: var(--color-#{$color}-weak);
         --color-current-xweak: var(--color-#{$color}-xweak);
-        --color-current-2xweak: var(--color-#{$color}-2xweak);
+
+        --color-accent: var(--color-#{map-get($accent-colors, $color)});
+        --color-accent-weak: var(--color-#{map-get($accent-colors, $color)}-weak);
     }
 }

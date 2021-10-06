@@ -3,7 +3,7 @@
         <div class="bg-amber-2xweak pv-60">
             <div class="Wrapper Wrapper--l">
                 <div class="d-flex d-block@s">
-                    <p class="ft-title-xl-bold width-xs fx-no-shrink mb-20@s">5000€ / mois sans rien faire ?</p>
+                    <p class="ft-xl-bold width-xs fx-no-shrink mb-20@s">5000€ / mois sans rien faire ?</p>
                     <div class="ft-l">
                         <p>
                             <b>Soyons sérieux !</b> Développer une marque et commencer à vivre de ses créations prend du temps et beaucoup d'efforts. Je n'ai aucun intérêt à te vendre du rêve. Mais je suis là pour t'aider à faire rêver à tes clients grâce à tes créations originales.

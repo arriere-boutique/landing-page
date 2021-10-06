@@ -38,12 +38,52 @@ $gutters: (
 );
 
 $colors: (
-    "ft": #000000,
+    "ft": #363636,
     "ft-weak": #C6C6C6,
     "ft-xweak": #ddd9e8,
     "ft-light": #ffffff,
     
     "white": #ffffff,
+
+    "precious": #7156ec,
+    "precious-weak": #947ff5,
+    "precious-xweak": #fff4fd,
+
+    "skylight": #5b70c6,
+    "skylight-weak": #94b1e9,
+    "skylight-xweak": #f2f2ff,
+
+    "pond": #5eaaaf,
+    "pond-weak": #99d6d2,
+    "pond-xweak": #f6fffd,
+    
+    "gum": #f6698f,
+    "gum-weak": #f181a3,
+    "gum-xweak": #fff6f8,
+    
+    "mango": #ffd341,
+    "mango-weak": #ffe353,
+    "mango-xweak": #feffef,
+
+    "bg-light": #ffffff,
+    "bg-weak": #C6C6C6,
+    "bg-xweak": #FBFBFB,
+
+    "border": #e4e4e4,
+    "border-weak": #f1f1f1,
+    "border-strong": #B3B3B3,
+
+    "disabled": #d3d4dc,
+    "error": #FF2D42,
+    "success": #10c773,
+
+    "canva": #08c1da,
+    "canva-blue": #3034a6,
+    "canva-purple": #7b28e5,
+
+    "shadow": rgba(207, 215, 231, 0.3),
+
+    // DEPRECATED
 
     "onyx": #000000,
     "onyx-weak": #4b4b4b,
@@ -68,28 +108,16 @@ $colors: (
     "ruby": #9E0745,
     "ruby-weak": #D1416D,
     "ruby-xweak": #FBBDC4,
-    "ruby-2xweak": #fff0f4,
-
-    "bg-light": #ffffff,
-    "bg-weak": #C6C6C6,
-    "bg-xweak": #FBFBFB,
-
-    "border": #e4e4e4,
-    "border-weak": #f1f1f1,
-    "border-strong": #B3B3B3,
-
-    "disabled": #d3d4dc,
-    "error": #FF2D42,
-    "success": #10c773,
-
-    "canva": #08c1da,
-    "canva-blue": #3034a6,
-    "canva-purple": #7b28e5,
-
-    "shadow": rgba(207, 215, 231, 0.3)
+    "ruby-2xweak": #fff0f4
 );
 
-$main-colors: ("onyx", "amethyst", "amber", "malachite", "ruby");
+$main-colors: ("gum", "mango", "pond", "skylight");
+$accent-colors: (
+    "gum": "pond",
+    "mango": "gum",
+    "skylight": "precious",
+    "pond": "skylight"
+);
 
 $fonts: (
     "ft": (
@@ -102,23 +130,7 @@ $fonts: (
             "l": "18px/1.5",
             "xl": "20px/1.5",
             "2xl": "24px/1.5",
-        ),
-        "weights": (
-            "regular": 400,
-            "medium": 500,
-            "bold": 700
-        )
-    ),
-    "ft-title": (
-        "name": "'STIX Two Text', serif",
-        "sizes": (
-            "xs": "17px/1.2",
-            "s": "19px/1.2",
-            "m": "22px/1.2",
-            "l": "26px/1.2",
-            "xl": "32px/1.1",
-            "2xl": "36px/1.2",
-            "3xl": "40px/1.2"
+            "3xl": "34px/1.25",
         ),
         "weights": (
             "regular": 400,
@@ -127,15 +139,11 @@ $fonts: (
         )
     ),
     "ft-hand": (
-        "name": "'Dancing Script'",
+        "name": "'Kindness Matters'",
         "sizes": (
-            "xs": "17px/1.2",
-            "s": "24px/1.2",
-            "m": "28px/1.2",
-            "l": "32px/1.2",
-            "xl": "38px/1.1",
-            "2xl": "36px/1.2",
-            "3xl": "40px/1.2"
+            "m": "38px/1.1",
+            "l": "56px/1.2",
+            "xl": "75px/1.2"
         )
     ),
     "ft-icon": (
