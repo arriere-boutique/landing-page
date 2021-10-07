@@ -62,13 +62,14 @@
         </div>
 
         <div class="bg-bg-light pv-40">
-            <div class="Wrapper">
+            <div class="Wrapper Wrapper--s">
                 <h2 class="ft-l-bold mb-30">Articles trouvés ({{ articles.length }})</h2>
             </div>
             <div class="Wrapper Wrapper--s">
                 <article-block
                     v-for="article in articles"
                     class="mv-20"
+                    :modifiers="['horizontal']"
                     v-bind="{ ...article, image: article.thumbnail }"
                     :key="article.slug"
                 />

@@ -44,14 +44,30 @@
                             @save="update"
                         >
                             <select-base
-                                class="mt-10"
+                                class="mb-15"
+                                label="Type"
+                                :value="formData.type"
+                                v-model="formData.type"
+                                :options="TYPES"
+                                :multiple="false"
+                            />
+
+                            <select-base
+                                class="mb-15"
+                                label="Catégorie"
                                 :value="formData.category"
                                 v-model="formData.category"
                                 :options="CATEGORIES"
                                 :multiple="false"
                             />
+                        
+                            <input-base
+                                label="Lien externe"
+                                class="mb-15"
+                                v-model="formData.link"
+                            />
                             
-                            <div class="d-flex fx-align-center mt-10">
+                            <div class="d-flex fx-align-center">
                                 <input-base
                                     label="ID de la page"
                                     v-model="formData.slug"
@@ -85,9 +101,12 @@ const CATEGORIES = [
     { id: 3, label: 'Identité de marque', value: 'identity' },
 ]
 
+const TYPES = [
+    { id: 0, label: `Article`, value: 'article' },
+    { id: 1, label: 'Youtube', value: 'youtube' },
+]
+
 import { InputBase, SelectBase } from '@instant-coffee/core'
-import {} from '@/utils/base'
-import moment from 'moment'
 import slugify from 'slugify'
 
 export default {
@@ -101,7 +120,7 @@ export default {
     },
     data: () => ({
         _id: '',
-        CATEGORIES,
+        CATEGORIES, TYPES,
         state: {
             isLoading: true,
             mediaLibrary: false
@@ -112,8 +131,10 @@ export default {
             slug: '',
             excerpt: '',
             content: '',
+            link: '',
             medias: null,
             category: 0,
+            type: 0,
             status: 'draft'
         },
         library: {}
@@ -200,12 +221,14 @@ export default {
             return {
                 ...form,
                 category: CATEGORIES.find(i => i.value == form.category)?.id,
+                type: TYPES.find(i => i.value == form.type)?.id,
             }
         },
         parseForm (form) {
             return {
                 ...form,
                 category: CATEGORIES.find(i => i.id == this.$data.formData.category).value,
+                type: TYPES.find(i => i.id == this.$data.formData.type).value,
             }
         },
         generateSlug () {

@@ -39,7 +39,7 @@
                                             </nuxt-link>
                                         </div>
 
-                                        <button-base tag="nuxt-link" :modifiers="['secondary', 'onyx']" icon-after="long-arrow-right" :attrs="{ to: localePath({ name: 'category' }) }">
+                                        <button-base tag="nuxt-link" icon-after="long-arrow-right" :attrs="{ to: localePath({ name: 'category', params: { category: 'blog' } }) }">
                                             Tous les articles
                                         </button-base>
                                     </div>
@@ -50,17 +50,14 @@
                 </nav>
             </div>
 
-            <nuxt-link class="HeaderBase_logo" :to="localePath({ name: '/' })">
+            <nuxt-link class="HeaderBase_logo" :to="localePath({ name: '/' })" v-if="isShop">
+                <span class="color-precious-weak strike">L'Arrière</span> Boutique
+            </nuxt-link>
+            <nuxt-link class="HeaderBase_logo" :to="localePath({ name: '/' })" v-else>
                 L'Arrière Boutique
             </nuxt-link>
 
-            <div class="HeaderBase_right">
-                <div class="HeaderBase_navLink">
-                    <a href="https://arriereboutiquefr.etsy.com/" target="_blank">
-                        <i class="fal fa-shopping-cart mr-5"></i> Boutique des vendeurs
-                    </a>
-                </div>
-            </div>
+            <div class="HeaderBase_right"></div>
 
             <div class="HeaderBase_burger" @click="state.isMenu = true">
                 <i class="fa-thin fa-bars"></i>
@@ -73,12 +70,6 @@
                             {{ item.label }}
                         </component>
                     </div>
-                </div>
-
-                <div class="HeaderBase_navLink">
-                    <a href="https://arriereboutiquefr.etsy.com/" target="_blank">
-                        <i class="fal fa-shopping-cart mr-5"></i> Boutique des vendeurs
-                    </a>
                 </div>
 
                 <div class="HeaderBase_close" @click="state.isMenu = false">
@@ -100,6 +91,11 @@ export default {
             isMenu: false
         }
     }),
+    computed: {
+        isShop () {
+            return this.$route.name.includes('shop')
+        }
+    },
     watch: {
         '$route' () {
             this.$data.state.isMenu = false
@@ -118,7 +114,7 @@ export default {
                 { category: 'value', path: { name: 'category', params: { category: this.$theme('value').slug } } },
                 { category: 'seo', path: { name: 'category', params: { category: this.$theme('seo').slug } } }
             ], tags: [] },
-            youtube: { label: 'Boutique', href: 'https://www.youtube.com/channel/UCn1oYqWvUQvbE9DwlEVTgNg' }
+            youtube: { label: `La boutique`, path: { name: 'shop' } }
         }
 
         if (process.server) return

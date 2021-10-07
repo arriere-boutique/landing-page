@@ -3,10 +3,13 @@
         <div class="Page_content Wrapper">
             <div class="fx-grow pb-100">
                 <div class="row-s" v-if="articles.length > 0">
-                    <div class="col-6 mb-40" v-for="article in articles" :key="article._id">
-                        <nuxt-link tag="div" class="Block p-15" :to="localePath({ name: 'admin-articles-id', params: { id: article._id } })">
-                            <p class="ft-m-medium">{{ article.title }}</p>
-                        </nuxt-link>
+                    <div class="col-4 mb-40" v-for="article in articles" :key="article._id">
+                        <article-block
+                            :title="article.title"
+                            :category="article.category"
+                            :image="article.thumbnail"
+                            :path="localePath({ name: 'admin-articles-id', params: { id: article._id } })"
+                        />
                     </div>
                 </div>
             </div>

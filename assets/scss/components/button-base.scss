@@ -7,10 +7,10 @@
     border: 1px solid transparent;
     transition: all 100ms ease;
     border-radius: 4px;
-    background-color: var(--color-onyx);
+    background-color: var(--color-pond);
 
     &:hover {
-        box-shadow: 0 0 0 2px var(--color-onyx-xweak);
+        box-shadow: 0 0 0 2px var(--color-pond-weak);
 
         .ButtonBase_content {
             opacity: 0.75;
@@ -57,6 +57,14 @@
         &:active {
             box-shadow: 0 0 0 2px var(--color-#{$color}-weak);
             border-color: var(--color-#{$color}-xweak);
+        }
+    }
+
+    .ButtonBase--icon-#{$color} {
+        
+        .ButtonBase_iconAfter,
+        .ButtonBase_iconBefore {
+            color: var(--color-#{$color});
         }
     }
 }

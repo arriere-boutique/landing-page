@@ -38,7 +38,7 @@ export default {
     head () {
         let meta = {
             title: 'Tableau de bord',
-            secondary: `Hello ${this.user.name}.`
+            secondary: `Hello.`
         }
 
         this.$store.commit('page/setProperty', meta)

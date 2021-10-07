@@ -2,13 +2,13 @@
     <div>
         <div class="Page_content Wrapper">
             <div class="fx-grow pb-100">
+                
+                <div class="Block bg-bg-light p-20">
+                    <div class="d-flex fx-justify-between ft-m pv-3" v-for="subscriber in users" :key="subscriber._id">
+                        <p class="ft-medium">{{ subscriber.email }}</p>
 
-                <div v-for="subscriber in users" :key="subscriber._id">
-                    {{ subscriber.email }}
-
-                    {{ subscriber.frequency }}
-
-                    {{ subscriber.createdAt }}
+                        <p>{{ subscriber.frequency }} <span class="ml-20 color-ft-weak">{{ subscriber.createdAt }}</span></p>
+                    </div>
                 </div>
             </div>
 

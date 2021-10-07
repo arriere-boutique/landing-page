@@ -3,14 +3,16 @@
         <div class="p-15" v-if="currentStatus">
             <p class="ft-m-bold mb-20">Options de publication</p>
 
+            <slot></slot>
+
+            <hr class="Separator mv-20">
+
             <select-base
                 :value="currentStatus.id"
                 @input="onStatusChange"
                 :options="STATUSES"
                 :multiple="false"
             />
-
-            <slot></slot>
         </div>
 
         <div class="bg-bg-xweak b-top b-bottom" v-show="state.advancedOptions">

@@ -1,12 +1,12 @@
 :root {
-    --nav-base: 220px;
-    --banner-base: 180px;
+    --nav-base: 250px;
+    --banner-base: 150px;
 }
 
 .LayoutAdmin {
     display: flex;
     min-height: 100vh;
-    background-color: var(--color-bg-light);
+    background-color: var(--color-bg-xweak);
 }
 
 .LayoutAdmin_body {
@@ -23,17 +23,12 @@
     overflow: hidden;
     display: flex;
     align-items: center;
-
-    @each $color in $main-colors {
-
-        &.is-#{$color} {
-            background: var(--color-#{$color}-xweak);
-        }
-    }
+    background: var(--color-gum-xweak);
 }
 
 .LayoutAdmin_title {
-    font: var(--ft-xl-bold);
+    font: var(--ft-2xl-bold);
+    color: var(--color-pond);
     padding: 0 3.5%;
 }
 
@@ -85,4 +80,13 @@
     min-height: calc(100vh - var(--header-base));
     margin-left: var(--nav-base);
     margin-top: calc(var(--banner-base) - 20px);
+}
+
+.Page_content {
+    display: flex;
+}
+
+.Page_side {
+    flex-shrink: 0;
+    padding-left: 40px;
 }

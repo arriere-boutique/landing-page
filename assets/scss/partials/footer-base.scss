@@ -7,8 +7,11 @@
     width: 300px;
     flex-shrink: 0;
     padding: 30px;
-    background-color: var(--color-amber-2xweak);
-    border-bottom: 4px solid var(--color-amber);
+    background-color: var(--color-bg-light);
+    border: 1px solid var(--color-border);
+    border-bottom: none;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
     margin-top: -20px;
 }
 
@@ -18,10 +21,13 @@
 }
 
 .FooterBase_socials {
-    margin: 0 2px;
+    margin: 0 6px;
+    transition: all 150ms ease;
+    line-height: 1;
+    display: block;
 
     &:hover {
-        opacity: 0.5;
+        opacity: 0.75;
     }
 }
 

@@ -109,9 +109,13 @@ export default {
         find: (state, getters) => (search, raw = false) => {
             let items = raw ? Object.values(state.items) : getters.items
             
-            if (search) items = items.filter(item => item[Object.keys(search)[0]] == Object.values(search)[0])
+            if (search) {
+                Object.keys(search).forEach(key => {
+                    items = items.filter(item => item[key] == search[key])
+                })
+            }
 
-            return items
+            return items.sort((a, b) => b.createdAt.valueOf() - a.createdAt.valueOf())
         },
         groupBy: (state, getters) => (property) => {
             let items = getters.items

@@ -1,32 +1,31 @@
 <template>
     <nav class="NavAdmin" :class="[ `NavAdmin--${user.theme ? user.theme.color : 'amethyst'}` ]">
-        <div class="NavAdmin_logo" :class="[`color-${user.theme ? user.theme.color: 'amethyst'}`]">
-
+        <div class="NavAdmin_logo">
+            L'Arrière Boutique
         </div>
 
         <div class="NavAdmin_items">
             <div class="NavAdmin_item" v-for="(item, i) in items" :key="i">
-                <button-base
+                <nuxt-link
+                    class="NavAdmin_link"
                     :class="{ 'is-disabled': item.disabled }"
-                    :tag="item.link ? 'nuxt-link' : 'div'"
-                    :modifiers="['weak' ]"
-                    :attrs="{ to: localePath({ name: item.link }), exact: item.exact }"
-                    :icon-before="item.icon"
-                    :text="item.label"
-                />
+                    :to="localePath({ name: item.link })"
+                    :exact="item.exact"
+                >
+                    <i class="fal mr-3" :class="[ `fa-${item.icon}` ]"></i> {{ item.label }}
+                </nuxt-link>
 
-                <div class="NavAdmin_sub" v-if="item.items && item.items.length > 0">
-                    <button-base
+                <!-- <div class="NavAdmin_sub" v-if="item.items && item.items.length > 0">
+                    <nuxt-link
                         v-for="(sub, i) in item.items"
-                        :modifiers="['weak', 's' ]"
+                        class="NavAdmin_link"
                         :class="{ 'is-disabled': sub.disabled }"
-                        tag="nuxt-link"
-                        :text="sub.label"
-                        :icon-before="sub.icon"
                         :attrs="{ to: localePath({ name: sub.link }) }"
                         :key="i"
-                    />
-                </div>
+                    >
+                        {{ sub.label }}
+                    </nuxt-link>
+                </div> -->
             </div>
         </div>
 

@@ -25,7 +25,7 @@
 
 .HeaderBase_left,
 .HeaderBase_right {
-    width: 40%;
+    width: 35%;
     flex-grow: 0;
 }
 
@@ -35,7 +35,8 @@
 }
 
 .HeaderBase_logo {
-    font: var(--ft-hand-m);
+    font: var(--ft-hand-s);
+    white-space: nowrap;
     letter-spacing: -0.05em;
     display: block;
     transition: all 150ms ease;
@@ -200,11 +201,10 @@
 .HeaderBase.is-scrolled {
     background-color: var(--color-bg-light);
     @include box-shadow;
-    --header-height: 80px;
+    --header-height: 60px;
 
     .HeaderBase_logo {
         transition: all 250ms ease;
-        fill: var(--color-amber);
     }
 
     .HeaderBase_burger {

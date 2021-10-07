@@ -6,6 +6,8 @@ let Article = {
     fields: new mongoose.Schema({
         title: { type: String, write: 'editor' },
         excerpt: { type: String, write: 'editor' },
+        type: { type: String, write: 'editor' },
+        link: { type: String, write: 'editor' },
         category: { type: String, write: 'editor' },
         content: { type: String, write: 'editor' },
         status: { type: String, write: 'editor' },

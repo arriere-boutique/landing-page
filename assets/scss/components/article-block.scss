@@ -2,7 +2,8 @@
     transition: all 150ms ease;
     cursor: pointer;
     text-align: left;
-
+    display: block;
+    
     &:hover {
         transform: translateY(-2px);
 
@@ -49,6 +50,33 @@
     letter-spacing: normal;
 }
 
+.ArticleBlock_excerpt {
+    font: var(--ft-l);
+    display: none;
+}
+
+.ArticleBlock--horizontal {
+    display: flex;
+    align-items: center;
+
+    .ArticleBlock_image {
+        width: 190px;
+    }
+
+    .ArticleBlock_content {
+        padding-left: 20px;
+    }
+
+    .ArticleBlock_title {
+        font: var(--ft-xl-bold);
+        line-height: 1.4;
+    }
+
+    .ArticleBlock_excerpt {
+        @extend .ellipsis-3;
+        margin-top: 10px;
+    }
+}
 
 .ArticleBlock--story {
     position: relative;

@@ -46,7 +46,7 @@ $colors: (
     "white": #ffffff,
 
     "precious": #7156ec,
-    "precious-weak": #947ff5,
+    "precious-weak": #b3a3ff,
     "precious-xweak": #fff4fd,
 
     "skylight": #5b70c6,
@@ -111,7 +111,7 @@ $colors: (
     "ruby-2xweak": #fff0f4
 );
 
-$main-colors: ("gum", "mango", "pond", "skylight");
+$main-colors: ("gum", "mango", "pond", "skylight", "precious");
 $accent-colors: (
     "gum": "pond",
     "mango": "gum",
@@ -141,7 +141,8 @@ $fonts: (
     "ft-hand": (
         "name": "'Kindness Matters'",
         "sizes": (
-            "m": "38px/1.1",
+            "s": "36px/1.1",
+            "m": "48px/1",
             "l": "56px/1.2",
             "xl": "75px/1.2"
         )

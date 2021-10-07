@@ -3,8 +3,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    padding: 0 5px;
     background-color: var(--color-bg-light);
+    border-right: 1px solid var(--color-border);
     @include box-shadow;
 }
 
@@ -13,11 +13,14 @@
 }
 
 .NavAdmin_item {
-    margin: 2px 0;
     position: relative;
 
-    &:hover .NavAdmin_sub {
-        display: block;
+    &:hover {
+        background-color: var(--color-bg-xweak);
+
+        .NavAdmin_sub {
+            display: block;
+        }
     }
 }
 
@@ -33,13 +36,20 @@
     display: none;
 }
 
+.NavAdmin_link {
+    display: block;
+    font: var(--ft-m);
+    font-weight: 500;
+    padding: 10px 5px;
+    border-bottom: 1px solid var(--color-border);
+}
+
 .NavAdmin_logo {
-    height: var(--header-base);
     width: var(--nav-base);
     border-bottom: 1px solid var(--color-border);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 20px;
-    font: var(--ft-l-medium);
+    padding: 20px;
+    text-align: center;
+    font: var(--ft-hand-s);
+    letter-spacing: -0.05em;
+    color: var(--color-pond);
 }

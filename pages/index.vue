@@ -20,8 +20,19 @@
 
         <div class="pv-60" :class="[`bg-bg-light`]">
             <div class="Wrapper">
-                <h2 class="ft-2xl-bold">Articles qui pourraient t'intéresser</h2>
-                <p class="max-width-l mt-5">Te transmettre mon expérience de manière simple et pragmatique pour que tu puisses te concentrer sur ce qui te fait vibrer : la création.</p>
+                <div class="d-flex fx-align-center">
+                    <div class="fx-grow mr-20">
+                        <h2 class="ft-2xl-bold">Articles qui pourraient t'intéresser</h2>
+                        <p class="max-width-l mt-5">Te transmettre mon expérience de manière simple et pragmatique pour que tu puisses te concentrer sur ce qui te fait vibrer : la création.</p>
+                    </div>
+                    
+                    <button-base
+                        tag="nuxt-link"
+                        text="Tous les articles"
+                        icon-after="long-arrow-right"
+                        :attrs="{ to: localePath({ name: 'category', params: { category: 'blog' } }) }"
+                    />
+                </div>
 
                 <div class="mt-30 row-s">
                     <div class="col-4">
@@ -35,16 +46,23 @@
                         </div>
                     </div>
                 </div>
+                
             </div>
         </div>
-        <div class="pv-60" :class="[`bg-gum-xweak`]">
+        <div class="pv-60" :class="[`bg-gum-xweak`]" v-if="videos.length > 0">
             <div class="Wrapper">
                 <h2 class="ft-2xl-bold">Les vidéos <span class="color-accent strike">pour ceux qui n'aiment pas lire</span></h2>
                 <p class="max-width-l mt-5">Te transmettre mon expérience de manière simple et pragmatique pour que tu puisses te concentrer sur ce qui te fait vibrer : la création.</p>
 
                 <div class="mt-30 row-xs">
-                    <div v-for="article in articles.slice(0, 4)" class="col-3" :key="article.slug">
-                        <article-block v-bind="{ ...article, image: article.thumbnail }" :modifiers="['story']" />
+                    <div v-for="video in videos.slice(0, 4)" class="col-3" :key="video.slug">
+                        <article-block
+                            v-bind="{
+                                ...video,
+                                image: video.thumbnail
+                            }"
+                            :modifiers="['story']"
+                        />
                     </div>
                 </div>
             </div>
@@ -66,7 +84,8 @@ export default {
         assets: { blob1 }
     }),
     computed: {
-        articles () { return [ ...this.$store.getters['articles/find']({ status: 'published' }), ...this.$store.getters['articles/find']({ status: 'published' }) ] }
+        articles () { return this.$store.getters['articles/find']({ status: 'published', type: 'article' }) },
+        videos () { return this.$store.getters['articles/find']({ status: 'published', type: 'youtube' }) }
     },
     head () {
         let meta = {
