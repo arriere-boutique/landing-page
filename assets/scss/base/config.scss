@@ -38,8 +38,9 @@ $gutters: (
 );
 
 $colors: (
+    "ft-strong": #000000,
     "ft": #363636,
-    "ft-weak": #C6C6C6,
+    "ft-weak": #757575,
     "ft-xweak": #ddd9e8,
     "ft-light": #ffffff,
     
@@ -51,9 +52,9 @@ $colors: (
 
     "skylight": #5b70c6,
     "skylight-weak": #94b1e9,
-    "skylight-xweak": #f2f2ff,
+    "skylight-xweak": #F9F9FF,
 
-    "pond": #5eaaaf,
+    "pond": #4DA2A8,
     "pond-weak": #99d6d2,
     "pond-xweak": #f6fffd,
     
@@ -129,7 +130,7 @@ $fonts: (
             "m": "16px/1.5",
             "l": "18px/1.5",
             "xl": "20px/1.5",
-            "2xl": "24px/1.5",
+            "2xl": "26px/1.5",
             "3xl": "34px/1.25",
         ),
         "weights": (

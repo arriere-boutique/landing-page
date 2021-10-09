@@ -47,7 +47,7 @@ export default {
     },
     head () {
         let meta = {
-            title: 'Pages'
+            title: 'Articles du blog'
         }
 
         this.$store.commit('page/setProperty', meta)

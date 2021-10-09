@@ -4,6 +4,12 @@
     max-width: 900px;
 }
 
+.Wrapper--m {
+    margin: 0 auto;
+    width: 90%;
+    max-width: 1000px;
+}
+
 .Wrapper--s {
     margin: 0 auto;
     width: 70%;
@@ -12,7 +18,7 @@
 
 .Wrapper--l {
     width: 90%;
-    max-width: 1100px;
+    max-width: 1200px;
 }
 
 @include breakpoint-xs {

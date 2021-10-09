@@ -136,6 +136,8 @@ export default {
             ]
         }
 
+        this.$store.commit('page/setColor', 'pond')
+
         return meta
     }
 }

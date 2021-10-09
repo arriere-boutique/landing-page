@@ -4,56 +4,50 @@
             <div class="HeaderBase_left">
                 <nav class="HeaderBase_nav">
                     <div v-for="(item, key) in itemsLeft" class="HeaderBase_navParent" :class="{ 'is-parent': item.items != undefined }"  :key="key">
-                        <div class="HeaderBase_navLink">
-                            <component :is="item.path ? 'nuxt-link' : 'a'" :to="localePath(item.path)" :href="item.href" :target="item.href ? '_blank' : ''">
-                                {{ item.label }}
-                            </component>
+                        <component  class="HeaderBase_navLink" :is="item.path ? 'nuxt-link' : 'a'" :to="localePath(item.path)" :href="item.href" :target="item.href ? '_blank' : ''">
+                            {{ item.label }}
+                        </component>
 
-                            <div class="HeaderBase_subNav HeaderBase_subNav--blog" v-if="key == 'articles'">
-                                <div class="Wrapper Wrapper--l">
-                                    <div class="row-xs">
-                                        <div class="col-4" v-for="(child, j) in itemsLeft.articles.items" :key="j">
-                                            <nuxt-link class="HeaderBase_categoryLink" :class="[ 'is-' + $theme(child.category).color ]" :to="localePath(child.path)">
-                                                <div class="ft-xl pr-15 color-current">
-                                                    <i class="fal" :class="[ $theme(child.category).fa ]"></i>
-                                                </div>
+                        <div class="HeaderBase_subNav HeaderBase_subNav--blog" v-if="key == 'articles'">
+                            <div class="Wrapper Wrapper--l">
+                                <div class="row-xs">
+                                    <div class="col-4" v-for="(child, j) in itemsLeft.articles.items" :key="j">
+                                        <nuxt-link class="HeaderBase_categoryLink" :class="[ 'is-' + $theme(child.category).color ]" :to="localePath(child.path)">
+                                            <div class="ft-xl pr-15 color-current">
+                                                <i class="fal" :class="[ $theme(child.category).fa ]"></i>
+                                            </div>
 
-                                                <div>
-                                                    <p class="ft-m-bold color-current">{{ $t(`blog.categories.${child.category}.label`) }}</p>
-                                                    <p class="ellipsis-2">
-                                                        {{ $t(`blog.categories.${child.category}.description`) }}
-                                                    </p>
-                                                </div>
-                                            </nuxt-link>
-                                        </div>
+                                            <div>
+                                                <p class="ft-m-bold color-current">{{ $t(`blog.categories.${child.category}.label`) }}</p>
+                                                <p class="ellipsis-2">
+                                                    {{ $t(`blog.categories.${child.category}.description`) }}
+                                                </p>
+                                            </div>
+                                        </nuxt-link>
+                                    </div>
+                                </div>
+
+                                <hr class="Separator mv-20">
+
+                                <div class="d-flex fx-align-center fx-justify-between">
+                                    <div class="max-width-l pr-20" v-if="itemsLeft.articles.tags.length > 0">
+                                        <p class="ft-m-bold mb-10">Sujets populaires</p>
+
+                                        <nuxt-link class="Tag mr-5 mb-10" v-for="(tag, j) in itemsLeft.articles.tags" :to="localePath(tag.path)" :key="j">
+                                            #{{ tag.label }}
+                                        </nuxt-link>
                                     </div>
 
-                                    <hr class="Separator mv-20">
-
-                                    <div class="d-flex fx-align-center fx-justify-between">
-                                        <div class="max-width-l pr-20" v-if="itemsLeft.articles.tags.length > 0">
-                                            <p class="ft-m-bold mb-10">Sujets populaires</p>
-
-                                            <nuxt-link class="Tag mr-5 mb-10" v-for="(tag, j) in itemsLeft.articles.tags" :to="localePath(tag.path)" :key="j">
-                                                #{{ tag.label }}
-                                            </nuxt-link>
-                                        </div>
-
-                                        <button-base tag="nuxt-link" icon-after="long-arrow-right" :attrs="{ to: localePath({ name: 'category', params: { category: 'blog' } }) }">
-                                            Tous les articles
-                                        </button-base>
-                                    </div>
+                                    <button-base tag="nuxt-link" icon-after="long-arrow-right" :attrs="{ to: localePath({ name: 'category', params: { category: 'blog' } }) }">
+                                        Tous les articles
+                                    </button-base>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </nav>
             </div>
-
-            <nuxt-link class="HeaderBase_logo" :to="localePath({ name: '/' })" v-if="isShop">
-                <span class="color-precious-weak strike">L'Arrière</span> Boutique
-            </nuxt-link>
-            <nuxt-link class="HeaderBase_logo" :to="localePath({ name: '/' })" v-else>
+            <nuxt-link class="HeaderBase_logo" :to="localePath({ name: '/' })">
                 L'Arrière Boutique
             </nuxt-link>
 
@@ -65,11 +59,15 @@
 
             <div class="HeaderBase_menu" :class="{ 'is-active': state.isMenu }">
                 <div class="HeaderBase_navParent" v-for="(item, key) in itemsLeft" :key="key">
-                    <div class="HeaderBase_navLink">
-                        <component :is="item.path ? 'nuxt-link' : 'a'" :to="localePath(item.path)" :href="item.href" :target="item.href ? '_blank' : ''">
-                            {{ item.label }}
-                        </component>
-                    </div>
+                    <component
+                        class="HeaderBase_navLink"
+                        :is="item.path ? 'nuxt-link' : 'a'"
+                        :to="localePath(item.path)"
+                        :href="item.href"
+                        :target="item.href ? '_blank' : ''"
+                    >
+                        {{ item.label }}
+                    </component>
                 </div>
 
                 <div class="HeaderBase_close" @click="state.isMenu = false">
@@ -91,11 +89,6 @@ export default {
             isMenu: false
         }
     }),
-    computed: {
-        isShop () {
-            return this.$route.name.includes('shop')
-        }
-    },
     watch: {
         '$route' () {
             this.$data.state.isMenu = false

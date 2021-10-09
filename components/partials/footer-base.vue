@@ -1,10 +1,10 @@
 <template>
     <footer class="FooterBase">
-        <div class="bg-skylight-xweak pv-30">
+        <div class="bg-skylight-xweak pv-30" v-if="!isShop">
             <div class="Wrapper">
-                <div class="d-flex fx-align-center">
+                <div class="d-flex fx-align-center d-block@s">
                     <div class="p-relative fx-no-shrink mr-10 mb-20@s">
-                        <p class="marker ft-hand-xl color-precious mt-40 n-ml-10">Salut !</p>
+                        <p class="marker ft-hand-xl color-precious mt-40 n-ml-10 ml-20@s mt-30@s">Salut !</p>
                         <img :src="assets.blobHelp" width="200" />
                     </div>
 
@@ -117,6 +117,9 @@ import blobHelp from '@/assets/img/blob/blob-help.jpg'
 export default {
     name: 'FooterBase',
     components: { InputBase },
+    props: {
+        isShop: { type: Boolean, default: false }
+    },
     data: () => ({
         assets: { blobHelp },
         items: [

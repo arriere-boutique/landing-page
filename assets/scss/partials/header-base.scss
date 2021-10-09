@@ -6,7 +6,7 @@
     width: 100%;
     transition: all 150ms ease;
 
-    --header-height: 90px;
+    --header-height: 75px;
 
     &:hover {
         background-color: var(--color-bg-light);
@@ -107,10 +107,7 @@
     padding: 10px 15px;
     transition: all 100ms ease;
     position: relative;
-
-    a {
-        cursor: pointer;
-    }
+    cursor: pointer;
 
     &::after {
         content: "";
@@ -126,20 +123,20 @@
         transition: all 100ms ease;
     }
 
-    &:hover {
+    &:hover, &.is-active {
         color: var(--color-accent);
 
         &::after {
             opacity: 1;
             transform: translateY(0);
         }
+    }
+}
 
-        .HeaderBase_subNav {
-            pointer-events: all;
-            opacity: 1;
-            transform: translateY(0%);
-            box-shadow: 0 2000px 0 2000px rgba(0, 0, 0, 0.5);
-        }
+.HeaderBase_navParent {
+
+    &:hover {
+
     }
 }
 
@@ -211,6 +208,7 @@
         border-color: var(--color-onyx-2xweak);
     }
 }
+
 
 @include breakpoint-s {
 

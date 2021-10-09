@@ -1,0 +1,15 @@
+.ProductPage_image {
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+    
+    &::before {
+        content: "";
+        @include ratio(100);
+    }
+    
+    img {
+        object-fit: cover;
+        @include absolute-fill;
+    }
+}

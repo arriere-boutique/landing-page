@@ -72,14 +72,25 @@
     }
 }
 
-.color-current { color: var(--current); }
+@each $color in $main-colors {
+    
+    .is-#{$color} {
+        --color-current: var(--color-#{$color});
+        --color-current-weak: var(--color-#{$color}-weak);
+        --color-current-xweak: var(--color-#{$color}-xweak);
+
+        --color-accent: var(--color-#{map-get($accent-colors, $color)});
+        --color-accent-weak: var(--color-#{map-get($accent-colors, $color)}-weak);
+    }
+}
+
+.color-current { color: var(--color-current); }
 .color-accent { color: var(--color-accent); }
 .color-accent-weak { color: var(--color-accent-weak); }
 
-.bg-current { background-color: var(--current); }
-.bg-current-weak { background-color: var(--current-weak); }
-.bg-current-xweak { background-color: var(--current-xweak); }
-.bg-current-2xweak { background-color: var(--current-2xweak); }
+.bg-current { background-color: var(--color-current); }
+.bg-current-weak { background-color: var(--color-current-weak); }
+.bg-current-xweak { background-color: var(--color-current-xweak); }
 
 .Separator {
     border: none;
@@ -111,6 +122,7 @@
     line-height: 1;
     position: absolute;
     z-index: 10;
+    white-space: nowrap;
     top: 0;
     left: 0;
     transform: translate3d(-20%, -90%, 0) rotate(-10deg);
@@ -119,3 +131,6 @@
 .strike {
     text-decoration: line-through;
 }
+
+
+.fx-dir-column-reverse\@s { flex-direction: column-reverse; }

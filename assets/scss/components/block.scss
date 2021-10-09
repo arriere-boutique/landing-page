@@ -6,11 +6,63 @@
 @each $color in $main-colors {
 
     .Block--#{$color} {
-        background-color: var(--color-#{$color}-2xweak);
+        --color-current: var(--color-#{$color});
+        --color-current-weak: var(--color-#{$color}-weak);
+        --color-current-xweak: var(--color-#{$color}-xweak);
+
+        --color-accent: var(--color-#{map-get($accent-colors, $color)});
+        --color-accent-weak: var(--color-#{map-get($accent-colors, $color)}-weak);
+
+        background-color: var(--color-current-xweak);
 
         b, strong {
-            color: var(--color-#{$color});
+            color: var(--color-accent);
         }
     }
 
+}
+
+.Block--checklist {
+    background-color: var(--color-bg-light);
+    border-radius: 12px;
+    border: 1px solid var(--color-border-light);
+
+    ul {
+        padding: 0;
+    }
+
+    li {
+        display: flex;
+        list-style-type: none;
+        margin-left: 10px !important;
+
+        &::before {
+            content: "\f058";
+            font: var(--ft-icon-m);
+            color: var(--color-accent);
+            line-height: 1.75;
+            margin-right: 10px;
+        }
+
+        b, strong {
+            color: var(--color-accent);
+        }
+    }
+}
+
+.Block--image {
+    padding: 0;
+    font-size: 0;
+
+    img {
+        margin: 0;
+    }
+
+    p:not(:first-child) { 
+        font: var(--ft-m);
+        margin: 5px 0 0 0;
+        padding-top: 15px;
+        padding-left: 15px;
+        border-left: 2px solid var(--color-border);
+    }
 }

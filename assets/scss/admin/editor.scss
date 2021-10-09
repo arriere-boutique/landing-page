@@ -67,9 +67,19 @@
     color: var(--color-ft-weak);
     cursor: pointer;
 
+    &::before {
+        content: "";
+        @include ratio(100);
+    }
+}
+
+.EditorPage_image--blob {
+
     &::after {
         content: "";
-        @include ratio(55);
+        @include absolute-fill;
+        background-image: url("../img/blob/blob-cache-1.png");
+        background-size: cover;
     }
 }
 

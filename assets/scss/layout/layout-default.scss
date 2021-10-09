@@ -6,14 +6,9 @@
     padding-top: 100px;
 }
 
-@each $color in $main-colors {
+.LayoutDefault--shop {
 
-    .LayoutDefault--#{$color} {
-        --color-current: var(--color-#{$color});
-        --color-current-weak: var(--color-#{$color}-weak);
-        --color-current-xweak: var(--color-#{$color}-xweak);
-
-        --color-accent: var(--color-#{map-get($accent-colors, $color)});
-        --color-accent-weak: var(--color-#{map-get($accent-colors, $color)}-weak);
+    .LayoutDefault_content {
+        padding-top: 75px;
     }
 }

@@ -1,11 +1,12 @@
 <template>
-    <div class="TextBody">
+    <div class="TextBody" :class="[ ...$modifiers ]">
         <div class v-html="value" v-if="!editor"></div>
         <editor-content :editor="editor" ref="text" v-if="editor" />
     </div>
 </template>
 
 <script>
+import { ModifiersMixin } from '@instant-coffee/core'
 import { Editor, EditorContent } from 'tiptap'
 import { Heading, Bold, Blockquote, Image, Italic, OrderedList, BulletList, ListItem } from 'tiptap-extensions'
 import Link from '@/plugins/tiptap/Link'
@@ -15,8 +16,9 @@ import Gallery from '@/plugins/tiptap/Gallery'
 import InsertBlock from '@/plugins/tiptap/InsertBlock'
 
 export default {
-    name: 'TextEditor',
+    name: 'TextBody',
     components: { EditorContent },
+    mixins: [ ModifiersMixin ],
     props: {
         value: { type: String, default: '' }
     },

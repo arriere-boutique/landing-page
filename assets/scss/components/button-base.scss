@@ -69,8 +69,17 @@
     }
 }
 
-.ButtonBase--amber {
-    color: var(--color-ft);
+.ButtonBase--accent {
+    background-color: var(--color-accent);
+
+    &:hover {
+        box-shadow: 0 0 0 2px var(--color-accent-xweak);
+    }
+
+    &:active {
+        box-shadow: 0 0 0 2px var(--color-accent-weak);
+        border-color: var(--color-accent-xweak);
+    }
 }
 
 .ButtonBase--secondary {
@@ -111,37 +120,96 @@
     }
 }
 
-
-.ButtonBase--display {
-    font: var(--ft-m-medium);
+.ButtonBase--link {
+    padding: 0;
+    background-color: transparent;
+    border: none;
+    font: var(--ft-s-medium);
     color: var(--color-ft);
-    line-height: 1;
-    text-transform: unset;
-    letter-spacing: unset;
-    width: 100%;
-    background-color: var(--color-bg-light);
-    border-radius: 2px;
+    box-shadow: none;
+    position: relative;
+    opacity: 1;
+    transition: none;
 
     .ButtonBase_content {
-        width: 100%;
+        padding: 0;
+        min-height: 0;
     }
 
-    .ButtonBase_text {
-        text-align: left;
-        flex-grow: 1;
+    &::after,
+    &::before {
+        content: "";
+        display: block;
+        position: absolute;
+        left: 0%;
+        right: 0%;
+        bottom: calc(50% - 12px);
+        height: 1px;
+        opacity: 0.25;
+        transition: all 150ms ease;
+        background-color: var(--color-ft);
     }
 
-    @each $color in $main-colors {
+    &::after {
+        z-index: 2;
+        transform: scaleX(0);
+        opacity: 1;
+        transform-origin: left;
+    }
 
-        &.ButtonBase--#{$color} {
-            border: 1px solid var(--color-#{$color}-xweak);
+    &:hover {
+        color: var(--color-accent);
+        box-shadow: none;
+
+        .ButtonBase_content {
+            transform: none;
+            opacity: 1;
+        }
+
+        &::before, &::after {
+            background: var(--color-accent);
+        }
+
+        &::after {
+            transform: scaleX(1);
+        }
+    }
+
+    &:active {
+        color: var(--color-accent-weak);
+        border: none;
+    }
+
+    .ButtonBase_iconBefore {
+        margin-right: 5px;
+        font-size: 16px;
+    }
+
+    &.ButtonBase--accent {
+        color: var(--color-accent);
+    }
+
+    &.ButtonBase--strong {
+        color: var(--color-ft-strong);
+
+        &::before {
+            background-color: var(--color-ft-weak);
+        }
+
+        &::after {
+            background-color: var(--color-ft-strong);
+        }
+        
+        &:hover, &.is-active {
+            color: var(--color-ft-strong);
     
-            .ButtonBase_iconBefore {
-                color: var(--color-#{$color}-xweak);
+            &::after {
+                transform: scaleX(1);
             }
         }
     }
 }
+
 
 .ButtonBase.is-disabled {
     opacity: 0.5;

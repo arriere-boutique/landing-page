@@ -27,11 +27,11 @@ export default {
         currentNode: { type: [Object, Boolean], default: false },
         options: { type: Array, default: () => ([
             { label: 'Image', value: 'image', classes: ['Block--image'] },
-            { label: 'Amber', value: 'amber', classes: ['Block--amber'] },
-            { label: 'amethyst', value: 'amethyst', classes: ['Block--amethyst'] },
-            { label: 'ruby', value: 'ruby', classes: ['Block--ruby'] },
-            { label: 'onyx', value: 'onyx', classes: ['Block--onyx'] },
-            { label: 'malachite', value: 'malachite', classes: ['Block--malachite'] }
+            { label: 'Checklist', value: 'checklist', classes: ['Block--checklist'] },
+            { label: 'Pond', value: 'pond', classes: ['is-pond'] },
+            { label: 'Gum', value: 'gum', classes: ['is-gum'] },
+            { label: 'Skylight', value: 'skylight', classes: ['is-skylight'] },
+            { label: 'Precious', value: 'precious', classes: ['is-precious'] }
         ]) }
     },
     data: () => ({
