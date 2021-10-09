@@ -27,19 +27,18 @@
             </div>
         </div>
 
-        <div class="pv-40" :class="[ 'bg-current-2xweak' ]">
+        <div class="pv-40" :class="['bg-current-xweak']">
             <div class="Wrapper Wrapper--m">
                 <!-- <author-block class="n-mt-60 mb-40" /> -->
 
                 <div class="text-center" v-if="similarArticles.length > 0">
-                    <p class="ft-l-bold color-current mb-20">
+                    <p class="ft-2xl-bold color-current mb-20">
                         À lire ensuite
                     </p>
 
-                    <div class="row-xs">
+                    <div class="row row-s">
                         <div class="col-3 col-12@xs mv-5" v-for="similar in similarArticles" :key="similar._id">
                             <article-block
-                                :modifiers="['horizontal']"
                                 v-bind="{ ...similar, image: similar.thumbnail }"
                             />
                         </div>

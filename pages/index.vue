@@ -65,7 +65,7 @@
                         :modifiers="['accent']"
                         text="La chaîne Youtube"
                         icon-after="play"
-                        href="https://www.youtube.com/channel/UCn1oYqWvUQvbE9DwlEVTgNg"
+                        link="https://www.youtube.com/channel/UCn1oYqWvUQvbE9DwlEVTgNg"
                         target="_blank"
                     />
                 </div>

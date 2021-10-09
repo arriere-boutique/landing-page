@@ -8,7 +8,7 @@
                         <img :src="assets.blobHelp" width="200" />
                     </div>
 
-                    <div class="ft-l ml-20">
+                    <div class="ft-m ml-20">
                         <p class="ft-2xl-bold color-precious mb-10">Besoin d'un coup de main ?</p>
 
                         <p class="mb-20">
@@ -20,7 +20,7 @@
                             iconBefore="sparkles"
                             tag="nuxt-link"
                             :attrs="{ to: localePath({ name: 'shop' }) }"
-                            text="Ouiii, ça m'intéresse !"
+                            text="Ouiii ! Je visite la boutique"
                         />
                     </div>
                 </div>
@@ -30,8 +30,8 @@
         <div class="bg-pond-xweak pv-60">
             <div class="Wrapper Wrapper--s">
                 <div class="bg-bg-light p-30 b">
-                    <p class="ft-hand-s color-pond">
-                        La Gazette de L'Arrière Boutique
+                    <p class="ft-hand-m color-pond">
+                        La Gazette
                     </p>
 
                     <p class="mt-10 mb-30">Toutes les infos qui vont faire <b>avancer ta boutique</b> directement livrées dans ta boîte mail ! C'est pas beau la technologie ?</p>
