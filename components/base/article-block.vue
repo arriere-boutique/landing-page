@@ -11,7 +11,7 @@
         <div class="ArticleBlock_image" :style="{ backgroundImage: `url(${image})` }"></div>
 
         <div class="ArticleBlock_content">
-            <h4 class="ArticleBlock_category">
+            <h4 class="ArticleBlock_category ellipsis-1">
                 {{ $t(`blog.categories.${category}.label`) }}
                <!-- <span class="ArticleBlock_date"><i class="fa-thin fa-clock mr-3"></i> {{ date }}</span> -->
             </h4>

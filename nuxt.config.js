@@ -10,10 +10,14 @@ export default {
             { hid: 'description', name: 'description', content: '' }
         ],
         link: [
-            { rel: 'icon', type: 'image/x-icon', href: '/favicon.png' }
+            { rel: 'icon', type: 'image/x-icon', href: '/favicon.png' },
+            { rel: 'stylesheet', href: 'https://assets.calendly.com/assets/external/widget.css' }
+        ],
+        script: [
+            { src: 'https://assets.calendly.com/assets/external/widget.js', type: 'text/javascript', async: true }
         ]
     },
-
+    
     css: [
         '@/assets/scss/global.scss'
     ],

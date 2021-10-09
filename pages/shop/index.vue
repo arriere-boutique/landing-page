@@ -1,7 +1,7 @@
 <template>
     <div class="ShopPage">
         <div class="Wrapper Wrapper--m d-flex fx-align-center fx-justify-between pv-60 pv-30@s d-block@s">
-            <div class="max-width-l pr-30 pr-0@s width-100@s mb-30@s text-center">
+            <div class="max-width-l pr-30 pr-0@s width-100@s mb-30@s text-center@s">
                 <h1 class="ft-3xl-bold ft-2xl-bold@s">Créer des expériences d'achat <span class="color-accent">mémorables</span></h1>
                 <p class="ft-l-medium mt-20">
                     Augmente la valeur perçue de tes colis : cartes de visites, stickers personnalisés… <span class="color-accent">Avec un accompagnement personnalisé</span> pour toujours faire des choix qui font sens pour ta marque.

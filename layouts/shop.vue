@@ -1,9 +1,6 @@
 <template>
     <div class="LayoutDefault LayoutDefault--shop" :class="[`is-${color}`]">
         <header-base />
-    
-        <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
-        <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
         
         <div class="LayoutDefault_content">
             <Nuxt />

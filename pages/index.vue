@@ -18,7 +18,7 @@
             </div>
         </div>
 
-        <div class="pv-60" :class="[`bg-bg-light`]">
+        <div class="bg-bg-light pv-60 is-skylight">
             <div class="Wrapper">
                 <div class="d-flex fx-align-center d-block@s">
                     <div class="fx-grow mr-20 mr-0@s">
@@ -31,6 +31,7 @@
                         tag="nuxt-link"
                         text="Tous les articles"
                         icon-after="long-arrow-right"
+                        :modifiers="['accent']"
                         :attrs="{ to: localePath({ name: 'category', params: { category: 'blog' } }) }"
                     />
                 </div>
@@ -50,10 +51,24 @@
                 
             </div>
         </div>
-        <div class="pv-60" :class="[`bg-gum-xweak`]" v-if="videos.length > 0">
+        <div class="pv-60 is-gum" :class="[`bg-gum-xweak`]" v-if="videos.length > 0">
             <div class="Wrapper">
-                <h2 class="ft-2xl-bold">Les vidéos <span class="color-accent strike">pour ceux qui n'aiment pas lire</span></h2>
-                <p class="max-width-l mt-5">Te transmettre mon expérience de manière simple et pragmatique pour que tu puisses te concentrer sur ce qui te fait vibrer : la création.</p>
+                <div class="d-flex fx-align-center d-block@s">
+                    <div class="fx-grow mr-20 mr-0@s">
+                        <h2 class="ft-2xl-bold">Les vidéos <span class="color-accent strike">pour ceux qui n'aiment pas lire</span></h2>
+                        <p class="max-width-l mt-5">Te transmettre mon expérience de manière simple et pragmatique pour que tu puisses te concentrer sur ce qui te fait vibrer : la création.</p>
+                    </div>
+                    
+                    <button-base
+                        class="mt-20@s"
+                        tag="a"
+                        :modifiers="['accent']"
+                        text="La chaîne Youtube"
+                        icon-after="play"
+                        href="https://www.youtube.com/channel/UCn1oYqWvUQvbE9DwlEVTgNg"
+                        target="_blank"
+                    />
+                </div>
 
                 <div class="mt-30 row-xs">
                     <div v-for="video in videos.slice(0, 4)" class="col-3 col-6@s" :key="video.slug">

@@ -17,7 +17,7 @@ export default {
                 description: `Mettre en valeur tes produits auprès de tes clients potentiels.`
             },
             seo: {
-                label: 'Référencement / SEO',
+                label: 'Référencement',
                 description: `Optimiser ta boutique pour être visible sur Etsy et ailleurs.`
             },
         }
