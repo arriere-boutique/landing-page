@@ -113,8 +113,9 @@ export default {
     }),
     head () {
         let meta = {
+            title: `Salut ! Je m'appelle Théotime et j'ai créé l'Arrière Boutique.`,
             meta: [
-                { hid: 'description', name: 'description', content: `J'ai créé l'Arrière Boutique pour te transmettre mon expérience de manière simple et pragmatique pour que tu puisses te concentrer sur ce qui te fait vibrer : la création.` }
+                { hid: 'description', name: 'description', content: `Aujourd'hui, je veux partager avec toi ce que j'ai appris (et ce que j'apprends encore chaque jour). C'est une joie de rencontrer des personnes aussi douées pour les aider à faire reconnaître leur travail à sa juste valeur.` }
             ]
         }
 

@@ -12,7 +12,7 @@
                         <p class="ft-2xl-bold color-precious mb-10">Besoin d'un coup de main ?</p>
 
                         <p class="mb-20">
-                            <b>Soyons sérieux !</b> Développer une marque et commencer à vivre de ses créations prend du temps et beaucoup d'efforts. Je n'ai aucun intérêt à te vendre du rêve. Mais je suis là pour t'aider à faire rêver à tes clients grâce à tes créations originales.
+                            <b>Pas facile de s'y retrouver.</b> Développer une marque et commencer à vivre de ses créations prend du temps et beaucoup d'efforts. Mais je suis là pour t'aider à faire rêver tes clients grâce à tes créations originales. <b>Je propose des coachings à distance mais aussi des fournitures spécialement pour les vendeurs.</b>
                         </p>
 
                         <button-base
@@ -68,7 +68,7 @@
                         <p class="ft-m-bold">{{ item.label }}</p>
 
                         <div class="FooterBase_navLink" v-for="(link, j) in item.items" :key="j">
-                            <nuxt-link class="link" :to="link.path" v-if="link.path">
+                            <nuxt-link class="link" :to="localePath(link.path)" v-if="link.path">
                                 {{ link.label }}
                             </nuxt-link>
                             <a class="link" :href="link.href" target="_blank" v-else>
@@ -129,7 +129,7 @@ export default {
                 { label: `Rejoindre notre groupe d'entraide`, href: "https://www.facebook.com/groups/etsy.en.france" },
             ] },
             { label: "À propos", items: [
-
+                { label: `Qui suis-je ?`, path: { name: 'moi-moi-moi' } },
             ] }
         ],
         formData: {

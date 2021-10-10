@@ -23,7 +23,7 @@
                 <div class="d-flex fx-align-center d-block@s">
                     <div class="fx-grow mr-20 mr-0@s">
                         <h2 class="ft-2xl-bold">Articles qui pourraient t'intéresser</h2>
-                        <p class="max-width-l mt-5">Te transmettre mon expérience de manière simple et pragmatique pour que tu puisses te concentrer sur ce qui te fait vibrer : la création.</p>
+                        <p class="max-width-l mt-5">Fais le plein d'informations et de guides pour mieux comprendre l'éco-système de la vente en ligne.</p>
                     </div>
                     
                     <button-base
@@ -56,7 +56,7 @@
                 <div class="d-flex fx-align-center d-block@s">
                     <div class="fx-grow mr-20 mr-0@s">
                         <h2 class="ft-2xl-bold">Les vidéos <span class="color-accent strike">pour ceux qui n'aiment pas lire</span></h2>
-                        <p class="max-width-l mt-5">Te transmettre mon expérience de manière simple et pragmatique pour que tu puisses te concentrer sur ce qui te fait vibrer : la création.</p>
+                        <p class="max-width-l mt-5">Je publie régulièrement des vidéos pour parler un peu plus en détails de sujets qui me tiennent à coeur. N'hésite pas à t'abonner !</p>
                     </div>
                     
                     <button-base

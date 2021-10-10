@@ -57,7 +57,7 @@ export default {
         let meta = {
             title: `La Boutique de L'Arrière Boutique | Formations & coachings Etsy`,
             meta: [
-                { hid: 'description', name: 'description', content: '' }
+                { hid: 'description', name: 'description', content: `Je te propose des coachings et formations, pour que tu puisses te sentir de plus en plus à l'aise avec ta boutique.` }
             ]
         }
 
