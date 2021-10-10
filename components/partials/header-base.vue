@@ -107,7 +107,8 @@ export default {
                 { category: 'value', path: { name: 'category', params: { category: this.$theme('value').slug } } },
                 { category: 'seo', path: { name: 'category', params: { category: this.$theme('seo').slug } } }
             ], tags: [] },
-            youtube: { label: `La boutique`, path: { name: 'shop' } }
+            shop: { label: `La boutique`, path: { name: 'shop' } },
+            about: { label: `Qui suis-je ?`, path: { name: 'moi-moi-moi' } },
         }
 
         if (process.server) return
