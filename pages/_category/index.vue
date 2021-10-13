@@ -68,7 +68,7 @@
             <div class="Wrapper Wrapper--s">
                 <article-block
                     v-for="article in articles"
-                    class="mv-20"
+                    class="mv-20 mb-40@xs"
                     :modifiers="['horizontal']"
                     v-bind="{ ...article, image: article.thumbnail }"
                     :key="article.slug"
@@ -88,7 +88,7 @@ export default {
         }
         
         await this.$store.dispatch('articles/fetch', {
-            query: { $orCategory: this.$data.categories ? this.$data.categories.join(',') : undefined, status: 'published' }
+            query: { type: 'article', $orCategory: this.$data.categories ? this.$data.categories.join(',') : undefined, status: 'published' }
         })
     },
     data: () => ({
@@ -96,7 +96,7 @@ export default {
         cancelToken: null
     }),
     computed: {
-        articles () { return this.$store.getters['articles/find']({ status: 'published' }) },
+        articles () { return this.$store.getters['articles/find']({ type: 'article', status: 'published' }) },
         featuredArticle () { return this.articles.length > 0 ? this.articles[0] : null }
     },
     watch: {

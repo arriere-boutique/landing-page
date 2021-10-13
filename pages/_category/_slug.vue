@@ -1,20 +1,20 @@
 <template>
     <article class="ArticlePage bg-bg-light" v-if="article">
-        <div class="ArticlePage_banner pt-20 pb-100">
-            <div class="Wrapper">
-                <p class="ArticlePage_category mb-5">
-                    <i class="fa-thin mr-5" :class="[ $theme(article.category).fa ]"></i> {{ $t(`blog.categories.${article.category}.label`) }}
-                </p>
+        <div class="ArticlePage_banner pt-30 pb-60 pt-0@s pb-40@s">
+            <div class="ArticlePage_bannerWrapper Wrapper Wrapper--m">
+                <div class="ArticlePage_cover" v-if="article.cover">
+                    <img class="width-100" :src="article.cover" />
+                </div>
+                
+                <div>
+                    <p class="ArticlePage_category mb-5">
+                        <i class="fa-thin mr-5" :class="[ $theme(article.category).fa ]"></i> {{ $t(`blog.categories.${article.category}.label`) }}
+                    </p>
 
-                <h1 class="ArticlePage_title ft-3xl-bold ft-xl-bold@s">{{ article.title|specials }}</h1>
+                    <h1 class="ArticlePage_title ft-3xl-bold ft-2xl-bold@s">{{ article.title|specials }}</h1>
 
-                <text-body class="ArticlePage_excerpt mt-20" :value="article.excerpt" v-if="article.excerpt" />
-            </div>
-        </div>
-
-        <div class="Wrapper n-mt-40">
-            <div class="ArticlePage_cover" v-if="article.cover">
-                <img class="width-100" :src="article.cover" />
+                    <text-body class="ArticlePage_excerpt mt-20" :value="article.excerpt" v-if="article.excerpt" />
+                </div>
             </div>
         </div>
 

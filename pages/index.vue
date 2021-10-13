@@ -42,7 +42,7 @@
                     </div>
                     <div class="col-8 col-12@s">
                         <div class="row-s mt-10@s">
-                            <div v-for="article in articles.slice(1, 7)" class="col-4 col-6@s mb-30 mb-20@s" :key="article.slug">
+                            <div v-for="article in articles.slice(1, 7)" class="col-4 col-6@s col-12@xs mb-30 mb-20@s" :key="article.slug">
                                 <article-block v-bind="{ ...article, image: article.thumbnail }" />
                             </div>
                         </div>
@@ -51,7 +51,7 @@
                 
             </div>
         </div>
-        <div class="pv-60 is-gum" :class="[`bg-gum-xweak`]" v-if="videos.length > 0">
+        <div class="pv-60 is-gum" :class="[`bg-bg-xweak`]" v-if="videos.length > 0">
             <div class="Wrapper">
                 <div class="d-flex fx-align-center d-block@s">
                     <div class="fx-grow mr-20 mr-0@s">
@@ -71,7 +71,7 @@
                 </div>
 
                 <div class="mt-30 row-xs">
-                    <div v-for="video in videos.slice(0, 4)" class="col-3 col-6@s" :key="video.slug">
+                    <div v-for="video in videos.slice(0, 4)" class="col-3 col-6@s col-12@xs" :key="video.slug">
                         <article-block
                             v-bind="{
                                 ...video,
