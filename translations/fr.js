@@ -5,8 +5,8 @@ export default {
     blog: {
         categories: {
             news: {
-                label: 'Actualités',
-                description: `À propos du monde de la création artisanale et de la vente en ligne.`
+                label: 'Tout sur Etsy',
+                description: `Tout sur le monde de la création artisanale et de la vente en ligne.`
             },
             identity: {
                 label: 'Identité de marque',

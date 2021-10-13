@@ -127,6 +127,7 @@ export default {
                 { label: `Apprendre sur Youtube`, href: "https://www.youtube.com/channel/UCn1oYqWvUQvbE9DwlEVTgNg" },
                 { label: `Me suivre sur Instagram`, href: "https://www.instagram.com/arriereboutiquefr" },
                 { label: `Rejoindre notre groupe d'entraide`, href: "https://www.facebook.com/groups/etsy.en.france" },
+                { label: `Se lancer sur Etsy`, href: "https://etsy.me/3vbM7TP" }
             ] },
             { label: "À propos", items: [
                 { label: `Qui suis-je ?`, path: { name: 'moi-moi-moi' } },

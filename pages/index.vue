@@ -38,7 +38,7 @@
 
                 <div class="mt-30 row-s" v-if="articles.length > 0">
                     <div class="col-4 col-12@s">
-                        <article-block :modifiers="['story']" v-bind="{ ...articles[0], image: articles[0].thumbnail }" />
+                        <article-block :modifiers="['story']" v-bind="{ ...articles[0], image: articles[0].cover }" />
                     </div>
                     <div class="col-8 col-12@s">
                         <div class="row-s mt-10@s">
