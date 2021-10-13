@@ -1,21 +1,29 @@
 .AuthorBlock {
     font: var(--ft-m);
     color: var(--color-ft);
-    padding: 20px;
+    padding: 10px;
     background-color: var(--color-bg-light);
     display: flex;
     align-items: center;
     margin: 0 auto;
     max-width: 600px;
-    border: 3px solid var(--color-current-2xweak);
+    border-radius: 10px;
+    border: 1px solid var(--color-border-weak);
 }
 
 .AuthorBlock_image {
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: 150px;
     flex-shrink: 0;
-    margin-right: 20px;
+    margin: 8px 25px 8px 8px;
     background-position: center;
     background-size: cover;
-    border-radius: 50%;
+    position: relative;
+
+    &::after {
+        content: "";
+        @include absolute-fill;
+        background-image: url("../img/blob/blob-cache-1.png");
+        background-size: cover;
+    }
 }

@@ -1,6 +1,6 @@
 <template>
     <div class="BlogPage">
-        <div class="pv-40">
+        <div class="pv-40 d-none@s">
             <div class="Wrapper Wrapper">
                 <div class="row-xs fx-wrap">
                     <div class="col-6 mv-5 col-12@s">

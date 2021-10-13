@@ -2,16 +2,19 @@
     <div class="AuthorBlock is-amber">
         <div class="AuthorBlock_image" :style="{ backgroundImage: `url(${assets.profile})` }"></div>
         <div class="AuthorBlock_content">
-            <p class="ft-m-bold">
-                Théotime Colin <span class="label n-mt-3 ml-5">Créateur Etsy</span>
+            <p class="ft-l-bold">
+                Théotime Colin <span class="label n-mt-5 ml-5">L'auteur</span>
             </p>
-            <p class="mt-10 ellipsis-3"> In hac habitasse platea dictumst. Phasellus semper ornare arcu, vitae ultricies lorem tincidunt nec. Fusce rutrum tincidunt elit non aliquam. Mauris consectetur tellus a suscipit mollis. Nullam non risus at lorem porta tempor et id lectus. Ut vitae quam ornare, viverra tellus pulvinar, tincidunt ligula. Vestibulum purus augue, mattis sed tellus id, laoreet feugiat enim</p>
+
+            <p class="mt-5 ellipsis-3">Ma passion ? T'aider à te consacrer pleinement à la tienne : la création.</p>
+
+            <button-base class="mt-10" :modifiers="['link']" icon-before="hand-wave" tag="nuxt-link" :attrs="{ to: localePath({ name: 'moi-moi-moi' }) }">À propos de moi</button-base>
         </div>
     </div>
 </template>
 
 <script>
-import profile from '@/assets/img/about/profile.jpg'
+import profile from '@/assets/img/about/portrait_1.jpg'
 
 export default {
     name: 'AuthorBlock',

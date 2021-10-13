@@ -29,7 +29,7 @@
 
         <div class="pv-40" :class="['bg-current-xweak']">
             <div class="Wrapper Wrapper--m">
-                <!-- <author-block class="n-mt-60 mb-40" /> -->
+                <author-block class="n-mt-60 mb-40" />
 
                 <div class="text-center" v-if="similarArticles.length > 0">
                     <p class="ft-2xl-bold color-current mb-20">
@@ -64,7 +64,7 @@ export default {
         },
         similarArticles () {
             let articles = this.$store.getters['articles/find']({
-                category: this.article.category
+                category: this.article.category, type: 'article'
             })
 
             articles = articles.filter(article => article._id !== this.article._id)

@@ -1,5 +1,5 @@
 <template>
-    <header class="HeaderBase" :class="{ 'is-scrolled': state.isScrolled }" v-if="itemsLeft">
+    <header class="HeaderBase" :class="{ 'is-scrolled': state.isScrolled }">
         <div class="HeaderBase_wrapper">
             <div class="HeaderBase_left">
                 <nav class="HeaderBase_nav">
@@ -51,14 +51,20 @@
                 L'Arrière Boutique
             </nuxt-link>
 
-            <div class="HeaderBase_right"></div>
+            <div class="HeaderBase_right">
+                <div v-for="(item, key) in itemsRight" class="HeaderBase_navParent" :class="{ 'is-parent': item.items != undefined }"  :key="key">
+                    <component  class="HeaderBase_navLink" :is="item.path ? 'nuxt-link' : 'a'" :to="localePath(item.path)" :href="item.href" :target="item.href ? '_blank' : ''">
+                        {{ item.label }}
+                    </component>
+                </div>
+            </div>
 
             <div class="HeaderBase_burger" @click="state.isMenu = true">
                 <i class="fa-thin fa-bars"></i>
             </div>
 
             <div class="HeaderBase_menu" :class="{ 'is-active': state.isMenu }">
-                <div class="HeaderBase_navParent" v-for="(item, key) in itemsLeft" :key="key">
+                <div class="HeaderBase_navParent" v-for="(item, key) in { ...itemsLeft, ...itemsRight }" :key="key">
                     <component
                         class="HeaderBase_navLink"
                         :is="item.path ? 'nuxt-link' : 'a'"
@@ -83,7 +89,8 @@ export default {
     name: 'HeaderBase',
     data: () => ({
         scroll: process.client ? window.pageYOffset : 0,
-        itemsLeft: null,
+        itemsLeft: [],
+        itemsRight: [],
         state: {
             isScrolled: false,
             isMenu: false
@@ -107,8 +114,11 @@ export default {
                 { category: 'value', path: { name: 'category', params: { category: this.$theme('value').slug } } },
                 { category: 'seo', path: { name: 'category', params: { category: this.$theme('seo').slug } } }
             ], tags: [] },
-            shop: { label: `La boutique`, path: { name: 'shop' } },
             about: { label: `Qui suis-je ?`, path: { name: 'moi-moi-moi' } },
+        }
+
+        this.$data.itemsRight = {
+            shop: { label: `La boutique`, path: { name: 'shop' } }
         }
 
         if (process.server) return
