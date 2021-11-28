@@ -12,15 +12,16 @@
                         <p class="ft-2xl-bold color-precious mb-10">Besoin d'un coup de main ?</p>
 
                         <p class="mb-20">
-                            <b>Pas facile de s'y retrouver.</b> Développer une marque et commencer à vivre de ses créations prend du temps et beaucoup d'efforts. Mais je suis là pour t'aider à faire rêver tes clients grâce à tes créations originales. <b>Je propose des coachings à distance mais aussi des fournitures spécialement pour les vendeurs.</b>
+                            <b>Pas facile de s'y retrouver.</b> Développer une marque et commencer à vivre de ses créations prend du temps et beaucoup d'efforts. Mais je suis là pour t'aider à faire rêver tes clients grâce à tes créations originales. <b>Je propose des fournitures spécialement pour les vendeurs : stickers, goodies, cartes de visites...</b>
                         </p>
 
                         <button-base
                             :modifiers="['precious', 'icon-mango']"
                             iconBefore="sparkles"
-                            tag="nuxt-link"
-                            :attrs="{ to: localePath({ name: 'shop' }) }"
-                            text="Ouiii ! Je visite la boutique"
+                            tag="a"
+                            target="_blank"
+                            href="https://arriereboutiquefr.etsy.com/"
+                            text="Je visite la boutique"
                         />
                     </div>
                 </div>
@@ -131,6 +132,7 @@ export default {
             ] },
             { label: "À propos", items: [
                 { label: `Qui suis-je ?`, path: { name: 'moi-moi-moi' } },
+                { label: `Fournitures pour vendeurs`, href: "https://arriereboutiquefr.etsy.com/" }
             ] }
         ],
         formData: {

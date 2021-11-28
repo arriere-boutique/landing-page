@@ -109,7 +109,7 @@ export default {
     },
     mounted () {
         this.$data.itemsLeft = {
-            articles: { label: 'Comprendre', path: { name: 'category', params: { category: 'blog' } }, items: [
+            articles: { label: 'Articles & astuces', path: { name: 'category', params: { category: 'blog' } }, items: [
                 { category: 'identity', path: { name: 'category', params: { category: this.$theme('identity').slug } } },
                 { category: 'value', path: { name: 'category', params: { category: this.$theme('value').slug } } },
                 { category: 'seo', path: { name: 'category', params: { category: this.$theme('seo').slug } } }
@@ -118,7 +118,7 @@ export default {
         }
 
         this.$data.itemsRight = {
-            shop: { label: `La boutique`, path: { name: 'shop' } }
+            shop: { label: `La boutique`, href: 'https://arriereboutiquefr.etsy.com/' }
         }
 
         if (process.server) return
