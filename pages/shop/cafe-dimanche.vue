@@ -7,7 +7,7 @@
                 <h1 class="ft-2xl-bold mt-20 ft-xl-bold@s">
                     Parlons de ta boutique #CaféDimanche
                 </h1>
-                <h2 class="ft-xl ft-l-bold@s">30 minutes pour le prix de deux grands cafés et d'un cookie.</h2>
+                <h2 class="ft-xl ft-l-bold@s">30 minutes pour débloquer ta boutique.</h2>
 
                 <p class="mt-20">Tous les dimanches, j'ouvre ma ligne téléphonique à tous les créateurs & créatrices de France. Que ta boutique en ligne soit sur Etsy ou ailleurs, <b>ça fait parfois du bien de se sentir entendu·e.</b></p>
 
