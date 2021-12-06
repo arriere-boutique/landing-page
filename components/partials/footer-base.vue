@@ -29,7 +29,7 @@
         </div>
 
         <div class="bg-pond-xweak pv-40">
-            <div class="Wrapper Wrapper--s">
+            <div class="Wrapper Wrapper--xs">
                 <div class="bg-bg-light p-30 b">
                     <p class="ft-hand-m color-pond">
                         <i class="fal fa-sparkles mr-5 mb-10"></i> La Gazette

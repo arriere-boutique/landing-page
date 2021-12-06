@@ -23,7 +23,7 @@ export default {
         fa: { type: [ String, Boolean ], default: false },
         target: { type: String, defaut: '_self' },
         node: { type: Object, default: () => {} },
-        link: { type: [ String, Boolean ], default: false },
+        link: { type: [ String ], default: "#" },
         attrs: { type: Object, default: () => {} },
     }
 }

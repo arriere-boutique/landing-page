@@ -31,8 +31,7 @@
                 <div class="d-flex fx-align-top bg-precious-xweak p-20 br-4 mt-30 d-block@s mt-0@s p-0@s bg-skylight-xweak@s mb-30@s">
                     <div>
                         <h3 class="ft-l-bold color-accent">Parfois un avis extérieur est tout ce qu'il te faut.</h3>
-                        <div>Seulement 4 places disponibles par semaine. Créneaux visibles deux semaines à l'avance. <b>Plus de place ?</b>
-                        <link-base class="d-none@s" link="https://calendly.com/arriere-boutique" target="_blank">Voir toutes les dispos</link-base></div>
+                        <div>Seulement 4 places disponibles par semaine. Créneaux visibles deux semaines à l'avance.</div>
                     </div>
                     <div class="ml-20 text-right fx-no-shrink ml-0@s mt-20@s text-center@s">
                         <button-base :modifiers="['precious']" icon-before="coffee" :attrs="{ onclick: `Calendly.initPopupWidget({ url: 'https://calendly.com/arriere-boutique/cafe-dimanche?hide_gdpr_banner=1&hide_event_type_details=1&primary_color=7156ec'});return false;` }">
@@ -43,6 +42,11 @@
                             16.90€
                         </p>
                     </div>
+                </div>
+
+                <div class="bg-skylight-xweak p-20 text-center mt-10 br-4">
+                    <p class="ft-l-bold">Plus de place ?</p>
+                    <link-base link="https://calendly.com/arriere-boutique" target="_blank">Voir les autres dispos</link-base>
                 </div>
             </div>
         </div>
@@ -73,6 +77,9 @@ export default {
         this.$store.commit('page/setClasses', [ 'header-fill' ])
 
         return meta
+    },
+    beforeDestroy () {
+        this.$store.commit('page/setClasses', [])
     }
 }
 </script>

@@ -1,5 +1,6 @@
 <template>
     <div class="Layout LayoutDefault" :class="[`is-${color}`, classes ]">
+        <header-banner />
         <header-base />
         
         <div class="LayoutDefault_content">

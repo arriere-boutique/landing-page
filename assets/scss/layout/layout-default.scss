@@ -2,17 +2,6 @@
     background-color: var(--color-current-xweak);
 }
 
-.LayoutDefault_content {
-    padding-top: 100px;
-}
-
-.LayoutDefault--shop {
-
-    .LayoutDefault_content {
-        padding-top: 75px;
-    }
-}
-
 .page-enter-active,
 .page-leave-active {
   transition: all 250ms;
