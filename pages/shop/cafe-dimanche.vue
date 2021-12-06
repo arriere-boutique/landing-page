@@ -1,6 +1,6 @@
 <template>
     <div class="LandingPage is-precious">
-        <div class="LandingPage_background" :style="{ '--image': `url('${assets.background}')` }"></div>
+        <!-- <div class="LandingPage_background" :style="{ '--image': `url('${assets.background}')` }"></div> -->
         
         <div class="Wrapper Wrapper--s pv-60 pv-0@s">
             <div class="bg-bg-light p-30 br-10 p-0@s bg-skylight-xweak@s">
