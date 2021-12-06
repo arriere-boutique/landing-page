@@ -2,7 +2,7 @@ export default {
     namespaced: true,
     state: () => ({
         body: {
-            classes: [],
+            classes: [ 'is-fill' ],
             color: 'gum'
         },
         meta: {
@@ -14,7 +14,7 @@ export default {
             state.body = { ...state.body, color }
         },
         setClasses (state, classes) {
-            state.body.classes = classes
+            state.body = { ...state.body, classes }
         },
         setProperty (state, params) {
             state.meta = {

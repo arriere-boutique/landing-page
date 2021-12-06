@@ -1,6 +1,6 @@
 <template>
     <div class="LandingPage is-precious">
-        <!-- <div class="LandingPage_background" :style="{ '--image': `url('${assets.background}')` }"></div> -->
+        <div class="LandingPage_background" :style="{ '--image': `url('${assets.background}')` }"></div>
         
         <div class="Wrapper Wrapper--s pv-60 pv-0@s">
             <div class="bg-bg-light p-30 br-10 p-0@s bg-skylight-xweak@s">
@@ -31,14 +31,11 @@
                 <div class="d-flex fx-align-top bg-precious-xweak p-20 br-4 mt-30 d-block@s mt-0@s p-0@s bg-skylight-xweak@s mb-30@s">
                     <div>
                         <h3 class="ft-l-bold color-accent">Parfois un avis extérieur est tout ce qu'il te faut.</h3>
-                        <p>Seulement 4 places disponibles par semaine. Créneaux visibles deux semaines à l'avance. <b>Plus de place ?</b>
-                        <link-base class="d-none@s" link="https://calendly.com/arriere-boutique" target="_blank">Voir toutes les dispos</link-base></p>
+                        <div>Seulement 4 places disponibles par semaine. Créneaux visibles deux semaines à l'avance. <b>Plus de place ?</b>
+                        <link-base class="d-none@s" link="https://calendly.com/arriere-boutique" target="_blank">Voir toutes les dispos</link-base></div>
                     </div>
                     <div class="ml-20 text-right fx-no-shrink ml-0@s mt-20@s text-center@s">
-                        <!-- <button-base :modifiers="['precious']" icon-before="coffee" :attrs="{ onclick: `Calendly.initPopupWidget({ url: 'https://calendly.com/arriere-boutique/cafe-dimanche?hide_gdpr_banner=1&hide_event_type_details=1&primary_color=7156ec'});return false;` }">
-                            Je réserve
-                        </button-base> -->
-                        <button-base :modifiers="['precious']" icon-before="coffee" tag="a" href="https://calendly.com/arriere-boutique/cafe-dimanche" target="_blank">
+                        <button-base :modifiers="['precious']" icon-before="coffee" :attrs="{ onclick: `Calendly.initPopupWidget({ url: 'https://calendly.com/arriere-boutique/cafe-dimanche?hide_gdpr_banner=1&hide_event_type_details=1&primary_color=7156ec'});return false;` }">
                             Je réserve
                         </button-base>
                         <p class="ft-2xl-bold mb-5 text-right line-1 mt-10 text-center@s">

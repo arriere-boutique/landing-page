@@ -20,7 +20,6 @@ export default {
     components: { TooltipManager },
     computed: {
         color () { return this.$store.state.page.body.color },
-        
         classes () { return this.$store.state.page.body.classes }
     },
     async mounted () {
