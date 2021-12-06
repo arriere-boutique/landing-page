@@ -1,23 +1,11 @@
 @import "../../node_modules/@fortawesome/fontawesome-pro/css/all.css";
-
-
 @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=STIX+Two+Text:wght@500;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
-@font-face {
-    font-family: 'Kindness Matters';
-    src: url('../fonts/kindness/KindnessMatters-Regular.woff2') format('woff2'),
-        url('../fonts/kindness/KindnessMatters-Regular.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-    font-display: block;
-}
 
 @font-face {
-    font-family: 'Kindness Matters';
-    src: url('../fonts/kindness/KindnessMatters-Regular.woff2') format('woff2'),
-        url('../fonts/kindness/KindnessMatters-Regular.woff') format('woff');
-    font-weight: bold;
+    font-family: 'Lazydog';
+    src: url('../fonts/lazydog/lazydog.woff2') format('woff2'),
+        url('../fonts/lazydog/lazydog.woff') format('woff');
+    font-weight: normal;
     font-style: normal;
     font-display: block;
 }

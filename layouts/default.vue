@@ -1,5 +1,5 @@
 <template>
-    <div class="LayoutDefault" :class="[`is-${color}`]">
+    <div class="Layout LayoutDefault" :class="[`is-${color}`, classes ]">
         <header-base />
         
         <div class="LayoutDefault_content">
@@ -19,7 +19,8 @@ export default {
     name: 'LayoutDefault',
     components: { TooltipManager },
     computed: {
-        color () { return this.$store.state.page.body.color }
+        color () { return this.$store.state.page.body.color },
+        classes () { return this.$store.state.page.body.classes }
     },
     async mounted () {
         try {

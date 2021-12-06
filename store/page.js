@@ -13,8 +13,8 @@ export default {
         setColor (state, color) {
             state.body = { ...state.body, color }
         },
-        addClasses (state, classes) {
-            state.body.classes = [ ...state.body.classes, ...classes]
+        setClasses (state, classes) {
+            state.body.classes = classes
         },
         setProperty (state, params) {
             state.meta = {

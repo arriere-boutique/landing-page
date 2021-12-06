@@ -1,0 +1,32 @@
+.GoPage {
+    background-color: var(--color-pond-xweak);
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.GoPage_container {
+    max-width: 500px;
+    width: 100%;
+    margin: 20px;
+    padding: 30px;
+    background-color: var(--color-bg-light);
+    border-radius: 10px;
+    @include box-shadow;
+}
+
+@include breakpoint-xs {
+
+    .GoPage {
+        display: block;
+        height: auto;
+    }
+
+    .GoPage_container {
+        width: auto;
+        padding: 0;
+        background: none;
+        box-shadow: none;
+    }
+}

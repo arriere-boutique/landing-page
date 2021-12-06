@@ -28,36 +28,27 @@
             </div>
         </div>
 
-        <div class="bg-pond-xweak pv-60">
+        <div class="bg-pond-xweak pv-40">
             <div class="Wrapper Wrapper--s">
                 <div class="bg-bg-light p-30 b">
                     <p class="ft-hand-m color-pond">
-                        La Gazette
+                        <i class="fal fa-sparkles mr-5 mb-10"></i> La Gazette
                     </p>
 
                     <p class="mt-10 mb-30">Toutes les infos qui vont faire <b>avancer ta boutique</b> directement livrées dans ta boîte mail ! C'est pas beau la technologie ?</p>
 
-                    <div class="row-xs fx-align-center">
-                        <div class="col-6 col-12@xs">
+                    <div class="d-flex fx-align-center d-block@xs">
+                        <div class="fx-grow">
                             <input-base label="Ton adresse e-mail" v-model="formData.email" type="text" />
                         </div>
-                        <div class="col-6 col-12@xs mt-15@xs d-flex fx-align-center d-block@xs">
-                            <label class="InputChoice mr-15">
-                                <input type="radio" name="frequency" @click="formData.frequency = true" :checked="formData.frequency"> Dès que possible <i class="fal fa-question-circle fa-sm ml-5" @mouseenter="(e) => tooltipOpen('Reçois les dernières infos, guides et astuces dès que ça sort !', e)" @mouseleave="tooltipClose"></i>
-                            </label>
-                            <label class="InputChoice mt-15@xs">
-                                <input type="radio" name="frequency" @click="formData.frequency = false" :checked="!formData.frequency"> Mensuel <i class="fal fa-question-circle fa-sm ml-5" @mouseenter="(e) => tooltipOpen('Le concentré de toutes les nouveautés du mois.', e)" @mouseleave="tooltipClose"></i>
-                            </label>
+                        <div class="fx-no-shrink ml-10 ml-0@xs mt-5@xs text-right@xs">
+                            <button-base icon-before="party-horn" @click="onSubmit">
+                                Je m'abonne
+                            </button-base>
                         </div>
                     </div>
 
-                    <hr class="Separator mv-30">
-                    
-                    <div class="d-flex fx-align-center d-block@xs text-center@xs">
-                        <p class="fx-grow ft-xs-medium color-ft mr-10 mr-0@xs mb-10@xs">Aucun spam, désabonnement possible à tout moment. C'est promis.</p>
-
-                        <button-base @click="onSubmit">Je m'abonne GRATUITEMENT</button-base>
-                    </div>
+                    <p class="mt-10 ft-m-medium" v-if="state.isSuccess"><i class="fal fa-face-party mr-5"></i> Abonnement confirmé, on se retrouve bientôt dans ta boîte mail !</p>
                 </div>
             </div>
         </div>
@@ -80,10 +71,10 @@
                 </div>
                 <div class="FooterBase_brand">
                     <nuxt-link class="d-block" :to="localePath({ name: '/' })">
-                        <p class="ft-hand-s color-pond">L'Arrière Boutique</p>
+                        <icon-base name="logo/logo-main" class="fill-accent" :height="65" />
                     </nuxt-link>
 
-                    <div class="Title_secondary Title_secondary--s color-ft mv-60">
+                    <div class="Title_secondary Title_secondary--s color-ft mv-40">
                         Le seul endroit où vos rêves sont impossibles, c'est dans votre tête
                         <p class="color-pond mt-20">R. Schuller</p>
                     </div>
@@ -122,6 +113,9 @@ export default {
         isShop: { type: Boolean, default: false }
     },
     data: () => ({
+        state: {
+            isSuccess: false
+        },
         assets: { blobHelp },
         items: [
             { label: `Apprenons ensemble !`, items: [
@@ -146,11 +140,13 @@ export default {
 
             let response = await this.$store.dispatch('subscribe/create', {
                 ...this.$data.formData,
-                frequency: this.$data.formData.frequency ? 'biweekly' : 'monthly',
+                frequency: 'monthly',
                 token
             })
 
             console.log(response)
+
+            this.$data.state.isSuccess = true
         }
     }
 }

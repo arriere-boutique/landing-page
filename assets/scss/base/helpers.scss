@@ -94,6 +94,7 @@
 
 .color-current { color: var(--color-current); }
 .color-accent { color: var(--color-accent); }
+.fill-accent { fill: var(--color-accent); }
 .color-accent-weak { color: var(--color-accent-weak); }
 
 .bg-current { background-color: var(--color-current); }
@@ -133,7 +134,7 @@
     white-space: nowrap;
     top: 0;
     left: 0;
-    transform: translate3d(-20%, -90%, 0) rotate(-10deg);
+    transform: translate3d(-10%, -110%, 0) rotate(-10deg);
 }
 
 .strike {

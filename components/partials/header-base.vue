@@ -2,6 +2,12 @@
     <header class="HeaderBase" :class="{ 'is-scrolled': state.isScrolled }">
         <div class="HeaderBase_wrapper">
             <div class="HeaderBase_left">
+                <nuxt-link class="HeaderBase_logo" :to="localePath({ name: '/' })">
+                    <icon-base name="logo/logo-main" :height="state.isScrolled ? 35 : 45" />
+                </nuxt-link>
+            </div>
+
+            <div class="HeaderBase_right">
                 <nav class="HeaderBase_nav">
                     <div v-for="(item, key) in itemsLeft" class="HeaderBase_navParent" :class="{ 'is-parent': item.items != undefined }"  :key="key">
                         <component  class="HeaderBase_navLink" :is="item.path ? 'nuxt-link' : 'a'" :to="localePath(item.path)" :href="item.href" :target="item.href ? '_blank' : ''">
@@ -46,12 +52,7 @@
                         </div>
                     </div>
                 </nav>
-            </div>
-            <nuxt-link class="HeaderBase_logo" :to="localePath({ name: '/' })">
-                L'Arrière Boutique
-            </nuxt-link>
 
-            <div class="HeaderBase_right">
                 <div v-for="(item, key) in itemsRight" class="HeaderBase_navParent" :class="{ 'is-parent': item.items != undefined }"  :key="key">
                     <component  class="HeaderBase_navLink" :is="item.path ? 'nuxt-link' : 'a'" :to="localePath(item.path)" :href="item.href" :target="item.href ? '_blank' : ''">
                         {{ item.label }}

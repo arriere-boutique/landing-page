@@ -23,10 +23,8 @@
     padding: 0 20px;
 }
 
-.HeaderBase_left,
 .HeaderBase_right {
-    width: 35%;
-    flex-grow: 0;
+    flex-grow: 1;
 }
 
 .HeaderBase_right {
@@ -35,14 +33,17 @@
 }
 
 .HeaderBase_logo {
-    font: var(--ft-hand-s);
-    white-space: nowrap;
-    letter-spacing: -0.05em;
     display: block;
-    transition: all 150ms ease;
-    color: var(--color-accent);
     position: relative;
     z-index: 50;
+
+    .IconBase {
+        transition: all 150ms ease;
+    }
+
+    path {
+        fill: var(--color-accent);
+    }
 }
 
 .HeaderBase_subNav {
@@ -195,6 +196,10 @@
     }
 }
 
+.Layout.header-fill .HeaderBase {
+    background-color: var(--color-bg-light);
+}
+
 .HeaderBase.is-scrolled {
     background-color: var(--color-bg-light);
     @include box-shadow;
@@ -212,13 +217,12 @@
 
 @include breakpoint-s {
 
-    .HeaderBase_left,
     .HeaderBase_right  {
         display: none;
     }
 
     .HeaderBase_wrapper {
-        padding: 0px 15px 0 30px;
+        padding: 0px 15px 0 15px;
     }
 
     .HeaderBase_burger,

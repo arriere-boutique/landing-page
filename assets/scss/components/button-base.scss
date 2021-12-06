@@ -82,6 +82,18 @@
     }
 }
 
+.ButtonBase--full {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+
+    .ButtonBase_content {
+        white-space: normal;
+        line-height: 1.4;
+        text-align: left;
+    }
+}
+
 .ButtonBase--secondary {
     color: var(--color-onyx);
     background-color: transparent;
