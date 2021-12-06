@@ -35,7 +35,10 @@
                         <link-base class="d-none@s" link="https://calendly.com/arriere-boutique" target="_blank">Voir toutes les dispos</link-base></p>
                     </div>
                     <div class="ml-20 text-right fx-no-shrink ml-0@s mt-20@s text-center@s">
-                        <button-base :modifiers="['precious']" icon-before="coffee" :attrs="{ onclick: `Calendly.initPopupWidget({ url: 'https://calendly.com/arriere-boutique/cafe-dimanche?hide_gdpr_banner=1&hide_event_type_details=1&primary_color=7156ec'});return false;` }">
+                        <!-- <button-base :modifiers="['precious']" icon-before="coffee" :attrs="{ onclick: `Calendly.initPopupWidget({ url: 'https://calendly.com/arriere-boutique/cafe-dimanche?hide_gdpr_banner=1&hide_event_type_details=1&primary_color=7156ec'});return false;` }">
+                            Je réserve
+                        </button-base> -->
+                        <button-base :modifiers="['precious']" icon-before="coffee" tag="a" href="https://calendly.com/arriere-boutique/cafe-dimanche" target="_blank">
                             Je réserve
                         </button-base>
                         <p class="ft-2xl-bold mb-5 text-right line-1 mt-10 text-center@s">
