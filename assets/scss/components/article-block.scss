@@ -51,7 +51,7 @@
 }
 
 .ArticleBlock_excerpt {
-    font: var(--ft-l);
+    font: var(--ft-m);
     display: none;
 }
 
@@ -153,6 +153,10 @@
 
     .ArticleBlock--horizontal {
         display: block;
+        background-color: var(--color-bg-light);
+        padding: 20px;
+        border: 1px solid var(--color-border);
+        border-radius: 8px;
 
         .ArticleBlock_image {
             width: auto;

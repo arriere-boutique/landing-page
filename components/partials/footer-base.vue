@@ -28,7 +28,7 @@
             </div>
         </div> -->
 
-        <div class="bg-bg-light pv-40">
+        <div class="bg-bg-light pv-40 b-top">
             <div class="Wrapper Wrapper--s">
                 <emailing-form />
             </div>

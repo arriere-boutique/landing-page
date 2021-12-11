@@ -1,78 +1,37 @@
 <template>
-    <div class="BlogPage">
-        <div class="pv-40 d-none@s">
-            <div class="Wrapper Wrapper">
-                <div class="row-xs fx-wrap">
-                    <div class="col-6 mv-5 col-12@s">
-                        <filter-checkbox
-                            :fa="$theme('news').fa"
-                            :modifiers="['amber']"
-                            :is-checked="categories.includes('news')"
-                            :is-active="categories.length == 0 || categories.includes('news')"
-                            :title="$t('blog.categories.news.label')"
-                            @click.native="toggleCategory('news')"
-                        >
-                            {{ $t('blog.categories.news.description') }}
-                        </filter-checkbox>
+    <div class="BlogPage bg-bg-light">
+        <div class="pv-40">
+            <div class="Wrapper Wrapper--l">
+                <div class="d-flex d-block@s">
+                    <div class="fx-grow">
+                        <h2 class="ft-2xl-bold mb-30 ft-l-bold@s mb-10@s">Articles trouvés ({{ articles.length }})</h2>
+                        
+                        <article-block
+                            v-for="article in articles"
+                            class="mv-20 mb-10@xs"
+                            :modifiers="['horizontal']"
+                            v-bind="{ ...article, image: article.thumbnail }"
+                            :key="article.slug"
+                        />
                     </div>
-                    <div class="col-6 mv-5 col-12@xs">
+
+                    <div class="BlogPage_filters ml-30 d-none@s">
+                        <p class="ft-l-bold mb-10">Filter par catégorie :</p>
+
                         <filter-checkbox
-                            :fa="$theme('identity').fa"
-                            :modifiers="['amethyst']"
-                            :is-checked="categories.includes('identity')"
-                            :is-active="categories.length == 0 || categories.includes('identity')"
-                            :title="$t('blog.categories.identity.label')"
-                            @click.native="toggleCategory('identity')"
+                            v-for="category in ['news', 'identity', 'value', 'seo']"
+                            class="mb-10"
+                            :fa="$theme(category).fa"
+                            :is-checked="categories.includes(category)"
+                            :is-active="categories.length == 0 || categories.includes(category)"
+                            :title="$t(`blog.categories.${category}.label`)"
+                            @click.native="toggleCategory(category)"
+                            :key="category"
                         >
-                            {{ $t('blog.categories.identity.description') }}
-                        </filter-checkbox>
-                    </div>
-                    <div class="col-6 mv-5 col-12@xs">
-                        <filter-checkbox
-                            :fa="$theme('value').fa"
-                            :modifiers="['ruby']"
-                            :is-checked="categories.includes('value')"
-                            :is-active="categories.length == 0 || categories.includes('value')"
-                            :title="$t('blog.categories.value.label')"
-                            @click.native="toggleCategory('value')"
-                        >
-                            {{ $t('blog.categories.value.description') }}
-                        </filter-checkbox>
-                    </div>
-                    <div class="col-6 mv-5 col-12@xs">
-                        <filter-checkbox
-                            :fa="$theme('seo').fa"
-                            :modifiers="['malachite']"
-                            :is-checked="categories.includes('seo')"
-                            :is-active="categories.length == 0 || categories.includes('seo')"
-                            :title="$t('blog.categories.seo.label')"
-                            @click.native="toggleCategory('seo')"
-                        >
-                            {{ $t('blog.categories.seo.description') }}
+                            {{ $t(`blog.categories.${category}.description`) }}
                         </filter-checkbox>
                     </div>
                 </div>
-
-                <div class="text-center">
-                    <button-base class="mt-10" :modifiers="['secondary', 'amber']" @click="categories = []" v-show="categories.length > 0">
-                        Voir tous les articles
-                    </button-base>
-                </div>
-            </div>
-        </div>
-
-        <div class="bg-bg-light pv-40">
-            <div class="Wrapper Wrapper--s">
-                <h2 class="ft-l-bold mb-30">Articles trouvés ({{ articles.length }})</h2>
-            </div>
-            <div class="Wrapper Wrapper--s">
-                <article-block
-                    v-for="article in articles"
-                    class="mv-20 mb-40@xs"
-                    :modifiers="['horizontal']"
-                    v-bind="{ ...article, image: article.thumbnail }"
-                    :key="article.slug"
-                />
             </div>
         </div>
     </div>
@@ -142,3 +101,10 @@ export default {
     }
 }
 </script>
+
+<style lang="scss" scoped>
+.BlogPage_filters {
+    width: 350px;
+    flex-shrink: 0;
+}
+</style>
