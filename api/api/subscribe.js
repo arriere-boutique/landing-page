@@ -2,6 +2,7 @@ const mongoose = require('mongoose')
 const jwt = require('jsonwebtoken')
 const { $fetch } = require('ohmyfetch/node')
 const Entities = require('../entities')
+const SibApiV3Sdk = require('sib-api-v3-sdk');
 
 const { authenticate } = require('../utils/user')
 
@@ -13,20 +14,32 @@ exports.createSubscriber = async function (req, res) {
         if (!req.body.email || !req.body.token) throw 'missing-fields'
 
         const challenge = await $fetch(`https://www.google.com/recaptcha/api/siteverify?secret=${process.env.RECAPTCHA_SECRET}&response=${req.body.token}`)
+
         if (!challenge.success) throw 'challenge-failed'
 
-        let existing = await Entities['subscriber'].model.find({ email: req.body.email })
-        if (existing.length > 0) throw 'already-subscribed'
+        let sendinBlue = SibApiV3Sdk.ApiClient.instance;
+        let apiKey = sendinBlue.authentications['api-key']
+        apiKey.apiKey = process.env.SENDINBLUE
 
-        data = await Entities['subscriber'].model.create({
-            email: req.body.email,
-            frequency: req.body.frequency ? req.body.frequency : 'biweekly'
-        })
+        let apiInstance = new SibApiV3Sdk.ContactsApi()
+        let createContact = new SibApiV3Sdk.CreateContact()
+
+        createContact.email = req.body.email
+        createContact.listIds = [6]
+        createContact.attributes = {
+            PRENOM: req.body.name,
+            DOMAINE: req.body.shopCategory,
+            DOMAINECUSTOM: req.body.shopCategoryCustom,
+            NOMBOUTIQUE: req.body.shopName
+        }
+
+        let response = await apiInstance.createContact(createContact)
+        data = JSON.stringify(response)
 
         if (!data) throw 'error'
-
     } catch (err) {
-        console.error(err)
+        console.warn(err)
+        if (err.response) err = err.response.body.code.replace(/_/g, '-');
         errors.push(err)
     }
     

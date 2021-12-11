@@ -1,19 +1,17 @@
 <template>
     <div class="HomePage">
-        <div class="">
-            <div class="Wrapper Wrapper--l d-flex fx-align-center d-block@s">
-                <div class="HomePage_pictures">
-                    <img class="HomePage_picture" :src="assets.blob1">
-                </div>
+        <div class="Wrapper d-flex fx-align-center d-block@s">
+            <div class="HomePage_pictures">
+                <img class="HomePage_picture" :src="assets.blob1">
+            </div>
 
-                <div class="fx-grow pl-30 pl-0@s pb-40@s p-relative">
-                    <div class="marker ft-hand-xl color-accent ml-40@s n-mt-20@s">Bienvenue !</div>
+            <div class="fx-grow pl-30 pl-0@s pb-40@s p-relative">
+                <div class="marker ft-hand-xl color-accent ml-40@s n-mt-20@s">Bienvenue !</div>
 
-                    <div class="max-width-l mt-10 ft-l">
-                        <p><b>Toi et moi,</b> nous avons un rêve commun : faire connaître nos créations et valoriser le fait-main français. C'est pour cette raison que j'ai créé l'Arrière Boutique.</p>
+                <div class="max-width-l mt-10 ft-l">
+                    <p><b>Toi et moi,</b> nous avons un rêve commun : faire connaître nos créations et valoriser le fait-main français. C'est pour cette raison que j'ai créé l'Arrière Boutique.</p>
 
-                        <p class="mt-20 color-accent ft-bold">Te transmettre mon expérience de manière simple et pragmatique pour que <b>tu puisses te concentrer sur ce qui te fait vibrer : la création. </b></p>
-                    </div>
+                    <p class="mt-20 color-accent ft-bold">Te transmettre mon expérience de manière simple et pragmatique pour que <b>tu puisses te concentrer sur ce qui te fait vibrer : la création. </b></p>
                 </div>
             </div>
         </div>

@@ -18,9 +18,9 @@ export default {
                 if (response.errors.length > 0) throw response.errors
 
                 return response
-            } catch (e) {
-                console.error(e)
-                return e
+            } catch (err) {
+                console.error(err)
+                throw err
             }
         },
         async fetch ({ commit }) {

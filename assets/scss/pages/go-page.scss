@@ -1,16 +1,15 @@
 .GoPage {
-    background-color: var(--color-pond-xweak);
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    background-color: var(--color-gum-xweak);
+    min-height: 100vh;
+    padding: 60px 0;
 }
 
 .GoPage_container {
-    max-width: 500px;
+    max-width: 550px;
+    margin: 0 auto;
     width: 100%;
-    margin: 20px;
     padding: 30px;
+    border: 1px solid var(--color-border);
     background-color: var(--color-bg-light);
     border-radius: 10px;
     @include box-shadow;

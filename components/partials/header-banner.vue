@@ -1,5 +1,5 @@
 <template>
-    <div class="HeaderBanner d-none@xs">
+    <div class="HeaderBanner d-none">
         <div class="Wrapper ft-l d-flex fx-align-center">
             <p class="fx-grow">
                 <b>#CaféDimanche :</b> 30 min. d'appel avec moi pour parler de ta boutique à seulement 16,90€.

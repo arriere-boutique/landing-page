@@ -46,7 +46,7 @@ $colors: (
     
     "white": #ffffff,
 
-    "precious": #7156ec,
+    "precious": #6b4bff,
     "precious-weak": #b3a3ff,
     "precious-xweak": #fff4fd,
 
@@ -54,13 +54,14 @@ $colors: (
     "skylight-weak": #94b1e9,
     "skylight-xweak": #F9F9FF,
 
-    "pond": #4DA2A8,
-    "pond-weak": #99d6d2,
+    "pond": #3ec9ce,
+    "pond-weak": #7adde4,
     "pond-xweak": #f6fffd,
     
-    "gum": #f6698f,
-    "gum-weak": #f181a3,
+    "gum": #ff5482,
+    "gum-weak": #ff87ab,
     "gum-xweak": #fff6f8,
+    "gum-alt-xweak": #fffdf6,
     
     "mango": #ffd341,
     "mango-weak": #ffe353,
@@ -117,7 +118,7 @@ $accent-colors: (
     "gum": "pond",
     "mango": "gum",
     "skylight": "precious",
-    "pond": "skylight"
+    "pond": "precious"
 );
 
 $fonts: (

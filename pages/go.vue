@@ -15,23 +15,21 @@
                 </div>
 
                 <div class="mv-5">
-                    <button-base tag="a" icon-before="box-full" :modifiers="['full', 'precious']" href="https://arriereboutiquefr.etsy.com/">
-                        Stickers personnalisés & cartes pour tes colis
-                    </button-base>
-                </div>
-                
-                <div class="mv-5">
-                    <button-base tag="a" icon-before="coffee" :modifiers="['full', 'skylight']" href="https://arriere-boutique.fr/shop/cafe-dimanche">
-                        #CaféDimanche : 30 min. de coaching = 16,90€
-                    </button-base>
-                </div>
-
-                <div class="mv-5">
                     <button-base tag="a" icon-before="play" :modifiers="['full', 'gum']" href="https://www.youtube.com/channel/UCn1oYqWvUQvbE9DwlEVTgNg">
                         Améliore ta boutique avec mes vidéos sur Youtube
                     </button-base>
                 </div>
+
+                <div class="mv-5">
+                    <button-base tag="a" icon-before="box-full" :modifiers="['full', 'precious']" href="https://arriereboutiquefr.etsy.com/">
+                        Stickers personnalisés & cartes pour tes colis
+                    </button-base>
+                </div>
             </div>
+
+            <hr class="Separator mv-30">
+
+            <emailing-form type="s" />
         </div>
     </div>
 </template>

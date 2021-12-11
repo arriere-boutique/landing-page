@@ -45,8 +45,6 @@ exports.getEntities = async function (req, res) {
                 }
             })
 
-            console.log(parsedQuery)
-
             result = await Entity.model.find(parsedQuery)
         }
         
