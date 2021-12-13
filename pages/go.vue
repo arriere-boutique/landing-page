@@ -9,6 +9,12 @@
                 <p class="mv-20">Te transmettre mon expérience de manière simple et pragmatique pour que tu puisses te concentrer sur ce qui te fait vibrer : la création.</p>
 
                 <div class="mv-5">
+                    <button-base tag="a" icon-before="party-horn" href="https://arriere-boutique.fr/les-travaux-pratiques" :modifiers="['full', 'secondary', 'gum']">
+                        Gagne le premier TP de l'Arrière Boutique !
+                    </button-base>
+                </div>
+
+                <div class="mv-5">
                     <button-base tag="a" icon-before="book" href="https://arriere-boutique.fr/blog" :modifiers="['full', 'pond']">
                         Le blog de l'Arrière Boutique : guides, astuces
                     </button-base>
