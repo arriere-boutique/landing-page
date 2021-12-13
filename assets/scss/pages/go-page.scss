@@ -2,6 +2,7 @@
     background-color: var(--color-gum-xweak);
     min-height: 100vh;
     padding: 60px 0;
+    overflow: hidden;
 }
 
 .GoPage_container {
@@ -20,11 +21,13 @@
     .GoPage {
         display: block;
         height: auto;
+        padding: 0;
+        background-color: var(--color-bg-light);
     }
 
     .GoPage_container {
         width: auto;
-        padding: 0;
+        padding: 20px;
         background: none;
         box-shadow: none;
     }
