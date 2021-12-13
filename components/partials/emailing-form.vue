@@ -1,19 +1,21 @@
 <template>
-    <div class="EmailingForm d-flex fx-align-start d-block@s" :class="{ 'EmailingForm--s': type == 's' }">
-        <div class="EmailingForm_image p-relative fx-no-shrink d-none@s">
+    <div class="EmailingForm fx-align-start d-block@s" :class="{ 'EmailingForm--s': type == 's', 'EmailingForm--simple': noSubmit }">
+        <div class="EmailingForm_image p-relative fx-no-shrink d-none@s" v-if="!noSubmit">
             <img :src="assets.blobLetter" :width="type == 's' ? 100 : 200" />
         </div>
 
-        <form @submit.prevent="onSubmit">
-            <p class="EmailingForm_title ft-2xl-bold color-precious line-1 ft-l-bold@xs">
-                <b class="ft-l-bold d-block color-ft line-1"><i class="fal fa-sparkles mr-5 mb-10"></i> Fais de chaque jour</b> Une nouvelle opportunité d'apprendre
-            </p>
+        <component :is="noSubmit ? 'div' : 'form'" @submit.prevent="onSubmit">
+            <div v-if="!noSubmit">
+                <p class="EmailingForm_title ft-2xl-bold color-precious line-1 ft-l-bold@xs">
+                    <b class="ft-l-bold d-block color-ft line-1"><i class="fal fa-sparkles mr-5 mb-10"></i> Fais de chaque jour</b> Une nouvelle opportunité d'apprendre
+                </p>
 
-            <p class="mt-10 mb-30">Toutes les infos qui vont faire <b>avancer ta boutique</b> directement livrées dans ta boîte mail ! C'est pas beau la technologie ?</p>
+                <p class="mt-10 mb-30">Toutes les infos qui vont faire <b>avancer ta boutique</b> directement livrées dans ta boîte mail ! C'est pas beau la technologie ?</p>
+            </div>
 
             <input-base label="Ton adresse e-mail" :attrs="{ required: true }" v-model="formData.email" type="email" />
 
-            <div v-if="state.isActive">
+            <div v-if="state.isActive || noSubmit">
                 <input-base
                     label="Nom de ta boutique"
                     v-model="formData.shopName"
@@ -21,16 +23,18 @@
                     :attrs="{ required: true }"
                     class="mv-10"
                 />
+                <div class="SelectBase is-value mb-10">
+                    <label class="InputBase_label"> Ton domaine</label>
 
-                <select
-                    label="Ton domaine"
-                    v-model="formData.shopCategory"
-                    class="SelectBase mb-10"
-                >
-                    <option v-for="option in CATEGORIES" :key="option.id" :value="option.id">
-                        {{ option.label }}
-                    </option>
-                </select>
+                    <select
+                        v-model="formData.shopCategory"
+                        class="SelectBase_value"
+                    >
+                        <option v-for="option in CATEGORIES" :key="option.id" :value="option.id">
+                            {{ option.label }}
+                        </option>
+                    </select>
+                </div>
 
                 <input-base
                     label="Quel type de produits vends-tu ?"
@@ -58,12 +62,12 @@
                             <i class="fal fa-face-party mr-5"></i> Abonnement confirmé, on se retrouve bientôt dans ta boîte mail !
                         </p>
                     </div> 
-                    <button-base type="submit" :icon-before="state.loading ? '' : 'party-horn'" :class="{ 'is-disabled': state.isSuccess || state.loading }">
+                    <button-base type="submit" :icon-before="state.loading ? '' : 'party-horn'" :class="{ 'is-disabled': state.isSuccess || state.loading }" v-if="!noSubmit">
                         {{ state.loading ? 'Une petite seconde...' : (state.isSuccess ? `C'est tout bon !` : `Je m'abonne`) }}
                     </button-base>
                 </div>
             </div>
-        </form>
+        </component>
     </div>
 </template>
 
@@ -86,7 +90,8 @@ export default {
     name: 'EmailingForm',
     components: { InputBase, SelectBase },
     props: {
-        type: { type: String }
+        type: { type: String },
+        noSubmit: { type: Boolean, default: false },
     },
     data: () => ({
         CATEGORIES,
@@ -108,10 +113,19 @@ export default {
     watch: {
         ['formData.email'] (v) {
             this.state.isActive = true
+        },
+        formData: {
+            immediate: true,
+            deep: true,
+            handler (v) {
+                this.$emit('formChange', this.formData)
+            }
         }
     },
     methods: {
         async onSubmit () {
+            if (this.noSubmit) return
+
             this.state.isLoading = true
             this.state.isSuccess = false
             this.state.errors = []
@@ -137,8 +151,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+    .EmailingForm {
+        display: flex;
+    }
+
     .EmailingForm_image {
         margin-right: 40px;
+    }
+
+    .EmailingForm--simple {
+        display: block;
     }
 
     .EmailingForm--s {

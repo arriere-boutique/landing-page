@@ -17,7 +17,9 @@ input[type="checkbox"] {
     }
 }
 
-select.SelectBase {
+.SelectBase_value {
+    font: var(--ft-m);
+    border: none;
     padding-left: 10px;
     padding-right: 10px;
 }

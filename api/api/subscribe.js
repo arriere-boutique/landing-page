@@ -25,7 +25,7 @@ exports.createSubscriber = async function (req, res) {
         let createContact = new SibApiV3Sdk.CreateContact()
 
         createContact.email = req.body.email
-        createContact.listIds = [6]
+        createContact.listIds = req.body.listIds ? req.body.listIds : [6]
         createContact.attributes = {
             PRENOM: req.body.name,
             DOMAINE: req.body.shopCategory,
