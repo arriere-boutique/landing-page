@@ -4,6 +4,9 @@ input[type="checkbox"] {
     -moz-appearance: auto;
     appearance: auto;
     width: auto;
+    width: 12px;
+    height: 12px;
+    flex-shrink: 0;
 }
 
 .InputChoice {
@@ -22,4 +25,5 @@ input[type="checkbox"] {
     border: none;
     padding-left: 10px;
     padding-right: 10px;
+    width: 100%;
 }
