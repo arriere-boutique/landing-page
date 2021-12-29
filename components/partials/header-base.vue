@@ -58,6 +58,14 @@
                         {{ item.label }}
                     </component>
                 </div>
+                
+                <a :href="localePath({ name: 'admin' })" class="HeaderBase_button mr-5" v-if="user && user.role == 'admin'">
+                    <i class="fal fa-crown"></i>
+                </a>
+
+                <a :href="localePath({ name: 'compte' })" class="HeaderBase_button mr-5">
+                    <i class="fal fa-user"></i>
+                </a>
             </div>
 
             <div class="HeaderBase_burger" @click="state.isMenu = true">
@@ -107,6 +115,9 @@ export default {
                 this.$data.state.isScrolled = v > 0
             }
         }
+    },
+    computed: {  
+        user () { return this.$store.state.auth.user }
     },
     mounted () {
         this.$data.itemsLeft = {

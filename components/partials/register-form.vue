@@ -1,17 +1,18 @@
 <template>
     <div class="">
         <component :is="noSubmit ? 'div' : 'form'" @submit.prevent="onSubmit">
-            <input-base label="Ton adresse e-mail" class="mb-10" :attrs="{ required: true, autocomplete: 'email', }" v-model="formData.email" type="email" />
+            <input-base label="Ton adresse e-mail" class="mb-10" :attrs="{ required: true, autocomplete: 'email', }" v-model="formData.email" type="email" v-if="!aboutOnly" />
 
             <input-base
                 label="Ton prénom"
                 v-model="formData.name"
                 class="mb-10"
                 type="text"
-                :attrs="{ required: true, }"
+                :attrs="{ required: true }"
+                v-if="!aboutOnly"
             />
 
-            <div class="pv-10 ph-20 b br-8 mb-10" v-show="state.isActive">
+            <div class="pv-10 ph-20 b br-8 mb-10" v-show="state.isActive || aboutOnly">
                 <p class="mb-15 mt-5 ft-m-bold">À propos de ta boutique </p>
 
                 <input-base
@@ -61,6 +62,7 @@
                 type="password"
                 :attrs="{ autocomplete: 'new-password' }"
                 v-model="formData.password"
+                v-if="!aboutOnly"
             />
 
             <label class="d-flex ft-s-medium mt-10" v-show="state.isActive">
@@ -99,6 +101,7 @@ export default {
     props: {
         type: { type: String },
         noSubmit: { type: Boolean, default: false },
+        aboutOnly: { type: Boolean, default: false },
     },
     data: () => ({
         CATEGORIES,

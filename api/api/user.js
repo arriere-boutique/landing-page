@@ -23,7 +23,7 @@ exports.logUser = async function (req, res) {
         
         if (register && user) throw 'already-registered'
         if (!register && !user) throw 'email-not-found'
-
+        
         if (user) {
             authenticated = await user.comparePassword(req.body.password)
         } else if (register) {
@@ -31,9 +31,15 @@ exports.logUser = async function (req, res) {
                 email: req.body.email,
                 password: req.body.password,
                 name: req.body.name,
+                surname: req.body.surname,
                 category: req.body.shopCategory,
                 categoryCustom: req.body.shopCategoryCustom,
-                shopName: req.body.shopName
+                shopName: req.body.shopName,
+                address: req.body.address,
+                address2: req.body.address2,
+                postalCode: req.body.postalCode,
+                city: req.body.city,
+                country: req.body.country
             })
 
             user.owner = user._id

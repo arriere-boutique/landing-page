@@ -89,6 +89,7 @@ exports.createEntity = async function (req, res) {
             fields = await typeSetters[req.body.type](fields, req)
         }
 
+
         if (result) {
             data = await Entity.model.findByIdAndUpdate(req.body._id, fields)
         } else {

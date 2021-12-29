@@ -1,8 +1,8 @@
 <template>
     <nav class="NavAdmin" :class="[ `NavAdmin--${user.theme ? user.theme.color : 'amethyst'}` ]">
-        <div class="NavAdmin_logo">
+        <nuxt-link to="/" class="NavAdmin_logo">
             <icon-base name="logo/logo-main" :height="50" />
-        </div>
+        </nuxt-link>
 
         <div class="NavAdmin_items">
             <div class="NavAdmin_item" v-for="(item, i) in items" :key="i">

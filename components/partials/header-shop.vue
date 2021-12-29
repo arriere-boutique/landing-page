@@ -10,6 +10,10 @@
             </nuxt-link>
 
             <div>
+                <a :href="localePath({ name: 'admin' })" class="HeaderBase_button mr-5" v-if="user && user.role == 'admin'">
+                    <i class="fal fa-crown"></i>
+                </a>
+
                 <a :href="localePath({ name: 'compte' })" class="HeaderBase_button mr-5">
                     <i class="fal fa-user"></i>
                 </a>
@@ -85,9 +89,8 @@ export default {
         }
     },
     computed: {
-        cart () {
-            return this.$store.state.cart
-        }
+        cart () { return this.$store.state.cart },
+        user () { return this.$store.state.auth.user }
     },
     mounted () {
         this.$data.categories = {
