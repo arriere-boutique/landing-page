@@ -8,6 +8,7 @@ let ProductVariation = {
         title: { type: String, write: 'editor' },
         price: { type: Number, write: 'editor' },
         stripeId: { type: String, write: 'editor' },
+        digital: { type: Boolean, write: 'editor' },
         available: { type: Boolean, write: 'editor' }
     })
 }
