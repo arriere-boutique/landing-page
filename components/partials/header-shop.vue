@@ -12,7 +12,7 @@
             <div class="HeaderBase_button" @click="toggleCart">
                 <i class="fal fa-shopping-cart"></i>
 
-                {{ cart.items.reduce((p, c) => p + c.quantity, 0) }}
+                <span>{{ cart.items.reduce((p, c) => p + c.quantity, 0) }}</span>
             </div>
 
             <div class="HeaderBase_burger" @click="state.isMenu = true">

@@ -1,11 +1,33 @@
+const Entities = require('../entities')
+const shortid = require('shortid')
+const WORDS = require('../../static/words.json')
 
 exports.checkout = async function (req, res) {
     let errors = []
+
+    let id = WORDS[Math.floor(Math.random() * 9)] + '-' + shortid.generate()
+
+    let OrderEntity = Entities['order']
+    OrderEntity.model.create({
+      id,
+      items: req.body.items.map(item => item.variation._id),
+      order: req.body.items.map(item => ({
+        price: item.variation._id,
+        quantity: item.quantity
+      }))
+    })
+
     let options = {
-        line_items: req.body.items,
+        line_items: req.body.items.map(item => ({
+          price: item.variation.stripeId,
+          quantity: item.quantity
+        })),
         mode: 'payment',
-        success_url: `https://google.fr`,
-        cancel_url: `https://google.fr`
+        success_url: process.env.BASE_URL + `/shop/ta-commande`,
+        cancel_url: process.env.BASE_URL + `/shop`,
+        metadata: {
+          orderId: ''
+        }
     }
 
     if (req.body.shipping) {
