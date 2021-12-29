@@ -35,6 +35,7 @@ export default {
                 let cart = getters['get']
 
                 const response = await this.$axios.$post('/checkout', {
+                    shipping: cart.hasShipping,
                     items: cart.items.map(item => ({
                         price: item.variation.stripeId,
                         quantity: item.quantity
@@ -54,9 +55,12 @@ export default {
     },
     getters: {
         get: (state, getters, rootState, rootGetters) => {
+            let hasShipping = false
             let items = state.items.map(item => {
                 let product = rootGetters['products/findOne']({ _id: item.id })
                 let variation = product.variations.find(variation => variation._id == item.variationId)
+
+                if (variation && !variation.digital) hasShipping = true
 
                 return {
                     ...item,
@@ -72,6 +76,7 @@ export default {
 
             return {
                 ...state,
+                hasShipping,
                 total: Math.round(total * 100) / 100,
                 items
             }

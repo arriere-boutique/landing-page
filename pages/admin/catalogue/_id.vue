@@ -86,6 +86,16 @@
                                 class="mr-5"
                                 v-model="variation.stripeId"
                             />
+
+                            <label class="d-flex fx-align-center fx-no-shrink mr-5">
+                                <input type="checkbox" class="mr-10" v-model="variation.digital">
+                                Article numérique
+                            </label>
+
+                            <label class="d-flex fx-align-center">
+                                <input type="checkbox" class="mr-10" v-model="variation.available">
+                                Activé
+                            </label>
                         </div>
 
                         <div class="mt-20">
@@ -285,7 +295,7 @@ export default {
         addVariation () {
             this.formData.variations = [
                 ...this.formData.variations,
-                { title: '', price: '', stripeId: '', available: true }
+                { title: '', price: '', stripeId: '', digital: false, available: true }
             ]
         },
         async deleteEntity () {

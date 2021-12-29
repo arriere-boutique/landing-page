@@ -249,17 +249,11 @@ const typeSetters = {
 
                     let item = null
                     let result = variation._id ? await Entity.model.findById(variation._id) : null
-                    let fields = {
-                        price: variation.price,
-                        title: variation.title,
-                        stripeId: variation.stripeId,
-                        available: variation.available
-                    }
 
                     if (result) {
-                        item = await Entity.model.findByIdAndUpdate(variation._id, fields)
+                        item = await Entity.model.findByIdAndUpdate(variation._id, variation)
                     } else {
-                        item = await Entity.model.create(fields)
+                        item = await Entity.model.create(variation)
                     }
                     
                     return item ? item._id : null
