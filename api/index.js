@@ -10,17 +10,21 @@ const multer  = require('multer');
 const AWS = require('aws-sdk')
 const { Nuxt, Builder } = require('nuxt')
 const AutoIncrementFactory = require('mongoose-sequence');
+const stripe = require('stripe')(process.env.STRIPE)
 
 const app = express()
 
 require('./entities/index')
 const { createEntity, getEntities, deleteEntity } = require('./api/entity');
 const { logUser, logOut, getUser } = require('./api/user');
+const { checkout } = require('./api/checkout');
+const { webhooks } = require('./api/webhooks');
 const { createSubscriber, getSubscribers, deleteSubscriber } = require('./api/subscribe')
 
 app.use(morgan('combined'))
-app.use(bodyParser.json({ limit: '10mb', extended: true }))
-app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }))
+app.use('/webhooks', express.raw({ type: "*/*" }))
+app.use(express.json({ limit: '10mb', extended: true }))
+app.use(express.urlencoded({ limit: '10mb', extended: true }))
 app.use(cors())
 
 const s3 = new AWS.S3({
@@ -40,10 +44,14 @@ const upload = multer({ storage: storage })
 
 app.locals.s3 = s3
 app.locals.increment = AutoIncrementFactory(mongoose.connection)
+app.locals.stripe = stripe
 
 mongoose.connection.on('error', console.error.bind(console, 'connection error:'))
 
 mongoose.connection.once('open', async () => {
+    app.post('/checkout', checkout)
+    app.post('/webhooks', webhooks)
+
     app.get('/entities', getEntities)
     app.post('/entities', upload.single('file'), createEntity)
     app.delete('/entities', deleteEntity)

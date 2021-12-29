@@ -14,7 +14,8 @@ export default {
             { rel: 'stylesheet', href: 'https://assets.calendly.com/assets/external/widget.css' }
         ],
         script: [
-            { src: 'https://assets.calendly.com/assets/external/widget.js', type: 'text/javascript', async: true }
+            { src: 'https://assets.calendly.com/assets/external/widget.js', type: 'text/javascript', async: true },
+            { src: 'sib.js', type: 'text/javascript', async: true }
         ]
     },
     
@@ -34,6 +35,7 @@ export default {
 
     modules: [
         '@nuxtjs/axios',
+        'cookie-universal-nuxt',
         'nuxt-i18n',
         '@nuxtjs/auth',
         '@nuxtjs/google-analytics',

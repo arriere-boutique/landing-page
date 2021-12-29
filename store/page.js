@@ -1,6 +1,7 @@
 export default {
     namespaced: true,
     state: () => ({
+        isCartActive: false,
         body: {
             classes: [ 'is-fill' ],
             color: 'gum'
@@ -10,6 +11,9 @@ export default {
         }    
     }),
     mutations: {
+        toggleCart (state) {
+            state.isCartActive = !state.isCartActive
+        },
         setColor (state, color) {
             state.body = { ...state.body, color }
         },

@@ -19,7 +19,6 @@ export default {
     },
     actions: { 
         async fetch ({ state, commit }, params = {}) {
-
             try {
                 const response = await this.$axios.$get(storeUtils.getQuery('/entities', {
                     ...params.query,

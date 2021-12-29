@@ -3,9 +3,8 @@
     text-align: left;
     display: block;
     background-color: var(--color-bg-light);
-    border-radius: 10px;
-    overflow: hidden;
     border: 1px solid var(--color-border-weak);
+    position: relative;
     
     &:hover {
         transform: translateY(-2px);
@@ -17,7 +16,6 @@
 }
 
 .ProductBlock_container {
-    padding: 20px;
     display: block;
     cursor: pointer;
 }
@@ -28,83 +26,48 @@
     flex-shrink: 0;
     transition: all 150ms ease;
     position: relative;
+    border-radius: 5px;
+    margin: 10px 10px 0 10px;
 
     &::before {
         content: "";
         @include ratio(100);
     }
-
-    &::after {
-        content: "";
-        @include absolute-fill;
-        background-image: url("../img/blob/blob-cache-1.png");
-        background-size: cover;
-    }
 }
 
-.ProductBlock_price {
+.ProductBlock_attributes {
     position: absolute;
-    bottom: 0;
-    right: 0;
-    z-index: 4;
-    width: 75px;
-    height: 75px;
-    font: var(--ft-xl-bold);
-    color: var(--color-ft-light);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    
-    span {
-        font: var(--ft-2xs-medium);
-    }
-}
-
-.ProductBlock_priceBlob {
-    @include absolute-fill;
-    z-index: -1;
-
-    path {
-        fill: var(--color-accent);
-    }
+    top: 18px;
+    left: -5px;
 }
 
 .ProductBlock_subtitle {
-    position: absolute;
-    top: 10px;
-    left: -5px;
-    z-index: 4;
-    font: var(--ft-hand-s);
-    line-height: 0.75;
-    letter-spacing: -0.05em;
-    color: var(--color-accent);
-    transform-origin: left;
-    transform: rotate(-11deg);
-
-    b {
-        color: var(--color-ft);
-    }
+    font: var(--ft-xs-medium);
+    color: var(--color-ft-light);
+    border-radius: 3px;
+    text-transform: uppercase;
+    background-color: var(--color-gum);
+    padding: 5px 10px;
+    margin-bottom: 4px;
+    display: inline-block;
+    border-bottom-right-radius: 12px;
 }
 
 .ProductBlock_content {
-    text-align: center;
+    text-align: left;
+    padding: 15px;
 }
 
 .ProductBlock_title {
-    font: var(--ft-l-bold);
+    font: var(--ft-m-bold);
     line-height: 1.3;
-    margin-top: 15px;
 }
 
 .ProductBlock_footer {
     border-top: 1px solid var(--color-border-weak);
     background-color: var(--color-bg-xweak);
-    padding: 15px 10px;
+    padding: 10px 10px;
     display: flex;
     align-items: center;
-}
-
-.ProductBlock_footerAction {
-    width: 50%;
-    text-align: center;
+    justify-content: center;
 }

@@ -1,35 +1,35 @@
 <template>
-    <header class="HeaderBase HeaderBase--shop" :class="{ 'is-scrolled': state.isScrolled }" v-if="items">
+    <header class="HeaderBase HeaderBase--shop" :class="{ 'is-scrolled': state.isScrolled }">
         <div class="HeaderBase_wrapper">
-            <div class="HeaderBase_left"></div>
+            <div class="HeaderBase_button" @click="state.isMenu = true">
+                <i class="fal fa-home"></i>
+            </div>
 
             <nuxt-link class="HeaderBase_logo" :to="localePath({ name: '/' })">
-                <span class="color-precious-weak strike">L'Arrière</span> Boutique
+                <icon-base name="logo/logo-main" :height="state.isScrolled ? 35 : 45" />
             </nuxt-link>
 
-            <div class="HeaderBase_right">
-                <nav class="HeaderBase_nav">
-                    <div v-for="(item, key) in items" class="HeaderBase_navParent" :class="{ 'is-parent': item.items != undefined }"  :key="key">
-                        <div class="HeaderBase_navLink">
-                            <component :is="item.path ? 'nuxt-link' : 'a'" :to="localePath(item.path)" :href="item.href" :target="item.href ? '_blank' : ''">
-                                {{ item.label }}
-                            </component>
-                        </div>
-                    </div>
-                </nav>
+            <div class="HeaderBase_button" @click="toggleCart">
+                <i class="fal fa-shopping-cart"></i>
+
+                {{ cart.items.reduce((p, c) => p + c.quantity, 0) }}
             </div>
 
             <div class="HeaderBase_burger" @click="state.isMenu = true">
-                <i class="fa-thin fa-bars"></i>
+                <i class="fal fa-bars"></i>
             </div>
 
             <div class="HeaderBase_menu" :class="{ 'is-active': state.isMenu }">
-                <div class="HeaderBase_navParent" v-for="(item, key) in items" :key="key">
-                    <div class="HeaderBase_navLink">
-                        <component :is="item.path ? 'nuxt-link' : 'a'" :to="localePath(item.path)" :href="item.href" :target="item.href ? '_blank' : ''">
-                            {{ item.label }}
-                        </component>
-                    </div>
+                <div class="HeaderBase_navParent" v-for="(item, key) in categories" :key="key">
+                    <component
+                        class="HeaderBase_navLink"
+                        :is="item.path ? 'nuxt-link' : 'a'"
+                        :to="localePath(item.path)"
+                        :href="item.href"
+                        :target="item.href ? '_blank' : ''"
+                    >
+                        {{ item.label }}
+                    </component>
                 </div>
 
                 <div class="HeaderBase_close" @click="state.isMenu = false">
@@ -37,15 +37,31 @@
                 </div>
             </div>
         </div>
+        <div class="HeaderBase_wrapper HeaderBase_wrapper--secondary">
+            <nav class="HeaderBase_nav">
+                <div v-for="(item, key) in categories" class="HeaderBase_navParent" :class="{ 'is-parent': item.items != undefined }"  :key="key">
+                    <component
+                        class="HeaderBase_navLink"
+                        :class="{ 'color-precious': key == 'sales' }"
+                        :is="item.path ? 'nuxt-link' : 'a'"
+                        :to="localePath(item.path)"
+                        :href="item.href"
+                        :target="item.href ? '_blank' : ''"
+                    >
+                        <i class="HeaderBase_icon fal" :class="[ `fa-${item.icon}` ]"></i>{{ item.label }}
+                    </component>
+                </div>
+            </nav>
+        </div>
     </header>
 </template>
 
 <script>
 export default {
-    name: 'HeaderBase',
+    name: 'HeaderShop',
     data: () => ({
         scroll: process.client ? window.pageYOffset : 0,
-        items: null,
+        categories: [],
         state: {
             isScrolled: false,
             isMenu: false
@@ -58,13 +74,21 @@ export default {
         scroll: {
             immediate: true,
             handler (v) {
-                this.$data.state.isScrolled = v > 0
+                this.$data.state.isScrolled = false
             }
         }
     },
+    computed: {
+        cart () {
+            return this.$store.state.cart
+        }
+    },
     mounted () {
-        this.$data.items = {
-            youtube: { label: `La boutique`, path: { name: 'shop' } }
+        this.$data.categories = {
+            courses: { label: `Formations`, icon: 'book-heart', path: { name: 'moi-moi-moi' } },
+            coaching: { label: `Coachings`, icon: 'comment-smile', path: { name: 'moi-moi-moi' } },
+            tools: { label: `Boîte à outils`, icon: 'toolbox', path: { name: 'moi-moi-moi' } },
+            sales: { label: `En promo`, icon: 'fire', path: { name: 'moi-moi-moi' } },
         }
 
         if (process.server) return
@@ -72,6 +96,11 @@ export default {
         window.addEventListener('scroll', () => {
             this.$data.scroll = window.pageYOffset
         })
+    },
+    methods: {
+        toggleCart () {
+            this.$store.commit('page/toggleCart')
+        }
     }
 }
 </script>

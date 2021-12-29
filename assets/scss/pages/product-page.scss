@@ -13,3 +13,35 @@
         @include absolute-fill;
     }
 }
+
+.ProductPage_variations {
+    padding: 20px;
+    background-color: var(--color-precious-xweak);
+}
+
+.ProductPage_variation {
+    font: var(--ft-s-medium);
+    background-color: var(--color-bg-light);
+    text-transform: uppercase;
+    border-radius: 4px;
+    margin: 3px;
+    display: inline-block;
+    padding: 10px 15px;
+    border: 1px solid var(--color-border);
+    cursor: pointer;
+
+    span {
+        font: var(--ft-xs);
+        color: var(--color-ft-weak);
+    }
+
+    &.is-active {
+        cursor: default;
+        color: var(--color-ft-light);
+        background-color: var(--color-precious);
+
+        span {
+            display: none;
+        }
+    }
+}

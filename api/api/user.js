@@ -50,7 +50,7 @@ exports.logUser = async function (req, res) {
 
         if (authenticated) {
             token = jwt.sign({ id: user._id }, process.env.SECRET, {
-                expiresIn: 86400
+                expiresIn: 864000
             })
         } else {
             throw 'wrong-credentials'

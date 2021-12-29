@@ -240,5 +240,35 @@ const typeSetters = {
                 reject (e)
             }
         })
-    }
+    },
+    product: async (params) => {
+        return new Promise(async (resolve, reject) => {
+            try {
+                let variations = await Promise.all(params.variations.map(async variation => {
+                    let Entity = Entities['productVariation']
+
+                    let item = null
+                    let result = variation._id ? await Entity.model.findById(variation._id) : null
+                    let fields = {
+                        price: variation.price,
+                        title: variation.title,
+                        stripeId: variation.stripeId,
+                        available: variation.available
+                    }
+
+                    if (result) {
+                        item = await Entity.model.findByIdAndUpdate(variation._id, fields)
+                    } else {
+                        item = await Entity.model.create(fields)
+                    }
+                    
+                    return item ? item._id : null
+                }))
+
+                resolve({ ...params, variations })
+            } catch (e) {
+                reject (e)
+            }
+        })
+    },
 }

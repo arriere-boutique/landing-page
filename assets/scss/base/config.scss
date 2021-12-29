@@ -6,6 +6,9 @@ $breakpoints: (
 );
 
 $block-widths: (
+    "4xs": 70,
+    "3xs": 100,
+    "2xs": 180,
     "xs": 280,
     "s": 320,
     "m": 500,
@@ -143,6 +146,7 @@ $fonts: (
     "ft-hand": (
         "name": "'Lazydog'",
         "sizes": (
+            "xs": "25px/1",
             "s": "30px/1.1",
             "m": "35px/1",
             "l": "50px/1.2",

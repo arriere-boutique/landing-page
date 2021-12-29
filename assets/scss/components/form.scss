@@ -8,6 +8,16 @@ input[type="checkbox"] {
     flex-shrink: 0;
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
 .InputChoice {
     display: flex;
     align-items: center;
@@ -25,4 +35,25 @@ input[type="checkbox"] {
     padding-left: 10px;
     padding-right: 10px;
     width: 100%;
+}
+
+.InputBase--s {
+  min-height: 0;
+  min-width: 0;
+  font: var(--ft-s);
+
+  .Inputbase_helpers {
+    padding: 0 5px;
+  }
+  
+  .InputBase_minus,
+  .InputBase_plus {
+    width: 20px;
+    height: 20px;
+  }
+
+  .InputBase_element {
+    padding: 5px 10px;
+    flex-grow: 1;
+  }
 }
