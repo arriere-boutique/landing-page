@@ -14,6 +14,10 @@ export default {
                 maxAge: 60 * 60 * 24 * 90
             })
         },
+        update (state, items) {
+            state.items = items
+            this.commit('cart/save')
+        },
         addItem (state, item) {
             let existing = state.items.find(i => i.id == item.id && i.variationId == item.variationId)
 
@@ -26,6 +30,7 @@ export default {
                 state.items = [ ...state.items, item ]
             }
 
+            this.commit('page/toggleCart')
             this.commit('cart/save')
         }
     },
@@ -36,10 +41,7 @@ export default {
 
                 const response = await this.$axios.$post('/checkout', {
                     shipping: cart.hasShipping,
-                    items: cart.items.map(item => ({
-                        price: item.variation.stripeId,
-                        quantity: item.quantity
-                    }))
+                    items: cart.items
                 })
                 
                 if (response.errors.length > 0) throw response.errors

@@ -209,6 +209,21 @@
     border-radius: 50%;
     background-color: var(--color-precious-xweak);
     position: relative;
+
+    span {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        font: var(--ft-2xs);
+        width: 18px;
+        height: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--color-ft-light);
+        border-radius: 50%;
+        background-color: var(--color-precious);
+    }
 }
 
 .HeaderBase_cart {

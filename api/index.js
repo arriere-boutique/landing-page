@@ -11,6 +11,10 @@ const AWS = require('aws-sdk')
 const { Nuxt, Builder } = require('nuxt')
 const AutoIncrementFactory = require('mongoose-sequence');
 const stripe = require('stripe')(process.env.STRIPE)
+const SibApiV3Sdk = require('sib-api-v3-sdk');
+let sendinBlue = SibApiV3Sdk.ApiClient.instance;
+let apiKey = sendinBlue.authentications['api-key']
+apiKey.apiKey = process.env.SENDINBLUE
 
 const app = express()
 
@@ -45,6 +49,7 @@ const upload = multer({ storage: storage })
 app.locals.s3 = s3
 app.locals.increment = AutoIncrementFactory(mongoose.connection)
 app.locals.stripe = stripe
+app.locals.sendinBlue = SibApiV3Sdk
 
 mongoose.connection.on('error', console.error.bind(console, 'connection error:'))
 

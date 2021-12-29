@@ -17,7 +17,34 @@ exports.webhooks = async function (req, res) {
         case 'charge.succeeded':
             const charge = event.data.object
             let email = charge.billing_details.email
-            break
+            break;
+        case 'checkout.session.completed':
+            try {
+                const checkout = event.data.object
+                
+                let apiInstance = new req.app.locals.sendinBlue.TransactionalEmailsApi()
+                var sendSmtpEmail = new req.app.locals.sendinBlue.SendSmtpEmail()
+
+                sendSmtpEmail = {
+                    to: [{
+                        email: checkout.customer_details.email
+                    }],
+                    templateId: 14,
+                    params: {
+                        ORDER: checkout.id,
+                        TOTAL: checkout.amount_total / 100
+                    }
+                }
+                
+                await apiInstance.sendTransacEmail(sendSmtpEmail)
+
+                console.log(checkout)
+            } catch (err) {
+                console.warn(err)
+                errors.push(err)
+            }
+
+            break;
         default:
             console.log(`Unhandled event type ${event.type}`)
     }

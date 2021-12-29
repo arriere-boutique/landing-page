@@ -295,7 +295,7 @@ export default {
         addVariation () {
             this.formData.variations = [
                 ...this.formData.variations,
-                { title: '', price: '', stripeId: '', digital: false, available: true }
+                { title: '', price: '', stripeId: '', parent: this._id, digital: false, available: true }
             ]
         },
         async deleteEntity () {
