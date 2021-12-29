@@ -3,46 +3,6 @@
         <div class="HeaderAdmin_left">
             <p class="ft-m-bold">{{ title }}</p>
         </div>
-
-        <div class="HeaderAdmin_right">
-            <nuxt-link to="/user/logout" v-if="user"></nuxt-link>
-
-            <div class="HeaderAdmin_menu color-user" @click="state.profile = true">
-                <i class="fal fa-bars"></i>
-            </div>
-        </div>
-
-        <div class="HeaderAdmin_profile" :class="{ 'is-active': state.profile }">
-            <div class="HeaderAdmin_profileBanner">
-                <i class="HeaderAdmin_profileClose fal fa-times" @click="state.profile = false"></i>
-            </div>
-
-            <div class="HeaderAdmin_actions">
-                <button-base
-                    :modifiers="['light', 's', 'round']"
-                    icon-before="cog"
-                    tag="nuxt-link"
-                    :attrs="{
-                        to: this.localePath('/user')
-                    }"
-                />
-
-                <div class="HeaderAdmin_picture">
-                    <i class="fal" :class="[`fa-${user.theme.icon}`]"></i>
-                </div>
-
-                <button-base
-                    :modifiers="['light', 's', 'round']"
-                    icon-before="sign-out"
-                    tag="nuxt-link"
-                    :attrs="{
-                        to: this.localePath('/user/logout')
-                    }"
-                />
-            </div>
-
-            <p class="mv-10 ft-m-bold color-user">{{ user.name }}</p>
-        </div>
     </header>
 </template>
 

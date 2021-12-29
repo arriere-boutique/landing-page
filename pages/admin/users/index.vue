@@ -4,10 +4,9 @@
             <div class="fx-grow pb-100">
                 
                 <div class="Block bg-bg-light p-20">
-                    <div class="d-flex fx-justify-between ft-m pv-3" v-for="subscriber in users" :key="subscriber._id">
-                        <p class="ft-medium">{{ subscriber.email }}</p>
-
-                        <p>{{ subscriber.frequency }} <span class="ml-20 color-ft-weak">{{ subscriber.createdAt }}</span></p>
+                    <div class="d-flex fx-justify-between ft-m pv-3" v-for="user in users" :key="user._id">
+                        <p class="ft-medium">{{ user.email }}</p>
+                        <p>{{ user.name }} <span class="ml-20 color-ft-weak">{{ user.createdAt }}</span></p>
                     </div>
                 </div>
             </div>
@@ -26,23 +25,23 @@ export default {
     name: 'NewsletterPage',
     layout: 'admin',
     async fetch () {
-        let response = await this.$store.dispatch('subscribe/fetch')
-        this.$data.subscribers = response.data
+        let response = await this.$store.dispatch('user/fetch')
+        this.data = response.data
     },
     data: () => ({
-        subscribers: []
+        data: []
     }),
     computed: {
         users () {
-            return this.$data.subscribers.map(sub => ({
-                ...sub,
-                createdAt: moment(sub.createdAt).format('D MMM YYYY H:mm')
+            return this.data.map(user => ({
+                ...user,
+                createdAt: moment(user.createdAt).format('D MMM YYYY H:mm')
             }))
         }
     },
     head () {
         let meta = {
-            title: 'Gazette'
+            title: 'Utilisateurs'
         }
 
         this.$store.commit('page/setProperty', meta)

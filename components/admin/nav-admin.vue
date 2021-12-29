@@ -1,7 +1,7 @@
 <template>
     <nav class="NavAdmin" :class="[ `NavAdmin--${user.theme ? user.theme.color : 'amethyst'}` ]">
         <div class="NavAdmin_logo">
-            L'Arrière Boutique
+            <icon-base name="logo/logo-main" :height="50" />
         </div>
 
         <div class="NavAdmin_items">
@@ -39,13 +39,11 @@ export default {
     name: 'NavAdmin',
     data: () => ({
         items: [
-            { label: 'Tableau de bord', icon: 'mug-tea', exact: true, link: 'admin-dashboard' },
+            { label: 'Tableau de bord', icon: 'mug-tea', exact: true, link: 'admin' },
             { label: 'Blog', icon: 'newspaper', link: 'admin-articles' },
             { label: 'Catalogue', icon: 'shopping-cart', link: 'admin-catalogue' },
-            { label: 'Pages', icon: 'file-alt', link: 'admin-pages' },
-            { label: 'Gazette', icon: 'scroll', link: 'admin-newsletter' },
-            { label: 'Bibliothèque de médias', icon: 'image', link: 'admin-other-medias' },
-            { label: 'Mes paramètres', icon: 'user', link: 'admin-user' }
+            { label: 'Utilisateurs', icon: 'scroll', link: 'admin-users' },
+            { label: 'Bibliothèque de médias', icon: 'image', link: 'admin-other-medias' }
         ]
     }),
     computed: {

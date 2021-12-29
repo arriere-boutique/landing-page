@@ -7,17 +7,15 @@ let UserEntity = {
     read: 'admin',
     write: 'self',
     fields: new mongoose.Schema({
-        
         email: { type: String, write: 'self' },
         password: { type: String, write: 'self', read: 'private' },
         role: { type: String, write: 'admin', default: 'guest' },
-        
         name: { type: String, write: 'self' },
-        theme: { type: Object, write: 'self' },
-        image: { type: mongoose.Schema.Types.ObjectId, ref: 'media-collection' },
-    
+        category: { type: String, write: 'self' },
+        categoryCustom: { type: String, write: 'self' },
+        shopName: { type: String, write: 'self' },
         owner: { type: mongoose.Schema.Types.ObjectId, ref: 'user' }
-    })
+    }, { timestamps: true })
 }
 
 UserEntity.fields.pre('save', async function(next) {

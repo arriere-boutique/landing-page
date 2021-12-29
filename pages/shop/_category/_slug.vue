@@ -2,9 +2,7 @@
     <div class="ProductPage pt-40 pt-0@xs" v-if="product">
         <div class="bg-bg-light">
             <div class="Wrapper Wrapper--m">
-                <button-base tag="nuxt-link" :modifiers="['link']" icon-before="long-arrow-left" :attrs="{ to: localePath({ name: 'shop' }) }">
-                    Retour aux articles
-                </button-base>            
+                <breadcrumbs :items="breadcrumbs" />
             </div>
 
             <div class="Wrapper mt-40 pb-100">
@@ -125,6 +123,13 @@ export default {
                 }
             }
         },
+        breadcrumbs () {
+            return [
+                { label: 'La boutique', to: { name: 'shop' } },
+                { label: this.product.category, to: { name: 'shop-category', params: { category: this.product.category }} },
+                { label: this.product.title, active: true}
+            ]
+        }
     },
     watch: {
         quantity (v) {
