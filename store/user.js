@@ -6,11 +6,7 @@ export default {
         loaded: false,
         info: {
             name: '',
-            image: '',
-            theme: {
-                color: 'amethyst',
-                icon: 'cat-space'
-            }
+            image: ''
         }
     }),
     mutations: {

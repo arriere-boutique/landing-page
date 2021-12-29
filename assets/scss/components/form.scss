@@ -29,6 +29,15 @@ input[type=number] {
     }
 }
 
+.InputBase.is-disabled {
+  cursor: not-allowed;
+  color: var(--color-ft-weak);
+
+  input {
+    font-style: italic;
+  }
+}
+
 .SelectBase_value {
     font: var(--ft-m);
     border: none;

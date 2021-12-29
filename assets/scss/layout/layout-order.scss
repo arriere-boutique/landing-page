@@ -1,0 +1,28 @@
+.LayoutOrder {
+}
+
+.LayoutOrder_wrapper {
+    display: flex;
+    height: 100vh;
+    
+    &::before {
+        content: "";
+        position: fixed;
+        right: 50%;
+        width: 50%;
+        height: 100%;
+        background-color: var(--color-bg-xweak);
+    }
+}
+
+.LayoutOrder_right,
+.LayoutOrder_left {
+    width: 50%;
+    z-index: 2;
+    position: relative;
+}
+
+.LayoutOrder_left {
+    padding: 40px;
+    background-color: var(--color-bg-xweak);
+}

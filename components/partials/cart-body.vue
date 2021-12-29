@@ -1,15 +1,16 @@
 <template>
     <div>
-        <div class="d-flex mv-20" v-for="(item, i) in local.cart.items" :key="i">
+        <div class="d-flex mb-20" v-for="(item, i) in local.cart.items" :key="i">
             <div class="col-3">
                 <div class="CartBody_image" :style="{ backgroundImage: `url(${item.cover})` }"></div>
             </div>
-            <div class="fx-grow pl-10">
+            <div class="fx-grow pl-20">
                 <p class="ft-m-bold ellipsis-1">{{ item.title }}</p>
                 <p class="color-ft-weak ft-italic">{{ item.variation.title }}</p>
 
                 <div class="d-flex fx-align-center fx-justify-between mt-15">
-                    <input-base class="InputBase--s width-3xs" :helpers="['number']" type="number" v-model="item.quantity" />
+                    <input-base class="InputBase--s width-3xs" :helpers="['number']" type="number" v-model="item.quantity" v-if="editable" />
+                    <p class="ft-italic color-ft-weak" v-else>{{ item.price }}€ x {{ item.quantity }}</p>
                     <p class="ft-m ml-5">{{ Math.round((item.price * item.quantity) * 100) / 100 }}€</p>
                 </div>
             </div>
@@ -27,6 +28,9 @@ import { InputBase } from '@instant-coffee/core'
 export default {
     name: 'CartBody',
     components: { InputBase },
+    props: {
+        editable: { type: Boolean, default: true }
+    },
     data: () => ({
         state: {
             updated: false

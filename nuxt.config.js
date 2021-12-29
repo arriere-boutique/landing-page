@@ -75,9 +75,9 @@ export default {
 
     auth: {
         redirect: {
-            logout: '/',
-            login: '/admin/dashboard',
-            home: '/',
+            logout: false,
+            login: '/compte/login',
+            home: false,
             callback: false
         },
         strategies: {

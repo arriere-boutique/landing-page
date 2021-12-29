@@ -8,6 +8,7 @@ export default {
     middleware: 'loggedUser',
     mounted () {
         this.$auth.logout()
+        this.$router.push('/')
     }
 }
 </script>

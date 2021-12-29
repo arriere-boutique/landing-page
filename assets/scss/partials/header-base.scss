@@ -29,6 +29,7 @@
 
 .HeaderBase_right {
     display: flex;
+    align-items: center;
     justify-content: flex-end;
 }
 
@@ -157,10 +158,6 @@
     }
 }
 
-.HeaderBase_navLink--fire {
-    color: red;
-}
-
 .HeaderBase_burger,
 .HeaderBase_close {
     display: none;
@@ -263,6 +260,13 @@
         justify-content: space-between;
     }
     
+    .HeaderBase_navLink {
+
+        &::after {
+            display: none;
+        }
+    }
+
     .HeaderBase_wrapper--secondary {
         height: auto;
         justify-content: center;

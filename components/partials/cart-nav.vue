@@ -27,7 +27,7 @@
                         </div>
                     </div>
 
-                    <button-base @click="checkout" :class="{ 'is-disabled': cart.items.length < 1 }">Je commande !</button-base>
+                    <button-base tag="nuxt-link" :attrs="{ to: localePath({ name: 'commande' }) }" :class="{ 'is-disabled': cart.items.length < 1 }" @click.native="toggleCart">Je commande !</button-base>
                 </div>
             </div>
         </div>

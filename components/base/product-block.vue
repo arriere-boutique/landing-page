@@ -45,10 +45,7 @@ export default {
         category: { type: String },
         content: { type: String },
         slug: { type: String },
-        createdAt: { type: Object },
-        updatedAt: { type: Object },
-        path: { type: Object },
-        link: { type: String }
+        path: { type: [Object, String] }
     },
     computed: {
         date () {
@@ -62,23 +59,6 @@ export default {
                 { icon: 'pen-clip', text: `Les Travaux Pratiques`, color: 'pond' },
                 { icon: 'fire', text: `20% de réduc'`, color: 'precious' }
             ]
-        },
-        booking () {
-            if (!this.$props.link) return null
-
-            if (this.$props.link.includes('calendly')) {
-                return {
-                    attrs: {
-                        onclick: `Calendly.initPopupWidget({ url: '${this.$props.link}?hide_gdpr_banner=1&primary_color=4DA2A8'});return false;`
-                    }
-                }
-            } else {
-                return {
-                    tag: 'a',
-                    target: '_blank',
-                    link: this.$props.link
-                }
-            }
         }
     },
 }
