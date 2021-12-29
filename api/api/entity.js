@@ -67,6 +67,7 @@ exports.getEntities = async function (req, res) {
 
 exports.createEntity = async function (req, res) {
     let user = await authenticate(req.headers)
+    console.log(user)
 
     let errors = []
     let data = {}
