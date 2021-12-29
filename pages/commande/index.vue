@@ -29,7 +29,7 @@
             </div>
         </form>
 
-        <form class="mt-30" @submit.prevent="onSubmit">
+        <form class="mt-30" @submit.prevent="onSubmit" v-if="mode != 'logIn'">
             <p class="ft-l-bold">Mes informations</p>
 
             <div class="d-flex mt-10 mb-10">
@@ -148,19 +148,19 @@ export default {
                     data: { ...this.form, token, type: this.mode }
                 })
 
-                if (response.data.status != 1) {
-                    this.loginErrors = response.data.errors
+                if (response.status != 1) {
+                    this.loginErrors = response.errors
                 } else {
                     this.mode = 'logged'
                 }
             } else {
                 const response = await this.$store.dispatch('user/update', { 
                     _id: this.user._id,
-                    params: { ...this.form, password: 'lol', token }
+                    params: { ...this.form, password: undefined, token }
                 })
 
-                if (response.data.status != 1) {
-                    this.errors = response.data.errors
+                if (response.status != 1) {
+                    this.errors = response.errors
                 } else {
                     alert('go go')
                 }
