@@ -5,37 +5,25 @@
     >
         <nuxt-link class="ProductBlock_container" :to="path ? path : localePath({ name: 'shop-slug', params: { slug } })">
             <div class="ProductBlock_image" :style="{ backgroundImage: `url(${thumbnail})` }">
+            </div>
 
-                <div class="ProductBlock_price" v-if="price">
-                    {{ price }}<span>€</span>
-
-                    <icon-base class="ProductBlock_priceBlob" name="blob/blob-1" />
+            <div class="ProductBlock_attributes">
+                <div class="ProductBlock_subtitle" :class="[`bg-${attribute.color}`]" v-for="attribute in attributes" :key="attribute.text">
+                    <i class="fal mr-3" :class="[`fa-${attribute.icon}`]"></i> {{ attribute.text }}
                 </div>
-
-                <div class="ProductBlock_subtitle" v-if="subtitle" v-html="htmlSubtitle"></div>
             </div>
 
             <div class="ProductBlock_content">
-                <h3 class="ProductBlock_title ellipsis-2">{{ title|specials }}</h3>
+                <h3 class="ProductBlock_title ellipsis-2 mb-3">{{ title|specials }}</h3>
+
+                {{ price }}<span>€</span>
             </div>
         </nuxt-link>
             
         <div class="ProductBlock_footer" v-if="!path">
-            <div class="ProductBlock_footerAction">
-                <button-base icon-before="plus" :modifiers="['link']" tag="nuxt-link" :attrs="{ to: localePath({ name: 'shop-slug', params: { slug } }) }">
-                    Plus d'infos
-                </button-base>
-            </div>
-
-            <div class="ProductBlock_footerAction" v-if="booking">
-                <button-base
-                    v-bind="booking"
-                    :icon-before="link.includes('calendly') ? 'calendar-alt' : 'party-horn'"
-                    :modifiers="['accent', 'link']"
-                >
-                    {{ link.includes('calendly') ? 'Réserver' : 'Commander' }}
-                </button-base>
-            </div>
+            <button-base icon-before="plus" :modifiers="['link']" tag="nuxt-link" :attrs="{ to: localePath({ name: 'shop-slug', params: { slug } }) }">
+                Plus d'infos
+            </button-base>
         </div>
     </div>
 </template>
@@ -68,6 +56,12 @@ export default {
         },
         htmlSubtitle () {
             return process.server ? this.$props.subtitle : this.$props.subtitle.replaceAll('+', '<br>+')
+        },
+        attributes () {
+            return [
+                { icon: 'pen-clip', text: `Les Travaux Pratiques`, color: 'pond' },
+                { icon: 'fire', text: `20% de réduc'`, color: 'precious' }
+            ]
         },
         booking () {
             if (!this.$props.link) return null

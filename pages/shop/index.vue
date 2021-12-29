@@ -15,6 +15,25 @@
             </a>
         </div>
 
+        <div class="is-gum bg-current-xweak pv-60" v-if="courses.length > 0">
+            <div class="Wrapper">
+                <div class="max-width-m">
+                    <h2 class="ft-2xl-bold">Analyses <span class="color-accent">de boutique</span></h2>
+                    <p class="ft-m-medium mt-5">
+                        Dans un format simple et compréhensible, je relève les points à améliorer sur ta boutique, en vidéo.
+                    </p>
+                </div>
+
+                <div class="row-xs mt-30">
+                    <div class="col-3 mv-5 col-6@s col-12@xs" v-for="product in courses" :key="product._id">
+                        <product-block
+                            v-bind="product"
+                        />
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="is-gum bg-current-xweak pv-60" v-if="critiques.length > 0">
             <div class="Wrapper">
                 <div class="max-width-m">
@@ -24,8 +43,8 @@
                     </p>
                 </div>
 
-                <div class="row-s mt-30">
-                    <div class="col-4 mv-5 col-6@s col-12@xs" v-for="product in critiques" :key="product._id">
+                <div class="row-xs mt-30">
+                    <div class="col-3 mv-5 col-6@s col-12@xs" v-for="product in critiques" :key="product._id">
                         <product-block
                             v-bind="product"
                         />
@@ -51,6 +70,7 @@ export default {
         assets: { blob1 }
     }),
     computed: {
+        courses () { return this.$store.getters['products/find']({ status: 'published', category: 'course' }) },
         critiques () { return this.$store.getters['products/find']({ status: 'published', category: 'critique' }) },
     },
     head () {

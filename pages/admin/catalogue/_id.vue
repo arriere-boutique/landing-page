@@ -5,7 +5,7 @@
                 <div class="col-8">
                     <div class="row-s">
                         <div class="col-4">
-                            <div class="EditorPage_image EditorPage_image--blob ActionMenu_hover" :style="{ '--background': cover }" @click="state.mediaLibrary = true">
+                            <div class="EditorPage_image ActionMenu_hover" :style="{ '--background': cover }" @click="state.mediaLibrary = true">
                                 <action-menu
                                     :items="[
                                         { icon: 'pencil-alt', onClick: () => state.mediaLibrary = true },
@@ -26,14 +26,6 @@
                                 label="Sous-titre du produit"
                                 class="mt-20"
                                 v-model="formData.subtitle"
-                            />
-
-                            <input-base
-                                label="Prix"
-                                type="number"
-                                :helpers="['number']"
-                                class="mt-20"
-                                v-model="formData.price"
                             />
                         </div>
                     </div>
@@ -68,6 +60,39 @@
                             type="textarea"
                             v-model="formData.deliveryDelay"
                         />
+                    </div>
+                    
+                    <hr class="Separator mv-40">
+
+                    <div class="bg-bg-xweak br-8 p-20">
+                        <p class="ft-m-bold">Variations</p>
+
+                        <div class="d-flex p-15 bg-bg-light mv-5" v-for="variation in formData.variations" :key="variation._id">
+                            <input-base
+                                label="Titre"
+                                class="mr-5"
+                                v-model="variation.title"
+                            />
+
+                            <input-base
+                                label="Prix"
+                                type="number"
+                                class="mr-5"
+                                v-model="variation.price"
+                            />
+
+                            <input-base
+                                label="ID Stripe"
+                                class="mr-5"
+                                v-model="variation.stripeId"
+                            />
+                        </div>
+
+                        <div class="mt-20">
+                            <button-base :modifiers="['link']" icon-before="plus" @click="addVariation">
+                                Ajouter une variation
+                            </button-base>
+                        </div>
                     </div>
                 </div>
                 <div class="col-4">
@@ -123,7 +148,7 @@
 const CATEGORIES = [
     { id: 0, label: `Coaching`, value: 'coaching' },
     { id: 1, label: 'Critique', value: 'critique' },
-    { id: 2, label: 'Studio', value: 'studio' }
+    { id: 2, label: 'Formation', value: 'course' }
 ]
 
 import { InputBase, SelectBase } from '@instant-coffee/core'
@@ -149,7 +174,6 @@ export default {
         formData: {
             title: '',
             subtitle: '',
-            price: 0,
             deliveryDetails: '',
             deliveryMin: 0,
             deliveryMax: 0,
@@ -159,6 +183,7 @@ export default {
             link: '',
             medias: null,
             category: 0,
+            variations: [],
             status: 'draft'
         },
         library: {}
@@ -256,6 +281,12 @@ export default {
         generateSlug () {
             let slug = this.$data.formData.title
             this.$data.formData.slug = slugify(slug, { lower: true, strict: true })
+        },
+        addVariation () {
+            this.formData.variations = [
+                ...this.formData.variations,
+                { title: '', price: '', stripeId: '', available: true }
+            ]
         },
         async deleteEntity () {
             let response = await this.$store.dispatch('products/delete', this.$data._id)

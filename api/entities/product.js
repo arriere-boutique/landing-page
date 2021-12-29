@@ -9,18 +9,21 @@ let Product = {
         deliveryMin: { type: Number, write: 'editor' },
         deliveryMax: { type: Number, write: 'editor' },
         deliveryDetails: { type: String, write: 'editor' },
-        price: { type: Number, write: 'editor' },
         content: { type: String, write: 'editor' },
         category: { type: String, write: 'editor' },
         available: { type: Boolean, write: 'editor' },
         link: { type: String, write: 'editor' },
         status: { type: String, write: 'editor' },
         slug: { type: String, write: 'editor'},
-        medias: { type: mongoose.Schema.Types.ObjectId, ref: 'mediaCollection', write: 'editor' }
+        medias: { type: mongoose.Schema.Types.ObjectId, ref: 'mediaCollection', write: 'editor' },
+        variations: [
+            { type: mongoose.Schema.Types.ObjectId, ref: 'productVariation' }
+        ]
     }, { timestamps: true })
 }
 
 Product.fields.pre('find', function () {
+    this.populate('variations')
     this.populate('medias')
 })
 
