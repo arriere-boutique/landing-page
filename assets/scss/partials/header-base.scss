@@ -203,12 +203,21 @@
 .HeaderBase_button {
     width: 45px;
     height: 45px;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    background-color: var(--color-precious-xweak);
+    cursor: pointer;
+    border: 1px solid var(--color-border);
     position: relative;
+    transition: all 150ms ease;
+
+    &:hover {
+        color: var(--color-precious);
+        border-color: var(--color-precious-xweak);
+        background-color: var(--color-precious-xweak);
+        transform: translateY(-1px);
+    }
 
     span {
         position: absolute;

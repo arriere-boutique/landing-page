@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const jwt = require('jsonwebtoken')
+const { $fetch } = require('ohmyfetch/node')
 const Entities = require('../entities')
 
 const { authenticate } = require('../utils/user')
@@ -7,22 +8,16 @@ const { authenticate } = require('../utils/user')
 exports.logUser = async function (req, res) {
     let errors = []
     let data = []
-    let register = false
+    let register = req.body.type == 'register'
     let token = null
     let authenticated = false
 
     try {
-        if (!req.body.email || !req.body.password) throw 'missing-fields'
+        if (!req.body.email || !req.body.password || !req.body.token) throw 'missing-fields'
 
-        if (req.body.registerToken) {
-            register = await mongoose.model('token').findOne({
-                value: req.body.registerToken,
-                type: 'register',
-                expiration: { "$gte": new Date() }
-            })
-        }
+        const challenge = await $fetch(`https://www.google.com/recaptcha/api/siteverify?secret=${process.env.RECAPTCHA_SECRET}&response=${req.body.token}`)
 
-        // register = true
+        if (!challenge.success) throw 'challenge-failed'
 
         user = await Entities.user.model.findOne({ email: req.body.email })
         
@@ -32,12 +27,13 @@ exports.logUser = async function (req, res) {
         if (user) {
             authenticated = await user.comparePassword(req.body.password)
         } else if (register) {
-            await mongoose.model('token').findByIdAndDelete(register._id)
-
             user = await Entities.user.model.create({
                 email: req.body.email,
-                role: 'admin',
-                password: req.body.password
+                password: req.body.password,
+                name: req.body.name,
+                category: req.body.shopCategory,
+                categoryCustom: req.body.shopCategoryCustom,
+                shopName: req.body.shopName
             })
 
             user.owner = user._id
@@ -45,6 +41,19 @@ exports.logUser = async function (req, res) {
 
             if (!user) throw 'error'
 
+            let apiInstance = new req.app.locals.sendinBlue.ContactsApi()
+            let createContact = new req.app.locals.sendinBlue.CreateContact()
+
+            createContact.email = req.body.email
+            createContact.listIds = req.body.newsletter ? [9, 6] : [9]
+            createContact.attributes = {
+                PRENOM: req.body.name,
+                DOMAINE: req.body.shopCategory,
+                DOMAINECUSTOM: req.body.shopCategoryCustom,
+                NOMBOUTIQUE: req.body.shopName
+            }
+            
+            await apiInstance.createContact(createContact)
             authenticated = true
         }
 

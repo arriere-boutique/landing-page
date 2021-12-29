@@ -39,7 +39,7 @@ export default {
         slug: { type: String },
         createdAt: { type: Object },
         updatedAt: { type: Object },
-        path: { type: Object },
+        path: { type: [Object, String] },
         link: { type: String }
     },
     computed: {

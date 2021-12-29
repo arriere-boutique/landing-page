@@ -3,7 +3,7 @@
         class="ProductBlock"
         :class="[ $modifiers ]"
     >
-        <nuxt-link class="ProductBlock_container" :to="path ? path : localePath({ name: 'shop-slug', params: { slug } })">
+        <nuxt-link class="ProductBlock_container" :to="path ? path : localePath({ name: 'shop-category-slug', params: { category, slug } })">
             <div class="ProductBlock_image" :style="{ backgroundImage: `url(${thumbnail})` }">
             </div>
 
@@ -21,7 +21,7 @@
         </nuxt-link>
             
         <div class="ProductBlock_footer" v-if="!path">
-            <button-base icon-before="plus" :modifiers="['link']" tag="nuxt-link" :attrs="{ to: localePath({ name: 'shop-slug', params: { slug } }) }">
+            <button-base icon-before="plus" :modifiers="['link', 'light']" tag="nuxt-link" :attrs="{ to: localePath({ name: 'shop-category-slug', params: { category, slug } }) }">
                 Plus d'infos
             </button-base>
         </div>

@@ -1,9 +1,9 @@
 const mongoose = require('mongoose')
 
+const User = require('./user')
 const Event = require('./event')
 const MediaCollection = require('./media-collection')
 const Media = require('./media')
-const User = require('./user')
 const Token = require('./token')
 const Page = require('./page')
 const Article = require('./article')

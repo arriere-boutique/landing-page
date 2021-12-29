@@ -119,7 +119,7 @@ export default {
         }
 
         this.$data.itemsRight = {
-            shop: { label: `La boutique`, href: 'https://arriereboutiquefr.etsy.com/' }
+            shop: { label: `La boutique`, path: { name: 'shop' } }
         }
 
         if (process.server) return
