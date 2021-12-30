@@ -62,7 +62,7 @@ export default {
         get: (state, getters, rootState, rootGetters) => {
             let hasShipping = false
             let items = state.items.map(item => {
-                let product = rootGetters['products/findOne']({ _id: item.id })
+                let product = rootGetters['products/findOne']({ _id: item.id })                
                 let variation = product.variations.find(variation => variation._id == item.variationId)
 
                 if (variation && !variation.digital) hasShipping = true

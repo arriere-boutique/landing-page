@@ -279,13 +279,21 @@ export default {
 
             return {
                 ...form,
-                category: CATEGORIES.find(i => i.value == form.category)?.id
+                category: CATEGORIES.find(i => i.value == form.category)?.id,
+                variations: form.variations.map(variation => ({
+                    ...variation,
+                    price: variation.price / 100
+                }))
             }
         },
         parseForm (form) {
             return {
                 ...form,
-                category: CATEGORIES.find(i => i.id == this.$data.formData.category).value
+                category: CATEGORIES.find(i => i.id == this.$data.formData.category).value,
+                variations: form.variations.map(variation => ({
+                    ...variation,
+                    price: Math.round(((variation.price * 100) * 100) / 100)
+                }))
             }
         },
         generateSlug () {

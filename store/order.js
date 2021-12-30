@@ -1,3 +1,5 @@
+import storeUtils from '@/utils/store'
+
 export default {
     namespaced: true,
     state: () => ({
@@ -42,6 +44,21 @@ export default {
                 
                 if (response.errors.length > 0) throw response.errors
                 
+                return response.data
+            } catch (e) {
+                console.error(e)
+                return e
+            }
+        },
+        async fetch ({ state }, params) {
+            try {
+                const response = await this.$axios.$get(storeUtils.getQuery('/entities', {
+                    ...params.query,
+                    type: 'order'
+                }))
+                
+                if (response.errors.length > 0) throw response.errors
+
                 return response.data
             } catch (e) {
                 console.error(e)

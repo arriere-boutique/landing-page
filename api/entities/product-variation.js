@@ -9,7 +9,6 @@ let ProductVariation = {
         price: { type: Number, write: 'editor' },
         digital: { type: Boolean, write: 'editor' },
         available: { type: Boolean, write: 'editor' },
-        stripeId: { type: String, write: 'editor' },
         product: { type: mongoose.Schema.Types.ObjectId, ref: 'product', write: 'editor' }
     })
 }

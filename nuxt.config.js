@@ -34,7 +34,8 @@ export default {
     components: true,
 
     buildModules: [
-        '@nuxtjs/google-analytics'
+        '@nuxtjs/google-analytics',
+        '@nuxtjs/moment',
     ],
 
     modules: [
@@ -42,6 +43,7 @@ export default {
         'cookie-universal-nuxt',
         'nuxt-i18n',
         '@nuxtjs/auth',
+        '@nuxtjs/moment',
         '@nuxtjs/google-analytics',
         [ '@nuxtjs/recaptcha', {
             hideBadge: true,
@@ -52,6 +54,11 @@ export default {
             publishableKey: process.env.STRIPE_PUBLIC,
         }],
     ],
+
+    moment: {
+        defaultLocale: 'fr',
+        locales: ['fr']
+    },
 
     publicRuntimeConfig: {
         recaptcha: {

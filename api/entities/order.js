@@ -8,10 +8,11 @@ let Order = {
         completed: { type: String, default: false, write: 'self' },
         shipping: { type: String, write: 'self' },
         address: { type: Object, write: 'self' },
+        price: { type: Object, write: 'self' },
         items: [
             { type: mongoose.Schema.Types.ObjectId, ref: 'productVariation' }
         ],
-        owner: { type: mongoose.Schema.Types.ObjectId, ref: 'user' }
+        owner: { type: mongoose.Schema.Types.ObjectId, write: 'private', ref: 'user' }
     }, { timestamps: true })
 }
 

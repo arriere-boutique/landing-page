@@ -49,7 +49,12 @@ exports.getEntities = async function (req, res) {
         }
         
         if (!result) throw 'search-not-found'
-        if (!accessCheck('read', Entity, result, user)) throw 'unauthorized'
+
+        if (Array.isArray(result)) {
+            result = result.filter(r => accessCheck('read', Entity, r, user))
+        } else if (!accessCheck('read', Entity, result, user)) {
+            throw 'unauthorized'
+        }
 
         result = result.map(v => fieldsCheck('read', v._doc, Entity, v, user))
 
@@ -145,7 +150,7 @@ const ROLES = {
 
 const accessCheck = (type = 'write', entity, requested = null, user = null) => {
     let granted = false
-
+    
     if (entity[type] == 'self') {
         let owner = requested ? requested.owner : null
         let requester = user ? user._id : null
