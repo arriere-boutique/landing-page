@@ -67,7 +67,6 @@ exports.getEntities = async function (req, res) {
 
 exports.createEntity = async function (req, res) {
     let user = await authenticate(req.headers)
-    console.log(user)
 
     let errors = []
     let data = {}
@@ -86,10 +85,7 @@ exports.createEntity = async function (req, res) {
         fields = fieldsCheck('write', fields, Entity, result, user)
         delete fields._id
 
-        if (typeSetters[req.body.type]) {
-            fields = await typeSetters[req.body.type](fields, req)
-        }
-
+        if (typeSetters[req.body.type]) fields = await typeSetters[req.body.type](fields, req)
 
         if (result) {
             data = await Entity.model.findByIdAndUpdate(req.body._id, fields)

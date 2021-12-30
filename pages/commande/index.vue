@@ -143,27 +143,32 @@ export default {
             this.loginErrors = []
             this.errors = []
 
-            if (this.mode != 'logged') {
-                const response = await this.$auth.loginWith('local', { 
-                    data: { ...this.form, token, type: this.mode }
-                })
+            try {
+                if (this.mode != 'logged') {
+                    const response = await this.$auth.loginWith('local', { 
+                        data: { ...this.form, token, type: this.mode }
+                    })
 
-                if (response.status != 1) {
-                    this.loginErrors = response.errors
-                } else {
-                    this.mode = 'logged'
+                    if (response.status != 200) throw response.errors
                 }
-            } else {
+
+                if (!this.user) throw ['no-user']
+
                 const response = await this.$store.dispatch('user/update', { 
                     _id: this.user._id,
                     params: { ...this.form, password: undefined, token }
                 })
 
-                if (response.status != 1) {
-                    this.errors = response.errors
-                } else {
-                    alert('go go')
-                }
+                if (response.status != 1) throw response.errors
+        
+                await this.$store.dispatch('order/update', {
+                    user: this.user._id
+                })
+
+                this.$router.push({ path: this.localePath({ name: 'commande-livraison' }) })
+            } catch (e) {
+                console.error(e)
+                this.errors = e
             }
         }
     }

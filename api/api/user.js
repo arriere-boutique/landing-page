@@ -44,23 +44,28 @@ exports.logUser = async function (req, res) {
 
             user.owner = user._id
             user.save()
-
+            
             if (!user) throw 'error'
 
-            let apiInstance = new req.app.locals.sendinBlue.ContactsApi()
-            let createContact = new req.app.locals.sendinBlue.CreateContact()
-
-            createContact.email = req.body.email
-            createContact.listIds = req.body.newsletter ? [9, 6] : [9]
-            createContact.attributes = {
-                PRENOM: req.body.name,
-                DOMAINE: req.body.shopCategory,
-                DOMAINECUSTOM: req.body.shopCategoryCustom,
-                NOMBOUTIQUE: req.body.shopName
-            }
-            
-            await apiInstance.createContact(createContact)
             authenticated = true
+
+            try {
+                let apiInstance = new req.app.locals.sendinBlue.ContactsApi()
+                let createContact = new req.app.locals.sendinBlue.CreateContact()
+
+                createContact.email = req.body.email
+                createContact.listIds = req.body.newsletter ? [9, 6] : [9]
+                createContact.attributes = {
+                    PRENOM: req.body.name,
+                    DOMAINE: req.body.shopCategory,
+                    DOMAINECUSTOM: req.body.shopCategoryCustom,
+                    NOMBOUTIQUE: req.body.shopName
+                }
+                
+                // await apiInstance.createContact(createContact)
+            } catch (err) {
+                console.error(err)
+            }
         }
 
         if (authenticated) {

@@ -40,6 +40,7 @@
     "nodemon": "^2.0.6",
     "nuxt": "^2.14.6",
     "nuxt-i18n": "^6.15.4",
+    "nuxt-stripe-module": "^3.2.0",
     "ohmyfetch": "^0.2.0",
     "raw-loader": "^4.0.2",
     "redirect-ssl": "^3.0.0",
