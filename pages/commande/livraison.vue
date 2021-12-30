@@ -45,12 +45,14 @@ export default {
         if (!this.$store.state.order.orderId) this.$router.push({ path: this.localePath({ name: 'commande' }) })
 
         try {
-            let token = await this.$store.dispatch('order/checkout', {
+            let response = await this.$store.dispatch('order/checkout', {
                 user: this.user._id
             })
             
+            console.log(response)
+
             if (this.$stripe) {
-                this.elements = this.$stripe.elements({ clientSecret: token });
+                this.elements = this.$stripe.elements({ clientSecret: response.token });
                 const card = this.elements.create('payment');
                 card.mount('#card-element');
             }

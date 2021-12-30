@@ -101,7 +101,11 @@ export default {
                     ...item,
                     thumbnail, cover,
                     createdAt: moment(item.createdAt),
-                    updatedAt: moment(item.updatedAt)
+                    updatedAt: moment(item.updatedAt),
+                    variations: item.variations.map(variation => ({
+                        ...variation,
+                        price: variation.price / 100
+                    }))
                 }
             })
         },
@@ -136,6 +140,25 @@ export default {
         findOne: (state, getters) => (search, raw = false) => {
             let items = raw ? Object.values(state.items) : getters.items
             return items.find(item => item[Object.keys(search)[0]] == Object.values(search)[0])
+        },
+        productFromVariation: (state, getters) => (id) => {
+            let activeVariation = null
+            let foundProduct = getters.items.find(product => {
+                let found = false
+                
+                product.variations.forEach(variation => {
+                    if (variation._id == id) {
+                        activeVariation = variation
+                        found = true
+                    }
+                })
+
+                return found
+            })
+            
+            foundProduct = { ...foundProduct, activeVariation }
+
+            return foundProduct
         }
     }
 }

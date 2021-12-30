@@ -34,7 +34,7 @@ import { TooltipManager } from '@instant-coffee/core'
 export default {
     name: 'LayoutAdmin',
     components: { TooltipManager },
-    middleware: 'default',
+    middleware: 'admin',
     data: () => ({
         scroll: 0
     }),

@@ -161,9 +161,11 @@ export default {
 
                 if (response.status != 1) throw response.errors
         
-                await this.$store.dispatch('order/update', {
+                const order = await this.$store.dispatch('order/update', {
                     user: this.user._id
                 })
+
+                console.log(order)
 
                 this.$router.push({ path: this.localePath({ name: 'commande-livraison' }) })
             } catch (e) {
