@@ -17,7 +17,7 @@ exports.logUser = async function (req, res) {
 
         const challenge = await $fetch(`https://www.google.com/recaptcha/api/siteverify?secret=${process.env.RECAPTCHA_SECRET}&response=${req.body.token}`)
 
-        if (!challenge.success) throw 'challenge-failed'
+        // if (!challenge.success) throw 'challenge-failed'
 
         user = await Entities.user.model.findOne({ email: req.body.email })
         
