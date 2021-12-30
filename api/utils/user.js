@@ -41,7 +41,7 @@ exports.authenticate = async function (headers) {
 
         return user
     } catch (e) {
-        console.error(e)
+        console.warn(e)
         return null
     }
 }

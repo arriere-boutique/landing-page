@@ -27,6 +27,10 @@ export default {
         { src: '@/plugins/base.js' }
     ],
 
+    env: {
+        baseUrl: process.env.BASE_URL
+    },
+
     components: true,
 
     buildModules: [
@@ -44,6 +48,9 @@ export default {
             version: 3,
             siteKey: process.env.RECAPTCHA
         } ],
+        ['nuxt-stripe-module', {
+            publishableKey: process.env.STRIPE_PUBLIC,
+        }],
     ],
 
     publicRuntimeConfig: {

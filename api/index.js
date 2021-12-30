@@ -21,7 +21,7 @@ const app = express()
 require('./entities/index')
 const { createEntity, getEntities, deleteEntity } = require('./api/entity');
 const { logUser, logOut, getUser } = require('./api/user');
-const { checkout } = require('./api/checkout');
+const { createOrder, checkoutOrder } = require('./api/order');
 const { webhooks } = require('./api/webhooks');
 const { createSubscriber, getSubscribers, deleteSubscriber } = require('./api/subscribe')
 
@@ -54,7 +54,9 @@ app.locals.sendinBlue = SibApiV3Sdk
 mongoose.connection.on('error', console.error.bind(console, 'connection error:'))
 
 mongoose.connection.once('open', async () => {
-    app.post('/checkout', checkout)
+    app.post('/order', createOrder)
+    app.post('/order/checkout', checkoutOrder)
+
     app.post('/webhooks', webhooks)
 
     app.get('/entities', getEntities)

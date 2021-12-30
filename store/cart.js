@@ -10,6 +10,9 @@ export default {
             }
         },
         save (state) {
+            console.log('save cookie')
+            console.log(state.items)
+            
             this.$cookies.set('cart', state.items, {
                 maxAge: 60 * 60 * 24 * 90
             })
