@@ -31,7 +31,6 @@ export default {
     },
     methods: {
         async onSubmit () {
-            console.log(process.env.baseUrl + this.localePath({ name: 'commande-confirmation' }))
             const response = await this.$stripe.confirmPayment({
                 elements: this.elements,
                 confirmParams: {
@@ -43,6 +42,8 @@ export default {
         }
     },
     async mounted () {
+        if (!this.$store.state.order.orderId) this.$router.push({ path: this.localePath({ name: 'commande' }) })
+
         try {
             let token = await this.$store.dispatch('order/checkout', {
                 user: this.user._id
