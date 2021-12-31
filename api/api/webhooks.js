@@ -17,11 +17,10 @@ exports.webhooks = async function (req, res) {
         case 'charge.succeeded':
             const charge = event.data.object
             let email = charge.billing_details.email
-            break;
-        case 'checkout.session.completed':
+
+            console.log(charge)
+
             try {
-                const checkout = event.data.object
-                
                 let apiInstance = new req.app.locals.sendinBlue.TransactionalEmailsApi()
                 var sendSmtpEmail = new req.app.locals.sendinBlue.SendSmtpEmail()
 
@@ -37,11 +36,8 @@ exports.webhooks = async function (req, res) {
                 }
                 
                 await apiInstance.sendTransacEmail(sendSmtpEmail)
-
-                console.log(checkout)
-            } catch (err) {
-                console.warn(err)
-                errors.push(err)
+            } catch (e) {
+                console.error(e)
             }
 
             break;

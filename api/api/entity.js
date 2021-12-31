@@ -3,7 +3,7 @@ const shortid = require('shortid')
 const sharp = require('sharp')
 const fs = require('fs')
 const mime = require('mime')
-const { authenticate } = require('../utils/user')
+const { authenticate, accessCheck, fieldsCheck } = require('../utils/user')
 
 const Entities = require('../entities')
 
@@ -11,6 +11,7 @@ exports.getEntities = async function (req, res) {
     let user = await authenticate(req.headers)
     let errors = []
     let data = []
+    let cancel = false
 
     try {
         let Entity = req.query.type ? Entities[req.query.type] : null
@@ -25,6 +26,7 @@ exports.getEntities = async function (req, res) {
         } else {
             let query = req.query
             let parsedQuery = query
+            let options = {}
             delete query.type
             
             Object.keys(query).forEach((key, value) => {
@@ -43,9 +45,32 @@ exports.getEntities = async function (req, res) {
 
                     delete parsedQuery[key]
                 }
+
+                if (key.startsWith('$self')) {
+                    if (value && user) {
+                        parsedQuery[value] = user._id
+                    } else {
+                        cancel = true
+                    }
+
+                    delete parsedQuery[key]
+                }
             })
 
-            result = await Entity.model.find(parsedQuery)
+            if (query['$sort']) {
+                options.sort = { [query['$sort']]: query['$sortValue'] }
+
+                delete parsedQuery['$sort']
+                delete parsedQuery['$sortValue']
+            }
+
+            if (query['$limit']) {
+                options.limit = parseInt(query['$limit'])
+
+                delete parsedQuery['$limit']
+            }
+
+            result = cancel ? [] : await Entity.model.find(parsedQuery, null, options)
         }
         
         if (!result) throw 'search-not-found'
@@ -137,63 +162,6 @@ exports.deleteEntity = async function (req, res) {
         errors,
         status: errors.length > 0 ? 0 : 1
     })
-}
-
-const ROLES = {
-    private: 999,
-    admin: 99,
-    self: 90,
-    editor: 50,
-    guest: 10,
-    public: 0
-}
-
-const accessCheck = (type = 'write', entity, requested = null, user = null) => {
-    let granted = false
-    
-    if (entity[type] == 'self') {
-        let owner = requested ? requested.owner : null
-        let requester = user ? user._id : null
-
-        granted = requester && owner && owner.equals(requester)
-    } else {
-        let userRole = user ? ROLES[user.role] : 0
-        let requiredRole = ROLES[entity[type]]
-
-        granted = userRole >= requiredRole
-    }
-
-    if (!granted) console.warn('access-denied')
-
-    return granted
-}
-
-const fieldsCheck = (type = 'write', data = {}, entity, requested = null, user = null) => {
-    let result = { ...data }
-    let fields = entity.fields.obj
-
-    Object.keys(fields).forEach(key => {
-        if (fields[key][type]) {
-            let granted = false
-            let requiredRole = fields[key][type] || 'public'
-
-            if (requiredRole == 'self') {
-                let owner = requested ? requested.owner : null
-                let requester = user ? user._id : null
-
-                granted = requester && owner && owner.equals(requester)
-            } else {
-                granted = (user ? ROLES[user.role] : 0) >= ROLES[requiredRole]
-            }
-
-            if (!granted) {
-                console.warn(key + ' not granted')
-                delete result[key]
-            }
-        }
-    })
-
-    return result
 }
 
 const typeGetters = {

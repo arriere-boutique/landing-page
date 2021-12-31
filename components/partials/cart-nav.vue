@@ -16,18 +16,25 @@
                 <cart-body />
             </div>
 
-            <div>
+            <div >
                 <hr class="Separator mv-20">
 
                 <div class="d-flex fx-align-center fx-justify-between">
                     <div>
-                        <div class="ft-2xl-medium" v-show="cart.items.length > 0">
+                        <div class="ft-2xl-medium" v-if="cart && cart.price" v-show="cart.items.length > 0">
                             <p class="ft-xs color-ft-weak line-1">Au total :</p>
-                            {{ cart.total }}€
+                            {{ cart.price.total }}€
                         </div>
                     </div>
 
-                    <button-base tag="nuxt-link" :attrs="{ to: localePath({ name: 'commande' }) }" :class="{ 'is-disabled': cart.items.length < 1 }" @click.native="toggleCart">Je commande !</button-base>
+                    <button-base
+                        tag="nuxt-link"
+                        :attrs="{ to: localePath({ name: 'commande' }) }"
+                        :class="{ 'is-disabled': !cart }"
+                        @click.native="toggleCart"
+                    >
+                        Je commande !
+                    </button-base>
                 </div>
             </div>
         </div>
@@ -41,16 +48,11 @@ export default {
         isActive: { type: Boolean, default: false }
     },
     computed: {
-        cart () {
-            return this.$store.getters['cart/get']
-        }
+        cart () { return this.$store.getters['order/get'] }
     },
     methods: {
         toggleCart () {
             this.$store.commit('page/toggleCart')
-        },
-        async checkout () {
-            let response = await this.$store.dispatch('cart/checkout')
         }
     }
 }

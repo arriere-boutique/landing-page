@@ -3,7 +3,7 @@ const Entities = require('../entities')
 exports.getPrice = async function (order) {
     return new Promise(async resolve => {
         let variations = await Entities.productVariation.model.find({ '_id': { $in: order.items } })
-
+        
         resolve({
             total: getTotal(order.items, variations)
         })
@@ -11,8 +11,8 @@ exports.getPrice = async function (order) {
 }
 
 const getTotal = function (items, variations) {
-    return items.reduce((total, variation) => {
+    return items ? items.reduce((total, variation) => {
         let found = variations.find(v => v._id.equals(variation))      
         return total += found.price
-    }, 0)
+    }, 0) : 0
 }

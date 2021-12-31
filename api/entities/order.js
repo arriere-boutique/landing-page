@@ -5,7 +5,7 @@ let Order = {
     read: 'self',
     fields: new mongoose.Schema({
         id: { type: String, write: 'self' },
-        completed: { type: String, default: false, write: 'self' },
+        completed: { type: Boolean, default: false, write: 'self' },
         shipping: { type: String, write: 'self' },
         address: { type: Object, write: 'self' },
         price: { type: Object, write: 'self' },
