@@ -137,10 +137,9 @@ export default {
         }
     },
     methods: {
-        addToCart () {
-            this.$store.commit('cart/addItem', {
-                id: this.product._id,
-                variationId: this.currentVariation._id,
+        async addToCart () {
+            await this.$store.dispatch('order/addItem', {
+                _id: this.currentVariation._id,
                 quantity: this.quantity
             })
         }

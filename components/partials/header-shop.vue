@@ -21,7 +21,7 @@
                 <div class="HeaderBase_button" @click="toggleCart">
                     <i class="fal fa-shopping-cart"></i>
 
-                    <span>{{ cart.items.reduce((p, c) => p + c.quantity, 0) }}</span>
+                    <span v-if="cart">{{ cart.items.reduce((p, c) => p + c.quantity, 0) }}</span>
                 </div>
             </div>
 
@@ -89,7 +89,7 @@ export default {
         }
     },
     computed: {
-        cart () { return this.$store.state.cart },
+        cart () { return this.$store.getters['order/get'] },
         user () { return this.$store.state.auth.user }
     },
     mounted () {

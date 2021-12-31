@@ -31,30 +31,28 @@ export default {
     },
     methods: {
         async onSubmit () {
-            const response = await this.$stripe.confirmPayment({
-                elements: this.elements,
-                confirmParams: {
-                    return_url: process.env.baseUrl + this.localePath({ name: 'commande-confirmation' })
-                }
-            })
-
-            console.log(response)
+            try {
+                const response = await this.$stripe.confirmPayment({
+                    elements: this.elements,
+                    confirmParams: {
+                        return_url: process.env.baseUrl + this.localePath({ name: 'commande-confirmation' })
+                    }
+                })
+            } catch (e) {
+                console.error(e)
+            }
         }
     },
     async mounted () {
-        if (!this.$store.state.order.orderId) this.$router.push({ path: this.localePath({ name: 'commande' }) })
+        if (!this.$store.state.order.order) this.$router.push({ path: this.localePath({ name: 'commande' }) })
 
         try {
-            let response = await this.$store.dispatch('order/checkout', {
-                user: this.user._id
-            })
-            
-            console.log(response)
-
+            let response = await this.$store.dispatch('order/checkout')
+    
             if (this.$stripe) {
-                this.elements = this.$stripe.elements({ clientSecret: response.token });
-                const card = this.elements.create('payment');
-                card.mount('#card-element');
+                this.elements = this.$stripe.elements({ clientSecret: response.token })
+                const card = this.elements.create('payment')
+                card.mount('#card-element')
             }
         } catch (e) {
             console.error(e)

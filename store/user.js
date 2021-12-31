@@ -3,21 +3,41 @@ import storeUtils from '@/utils/store'
 export default {
     namespaced: true,
     state: () => ({
-        loaded: false,
-        info: {
-            name: '',
-            image: ''
-        }
+        guestId: null
     }),
     mutations: {
-        preview (state, params) {
-            state.info = {
-                ...state.info,
-                ...params
-            }
-        }
+        update (state, user) {
+            if (user && user.role == 'guest') state.guestId = user._id
+            
+            console.log('current : ' + user._id + ` (${user.role})`)
+            console.log('guest : ' + state.guestId)
+        } 
     },
     actions: {
+        async logOut ({ state }) {
+            try {
+                const response = await this.$auth.loginWith('local', { 
+                    data: { _id: state.guestId ? state.guestId : undefined, type: 'guest' }
+                })
+    
+                if (response.data.status != 1) throw 'error'
+            } catch (e) {
+                console.error(e)
+                return e
+            }
+        },
+        async createGuest ({ state }) {
+            try {
+                const response = await this.$auth.loginWith('local', { 
+                    data: { _id: state.guestId ? state.guestId : undefined, type: 'guest' }
+                })
+    
+                if (response.data.status != 1) throw 'error'
+            } catch (e) {
+                console.error(e)
+                return e
+            }
+        },
         async fetch ({ commit }) {
             try {
                 const response = await this.$axios.$get(storeUtils.getQuery('/entities', {

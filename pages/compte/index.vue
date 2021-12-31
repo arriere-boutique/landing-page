@@ -33,7 +33,7 @@ export default {
     layout: 'shop',
     async fetch () {
         this.orders = await this.$store.dispatch('order/fetch', {
-            query: { owner: this.user._id }
+            query: { completed: true, owner: this.user._id }
         })
     },
     data: () => ({

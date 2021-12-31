@@ -6,8 +6,8 @@
 export default {
     name: 'LogoutPage',
     middleware: 'loggedUser',
-    mounted () {
-        this.$auth.logout()
+    async mounted () {
+        await this.$store.dispatch('user/logOut')
         this.$router.push('/')
     }
 }
