@@ -9,6 +9,12 @@
                 <p class="mv-20">Te transmettre mon expérience de manière simple et pragmatique pour que tu puisses te concentrer sur ce qui te fait vibrer : la création.</p>
 
                 <div class="mv-5">
+                    <button-base tag="a" icon-before="fire" :modifiers="['full', 'secondary', 'precious']" href="https://www.etsy.com/fr/ArriereBoutiqueFr/listing/1148993083">
+                        LES TRAVAUX PRATIQUES : améliore ta boutique
+                    </button-base>
+                </div>
+
+                <div class="mv-5">
                     <button-base tag="a" icon-before="book" href="https://arriere-boutique.fr/blog" :modifiers="['full', 'pond']">
                         Le blog de l'Arrière Boutique : guides, astuces
                     </button-base>
