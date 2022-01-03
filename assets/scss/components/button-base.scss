@@ -123,10 +123,14 @@
             &:hover {
                 color: var(--color-ft-light);
                 background-color: var(--color-#{$color});
+
+                .ButtonBase_iconBefore {
+                    color: var(--color-ft-light);
+                }
             }
     
             .ButtonBase_iconBefore {
-                color: var(--color-#{$color}-xweak);
+                color: var(--color-#{$color});
             }
         }
     }
