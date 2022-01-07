@@ -20,6 +20,8 @@ let UserEntity = {
         category: { type: String, write: 'self' },
         categoryCustom: { type: String, write: 'self' },
         shopName: { type: String, write: 'self' },
+        etsyId: { type: String, write: 'self' },
+        etsyToken: { type: String, write: 'self' },
         owner: { type: mongoose.Schema.Types.ObjectId, ref: 'user' }
     }, { timestamps: true })
 }

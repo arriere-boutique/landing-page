@@ -62,7 +62,7 @@ exports.accessCheck = function (type = 'write', entity, requested = null, user =
     let owner = null
     let userRole = null
     let requiredRole = null
-    
+
     if (entity[type] == 'self') {
         owner = requested ? requested.owner : null
         requester = user ? user._id : null

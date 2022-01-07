@@ -15,6 +15,7 @@ const Order = require('./order')
 
 mongoose.connect(process.env.MONGO, { useNewUrlParser: true, useUnifiedTopology: true })
 
+exports.token = Token
 exports.user = User
 exports.event = Event
 exports.page = Page
@@ -26,5 +27,3 @@ exports.subscriber = Subscriber
 exports.productVariation = ProductVariation
 exports.product = Product
 exports.order = Order
-
-exports.Token = mongoose.model('token', Token)

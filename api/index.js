@@ -24,6 +24,8 @@ const { logUser, logOut, getUser } = require('./api/user');
 const { createOrder, checkoutOrder } = require('./api/order');
 const { webhooks } = require('./api/webhooks');
 const { createSubscriber, getSubscribers, deleteSubscriber } = require('./api/subscribe')
+const { ping, syncEtsy } = require('./api/etsy')
+const { redirect } = require('./api/oauth')
 
 app.use(morgan('combined'))
 app.use('/webhooks', express.raw({ type: "*/*" }))
@@ -70,6 +72,11 @@ mongoose.connection.once('open', async () => {
     app.post('/subscribe', createSubscriber)
     app.get('/subscribers', getSubscribers)
     app.delete('/subscribe', deleteSubscriber)
+
+    app.get('/etsy/ping', ping)
+    app.post('/etsy/sync', syncEtsy)
+
+    app.get('/oauth/redirect', redirect)
 })
 
 module.exports = app

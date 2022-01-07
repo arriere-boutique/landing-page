@@ -8,9 +8,6 @@ export default {
     mutations: {
         update (state, user) {
             if (user && user.role == 'guest') state.guestId = user._id
-            
-            console.log('current : ' + user._id + ` (${user.role})`)
-            console.log('guest : ' + state.guestId)
         } 
     },
     actions: {
@@ -50,9 +47,10 @@ export default {
                 return e
             }
         },
-        async update ({ commit }, params) {
+        async update ({ commit, rootState }, params) {
             try {
                 const response = await this.$axios.$post('/entities', {
+                    _id: rootState.auth.user._id,
                     ...params,
                     type: 'user'
                 })
