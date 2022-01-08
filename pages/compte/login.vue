@@ -3,15 +3,17 @@
         <div class="Wrapper Wrapper">
             <div class="row-xl">
                 <div class="col-6 pv-60">
-                    <div class="p-30 br-m">
+                    <div class="pv-30 br-m">
                         <p class="ft-2xl-bold"><i class="fal fa-sparkles mr-5"></i> Se connecter</p>
 
                         <form @submit.prevent="submitForm('login')" class="mt-30">
                             <input-base label="Ton adresse e-mail" class="mb-10" :attrs="{ required: true }" v-model="loginForm.email" type="email" />
 
-                            <input-base label="Mot de passe" class="mb-20" type="password" v-model="loginForm.password" />
+                            <input-base label="Mot de passe" class="mb-10" type="password" v-model="loginForm.password" />
 
-                            <div class="text-right">
+                            <errors :items="loginErrors" />
+
+                            <div class="text-right mt-10">
                                 <link-base class="mr-5">Mot de passe oublié ?</link-base>
 
                                 <button-base type="submit" :modifiers="['secondary']" :class="{ 'is-disabled': state.isSuccess || state.loading }">
@@ -27,9 +29,11 @@
                     <form autocomplete="off" @submit.prevent="submitForm('register')" class="p-30 bg-bg-light br-m p-relative">
                         <p class="ft-2xl-bold"><i class="fal fa-hand-wave mr-5"></i> Nous rejoindre</p>
 
-                        <register-form :no-submit="true" class="mv-30" @formChange="updateForm" />
+                        <register-form :no-submit="true" class="mt-30" @formChange="updateForm" />
 
-                        <div class="text-right">
+                        <errors :items="registerErrors" class="mt-10"/>
+
+                        <div class="text-right mt-10">
                             <button-base type="submit" :modifiers="['gum']" :class="{ 'is-disabled': state.isSuccess || state.loading }">
                                 Je m'inscris
                             </button-base>

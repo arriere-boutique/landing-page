@@ -24,16 +24,16 @@ exports.logUser = async function (req, res) {
 
             data = user
         } else {
-            if (!req.body.email || !req.body.password || !req.body.token) throw 'missing-fields'
+            if (!req.body.email || !req.body.password || !req.body.token) throw 'missingFields'
 
             const challenge = await $fetch(`https://www.google.com/recaptcha/api/siteverify?secret=${process.env.RECAPTCHA_SECRET}&response=${req.body.token}`)
 
-            // if (!challenge.success) throw 'challenge-failed'
+            if (!challenge.success) throw 'challenge-failed'
 
             user = await Entities.user.model.findOne({ email: req.body.email })
             
-            if (register && user) throw 'already-registered'
-            if (!register && !user) throw 'email-not-found'
+            if (register && user) throw 'alreadyRegistered'
+            if (!register && !user) throw 'emailNotFound'
             
             if (user) {
                 authenticated = await user.comparePassword(req.body.password)
@@ -85,7 +85,7 @@ exports.logUser = async function (req, res) {
                     expiresIn: 864000
                 })
             } else {
-                throw 'wrong-credentials'
+                throw 'wrongCredentials'
             }
         }
     } catch (err) {
@@ -105,7 +105,7 @@ exports.getUser = async function (req, res) {
 
     try {
         user = await authenticate(req.headers)
-        if (!user) throw 'wrong-credentials'
+        if (!user) throw 'wrongCredentials'
     } catch (err) {
         console.error(err)
         errors.push(err)

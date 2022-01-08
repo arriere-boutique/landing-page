@@ -12,51 +12,6 @@
                 v-if="!aboutOnly"
             />
 
-            <div class="pv-10 ph-20 b br-8 mb-10" v-show="state.isActive || aboutOnly">
-                <p class="mb-15 mt-5 ft-m-bold">À propos de ta boutique </p>
-
-                <input-base
-                    label="Nom de ta boutique"
-                    v-model="formData.shopName"
-                    type="text"
-                    :attrs="{ required: true }"
-                    class="mv-10"
-                />
-
-                <div class="SelectBase is-value mb-10">
-                    <label class="InputBase_label"> Ton domaine</label>
-
-                    <select
-                        v-model="formData.shopCategory"
-                        class="SelectBase_value"
-                    >
-                        <option v-for="option in CATEGORIES" :key="option.id" :value="option.id">
-                            {{ option.label }}
-                        </option>
-                    </select>
-                </div>
-
-                <input-base
-                    label="Quel type de produits vends-tu ?"
-                    v-model="formData.shopCategoryCustom"
-                    type="text"
-                    class="mb-10"
-                    v-show="formData.shopCategory == 7"
-                />
-
-                <div class="d-flex fx-align-center">
-                    <div class="ft-m-medium fx-grow mr-10">
-                        <p v-for="error in state.errors" :key="error">
-                            {{ $t(`EmailingForm.errors.${error}`) }}
-                        </p>
-
-                        <p v-if="state.isSuccess">
-                            <i class="fal fa-face-party mr-5"></i> Abonnement confirmé, on se retrouve bientôt dans ta boîte mail !
-                        </p>
-                    </div> 
-                </div>
-            </div>
-
             <input-base
                 label="Mot de passe"
                 type="password"
@@ -65,7 +20,7 @@
                 v-if="!aboutOnly"
             />
 
-            <label class="d-flex ft-s-medium mt-10" v-show="state.isActive">
+            <label class="d-flex ft-s-medium mt-10">
                 <input type="checkbox" v-model="formData.newsletter">
 
                 <p class="n-mt-3 ml-5">
@@ -114,9 +69,6 @@ export default {
         formData: {
             email: '',
             name: '',
-            shopName: '',
-            shopCategory: 0,
-            shopCategoryCustom: '',
             password: '',
             newsletter: true
         }
