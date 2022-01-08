@@ -26,8 +26,8 @@ Vue.mixin({
         $categories: {
             news: { color: 'gum', fa: 'fa-thumbtack', slug: 'actualite' },
             seo: { color: 'pond', fa: 'fa-search', slug: 'referencement-seo' },
-            identity: { color: 'skylight', fa: 'fa-store', slug: 'identite-de-marque' },
-            value: { color: 'mango', fa: 'fa-gem', slug: 'valeur-percue' }
+            identity: { color: 'ice', fa: 'fa-store', slug: 'identite-de-marque' },
+            value: { color: 'duck', fa: 'fa-gem', slug: 'valeur-percue' }
         }
     }),
     methods: {

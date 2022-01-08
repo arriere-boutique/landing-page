@@ -3,7 +3,7 @@
         <div class="LandingPage_background" :style="{ '--image': `url('${assets.background}')` }"></div>
         
         <div class="Wrapper Wrapper--s pv-60 pv-0@s">
-            <div class="bg-bg-light p-30 br-10 p-0@s bg-skylight-xweak@s">
+            <div class="bg-bg-light p-30 br-10 p-0@s bg-ice-xweak@s">
                 <img :src="assets.banner" class="width-100 br-4">
 
                 <h1 class="ft-2xl-bold mt-20 ft-xl-bold@s">
@@ -28,7 +28,7 @@
                     </div>
                 </div>
 
-                <div class="d-flex fx-align-top bg-precious-xweak p-20 br-4 mt-30 d-block@s mt-0@s p-0@s bg-skylight-xweak@s mb-30@s">
+                <div class="d-flex fx-align-top bg-precious-xweak p-20 br-4 mt-30 d-block@s mt-0@s p-0@s bg-ice-xweak@s mb-30@s">
                     <div>
                         <h3 class="ft-l-bold color-accent">Parfois un avis extérieur est tout ce qu'il te faut.</h3>
                         <div>Seulement 4 places disponibles par semaine. Créneaux visibles deux semaines à l'avance.</div>
@@ -44,7 +44,7 @@
                     </div>
                 </div>
 
-                <div class="bg-skylight-xweak p-20 text-center mt-10 br-4">
+                <div class="bg-ice-xweak p-20 text-center mt-10 br-4">
                     <p class="ft-l-bold">Plus de place ?</p>
                     <link-base link="https://calendly.com/arriere-boutique" target="_blank">Voir les autres dispos</link-base>
                 </div>
@@ -73,7 +73,7 @@ export default {
             ]
         }
 
-        this.$store.commit('page/setColor', 'skylight')
+        this.$store.commit('page/setColor', 'ice')
         this.$store.commit('page/setClasses', [ 'header-fill' ])
 
         return meta

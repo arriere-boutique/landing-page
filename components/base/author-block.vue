@@ -1,5 +1,5 @@
 <template>
-    <div class="AuthorBlock is-amber">
+    <div class="AuthorBlock is-duck">
         <div class="AuthorBlock_image" :style="{ backgroundImage: `url(${assets.profile})` }"></div>
         <div class="AuthorBlock_content">
             <p class="ft-l-bold">

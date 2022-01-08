@@ -81,7 +81,7 @@ export default {
             ]
         }
 
-        this.$store.commit('page/setColor', 'skylight')
+        this.$store.commit('page/setColor', 'ice')
 
         return meta
     }

@@ -1,5 +1,5 @@
 <template>
-    <nav class="NavAdmin" :class="[ `NavAdmin--${user.theme ? user.theme.color : 'amethyst'}` ]">
+    <nav class="NavAdmin" :class="[ `NavAdmin--${user.theme ? user.theme.color : 'gum'}` ]">
         <nuxt-link to="/" class="NavAdmin_logo">
             <icon-base name="logo/logo-main" :height="50" />
         </nuxt-link>

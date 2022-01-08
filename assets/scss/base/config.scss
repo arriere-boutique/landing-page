@@ -42,7 +42,7 @@ $gutters: (
 
 $colors: (
     "ft-strong": #000000,
-    "ft": #363636,
+    "ft": #000000,
     "ft-weak": #757575,
     "ft-xweak": #ddd9e8,
     "ft-light": #ffffff,
@@ -50,25 +50,37 @@ $colors: (
     "white": #ffffff,
 
     "precious": #6b4bff,
-    "precious-weak": #b3a3ff,
-    "precious-xweak": #fff4fd,
+    "precious-weak": #938cfe,
+    "precious-xweak": #ffeffc,
 
-    "skylight": #5b70c6,
-    "skylight-weak": #94b1e9,
-    "skylight-xweak": #F9F9FF,
+    "ice": #3399ff,
+    "ice-weak": #4cc1fe,
+    "ice-xweak": #e6ffff,
 
     "pond": #3ec9ce,
-    "pond-weak": #7adde4,
-    "pond-xweak": #f6fffd,
+    "pond-weak": #4ee3ee,
+    "pond-xweak": #eefefa,
     
     "gum": #ff5482,
-    "gum-weak": #ff87ab,
-    "gum-xweak": #fff6f8,
-    "gum-alt-xweak": #fffdf6,
+    "gum-weak": #ff8dbe,
+    "gum-xweak": #fff1f4,
     
-    "mango": #ffd341,
-    "mango-weak": #ffe353,
-    "mango-xweak": #feffef,
+    "duck": #ffde3b,
+    "duck-weak": #fff382,
+    "duck-xweak": #ffffe1,
+    
+    "emerald": #43de9b,
+    "emerald-weak": #8cf9a9,
+    "emerald-xweak": #f0ffef,
+    
+    "sunset": #ff913d,
+    "sunset-weak": #f8b56a,
+    "sunset-xweak": #fff5e5,
+    
+    "onyx": #000000,
+    "onyx-weak": #4b4b4b,
+    "onyx-xweak": #c2c2c2,
+    "onyx-2xweak": #f0f0f0,
 
     "bg-light": #ffffff,
     "bg-weak": #C6C6C6,
@@ -86,41 +98,14 @@ $colors: (
     "canva-blue": #3034a6,
     "canva-purple": #7b28e5,
 
-    "shadow": rgba(207, 215, 231, 0.3),
-
-    // DEPRECATED
-
-    "onyx": #000000,
-    "onyx-weak": #4b4b4b,
-    "onyx-xweak": #c2c2c2,
-    "onyx-2xweak": #f0f0f0,
-
-    "amethyst": #5D0B64,
-    "amethyst-weak": #AB83AC,
-    "amethyst-xweak": #E6CEE8,
-    "amethyst-2xweak": #FEF1FF,
-
-    "amber": #FFB400,
-    "amber-weak": #FFC757,
-    "amber-xweak": #FFF1D2,
-    "amber-2xweak": #fffaf3,
-    
-    "malachite": #196051,
-    "malachite-weak": #75A5A8,
-    "malachite-xweak": #D0F2EA,
-    "malachite-2xweak": #EEFEFB,
-
-    "ruby": #9E0745,
-    "ruby-weak": #D1416D,
-    "ruby-xweak": #FBBDC4,
-    "ruby-2xweak": #fff0f4
+    "shadow": rgba(207, 215, 231, 0.3)
 );
 
-$main-colors: ("gum", "mango", "pond", "skylight", "precious");
+$main-colors: ("gum", "duck", "pond", "ice", "precious", "sunset", "emerald");
 $accent-colors: (
     "gum": "pond",
-    "mango": "gum",
-    "skylight": "precious",
+    "duck": "gum",
+    "ice": "precious",
     "pond": "precious"
 );
 

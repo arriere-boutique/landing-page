@@ -16,7 +16,7 @@
             </div>
         </div>
 
-        <div class="bg-bg-light pv-60 is-skylight">
+        <div class="bg-bg-light pv-60 is-ice">
             <div class="Wrapper">
                 <div class="d-flex fx-align-center d-block@s">
                     <div class="fx-grow mr-20 mr-0@s">

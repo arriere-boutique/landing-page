@@ -18,6 +18,10 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 
+input, select {
+  outline: none;
+}
+
 .InputChoice {
     display: flex;
     align-items: center;
@@ -44,6 +48,28 @@ input[type=number] {
     padding-left: 10px;
     padding-right: 10px;
     width: 100%;
+}
+
+.InputBase_label, .SelectBase_label {
+  font: var(--ft-s-medium);
+  background-color: transparent;
+  color: var(--color-ft-weak);
+}
+
+.InputBase.is-value,
+.InputBase.is-focused {
+
+    .InputBase_label {
+        transform: translate3d(-6px, -100%, 0) scale(0.95);
+        color: var(--color-ft);
+    }
+
+    .InputBase_element {
+
+        &::placeholder {
+            opacity: 1;
+        }
+    }
 }
 
 .InputBase--s {
