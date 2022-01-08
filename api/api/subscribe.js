@@ -11,7 +11,7 @@ exports.createSubscriber = async function (req, res) {
     let data = []
 
     try {
-        if (!req.body.email || !req.body.token) throw 'missing-fields'
+        if (!req.body.email || !req.body.token) throw 'missingFields'
 
         const challenge = await $fetch(`https://www.google.com/recaptcha/api/siteverify?secret=${process.env.RECAPTCHA_SECRET}&response=${req.body.token}`)
 

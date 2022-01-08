@@ -93,6 +93,26 @@
     height: 100%;
 }
 
+.fade-enter-active {
+    transition: all 250ms;
+}
+
+.fade-leave, .fade-leave-to {
+    transition: none;
+    display: none;
+}
+
+.fade-enter {
+    opacity: 0;
+    transform: translateY(-5px);
+}
+
+.fade-enter-to {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
 @each $color in $main-colors {
 
     .fill-#{$color} {

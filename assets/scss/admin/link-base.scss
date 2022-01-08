@@ -29,10 +29,6 @@
     &:active {
         opacity: 0.5;
 
-        .LinkBase_content {
-
-        }
-
         &::before {
             transform: scaleX(0.8);
         }
