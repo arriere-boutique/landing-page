@@ -23,7 +23,7 @@
                     <div class="FileUploader_status">
                         <i class="fal fa-times color-ft-weak" @click.stop="deleteFile(file.name)" v-if="!file.loading && !file.loaded && !state.loading"></i>
                         <i class="fal fa-spinner-third spin color-ft-weak" v-if="file.loading && !file.loaded"></i>
-                        <i class="fal fa-check color-amethyst" v-if="file.loaded && !file.error"></i>
+                        <i class="fal fa-check color-gum" v-if="file.loaded && !file.error"></i>
                         <i class="fal fa-times color-error" v-if="file.error"></i>
                     </div>
                 </div>
@@ -44,7 +44,7 @@
         </div>
 
         <div class="FileUploader_actions" :class="{ 'is-active': !state.loading && loadedFiles.length > 0 && loadedFiles.length == files.length }">
-            <div class="text-center ft-s fx-grow color-amethyst ph-20" v-if="status == 'success'">
+            <div class="text-center ft-s fx-grow color-gum ph-20" v-if="status == 'success'">
                 <i class="fal fa-check mr-5"></i> Les fichiers ont été chargés avec succès. Ils se trouvent dans la Bibliothèque de médias.
             </div>
             <div class="text-center ft-s fx-grow color-error ph-20" v-else-if="status == 'partial'">

@@ -1,6 +1,6 @@
 <template>
     <footer class="FooterBase">
-        <!-- <div class="bg-skylight-xweak pv-30" v-if="!isShop">
+        <!-- <div class="bg-ice-xweak pv-30" v-if="!isShop">
             <div class="Wrapper">
                 <div class="d-flex fx-align-center d-block@s">
                     <div class="p-relative fx-no-shrink mr-10 mb-20@s">
@@ -16,7 +16,7 @@
                         </p>
 
                         <button-base
-                            :modifiers="['precious', 'icon-mango']"
+                            :modifiers="['precious', 'icon-duck']"
                             iconBefore="sparkles"
                             tag="a"
                             target="_blank"

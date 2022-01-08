@@ -73,6 +73,26 @@
     top: calc(var(--header-base) + var(--offset, 0px));
 }
 
+.br-s {
+    border-radius: 10px;
+}
+
+.br-m {
+    border-radius: 15px;
+}
+
+.br-l {
+    border-radius: 25px;
+}
+
+.bg-to-right {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 100%;
+}
+
 @each $color in $main-colors {
 
     .fill-#{$color} {

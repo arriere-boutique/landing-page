@@ -14,7 +14,7 @@
             </div>
         </div>
 
-        <div class="is-skylight bg-bg-light pv-30">
+        <div class="is-ice bg-bg-light pv-30">
             <div class="Wrapper Wrapper--l d-flex fx-align-center d-block@s">
                 <div class="fx-grow pr-30 p-relative pr-0@s pb-20@s">
                     <div class="max-width-l">
@@ -40,7 +40,7 @@
             </div>
         </div>
 
-        <div class="is-skylight bg-skylight-xweak pv-60">
+        <div class="is-ice bg-ice-xweak pv-60">
             <div class="Wrapper Wrapper--l d-flex d-block@s">
                 <div class="max-width-s">
                     <img class="width-100" :src="assets.blob3">

@@ -43,7 +43,7 @@ export default {
         savedUser () { return this.$store.state.auth.user },
         title () { return this.$store.state.page.meta.title },
         icon () { return this.user.theme ? this.user.theme.icon : 'cat-space' },
-        color () { return this.user.theme ? this.user.theme.color : 'amethyst' },
+        color () { return this.user.theme ? this.user.theme.color : 'gum' },
         disableScroll () { return !this.$store.state.utils.window.scroll },
         pageClasses () { return this.$store.state.page.body.classes }
     },

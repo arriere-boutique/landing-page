@@ -5,7 +5,9 @@
     z-index: 100;
     width: 100%;
     transition: all 150ms ease;
-
+    background-color: var(--color-bg-light);
+    border-bottom: 1px solid var(--color-border);
+    
     --header-height: 75px;
 
     &:hover {
@@ -291,7 +293,6 @@
 .HeaderBase.is-scrolled {
     background-color: var(--color-bg-light);
     @include box-shadow;
-    border: none;
     --header-height: 60px;
 
     .HeaderBase_logo {
