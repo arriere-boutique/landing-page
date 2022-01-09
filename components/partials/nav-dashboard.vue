@@ -24,6 +24,8 @@ export default {
     data: () => ({
         links: [
             { label: `Tableau de bord`, icon: 'book-heart', path: { name: 'dashboard' } },
+            { label: `Mes commandes`, icon: 'receipt', path: { name: 'dashboard-commandes' } },
+            { label: `Mes fiches produit`, icon: 'sparkles', path: { name: 'dashboard-fiches-produit' } },
             { label: `Paramètres`, icon: 'cog', path: { name: 'dashboard-parametres' } }
         ]
     })

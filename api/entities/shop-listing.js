@@ -10,6 +10,7 @@ let ShopListingEntity = {
         quantity: { type: Number, write: 'self' },
         favorites: { type: Number, default: 0, write: 'self' },
         tags: { type: Array, write: 'self' },
+        images: { type: Object, write: 'self' },
         shop: { type: mongoose.Schema.Types.ObjectId, write: 'self', ref: 'shop' },
         owner: { type: mongoose.Schema.Types.ObjectId, write: 'self', ref: 'user' }
     }, { timestamps: true })

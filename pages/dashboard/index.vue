@@ -1,8 +1,10 @@
 <template>
     <div>
-        <div class="bg-pond-xweak">
-            <div class="p-40">
-                <p class="ft-hand-xs">Bonjour {{ user.name }} ! <i class="ml-5 fal fa-sparkles"></i></p>
+        <div class="Wrapper">
+            <div class="bg-pond-xweak br-m">
+                <div class="p-40">
+                    <p class="ft-2xl-bold">Bonjour {{ user.name }} ! <i class="ml-5 fal fa-sparkles"></i></p>
+                </div>
             </div>
         </div>
     </div>

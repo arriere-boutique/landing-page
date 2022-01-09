@@ -1,12 +1,11 @@
 <template>
     <div>
-        <div class="bg-ice-xweak">
-            <div class="p-40">
-                <p class="ft-hand-xs">Mes paramètres</p>
+        <div class="Wrapper">
+            <div class="bg-ice-xweak br-m mb-40">
+                <div class="p-40">
+                    <p class="ft-2xl-bold">Mes paramètres</p>
+                </div>
             </div>
-        </div>
-
-        <div class="Wrapper pv-40">
             <p class="ft-xl-bold">Boutiques connectées</p>
 
             <div class="row-xs mt-10" v-if="shops">
