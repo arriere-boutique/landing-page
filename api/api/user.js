@@ -67,14 +67,15 @@ exports.logUser = async function (req, res) {
 
                     createContact.email = req.body.email
                     createContact.listIds = req.body.newsletter ? [9, 6] : [9]
+
                     createContact.attributes = {
                         PRENOM: req.body.name,
-                        DOMAINE: req.body.shopCategory,
-                        DOMAINECUSTOM: req.body.shopCategoryCustom,
-                        NOMBOUTIQUE: req.body.shopName
+                        DOMAINE: req.body.shopCategory ? req.body.shopCategory : 0,
+                        DOMAINECUSTOM: req.body.shopCategoryCustom ? req.body.shopCategoryCustom : '',
+                        NOMBOUTIQUE: req.body.shopName ? req.body.shopName : ''
                     }
                     
-                    // await apiInstance.createContact(createContact)
+                    if (process.env.NODE_ENV == "PRODUCTION") await apiInstance.createContact(createContact)
                 } catch (err) {
                     console.error(err)
                 }
@@ -105,6 +106,8 @@ exports.getUser = async function (req, res) {
 
     try {
         user = await authenticate(req.headers)
+        user.shops = await Promise.all(user.shops.map(async shop => await Entities.shop.model.findById(shop)))
+
         if (!user) throw 'wrongCredentials'
     } catch (err) {
         console.error(err)

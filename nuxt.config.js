@@ -121,6 +121,6 @@ export default {
 
     router: {
         linkActiveClass: 'is-active',
-        linkExactActiveClass: 'is-active'
+        linkExactActiveClass: 'is-active-exact'
     }
 }

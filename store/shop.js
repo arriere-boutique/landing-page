@@ -6,6 +6,7 @@ export default {
     namespaced: true,
     state: () => ({
         stateId: null,
+        items: [],
         data: {
             user: null,
             shop: null,
@@ -16,11 +17,31 @@ export default {
         setStateId (state, id) {
             state.stateId = id
         },
-        updateData (state, data) {
-            state.data = data
+        setShops (state, data) {
+            state.items = data
+        },
+        updateShop(state, data) {
+            state.items = state.items.map(shop => shop._id == data._id ? data : shop)
         }
     },
     actions: { 
+        async fetch ({ commit }, params = {}) {
+            try {
+                const response = await this.$axios.$get(storeUtils.getQuery('/entities', {
+                    $self: 'owner',
+                    type: 'shop',
+                }))
+                
+                if (response.errors.length > 0) throw response.errors
+
+                commit('setShops', response.data)
+
+                return response.data
+            } catch (e) {
+                console.error(e)
+                return e
+            }
+        },
         async ping () {
             try {
                 const response = await this.$axios.$get(storeUtils.getQuery('/etsy/ping'))
@@ -60,19 +81,37 @@ export default {
                 return null
             }
         },
-        async syncInfo ({ commit, rootState }) {
+        async sync ({ commit }, id) {
             try {
-                if (!rootState.auth.user) throw 'no-user'
+                const response = await this.$axios.$post('/etsy/sync', {
+                    id
+                })
 
-                const response = await this.$axios.$post('/etsy/sync')
+                if (response.status == 0) throw response.errors
 
-                if (response.status != 0) commit('updateData', response.data)
+                commit('updateShop', response.data)
 
                 return response.data
             } catch (e) {
                 console.error(e)
                 return null
             }
-        }
+        },
+        async create ({}, params) {
+            try {
+                const response = await this.$axios.$post('/etsy/link', {
+                    ...params
+                })
+                
+                if (response.status == 0) throw response.errors
+
+                commit('updateShop', response.data)
+
+                return response
+            } catch (e) {
+                console.error(e)
+                return e
+            }
+        } 
     }
 }

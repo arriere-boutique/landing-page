@@ -90,7 +90,7 @@ export default {
                     this.registerErrors = response.data.errors
                 }
             } else {
-                this.$router.push({ path: this.localePath({ name: 'compte' }) });
+                this.$router.push({ path: this.localePath({ name: 'dashboard' }) });
             }
         }
     }

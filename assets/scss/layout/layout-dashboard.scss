@@ -1,0 +1,18 @@
+.LayoutDashboard {
+    min-height: 100vh;
+}
+
+.LayoutDashboard_nav {
+    width: 300px;
+    box-shadow: 0 0 6px 0 var(--color-shadow);
+    background-color: var(--color-bg-light);
+    border-right: 1px solid var(--color-border);
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+}
+
+.LayoutDashboard_content {
+    margin-left: 300px;
+}
