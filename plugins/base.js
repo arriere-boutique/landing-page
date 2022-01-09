@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import moment from 'moment'
-import { ButtonBase, PopinBase } from '@instant-coffee/core'
+import { ButtonBase, PopinBase } from 'instant-coffee-core'
 import LogoYellow from '@/assets/img/logo/logo-yellow.png'
 
 moment.locale('fr')
@@ -34,12 +34,12 @@ Vue.mixin({
         randomBetween: (min, max) => {
             Math.floor(Math.random() * (max - min + 1) + min)
         },
-        tooltipOpen (content, e, params = {}) {
+        $tOpen (content, e, params = {}) {
             this.$store.commit('tooltips/open', {
                 content, element: e.target, ...params
             })
         },
-        tooltipClose () {
+        $tClose () {
             this.$store.commit('tooltips/close')
         },
         $theme (value) {

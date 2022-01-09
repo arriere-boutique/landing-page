@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import { } from '@instant-coffee/core'
+import { } from 'instant-coffee-core'
 import { sortDate } from '@/utils/base'
 
 export default {

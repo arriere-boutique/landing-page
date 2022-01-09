@@ -58,7 +58,7 @@ const STATUSES = [
     { id: 2, label: 'Caché', value: 'hidden' },
 ]
 
-import { SelectBase } from '@instant-coffee/core'
+import { SelectBase } from 'instant-coffee-core'
 
 export default {
     name: 'EntityControl',

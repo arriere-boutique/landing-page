@@ -9,11 +9,12 @@
         </div>
 
         <tooltip-manager />
+        <flashes-manager />
     </div>
 </template>
 
 <script>
-import { TooltipManager } from '@instant-coffee/core'
+import { TooltipManager } from 'instant-coffee-core'
 
 export default {
     name: 'LayoutDashboard',

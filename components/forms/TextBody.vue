@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import { ModifiersMixin } from '@instant-coffee/core'
+import { ModifiersMixin } from 'instant-coffee-core'
 import { Editor, EditorContent } from 'tiptap'
 import { Heading, Bold, Blockquote, Image, Italic, OrderedList, BulletList, ListItem } from 'tiptap-extensions'
 import Link from '@/plugins/tiptap/Link'

@@ -161,7 +161,7 @@ const CATEGORIES = [
     { id: 2, label: 'Formation', value: 'course' }
 ]
 
-import { InputBase, SelectBase } from '@instant-coffee/core'
+import { InputBase, SelectBase } from 'instant-coffee-core'
 import slugify from 'slugify'
 
 export default {

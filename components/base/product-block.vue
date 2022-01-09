@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import { ModifiersMixin } from '@instant-coffee/core'
+import { ModifiersMixin } from 'instant-coffee-core'
 import iconBase from './icon-base.vue'
 
 export default {

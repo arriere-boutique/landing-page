@@ -48,7 +48,7 @@ const CATEGORIES = [
     { id: 7, label: 'Je vends autre chose' },
 ]
 
-import { InputBase, SelectBase } from '@instant-coffee/core'
+import { InputBase, SelectBase } from 'instant-coffee-core'
 
 export default {
     name: 'RegisterForm',

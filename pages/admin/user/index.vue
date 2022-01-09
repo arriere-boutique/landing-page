@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import { InputBase } from '@instant-coffee/core'
+import { InputBase } from 'instant-coffee-core'
 import {} from '@/utils/base'
 
 export default {

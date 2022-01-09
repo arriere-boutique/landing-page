@@ -112,7 +112,20 @@ export default {
                 test: /\.svg.html$/,
                 loader: 'raw-loader'
             })
-        }
+        },
+        babel: {
+            presets(env, [preset, options]) {
+                return [["@babel/preset-env", {}]];
+            },
+            plugins: [
+                [
+                "@babel/plugin-transform-runtime",
+                {
+                    regenerator: true
+                }
+                ]
+            ]
+        }      
     },
     
     axios: {

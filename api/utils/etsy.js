@@ -1,4 +1,5 @@
 
+const moment = require('moment')
 const Entities = require('../entities')
 const { $fetch } = require('ohmyfetch/node')
 
@@ -8,11 +9,31 @@ exports.syncShop = async function (id, syncImages = false) {
         try {
             const shop = await Entities.shop.model.findById(id)
 
+            if (moment(shop.etsyRefreshed).isBefore(moment())) {
+                const refresh = await $fetch(`https://api.etsy.com/v3/public/oauth/token`, {
+                    method: 'POST',
+                    body: {
+                        "grant_type": "refresh_token",
+                        "client_id": process.env.ETSY,
+                        "refresh_token": shop.etsyRefreshToken
+                    },
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                })
+
+                shop.etsyToken = refresh.access_token
+                shop.etsyRefreshed = moment().add(refresh.expires_in - 600, 's')
+                shop.etsyRefreshToken = refresh.refresh_token
+
+                shop.save()
+            }
+        
             const headers = {
                 'x-api-key': process.env.ETSY,
                 Authorization: `Bearer ${shop.etsyToken}`,
             }
-        
+
             const shopData = await $fetch(`https://openapi.etsy.com/v3/application/users/${shop.etsyId}/shops`, { headers })
 
             shop.name = shopData.shop_name

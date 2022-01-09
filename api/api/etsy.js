@@ -49,7 +49,8 @@ exports.linkShop  = async function (req, res) {
 
         let params = {
             etsyId: req.body.etsyId,
-            etsyToken: req.body.etsyToken
+            etsyToken: req.body.etsyToken,
+            etsyRefreshToken: req.body.etsyRefresh
         }
         
         if (existing) {

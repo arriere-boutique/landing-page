@@ -8,10 +8,12 @@
     transition: all 100ms ease;
     border-radius: 25px;
     background-color: var(--color-pond);
-
+    position: relative;
+    box-shadow: 0 3px 8px 0 var(--color-pond-50);
+    
     &:hover {
         transform: scale(0.98);
-        box-shadow: 0 0 0 2px var(--color-shadow);
+        box-shadow: 0 1px 4px 0 var(--color-pond-75);
 
         .ButtonBase_content {
             opacity: 0.75;
@@ -20,11 +22,12 @@
 
     &:active {
         transform: scale(0.95);
-        box-shadow: 0 0 0 3px var(--color-shadow);
+        box-shadow: 0 0px 3px 0 var(--color-pond);
 
         .ButtonBase_content {
             opacity: 0.5;
             transform: scale(0.95);
+            filter: blur(1px);
         }
     }
 }
@@ -49,9 +52,14 @@
 
     .ButtonBase--#{$color} {
         background-color: var(--color-#{$color});
+        box-shadow: 0 3px 8px 0 var(--color-#{$color}-50);
+    
+        &:hover {
+            box-shadow: 0 1px 4px 0 var(--color-#{$color}-75);
+        }
 
         &:active {
-            border-color: var(--color-#{$color}-xweak);
+            box-shadow: 0 0px 3px 0 var(--color-#{$color});
         }
     }
 
@@ -69,6 +77,14 @@
 
     &:active {
         border-color: var(--color-accent-xweak);
+    }
+}
+
+.ButtonBase--s {
+
+    .ButtonBase_content {
+        min-height: 40px;
+        padding: 3px 12px;
     }
 }
 
@@ -238,4 +254,14 @@
 .ButtonBase.is-disabled {
     opacity: 0.5;
     pointer-events: none;
+}
+
+.ButtonBase.is-loading {
+    pointer-events: none;
+    transform: scale(0.95);
+
+    .ButtonBase_content {
+        filter: blur(1px);
+        opacity: 0.35;
+    }
 }

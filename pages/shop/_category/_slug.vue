@@ -72,7 +72,7 @@
 </template>
 
 <script>
-import { InputBase, SelectBase } from '@instant-coffee/core'
+import { InputBase, SelectBase } from 'instant-coffee-core'
 import moment from 'moment'
 
 export default {
