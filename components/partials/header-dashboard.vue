@@ -1,5 +1,5 @@
 <template>
-    <header class="HeaderDashboard">
+    <header class="HeaderDashboard bg-pond-xweak">
         <div class="HeaderDashboard_wrapper">
             <div class="HeaderDashboard_links">
                 <link-base class="HeaderDashboard_links">Le blog</link-base>

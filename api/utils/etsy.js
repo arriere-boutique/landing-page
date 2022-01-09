@@ -54,6 +54,8 @@ exports.syncShop = async function (id, syncImages = false) {
                         let data = {
                             id: listing.listing_id,
                             title: listing.title,
+                            status: listing.state,
+                            price: listing.price,
                             link: listing.url,
                             quantity: listing.quantity,
                             favorites: listing.num_favorers,
@@ -129,6 +131,8 @@ exports.syncShop = async function (id, syncImages = false) {
                             shipping_cost: listing.shipping_cost
                         }
                     }))
+
+                    console.log()
                     
                     return {
                         id: order.receipt_id,
@@ -142,6 +146,12 @@ exports.syncShop = async function (id, syncImages = false) {
                         city: order.city,
                         status: order.status,
                         isGift: order.is_gift,
+                        subTotal: order.subtotal,
+                        totalDiscount: order.discount_amt,
+                        totalGiftWrap: order.gift_wrap_price,
+                        totalPrice: order.total_price,
+                        totalShipping: order.total_shipping_cost,
+                        total: order.grandtotal,
                         giftMessage: order.gift_message
                     }
                 }))

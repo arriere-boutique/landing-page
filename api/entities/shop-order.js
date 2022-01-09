@@ -15,6 +15,14 @@ let ShopOrderEntity = {
         isGift: { type: Boolean },
         giftMessage: { type: String },
         listings: { type: Array },
+
+        subTotal: { type: Object },
+        totalDiscount: { type: Object },
+        totalGiftWrap: { type: Object },
+        totalPrice: { type: Object },
+        totalShipping: { type: Object },
+        total: { type: Object },
+
         shop: { type: mongoose.Schema.Types.ObjectId, write: 'self', ref: 'shop' },
         owner: { type: mongoose.Schema.Types.ObjectId, write: 'self', ref: 'user' },
         orderDate: { type: Number }

@@ -78,6 +78,7 @@ exports.accessCheck = function (type = 'write', entity, requested = null, user =
     if (!granted) {
         console.warn(`access-${type}-denied`)
         console.log(entity.model)
+        
         if (entity[type] == 'self') {
             console.log('requester : ' + requester + ' | owner : ' + owner)
         } else {

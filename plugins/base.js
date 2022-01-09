@@ -20,6 +20,9 @@ Vue.mixin({
         },
         striptags: (value) => {
             return value ? value.replace(/(<([^>]+)>)/gi, '') : ''
+        },
+        round: (value, divider = 100) => {
+            return Math.round(value * divider) / divider
         }
     },
     data: () => ({

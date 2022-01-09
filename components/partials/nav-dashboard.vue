@@ -25,7 +25,7 @@ export default {
         links: [
             { label: `Tableau de bord`, icon: 'book-heart', path: { name: 'dashboard' } },
             { label: `Mes commandes`, icon: 'receipt', path: { name: 'dashboard-commandes' } },
-            { label: `Mes fiches produit`, icon: 'sparkles', path: { name: 'dashboard-fiches-produit' } },
+            { label: `Mes fiches produit`, icon: 'sparkles', path: { name: 'dashboard-fiches' } },
             { label: `Paramètres`, icon: 'cog', path: { name: 'dashboard-parametres' } }
         ]
     })
@@ -38,16 +38,17 @@ export default {
         align-items: center;
         font: var(--ft-m-medium);
         padding: 12px 25px 12px 20px;
-        margin: 2px 0 2px 20px;
-        border-top-left-radius: 40px;
-        border-bottom-left-radius: 40px;
+        margin: 2px 0 2px 0;
         transition: all 150ms ease;
 
         i {
             transition: all 150ms ease;
         }
 
-        &.is-active-exact,
+        &.is-active-exact {
+            border-left: 4px solid var(--color-pond);
+        }
+
         &:hover {
             background: var(--color-pond-xweak);
 

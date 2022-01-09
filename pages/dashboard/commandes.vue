@@ -1,13 +1,9 @@
 <template>
     <div>
-        <div class="Wrapper ">
-            <div class="bg-emerald-xweak br-m mb-40">
-                <div class="p-40">
-                    <p class="ft-2xl-bold">Mes commandes</p>
-                </div>
-            </div>
+        <div class="Wrapper Wrapper--left">
+            <p class="ft-2xl-bold mv-40">Mes commandes</p>
 
-            <p class="ft-xl mb-10"><b>Commandes en cours</b> ({{ pendingOrders.length }})</p>
+            <p class="ft-xl-medium mb-10"><span class="round bg-pond-xweak mr-5">{{ pendingOrders.length }}</span> Commandes en cours</p>
 
             <div class="p-10" v-for="order in pendingOrders" :key="order._id">
                 <order-block v-bind="order" />
@@ -15,7 +11,7 @@
 
             <hr class="Separator mv-60" />
 
-            <p class="ft-xl mb-10"><b>Commandes complétées</b> ({{ completedOrders.length }})</p>
+            <p class="ft-xl-medium mb-10"><span class="round bg-pond-xweak mr-5">{{ completedOrders.length }}</span> Commandes complétées</p>
 
             <div class="p-10" v-for="order in completedOrders" :key="order._id">
                 <order-block v-bind="order" />
