@@ -9,6 +9,7 @@ let Order = {
         shipping: { type: String, write: 'self' },
         address: { type: Object, write: 'self' },
         price: { type: Object, write: 'self' },
+        status: { type: String, write: 'self' },
         items: [
             { type: mongoose.Schema.Types.ObjectId, ref: 'productVariation' }
         ],

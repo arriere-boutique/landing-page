@@ -7,20 +7,18 @@
                 </div>
             </div>
 
-            <div class="p-10" v-for="order in orders" :key="order._id">
-                {{ order.name }} {{ $moment.unix(order.orderDate).fromNow() }} 
+            <p class="ft-xl mb-10"><b>Commandes en cours</b> ({{ pendingOrders.length }})</p>
 
-                <div>
-                    <img :src="order.shop.logo" width="20"> {{ order.shop.name }}
-                </div>
+            <div class="p-10" v-for="order in pendingOrders" :key="order._id">
+                <order-block v-bind="order" />
+            </div>
 
-                <div class="p-10 bg-pond-xweak">
-                    <div class="d-flex" v-for="(listing, i) in order.listings" :key="i">
-                        <p class="ellipsis-1 mh-20 fx-grow">{{ listing.title }}</p>
-                        <p class="fx-no-shrink mh-20">x {{ listing.quantity }}</p>
-                        <p class="fx-no-shrink">{{ listing.price.amount / listing.price.divisor }}€</p>
-                    </div>
-                </div>
+            <hr class="Separator mv-60" />
+
+            <p class="ft-xl mb-10"><b>Commandes complétées</b> ({{ completedOrders.length }})</p>
+
+            <div class="p-10" v-for="order in completedOrders" :key="order._id">
+                <order-block v-bind="order" />
             </div>
         </div>
     </div>
@@ -37,6 +35,12 @@ export default {
         orders () {
             let orders = this.shops.reduce((total, current) => [ ...total, ...current.orders.map(o => ({ ...o, shop: current })) ], [])
             return orders.sort((a, b) => b.orderDate.valueOf() - a.orderDate.valueOf())
+        },
+        pendingOrders () {
+            return this.orders.filter(o => o.status == 'Paid')
+        },
+        completedOrders () {
+            return this.orders.filter(o => o.status == 'Completed')
         }
     },
     methods: {}

@@ -135,5 +135,14 @@ export default {
                 return storeUtils.handleErrors(e, commit, 'Échec lors de la suppression de la boutique')
             }
         } 
+    },
+    getters: {
+        allListings: (state) => {
+            return state.items.reduce((total, current) => [ ...total, ...current.listings ], [])
+        },
+        listingById: (state, getters) => (id) => {
+            let item = getters.allListings.find(l => l._id == id)
+            return item
+        }
     }
 }
