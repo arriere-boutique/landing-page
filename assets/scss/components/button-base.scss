@@ -4,7 +4,6 @@
     line-height: 1;
     color: var(--color-ft-light);
     padding: 0;
-    border: 1px solid transparent;
     transition: all 100ms ease;
     border-radius: 25px;
     background-color: var(--color-pond);
@@ -23,6 +22,7 @@
     &:active {
         transform: scale(0.95);
         box-shadow: 0 0px 3px 0 var(--color-pond);
+        background-color: var(--color-pond-strong);
 
         .ButtonBase_content {
             opacity: 0.5;
@@ -51,7 +51,7 @@
 @each $color in $main-colors {
 
     .ButtonBase--#{$color} {
-        background-color: var(--color-#{$color});
+        background-color: var(--color-#{$color}-strong);
         box-shadow: 0 3px 8px 0 var(--color-#{$color}-50);
     
         &:hover {
@@ -60,6 +60,7 @@
 
         &:active {
             box-shadow: 0 0px 3px 0 var(--color-#{$color});
+            background-color: var(--color-#{$color}-strong);
         }
     }
 
@@ -104,6 +105,7 @@
     color: var(--color-onyx);
     background-color: transparent;
     border: 2px solid var(--color-onyx);
+    box-shadow: none;
 
     &:hover {
         color: var(--color-ft-light);
@@ -133,6 +135,7 @@
             &:hover {
                 color: var(--color-ft-light);
                 background-color: var(--color-#{$color});
+                border-color: var(--color-#{$color});
 
                 .ButtonBase_iconBefore {
                     color: var(--color-ft-light);
@@ -259,9 +262,35 @@
 .ButtonBase.is-loading {
     pointer-events: none;
     transform: scale(0.95);
+    box-shadow: 0 0px 3px 0 var(--color-pond);
+    background-color: var(--color-pond-strong);
 
     .ButtonBase_content {
         filter: blur(1px);
         opacity: 0.35;
+    }
+
+    @each $color in $main-colors {
+    
+        &.ButtonBase--#{$color} {
+            box-shadow: 0 0px 3px 0 var(--color-#{$color});
+            background-color: var(--color-#{$color}-strong);
+        }
+    }
+
+    &.ButtonBase--secondary {
+        color: var(--color-ft-light);
+        border-color: var(--color-pond-strong);
+
+        .ButtonBase_iconBefore {
+            color: var(--color-ft-light);
+        }
+    }
+
+    @each $color in $main-colors {
+
+        &.ButtonBase--secondary.ButtonBase--#{$color} {
+            border-color: var(--color-#{$color}-strong);
+        }
     }
 }

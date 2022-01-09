@@ -10,8 +10,10 @@
         <div class="ShopBlock_logo" :style="{ backgroundImage: `url(${logo})` }"></div>
 
         <div class="ShopBlock_content">
-            <p class="ft-m-medium">{{ name }}</p>
-            <div>
+            <p class="ft-m-medium line-1">{{ name }}</p>
+            <link-base :href="link" target="_blank">{{ link.replace('https://www.', '') }}</link-base>
+
+            <div class="mt-20">
                 <span class="mh-5" @mouseenter="(e) => $tOpen(`${listings.length} fiches produits synchronisées`, e)" @mouseleave="$tClose">
                     <i class="fal fa-memo"></i>  {{ listings.length }}
                 </span>
@@ -21,7 +23,11 @@
         </div>
 
         <div class="text-center mb-20">
-            <button-base :modifiers="['s']" :class="{ 'is-loading': isSyncing }" icon-before="arrows-rotate" @click="$emit('sync')">Synchroniser</button-base>
+            <button-base :modifiers="['secondary', 's']" :class="{ 'is-loading': isSyncing }" icon-before="arrows-rotate" @click="$emit('sync')" @mouseenter="(e) => $tOpen(`Synchronise si les informations de ta boutique te semblent incorrectes.`, e)" @mouseleave="$tClose">
+                Synchroniser
+            </button-base>
+            <br>
+            <link-base class="mt-10" @click="$emit('delete')">Déconnecter</link-base>
         </div>
     </div>
 </template>
@@ -35,8 +41,9 @@ export default {
     props: {
         name: { type: String },
         logo: { type: String },
-        listings: { type: Array },
-        orders: { type: Array },
+        link: { type: String },
+        listings: { type: Array, default: () => [] },
+        orders: { type: Array, default: () => [] },
         modifiers: { type: Array, default: () => [] },
         isSyncing: { type: Boolean, default: false }
     }

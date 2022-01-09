@@ -1,4 +1,5 @@
 import EMOJIS from '@/static/emojis.json'
+import ICONS from '@/static/icons.json'
 
 export function randomBetween(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min)
@@ -21,6 +22,10 @@ export function randomizeArray(array) {
 
 export function randomEmoji() {
     return EMOJIS[randomBetween(0, EMOJIS.length - 1)] + '️'
+}
+
+export function randomIcon() {
+    return ICONS[randomBetween(0, ICONS.length - 1)]
 }
 
 export function sortDate (items, property = 'date') {

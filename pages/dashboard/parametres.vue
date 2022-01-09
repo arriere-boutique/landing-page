@@ -6,13 +6,16 @@
                     <p class="ft-2xl-bold">Mes paramètres</p>
                 </div>
             </div>
-            <p class="ft-xl-bold">Boutiques connectées</p>
+            <p class="ft-xl-bold">Boutiques connectées ({{ shops.length }})</p>
 
             <div class="row-xs mt-10" v-if="shops">
                 <div class="col-4 pv-10" v-for="shop in shops" :key="shop._id">
-                    <shop-block v-bind="shop" :is-syncing="shopsSyncing.includes(shop._id)" @sync="syncShop(shop._id)" />
+                    <shop-block v-bind="shop" :is-syncing="shopsSyncing.includes(shop._id)" @sync="syncShop(shop._id)" @delete="promptDelete(shop._id)" />
                 </div>
-                <div class="col-4 pv-10 d-flex">
+                <div class="col-4 pv-10" v-if="token">
+                    <placeholder class="br-m" text="Ajout en cours..." />
+                </div>
+                <div class="col-4 pv-10 d-flex" :style="{ minHeight: '325px' }">
                     <div class="text-center height-100 d-flex width-100 fx-justify-center br-m fx-align-center bg-ice-xweak">
                         <button-base icon-before="plus" :modifiers="['ice']" @click="connectShop">Connecter une boutique</button-base>
                     </div>
@@ -32,19 +35,30 @@ export default {
         shops () { return this.$store.state.shop.items }
     },
     data: () => ({
+        token: null,
         shopsSyncing: []
     }),
     async mounted () {
         this.token = this.$route.query.token
 
         if (this.token) {
-            let shop = await this.$store.dispatch('shop/create', {
+            let refresh = this.$route.query.refresh
+            let query = Object.assign({}, this.$route.query)
+            
+            delete query.token
+            delete query.refresh
+
+            this.$router.replace({ query })
+
+            await this.$store.dispatch('shop/create', {
                 etsyId: this.token.split('.')[0],
                 etsyToken: this.token,
-                etsyRefresh: this.$route.query.refresh
+                etsyRefresh: refresh
             })
 
             this.$auth.fetchUser()
+
+            this.token = false
         }
     },
     methods: {
@@ -58,6 +72,18 @@ export default {
             let response = await this.$store.dispatch('shop/sync', id)
 
             this.shopsSyncing = this.shopsSyncing.filter(s => s._id == id)
+        },
+        promptDelete (id) {
+            this.$store.commit('popin/open', {
+                title: `Déconnecter ta boutique entraîne la suppression des données associées sur ton Arrière Boutique`,
+                text: 'Es-tu bien sûr·e de vouloir faire ça ?',
+                actions: [
+                    { label: 'Déconnecter', color: 'gum', count: 1, action: () => this.deleteShop(id) }
+                ]
+            })
+        },
+        async deleteShop (id) {
+            let response = await this.$store.dispatch('shop/delete', id)
         }
     }
 }

@@ -7,7 +7,7 @@ export default {
         add (state, data) {
             let flash = {
                 id: Math.random(),
-                duration: !data.type || data.type == 'error' ? 6000 : 3000,
+                duration: !data.type || data.type == 'error' ? 8000 : 5000,
                 title: 'Une erreur est survenue',
                 text: false,
                 type: 'error',
