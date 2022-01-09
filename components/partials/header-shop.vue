@@ -14,7 +14,7 @@
                     <i class="fal fa-crown"></i>
                 </a>
 
-                <a :href="localePath({ name: 'compte' })" class="HeaderBase_button mr-5">
+                <a :href="localePath({ name: 'dashboard' })" class="HeaderBase_button mr-5">
                     <i class="fal fa-user"></i>
                 </a>
 

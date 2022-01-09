@@ -93,6 +93,10 @@
     height: 100%;
 }
 
+.ft-hand, .ft-hand-xs, .ft-hand-s, .ft-hand-m, .ft-hand-l, .ft-hand-xl {
+    text-transform: uppercase;
+}
+
 .fade-enter-active {
     transition: all 250ms;
 }

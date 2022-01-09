@@ -17,11 +17,9 @@ let UserEntity = {
         city: { type: String, write: 'self' },
         postalCode: { type: String, write: 'self' },
         country: { type: String, write: 'self' },
-        category: { type: String, write: 'self' },
-        categoryCustom: { type: String, write: 'self' },
-        shopName: { type: String, write: 'self' },
-        etsyId: { type: String, write: 'self' },
-        etsyToken: { type: String, write: 'self' },
+        shops: [
+            { type: mongoose.Schema.Types.ObjectId, ref: 'shop' }
+        ],
         owner: { type: mongoose.Schema.Types.ObjectId, ref: 'user' }
     }, { timestamps: true })
 }
@@ -34,6 +32,10 @@ UserEntity.fields.pre('save', async function(next) {
     user.password = hash
 
     next()
+})
+
+UserEntity.fields.pre('find', function () {
+    this.populate('shops')
 })
 
 UserEntity.fields.methods.comparePassword = function(candidatePassword) {

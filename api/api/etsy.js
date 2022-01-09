@@ -1,7 +1,7 @@
 const Entities = require('../entities')
-const shortid = require('shortid')
 const { $fetch } = require('ohmyfetch/node')
 const { authenticate, accessCheck, fieldsCheck } = require('../utils/user')
+const { syncShop } = require('../utils/etsy')
 
 exports.ping = async function (req, res) {
     let errors = []
@@ -24,32 +24,47 @@ exports.syncEtsy = async function (req, res) {
     let data = null
     let user = await authenticate(req.headers)
 
-    const headers = {
-        'x-api-key': process.env.ETSY,
-        Authorization: `Bearer ${user.etsyToken}`,
+    try {
+        data = await syncShop(req.body.id)
+    } catch (err) {
+        console.warn(err)
+        errors.push({ code: err.code, message: err.errmsg })
     }
 
-    try {
-        const userData = await $fetch('https://openapi.etsy.com/v3/application/users/' + user.etsyId, { headers })
-        const shopData = await $fetch(`https://openapi.etsy.com/v3/application/users/${user.etsyId}/shops`, { headers })
-        const listingsData = await $fetch(`https://openapi.etsy.com/v3/application/shops/${shopData.shop_id}/listings?limit=5`, { headers }) 
-    
-        listingsData.results = await Promise.all(listingsData.results.map(async listing => {
-            let images = await $fetch(`https://openapi.etsy.com/v3/application/shops/${shopData.shop_id}/listings/${listing.listing_id}/images`, { headers })
+    res.send({
+        data, errors,
+        status: errors.length > 0 ? 0 : 1
+    })
+}
 
-            return {
-                ...listing,
-                images: images.results
-            }
-        }))
+exports.linkShop  = async function (req, res) {
+    let errors = []
+    let data = null
+    let user = await authenticate(req.headers)
+    
+    try {
+        if (!req.body.etsyId || !req.body.etsyToken) throw 'missingToken'
+
+        let existing = await Entities.shop.model.findOne({ owner: user._id, etsyId: req.body.etsyId })
+
+        let params = {
+            etsyId: req.body.etsyId,
+            etsyToken: req.body.etsyToken
+        }
         
-        data = {
-            user: userData,
-            shop: shopData,
-            listings: listingsData.results
+        if (existing) {
+            data = await Entities.shop.model.findByIdAndUpdate(existing._id, params)
+        } else {
+            data = await Entities.shop.model.create({
+                ...params,
+                owner: user._id
+            })
+
+            let shops = [...user.shops, data._id]
+            await Entities.user.model.findByIdAndUpdate(user._id, { shops })
         }
 
-        console.log(data)
+        data = await syncShop(data._id)
     } catch (err) {
         console.warn(err)
         errors.push({ code: err.code, message: err.errmsg })
