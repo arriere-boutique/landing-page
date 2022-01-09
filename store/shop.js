@@ -70,7 +70,7 @@ export default {
                 return storeUtils.getQuery('https://www.etsy.com/oauth/connect', {
                     response_type: 'code',
                     redirect_uri: 'http://localhost:3000/api/oauth/redirect',
-                    scope: ['shops_r', 'shops_w', 'listings_r', 'listings_w', 'address_r', 'billing_r', 'email_r', 'profile_r', 'profile_w'].join('%20'),
+                    scope: ['shops_r', 'shops_w', 'listings_r', 'listings_w', 'address_r', 'billing_r', 'email_r', 'profile_r', 'profile_w', 'transactions_r', 'transactions_w'].join('%20'),
                     client_id: 'p7yi9v1ughgg9uy0d39tljzr',
                     state: state.stateId,
                     code_challenge: codes.codeChallenge,
@@ -81,7 +81,7 @@ export default {
                 return null
             }
         },
-        async sync ({ commit }, id) {
+        async sync ({ commit, dispatch }, id) {
             try {
                 const response = await this.$axios.$post('/etsy/sync', {
                     id
@@ -89,7 +89,7 @@ export default {
 
                 if (response.status == 0) throw response.errors
 
-                commit('updateShop', response.data)
+                dispatch('fetch')
 
                 return response.data
             } catch (e) {
@@ -97,7 +97,7 @@ export default {
                 return null
             }
         },
-        async create ({}, params) {
+        async create ({ commit }, params) {
             try {
                 const response = await this.$axios.$post('/etsy/link', {
                     ...params

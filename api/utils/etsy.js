@@ -2,7 +2,7 @@
 const Entities = require('../entities')
 const { $fetch } = require('ohmyfetch/node')
 
-exports.syncShop = async function (id) {
+exports.syncShop = async function (id, syncImages = false) {
     return new Promise(async (resolve, reject) => {
 
         try {
@@ -12,7 +12,7 @@ exports.syncShop = async function (id) {
                 'x-api-key': process.env.ETSY,
                 Authorization: `Bearer ${shop.etsyToken}`,
             }
-            
+        
             const shopData = await $fetch(`https://openapi.etsy.com/v3/application/users/${shop.etsyId}/shops`, { headers })
 
             shop.name = shopData.shop_name
@@ -23,44 +23,138 @@ exports.syncShop = async function (id) {
 
             shop.save()
 
-            let listingData = await $fetch(`https://openapi.etsy.com/v3/application/shops/${shopData.shop_id}/listings?limit=100&language=fr`, { headers })
+            try {
+                let listingData = await $fetch(`https://openapi.etsy.com/v3/application/shops/${shopData.shop_id}/listings?limit=100&language=fr`, { headers })
 
-            listingData = listingData.results.map(listing => ({
-                id: listing.listing_id,
-                title: listing.title,
-                link: listing.url,
-                quantity: listing.quantity,
-                favorites: listing.num_favorers,
-                tags: listing.tags
-            }))
+                async function getListingData () {
+                    let results = []
 
-            let listingIds = listingData.map(i => i.id)
-            let listingsToUpdate = await Entities.shopListing.model.find({ id: { $in: listingIds } })
+                    for (let listing of listingData.results) {
+                        let data = {
+                            id: listing.listing_id,
+                            title: listing.title,
+                            link: listing.url,
+                            quantity: listing.quantity,
+                            favorites: listing.num_favorers,
+                            tags: listing.tags
+                        }
 
-            await Promise.all(listingsToUpdate.map(async listing => {
-                let corresponding = listingData.find(l => l.id == listing.id)
-                let data = await Entities.shopListing.model.findByIdAndUpdate(listing._id, corresponding)
+                        if (syncImages) {
+                            let listingImages = await $fetch(`https://openapi.etsy.com/v3/application/shops/${shopData.shop_id}/listings/${listing.listing_id}/images`, { headers })
+                            
+                            if (listingImages) {
+                                data.images = listingImages.results.map(r => ({
+                                    thumbnail: r.url_75x75,
+                                    small: r.url_570xN,
+                                    full: r.url_fullxfull,
+                                }))
+                            }
+                        }
 
-                listingIds = listingIds.filter(l => l != listing.id)
+                        results.push(data)
+                    }
 
-                return data
-            }))
+                    return results
+                }
+                
+                listingData = await getListingData()
 
-            let newListings = await Promise.all(listingIds.map(async id => {
-                let corresponding = listingData.find(l => l.id == id)
+                let listingIds = listingData.map(i => i.id)
+                let listingsToUpdate = await Entities.shopListing.model.find({ id: { $in: listingIds } })
 
-                let data = await Entities.shopListing.model.create({
-                    ...corresponding,
-                    shop: shop._id,
-                    owner: shop.owner
-                })
+                await Promise.all(listingsToUpdate.map(async listing => {
+                    let corresponding = listingData.find(l => l.id == listing.id)
+                    let data = await Entities.shopListing.model.findByIdAndUpdate(listing._id, corresponding)
 
-                return data
-            }))
+                    listingIds = listingIds.filter(l => l != listing.id)
 
-            shop.listings = [ ...shop.listings, ...newListings.map(l => l._id) ]
+                    return data
+                }))
 
-            shop.save()
+                let newListings = await Promise.all(listingIds.map(async id => {
+                    let corresponding = listingData.find(l => l.id == id)
+
+                    let data = await Entities.shopListing.model.create({
+                        ...corresponding,
+                        shop: shop._id,
+                        owner: shop.owner
+                    })
+
+                    return data
+                }))
+
+                shop.listings = [ ...shop.listings, ...newListings.map(l => l._id) ]
+                shop.save()
+            } catch (e) {
+                console.warn('Listing update failed')
+                console.error(e)
+            }
+
+            try {
+                let ordersData = await $fetch(`https://openapi.etsy.com/v3/application/shops/${shopData.shop_id}/receipts?limit=100&language=fr`, { headers })
+
+                ordersData = await Promise.all(ordersData.results.map(async order => {
+                    let listings = []
+                    
+                    listings = await Promise.all(order.transactions.map(async listing => {
+                        let existing = await Entities.shopListing.model.findOne({ id: listing.listing_id })
+
+                        return {
+                            listingId: existing ? existing._id : null,
+                            title: listing.title,
+                            price: listing.price,
+                            quantity: listing.quantity,
+                            sku: listing.sku,
+                            shipping_cost: listing.shipping_cost
+                        }
+                    }))
+                    
+                    return {
+                        id: order.receipt_id,
+                        listings,
+                        email: order.buyer_email,
+                        name: order.name,
+                        orderDate: order.create_timestamp,
+                        adress1: order.first_line,
+                        adress2: order.second_line,
+                        zip: order.zip,
+                        city: order.city,
+                        status: order.status,
+                        isGift: order.is_gift,
+                        giftMessage: order.gift_message
+                    }
+                }))
+
+                let orderIds = ordersData.map(i => i.id)
+                let ordersToUpdate = await Entities.shopOrder.model.find({ id: { $in: orderIds } })
+
+                await Promise.all(ordersToUpdate.map(async order => {
+                    let corresponding = ordersData.find(o => o.id == order.id)
+                    let data = await Entities.shopOrder.model.findByIdAndUpdate(order._id, corresponding)
+
+                    orderIds = orderIds.filter(o => o != order.id)
+
+                    return data
+                }))
+
+                let newOrders = await Promise.all(orderIds.map(async id => {
+                    let corresponding = ordersData.find(o => o.id == id)
+
+                    let data = await Entities.shopOrder.model.create({
+                        ...corresponding,
+                        shop: shop._id,
+                        owner: shop.owner
+                    })
+
+                    return data
+                }))
+
+                shop.orders = [ ...shop.orders, ...newOrders.map(l => l._id) ]
+                shop.save()
+            } catch (e) {
+                console.warn('Order update failed')
+                console.error(e)
+            }
 
             resolve(shop)
         } catch (err) {
