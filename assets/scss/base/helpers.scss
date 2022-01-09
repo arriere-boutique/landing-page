@@ -74,6 +74,23 @@
     transform: translateY(0);
 }
 
+.round,
+.round-s {
+    width: 35px;
+    height: 35px;
+    display: inline-flex;
+    align-items: center;
+    border-radius: 50%;
+    justify-content: center;
+    font: var(--ft-s-bold);
+    line-height: 1;
+}
+
+.round-s {
+    width: 25px;
+    height: 25px;
+}
+
 @each $color in $main-colors {
 
     .fill-#{$color} {

@@ -36,7 +36,7 @@
         </div>
 
         <div class="OrderBlock_price ml-20">
-
+            {{ $moment().diff($moment.unix(orderDate), 'days') }}
         </div>
     </div>
 </template>

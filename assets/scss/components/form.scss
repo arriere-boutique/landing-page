@@ -14,6 +14,10 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
+.InputBase_element {
+  background-color: var(--color-bg-light);
+}
+
 input[type=number] {
   -moz-appearance: textfield;
 }

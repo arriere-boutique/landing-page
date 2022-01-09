@@ -129,16 +129,19 @@ $fonts: (
             "xl": "20px/1.4",
             "2xl": "26px/1.4",
             "3xl": "34px/1.25",
+            "4xl": "40px/0.75",
+            "5xl": "70px/0.75",
         ),
         "weights": (
             "regular": 400,
             "medium": 500,
-            "bold": 800
+            "bold": 700
         )
     ),
     "ft-hand": (
         "name": "'Lazydog'",
         "sizes": (
+            "2xs": "18px/1",
             "xs": "25px/1",
             "s": "30px/1.1",
             "m": "35px/1",

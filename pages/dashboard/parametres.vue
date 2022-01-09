@@ -1,12 +1,9 @@
 <template>
     <div>
-        <div class="Wrapper">
-            <div class="bg-ice-xweak br-m mb-40">
-                <div class="p-40">
-                    <p class="ft-2xl-bold">Mes paramètres</p>
-                </div>
-            </div>
-            <p class="ft-xl-bold">Boutiques connectées ({{ shops.length }})</p>
+        <div class="Wrapper Wrapper--left">
+            <p class="ft-2xl-bold mv-40">Mes paramètres</p>
+
+            <p class="ft-l-medium"><span class="round bg-pond-xweak mr-5">{{ shops.length }}</span> Boutiques connectées</p>
 
             <div class="row-xs mt-10" v-if="shops">
                 <div class="col-4 pv-10" v-for="shop in shops" :key="shop._id">

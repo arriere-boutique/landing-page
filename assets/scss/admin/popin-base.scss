@@ -17,7 +17,7 @@
 }
 
 .PopinBase_close {
-    font-size: 24px;
+    font-size: 26px;
     color: var(--color-ft);
 }
 
@@ -87,6 +87,7 @@
     }
 }
 
+.PopinBase--panel,
 .PopinBase--absolute-header {
 
     .PopinBase_header {
@@ -99,6 +100,13 @@
     }
     
     .PopinBase_close {
-        padding: 15px;
+        padding: 20px;
+    }
+}
+
+.PopinBase--panel {
+
+    .PopinBase_body {
+        border-radius: 0;
     }
 }

@@ -137,6 +137,9 @@ export default {
         } 
     },
     getters: {
+        allOrders: (state) => {
+            return state.items.reduce((total, current) => [ ...total, ...current.orders ], [])
+        },
         allListings: (state) => {
             return state.items.reduce((total, current) => [ ...total, ...current.listings ], [])
         },
