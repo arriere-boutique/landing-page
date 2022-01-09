@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import { InputBase } from '@instant-coffee/core'
+import { InputBase } from 'instant-coffee-core'
 
 export default {
     name: 'CartBody',

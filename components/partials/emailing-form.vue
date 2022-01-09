@@ -83,7 +83,7 @@ const CATEGORIES = [
     { id: 6, label: '100% digital (à imprimer chez soi, print-on-demand...)' },
     { id: 7, label: 'Je vends autre chose' },
 ]
-import { InputBase, SelectBase } from '@instant-coffee/core'
+import { InputBase, SelectBase } from 'instant-coffee-core'
 import blobLetter from '@/assets/img/blob/blob-newsletter.gif'
 
 export default {

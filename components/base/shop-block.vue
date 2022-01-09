@@ -11,17 +11,23 @@
 
         <div class="ShopBlock_content">
             <p class="ft-m-medium">{{ name }}</p>
-            {{ listings.length }}
+            <div>
+                <span class="mh-5" @mouseenter="(e) => $tOpen(`${listings.length} fiches produits synchronisées`, e)" @mouseleave="$tClose">
+                    <i class="fal fa-memo"></i>  {{ listings.length }}
+                </span>
+
+                <span class="mh-5" @mouseenter="(e) => $tOpen(`${orders.length} commandes synchronisées`, e)" @mouseleave="$tClose"><i class="fal fa-receipt"></i> {{ orders.length }}</span>
+            </div>
         </div>
 
-        <div class="text-center">
-            <button-base :modifiers="['s']" icon-before="arrows-rotate" @click="$emit('sync')">Synchroniser</button-base>
+        <div class="text-center mb-20">
+            <button-base :modifiers="['s']" :class="{ 'is-loading': isSyncing }" icon-before="arrows-rotate" @click="$emit('sync')">Synchroniser</button-base>
         </div>
     </div>
 </template>
 
 <script>
-import { ModifiersMixin } from '@instant-coffee/core'
+import { ModifiersMixin } from 'instant-coffee-core'
 
 export default {
     name: 'ShopBlock',
@@ -30,7 +36,9 @@ export default {
         name: { type: String },
         logo: { type: String },
         listings: { type: Array },
-        modifiers: { type: Array, default: () => [] }
+        orders: { type: Array },
+        modifiers: { type: Array, default: () => [] },
+        isSyncing: { type: Boolean, default: false }
     }
 }
 </script>
@@ -40,6 +48,7 @@ export default {
         border: 1px solid var(--color-border);
         border-radius: 15px;
         background: var(--color-bg-light);
+        overflow: hidden;
     }
 
     .ShopBlock_logo {
@@ -55,6 +64,7 @@ export default {
 
     .ShopBlock_cover {
         display: flex;
+        background-color: var(--color-bg-weak);
 
         & > div {
             height: 75px;
@@ -65,6 +75,6 @@ export default {
 
     .ShopBlock_content {
         text-align: center;
-        padding: 20px;
+        padding: 10px 20px 20px 20px;
     }
 </style>

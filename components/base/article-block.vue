@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import { ModifiersMixin } from '@instant-coffee/core'
+import { ModifiersMixin } from 'instant-coffee-core'
 
 export default {
     name: 'ArticleBlock',

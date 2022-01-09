@@ -13,6 +13,8 @@ let ShopEntity = {
         openingDate: { type: Date, write: 'self' },
         etsyId: { type: String, write: 'self' },
         etsyToken: { type: String, write: 'self' },
+        etsyRefreshToken: { type: String, write: 'self' },
+        etsyRefreshed: { type: Date, write: 'self' },
         orders: [
             { type: mongoose.Schema.Types.ObjectId, ref: 'shopOrder' }
         ],

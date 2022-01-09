@@ -83,16 +83,24 @@ export default {
         },
         async sync ({ commit, dispatch }, id) {
             try {
-                const response = await this.$axios.$post('/etsy/sync', {
-                    id
-                })
+                const response = await this.$axios.$post('/etsy/sync', { id })
 
                 if (response.status == 0) throw response.errors
+
+                commit('flashes/add', {
+                    title: response.data.name + ' synchronisée',
+                    type: 'success'
+                }, { root: true })
 
                 dispatch('fetch')
 
                 return response.data
             } catch (e) {
+                commit('flashes/add', {
+                    title: 'Échec de la synchronisation',
+                    text: e
+                }, { root: true })
+
                 console.error(e)
                 return null
             }

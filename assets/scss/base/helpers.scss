@@ -27,48 +27,6 @@
     }
 }
 
-.ellipsis {
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-}
-
-.br-10 {
-    border-radius: 10px;
-}
-
-.br-4 {
-    border-radius: 4px;
-}
-
-.ellipsis-1 {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
-}
-
-.ellipsis-2 {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-}
-
-.ellipsis-3 {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-}
-
-.ft-italic {
-    font-style: italic;
-}
-
 .p-sticky {
     top: calc(var(--header-base) + var(--offset, 0px));
 }
@@ -115,7 +73,6 @@
     opacity: 1;
     transform: translateY(0);
 }
-
 
 @each $color in $main-colors {
 
@@ -202,6 +159,5 @@
 .strike {
     text-decoration: line-through;
 }
-
 
 .fx-dir-column-reverse\@s { flex-direction: column-reverse; }

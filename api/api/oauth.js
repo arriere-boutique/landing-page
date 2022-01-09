@@ -36,5 +36,5 @@ exports.redirect = async function (req, res) {
         res.redirect(process.env.BASE_URL + `/dashboard/parametres?error=1`)
     }
 
-    res.redirect(process.env.BASE_URL + `/dashboard/parametres?token=` + response.access_token)
+    res.redirect(process.env.BASE_URL + `/dashboard/parametres?token=${response.access_token}&refresh=${response.refresh_token}`)
 }
