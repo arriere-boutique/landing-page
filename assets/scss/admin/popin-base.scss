@@ -1,8 +1,68 @@
 .PopinBase {
+    transition: all 350ms ease;
     
     .PopinBase_body {
-        border-radius: 6px;
+        border-radius: 15px;
         overflow: hidden;
+        transition: all 350ms ease;
+    }
+}
+
+
+.PopinBase_footer {
+    background-color: transparent;
+    border-top: 1px solid var(--color-border);
+    display: flex;
+    padding: 0;
+}
+
+.PopinBase_close {
+    font-size: 24px;
+    color: var(--color-ft);
+}
+
+.PopinBase_footerAction {
+    border-right: 1px solid var(--color-border);
+    font: var(--ft-m-medium);
+    text-align: center;
+    flex: 1 1 0px;
+    padding: 12px 10px;
+    cursor: pointer;
+
+    p {
+        transition: all 200ms ease;
+    }
+
+    &:hover {
+
+        p {
+            opacity: 0.75;
+            transform: scale(0.95);
+        }
+    }
+
+    &:active {
+
+        p {
+            opacity: 0.5;
+            transform: scale(0.9);
+        }
+    }
+
+    &:last-child {
+        border: none;
+    }
+
+    &.is-disabled {
+        pointer-events: none;
+    }
+}
+
+@each $color in $main-colors {
+    
+    &.PopinBase_footerAction--#{$color} {
+        color: var(--color-#{$color});
+        background-color: var(--color-#{$color}-xweak);
     }
 }
 

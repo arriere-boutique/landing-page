@@ -23,5 +23,19 @@ export default {
         }, {})
 
         return items
+    },
+    handleErrors (e, commit, text) {
+        e = Array.isArray(e) ? e : [e]
+
+        e.forEach(e => {
+            commit('flashes/add', {
+                title: text,
+                text: (e.code ? e.code + ' : ' : '') + e.message
+            }, { root: true })
+
+            console.error(e)
+        })
+
+        return null
     }
 }

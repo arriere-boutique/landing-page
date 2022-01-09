@@ -175,11 +175,11 @@ export default {
 
         .Flashes_actions,
         .Flashes_action {
-            border-color: var(--color-gum-weak);
+            border-color: var(--color-gum-strong);
         }
 
         .Flashes_progress {
-            background-color: var(--color-gum-weak);
+            background-color: var(--color-gum-strong);
         }
 
         .Flashes_itemText {
@@ -191,11 +191,11 @@ export default {
         background-color: var(--color-emerald);
         .Flashes_actions,
         .Flashes_action {
-            border-color: var(--color-emerald-weak);
+            border-color: var(--color-emerald-strong);
         }
 
         .Flashes_progress {
-            background-color: var(--color-emerald-weak);
+            background-color: var(--color-emerald-strong);
         }
 
         .Flashes_itemText {

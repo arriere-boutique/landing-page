@@ -44,7 +44,6 @@ exports.linkShop  = async function (req, res) {
     
     try {
         if (!req.body.etsyId || !req.body.etsyToken) throw 'missingToken'
-
         let existing = await Entities.shop.model.findOne({ owner: user._id, etsyId: req.body.etsyId })
 
         let params = {
@@ -65,10 +64,44 @@ exports.linkShop  = async function (req, res) {
             await Entities.user.model.findByIdAndUpdate(user._id, { shops })
         }
 
-        data = await syncShop(data._id)
+        data = await syncShop(data._id, true)
     } catch (err) {
         console.warn(err)
-        errors.push({ code: err.code, message: err.errmsg })
+
+        errors.push({
+            code: err.code,
+            message: err.errmsg ? err.errmsg : err
+        })
+    }
+
+    res.send({
+        data, errors,
+        status: errors.length > 0 ? 0 : 1
+    })
+}
+
+exports.unlinkShop  = async function (req, res) {
+    let errors = []
+    let data = null
+    let user = await authenticate(req.headers)
+    
+    try {
+        let shop = await Entities.shop.model.findById(req.body.id)
+
+        if (!shop) throw 'shopNotFound'
+        if (!shop.owner.equals(user._id)) throw 'unauthorized'
+
+        await Entities.shopListing.model.deleteMany({ owner: user._id, _id: { $in: shop.listings } })
+        await Entities.shopOrder.model.deleteMany({ owner: user._id, _id: { $in: shop.orders } })
+        await Entities.shop.model.deleteOne({ owner: user._id, _id: shop._id })
+
+    } catch (err) {
+        console.warn(err)
+
+        errors.push({
+            code: err.code,
+            message: err.errmsg ? err.errmsg : err
+        })
     }
 
     res.send({

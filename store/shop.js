@@ -38,8 +38,7 @@ export default {
 
                 return response.data
             } catch (e) {
-                console.error(e)
-                return e
+                return storeUtils.handleErrors(e, commit, 'Échec lors de la récupération des données de boutique')
             }
         },
         async ping () {
@@ -77,8 +76,7 @@ export default {
                     code_challenge_method: 'S256'
                 })
             } catch (e) {
-                console.error(e)
-                return null
+                return storeUtils.handleErrors(e, commit, 'Échec lors de la connection de la boutique')
             }
         },
         async sync ({ commit, dispatch }, id) {
@@ -96,16 +94,10 @@ export default {
 
                 return response.data
             } catch (e) {
-                commit('flashes/add', {
-                    title: 'Échec de la synchronisation',
-                    text: e
-                }, { root: true })
-
-                console.error(e)
-                return null
+                return storeUtils.handleErrors(e, commit, 'Échec de la synchronisation')
             }
         },
-        async create ({ commit }, params) {
+        async create ({ commit, dispatch }, params) {
             try {
                 const response = await this.$axios.$post('/etsy/link', {
                     ...params
@@ -113,12 +105,34 @@ export default {
                 
                 if (response.status == 0) throw response.errors
 
-                commit('updateShop', response.data)
+                commit('flashes/add', {
+                    title: `Mission réussie, ta boutique ${response.data.name} a correctement été ajoutée !`,
+                    type: 'success'
+                }, { root: true })
+
+                dispatch('fetch')
 
                 return response
             } catch (e) {
-                console.error(e)
-                return e
+                return storeUtils.handleErrors(e, commit, 'Échec lors de la connection de la boutique')
+            }
+        },
+        async delete ({ commit, dispatch }, id) {
+            try {
+                const response = await this.$axios.$post('/etsy/unlink', { id })
+                
+                if (response.status == 0) throw response.errors
+
+                commit('flashes/add', {
+                    title: 'Mission réussie, ta boutique est déconnectée.',
+                    type: 'success'
+                }, { root: true })
+
+                dispatch('fetch')
+
+                return response
+            } catch (e) {
+                return storeUtils.handleErrors(e, commit, 'Échec lors de la suppression de la boutique')
             }
         } 
     }
