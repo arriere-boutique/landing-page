@@ -37,6 +37,10 @@ input, select {
     }
 }
 
+.InputBase, .SelectBase {
+  min-width: 60px;
+}
+
 .InputBase.is-disabled {
   color: var(--color-ft-weak);
 

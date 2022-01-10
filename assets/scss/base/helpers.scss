@@ -75,7 +75,8 @@
 }
 
 .round,
-.round-s {
+.round-s,
+.round-xs {
     width: 35px;
     height: 35px;
     display: inline-flex;
@@ -89,6 +90,13 @@
 .round-s {
     width: 25px;
     height: 25px;
+}
+
+.round-xs {
+    width: 20px;
+    height: 20px;
+    font: var(--ft-xs-bold);
+    line-height: 1;
 }
 
 @each $color in $main-colors {

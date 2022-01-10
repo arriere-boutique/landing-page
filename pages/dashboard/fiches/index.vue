@@ -12,7 +12,7 @@
 
         <popin-base :is-active="activeListing ? true : false" :modifiers="['panel']" :auto-close="false" @close="onClose">
             <template slot="content">
-                <listing-body class="p-60" :id="activeListing" />
+                <listing-body class="p-40" :id="activeListing" />
             </template>
         </popin-base>
     </div>
