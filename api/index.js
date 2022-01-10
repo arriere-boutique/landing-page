@@ -84,7 +84,7 @@ mongoose.connection.once('open', async () => {
 module.exports = app
 
 if (require.main === module) {
-    const port = process.env.PORT || 3001
+    const port = process.env.PORT || 80
     app.listen(port, () => {
         console.log(`API server listening on port ${port}`)
     })

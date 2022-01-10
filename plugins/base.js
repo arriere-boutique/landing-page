@@ -21,8 +21,8 @@ Vue.mixin({
         striptags: (value) => {
             return value ? value.replace(/(<([^>]+)>)/gi, '') : ''
         },
-        round: (value, divider = 100) => {
-            return Math.round(value * divider) / divider
+        round: (value, decimals = 2) => {
+            return (Math.round(value * Math.pow(10, decimals)) / Math.pow(10, decimals)).toFixed(decimals)
         }
     },
     data: () => ({
@@ -34,8 +34,8 @@ Vue.mixin({
         }
     }),
     methods: {
-        randomBetween: (min, max) => {
-            Math.floor(Math.random() * (max - min + 1) + min)
+        $randomBetween: (min, max) => {
+            return Math.floor(Math.random() * (max - min + 1) + min)
         },
         $tOpen (content, e, params = {}) {
             this.$store.commit('tooltips/open', {
@@ -75,6 +75,9 @@ Vue.mixin({
                     logo: this.$absolute(LogoYellow),
                 }
             }
+        },
+        $round (value, decimals = 2) {
+            return (Math.round(value * Math.pow(10, decimals)) / Math.pow(10, decimals)).toFixed(decimals)
         }
     }
 })

@@ -20,70 +20,100 @@
                 
                 <div class="text-right ft-s-bold">
                     <span class="ft-m-bold mr-5">Total</span>
-                    <span class="ft-3xl-bold">{{ totalPrice|round }}</span>
+                    <span class="ft-3xl-bold">{{ totalPrice|round }}<span class="ft-s-bold">€</span></span>
                 </div>
             </div>
 
-            <div class="p-20 bg-duck-xweak br-m mt-10 is-duck">
-                <p class="ft-l-bold mb-20"><i class="fal fa-truck mr-3"></i> Expédition</p>
+            <div class="row-xs">
+                <div class="col-6">
+                    <div class="p-20 bg-duck-xweak br-m mt-10 is-duck">
+                        <p class="ft-l-bold mb-20"><i class="fal fa-truck mr-3"></i> Expédition</p>
 
-                <div class="row-xs mv-10">
-                    <div class="col-6">
-                        <input-base type="number" label="Frais d'envoi" v-model="formData.shippingCost" @mouseenter.native="(e) => $tOpen(`Frais payés pour l'envoi du colis ou de la lettre.`, e)" @mouseleave.native="$tClose" />
+                        <div class="row-xs mv-10">
+                            <div class="col-6">
+                                <input-base type="number" label="Frais d'envoi" v-model="formData.shippingCost" @mouseenter.native="(e) => $tOpen(`Frais payés pour l'envoi du colis ou de la lettre.`, e)" @mouseleave.native="$tClose" />
+                            </div>
+                            <div class="col-6">
+                                <input-base type="number" label="Coût fournitures" v-model="formData.shippingMaterials" />
+                            </div>
+                        </div>
+                        
+                        <div class="text-right ft-s-bold">
+                            <span class="ft-m-bold mr-5">Total</span>
+                            <span class="ft-3xl-bold">{{ totalShipping|round }}<span class="ft-s-bold">€</span></span>
+                        </div>
                     </div>
-                    <div class="col-6">
-                        <input-base type="number" label="Coût fournitures" v-model="formData.shippingMaterials" />
+
+                    <div class="p-20 bg-sunset-xweak br-m mt-10">
+                        <p class="ft-l-bold mb-20"><i class="fal fa-coin mr-3"></i> Frais de plateforme</p>
+
+                        <div class="d-flex fx-align-center fx-justify-between">
+                            <p class="ft-m-medium">Frais de mise en ligne</p> <p>0.22<span class="ft-xs">€</span></p>
+                        </div>
+
+                        <div class="d-flex fx-align-center fx-justify-between">
+                            <p class="ft-m-medium">Frais de transaction</p> <p>{{ etsyFee|round }}<span class="ft-xs">€</span></p>
+                        </div>
+
+                        <div class="d-flex fx-align-center fx-justify-between">
+                            <p class="ft-m-medium">Frais de paiement</p> <p>{{ paymentFee|round }}<span class="ft-xs">€</span></p>
+                        </div>
+                        
+                        <div class="text-right ft-s-bold">
+                            <span class="ft-m-bold mr-5">Total</span>
+                            <span class="ft-3xl-bold">{{ totalEtsyFees|round }}<span class="ft-s-bold">€</span></span>
+                        </div>
                     </div>
                 </div>
-                
-                <div class="text-right ft-s-bold">
-                    <span class="ft-m-bold mr-5">Total</span>
-                    <span class="ft-3xl-bold">{{ totalShipping|round }}</span>
-                </div>
-            </div>
 
-            <div class="p-20 bg-gum-xweak br-m mt-10 is-gum">
-                <p class="ft-l-bold mb-20"><i class="fal fa-brush mr-3"></i> Production</p>
+                <div class="col-6">
+                    <div class="p-20 bg-gum-xweak br-m mt-10 is-gum">
+                        <p class="ft-l-bold mb-20"><i class="fal fa-brush mr-3"></i> Production</p>
 
-                <div class="d-flex fx-align-center mv-10" v-for="(material, i) in formData.materials" :key="material.id">
-                    <input-base type="text" label="Designation" placeholder="Tissus, boutons..." v-model="material.label" />
-                    <input-base class="mh-10" type="number" label="Coût" v-model="material.cost" />
+                        <div class="d-flex fx-align-center mv-10" v-for="(material, i) in formData.materials" :key="material.id">
+                            <input-base type="text" label="Designation" placeholder="Tissus, boutons..." v-model="material.label" />
+                            <input-base class="mh-5" type="number" label="Coût" v-model="material.cost" />
 
-                    <div class="Buttons d-flex fx-no-shrink">
-                        <div class="Button ml-5" @click="() => deleteMaterial(i)" v-if="formData.materials.length > 1"><i class="fal fa-sm fa-trash-alt"></i></div>
-                        <div class="Button ml-5" v-if="i == formData.materials.length - 1" @click="addMaterial"><i class="fal fa-plus"></i></div>
+                            <div class="Buttons d-flex fx-no-shrink">
+                                <div class="Button" @click="() => deleteMaterial(i)" v-if="formData.materials.length > 1"><i class="fal fa-sm fa-trash-alt"></i></div>
+                                <div class="Button ml-5" v-if="i == formData.materials.length - 1" @click="addMaterial"><i class="fal fa-plus"></i></div>
+                            </div>
+                        </div>
+                        
+                        <div class="text-right ft-s-bold">
+                            <span class="ft-m-bold mr-5">Total</span>
+                            <span class="ft-3xl-bold">{{ totalProduction }}<span class="ft-s-bold">€</span></span>
+                        </div>
                     </div>
                 </div>
-                
-                <div class="text-right ft-s-bold">
-                    <span class="ft-m-bold mr-5">Total</span>
-                    <span class="ft-3xl-bold">{{ totalProduction }}</span>
-                </div>
             </div>
 
-            <div class="p-20 bg-sunset-xweak br-m mt-10">
-                <p class="ft-l-bold mb-20"><i class="fal fa-coin mr-3"></i> Frais de plateforme</p>
-
-                <div class="d-flex fx-align-center fx-justify-between">
-                    <p class="ft-m-medium">Frais de mise en ligne</p> <p>0.22</p>
+            <div class="p-30 bg-pond-xweak br-m mt-10">
+                <div class="d-flex">
+                    <div class="fx-grow max-width-s">
+                        <div class="d-flex">
+                            <p class="ft-medium fx-grow">Total payé par le client</p>
+                            <p class="ft-bold fx-no-shrink">{{ totalPrice|round }}<span class="ft-xs-bold">€</span></p>
+                        </div> 
+                        <div class="d-flex">
+                            <p class="ft-medium fx-grow">Coûts totaux</p>
+                            <p class="ft-bold fx-no-shrink">{{ totalCosts|round }}<span class="ft-xs-bold">€</span></p>
+                        </div>
+                    </div>
+                    <div class="fx-no-shrink fx-grow text-right pl-30">
+                        <p class="ft-5xl-bold">{{ totalRemaining|round }}<span class="ft-xl-bold">€</span></p>
+                    </div>
                 </div>
 
-                <div class="d-flex fx-align-center fx-justify-between">
-                    <p class="ft-m-medium">Frais de transaction</p> <p>{{ etsyFee|round }}</p>
-                </div>
-
-                <div class="d-flex fx-align-center fx-justify-between">
-                    <p class="ft-m-medium">Frais de paiement</p> <p>{{ paymentFee|round }}</p>
-                </div>
-                
-                <div class="text-right ft-s-bold">
-                    <span class="ft-m-bold mr-5">Total</span>
-                    <span class="ft-3xl-bold">{{ totalEtsyFees|round }}</span>
-                </div>
-            </div>
-
-            <div class="p-20 b br-m mt-10">
-                {{ totalPrice|round }} - {{ totalCosts|round }} = {{ totalRemaining|round }} (soit {{ totalRemainingPercentage|round }}% du prix payé)
+                <line-chart
+                    class="mt-20"
+                    :total="totalPrice"
+                    :values="[
+                        { label: 'Frais de plateforme', color: '--color-sunset', value: totalEtsyFees },
+                        { label: `Frais d'expédition`, color: '--color-duck', value: totalShipping },
+                        { label: 'Coûts de production', color: '--color-gum', value: totalProduction },
+                    ]"
+                />
             </div>
 
             <div class="text-right">
@@ -192,7 +222,7 @@ export default {
 
 <style lang="scss" scoped>
     .Buttons {
-        width: 70px;
+        width: 65px;
     }
     .Button {
         height: 30px;
