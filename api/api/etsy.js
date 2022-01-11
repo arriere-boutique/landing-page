@@ -2,6 +2,7 @@ const Entities = require('../entities')
 const { $fetch } = require('ohmyfetch/node')
 const { authenticate, accessCheck, fieldsCheck } = require('../utils/user')
 const { syncShop } = require('../utils/etsy')
+const { URL, URLSearchParams } = require('url');
 
 exports.ping = async function (req, res) {
     let errors = []
@@ -95,6 +96,54 @@ exports.unlinkShop  = async function (req, res) {
         await Entities.shopOrder.model.deleteMany({ owner: user._id, _id: { $in: shop.orders } })
         await Entities.shop.model.deleteOne({ owner: user._id, _id: shop._id })
 
+    } catch (err) {
+        console.warn(err)
+
+        errors.push({
+            code: err.code,
+            message: err.errmsg ? err.errmsg : err
+        })
+    }
+
+    res.send({
+        data, errors,
+        status: errors.length > 0 ? 0 : 1
+    })
+}
+
+exports.searchListings = async function (req, res) {
+    let errors = []
+    let data = null
+    let query = { language: 'fr', shop_location: 'france', sort_on: 'updated' }
+    let user = await authenticate(req.headers)
+    
+    try {
+        var url = new URL('https://openapi.etsy.com/v3/application/listings/active')
+
+        if (req.query.keywords) query.keywords = req.query.keywords
+        if (req.query.limit) query.limit = req.query.limit
+        query.offset = req.query.offset ? req.query.offset : 0
+
+        data = Array.from(Array(req.query.samples ? parseInt(req.query.samples) : 1))
+
+        let offset = query.offset
+        let results = await Promise.all(data.map(async (v, i) => {
+            offset = offset * (i + 1)
+            query.offset = offset
+            
+            if (!offset) offset = 50
+
+            url.search = new URLSearchParams(query).toString()
+
+            const response = await $fetch(url, {
+                method: 'GET',
+                headers: { 'x-api-key': process.env.ETSY, }
+            })
+
+            return response.results
+        }))
+        
+        data = results.reduce((all, current) => [ ...all, ...current ], [])
     } catch (err) {
         console.warn(err)
 

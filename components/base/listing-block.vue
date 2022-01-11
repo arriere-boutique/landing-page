@@ -7,7 +7,7 @@
             <div v-for="(image, i) in images.slice(1, 4)" :key="i" :style="{ backgroundImage: `url(${image.thumbnail})` }"></div>
         </div>
 
-        <div class="ListingBlock_logo" :style="{ backgroundImage: `url(${images[0].thumbnail})` }"></div>
+        <div class="ListingBlock_logo" :style="{ backgroundImage: `url(${images[0] ? images[0].thumbnail : ''})` }"></div>
 
         <div class="ListingBlock_content">
             <p class="ft-m-medium line-1 ellipsis-1">{{ title }}</p>
@@ -73,6 +73,7 @@ export default {
         position: relative;
         z-index: 2;
         border: 4px solid var(--color-bg-light);
+        background-color: var(--color-bg-weak);
         width: 80px;
         height: 80px;
         border-radius: 10px;
@@ -83,6 +84,7 @@ export default {
         display: flex;
         background-color: var(--color-bg-weak);
         overflow: hidden;
+        min-height: 75px;
 
         & > div {
             height: 75px;

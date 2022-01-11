@@ -78,6 +78,20 @@ Vue.mixin({
         },
         $round (value, decimals = 2) {
             return (Math.round(value * Math.pow(10, decimals)) / Math.pow(10, decimals)).toFixed(decimals)
+        },
+        $shuffle (array) {
+            let currentIndex = array.length,  randomIndex;
+            
+            while (currentIndex != 0) {
+            
+                randomIndex = Math.floor(Math.random() * currentIndex);
+                currentIndex--;
+
+                [array[currentIndex], array[randomIndex]] = [
+                array[randomIndex], array[currentIndex]];
+            }
+            
+            return array
         }
     }
 })
