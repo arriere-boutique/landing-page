@@ -25,7 +25,8 @@ export default {
         links: [
             { label: `Tableau de bord`, icon: 'book-heart', path: { name: 'dashboard' } },
             { label: `Mes commandes`, icon: 'receipt', path: { name: 'dashboard-commandes' } },
-            { label: `Mes fiches produit`, icon: 'sparkles', path: { name: 'dashboard-fiches' } },
+            { label: `Mes fiches produit`, icon: 'clipboard-list', path: { name: 'dashboard-fiches' } },
+            { label: `Outils`, icon: 'rocket-launch', path: { name: 'dashboard-outils' } },
             { label: `Paramètres`, icon: 'cog', path: { name: 'dashboard-parametres' } }
         ]
     })

@@ -53,6 +53,7 @@
     "shortid": "^2.2.15",
     "sib-api-v3-sdk": "^8.2.1",
     "slugify": "^1.4.0",
+    "string-similarity": "^4.0.4",
     "stripe": "^8.195.0",
     "tiptap": "^1.30.0",
     "tiptap-extensions": "^1.33.2"
