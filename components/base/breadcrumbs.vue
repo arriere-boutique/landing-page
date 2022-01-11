@@ -2,7 +2,10 @@
     <div class="Breadcrumbs ft-m-medium">
         <div class="Breadcrumbs_item" v-for="(item, i) in items" :key="i">
             <p v-if="item.active">{{ item.label }}</p>
-            <button-base :modifiers="['link', 'm']" tag="nuxt-link" :attrs="{ to: localePath(item.to) }" v-else>{{ item.label }}</button-base>
+            
+            <link-base :modifiers="['m']" tag="nuxt-link" :attrs="{ to: localePath(item.to) }" v-else>
+                {{ item.label }}
+            </link-base>
         </div>
     </div>
 </template>
