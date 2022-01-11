@@ -133,8 +133,6 @@ exports.syncShop = async function (id, syncImages = false) {
                     }))
 
                     let transaction = order.transactions[0] ? order.transactions[0] : null
-
-                    console.log(order)
                     
                     return {
                         id: order.receipt_id,

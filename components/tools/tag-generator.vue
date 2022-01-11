@@ -1,32 +1,44 @@
 <template>
     <div>
-        <form @submit.prevent="() => generate()" class="row-xs">
+        <form @submit.prevent="() => generate()" class="row-s">
             <div class="col-6">
-                <div class="b p-20 br-m">
-                    <input-base type="text" label="Que veux-tu vendre ?" v-model="search" :attrs="{ required: true }" />
+                <div class="b br-m o-hidden">
+                    <div class="p-30">
+                        <input-base type="text" label="Que veux-tu vendre ?" v-model="search" :attrs="{ required: true }" />
+                    </div>
 
-                    <transition-group tag="div" class="bg-bg-xweak br-s p-10 mt-20" name="tag" v-if="saved.length > 0">
-                        <div class="ShopTag ShopTag--ice mb-3 mh-3" v-for="tag in saved" :key="tag">
-                            <span>
-                                <i class="fal fa-magnifying-glass" @click="generate(tag)"></i>
+                    <div class="bg-bg-xweak p-15 ph-20" v-if="saved.length > 0">
+                        <div class="d-flex fx-align-center fx-wrap mb-10">
+                            <div class="ft-s-medium fx-grow">
+                                <span class="round-s bg-bg-light mr-3">{{ saved.length }}</span> Mots-clés sauvegardés 
+                            </div>
 
-                                {{ tag }}
-
-                                <i class="fal fa-times ml-10"  @click="removeTag(tag)"></i>
-                            </span>
+                            <link-base @click="$copy(saved.join(', '))">Tout copier</link-base>
                         </div>
-                    </transition-group>
+                        
+                        <transition-group tag="div" name="tag">
+                            <div class="ShopTag mv-5 mh-3" v-for="tag in saved" @click="$copy(tag)" :key="tag">
+                                <span>
+                                    <i class="fal fa-magnifying-glass" @click.stop="generate(tag)"></i>
+
+                                    <span>{{ tag }}</span>
+                                    
+                                    <i class="fal fa-times ml-10" @click.stop="removeTag(tag)"></i>
+                                </span>
+                            </div>
+                        </transition-group>
+                    </div>
                 </div>
             </div>
             <div class="col-6">
                 <div class="bg-precious-xweak p-20 br-m text-center">
                     <div>
                         <transition-group tag="div" name="tag">
-                            <div class="ShopTag mb-10 mh-5" :class="{ 'is-loading': isLoading }" v-for="tag in displayedTags.filter(r => r.visible)" :key="tag.order">
+                            <div class="ShopTag mb-10 mh-5" :class="{ 'is-loading': isLoading }" @click="$copy(tag.value)" v-for="tag in displayedTags.filter(r => r.visible)" :key="tag.order">
                                 <span>
-                                    <i class="fal fa-plus" @click="save(tag.value, tag.order)" v-if="!saved.includes(tag.value)"></i>
+                                    <i class="fal fa-plus" @click.stop="save(tag.value, tag.order)" v-if="!saved.includes(tag.value)"></i>
 
-                                    {{ tag.value }} ({{ tag.score }})
+                                    <span>{{ tag.value }}</span>
                                 </span>
                             </div>
                         </transition-group>
@@ -39,10 +51,19 @@
                     </div>
                 </div>
 
-                <div class="b mt-10 p-20 br-m text-center" v-if="excluded.length > 0">
-                    <div class="ShopTag ShopTag--weak m-3 is-weak" v-for="tag in excluded" @click="toggleTag(tag)" :key="tag">
-                        <span>{{ tag }}</span>
+                <div class="b mt-20 p-20 br-m" v-if="excluded.length > 0">
+                    <div class="ft-s-medium mb-15">
+                        Historique
                     </div>
+                    
+                    <transition-group tag="div" name="tag">
+                        <div class="ShopTag ShopTag--s ShopTag--border m-3 is-weak" v-for="tag in tagHistory" @click="toggleTag(tag)" :key="tag">
+                            <span>
+                                <i class="fal fa-plus" @click.stop="save(tag)" v-if="!saved.includes(tag)"></i>
+                                <span>{{ tag }}</span>
+                            </span>
+                        </div>
+                    </transition-group>
                 </div>
             </div>
         </form>
@@ -74,14 +95,19 @@ export default {
     computed: {
         allExclusions () {
             return [ ...this.saved, ...this.excluded ]
+        },
+        tagHistory () {
+            return [ ...this.excluded ].reverse().slice(0, 20)
         }
     },
     methods: {
-        save (tag, replace) {
+        save (tag, replace = null) {
             this.saved.push(tag)
 
-            let newTag = { ...this.getNextTag(), order: replace }
-            if (newTag && !this.allExclusions.includes(newTag.value)) this.displayedTags = this.displayedTags.map(t => t.order == newTag.order ? newTag : t)
+            if (replace !== null) {
+                let newTag = { ...this.getNextTag(), order: replace }
+                if (newTag && !this.allExclusions.includes(newTag.value)) this.displayedTags = this.displayedTags.map(t => t.order == newTag.order ? newTag : t)
+            }
         },
         removeTag (tag) {
             this.saved = this.saved.filter(t => t != tag)
@@ -209,18 +235,23 @@ export default {
         font: var(--ft-s-medium);
         position: relative;
         transition: all 150ms ease-in-out;
+        cursor: pointer;
+
+        &:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 3px 10px 0 var(--color-shadow-50);
+        }
         
-        span {
+        & > span {
             display: flex;
             align-items: center;
             height: 42px;
-            padding: 0 15px 0 0;
             transition: all 150ms ease-in-out;
 
             i {
-                height: 36px;
-                width: 36px;
-                margin: 0 4px;
+                height: 30px;
+                width: 30px;
+                margin: 0 6px;
                 display: flex;
                 align-items: center;
                 justify-content: center;
@@ -230,6 +261,14 @@ export default {
                 &:hover {
                     background-color: var(--color-bg-xweak);
                 }
+            }
+
+            & > span:last-child {
+                margin-right: 15px;
+            }
+
+            & > span:first-child {
+                margin-left: 15px;
             }
         }
 
@@ -248,21 +287,36 @@ export default {
         }
     }
 
-    .ShopTag--ice {
-        background-color: var(--color-ice-xweak);
+    .ShopTag--s {
 
-        span {
+        & > span {
+            height: 30px;
 
-            i:hover {
-                background-color: var(--color-bg-light);
+            i {
+                height: 25px;
+                width: 25px;
+                margin: 0 3px;
+            }
+
+            & > span:last-child {
+                margin-right: 10px;
+            }
+
+            & > span:first-child {
+                margin-left: 10px;
             }
         }
+    }
+
+    .ShopTag--border {
+        background: transparent;
+        border: 2px solid var(--color-onyx);
     }
 
     .ShopTag.is-loading {
         pointer-events: none;
 
-        span {
+        & > span {
             transform: scale(0.95);
             opacity: 0.2;
             filter: blur(1px);
