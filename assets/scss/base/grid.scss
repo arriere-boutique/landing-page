@@ -1,0 +1,17 @@
+.Grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-gap: 20px;
+    grid-auto-rows: minmax(120px, auto);
+}
+
+@for $i from 1 to 13 {
+    
+    .cell-width-#{$i} {
+        grid-column: auto / span #{$i};
+    }
+
+    .cell-height-#{$i} {
+        grid-row: auto / span #{$i};
+    }
+}

@@ -20,23 +20,24 @@
         </div>
 
         <div class="OrderBlock_content pl-20">
-            <p class="ft-m-medium">Pour {{ name }}</p>
+            <p class="ft-l-medium ellipsis-1">Pour {{ name }}</p>
+            <p class="ft-s">Commandé {{ $moment.unix(orderDate).fromNow() }}</p>
 
-            <div v-for="listing in listings.slice(0, 3)" class="d-flex fx-align-center" :key="listing._id">
-                <p class="">{{ listing.title.slice(0, 20) }}...</p>
-
-                <div class="Separator fx-grow mh-10"></div>
-
-                <p class="ellipsis-1 fx-no-shrink">x {{ listing.quantity }}</p>
-            </div>
-
-            <div class="text-right ft-m-medium" v-if="listings.length > 3">
-                + {{ listings.length - 3 }} autres
+            <div class="mt-10 d-flex ft-s-medium fx-wrap">
+                <p class="mb-3 mr-15"><i class="fal fa-receipt mr-3"></i> {{ $round(total.amount / total.divisor) }}€ </p>
+                <p class="mb-3 mr-15"><i class="fal fa-box-full mr-3"></i> {{ listings.length }} article(s)</p>
+                <p class="mb-3 mr-15" v-if="expectedDate && status != 'Completed'"><i class="fal fa-box mr-3"></i> À envoyer dans les {{ $moment().to($moment.unix(expectedDate)) }}</p>
+                <p class="mb-3 mr-15" v-if="shippedDate && status == 'Completed'"><i class="fal fa-box-circle-check mr-3"></i> Envoyé le {{ $moment.unix(shippedDate).format('D MMM YYYY') }}</p>
             </div>
         </div>
 
-        <div class="OrderBlock_price ml-20">
-            {{ $moment().diff($moment.unix(orderDate), 'days') }}
+        <div class="OrderBlock_right">
+            <span class="round b bg-bg-light mv-3">
+                <i class="fal fa-gift-card"></i>
+            </span>
+            <span class="round b bg-bg-light mv-3">
+                <i class="fal fa-ellipsis-vertical"></i>
+            </span>
         </div>
     </div>
 </template>
@@ -50,8 +51,12 @@ export default {
     mixins: [ ModifiersMixin ],
     props: {
         shop: { type: Object, default: () => ({}) },
+        status: { type: String, default: '' },
         name: { type: String },
         orderDate: { type: Number },
+        expectedDate: { type: Number },
+        shippedDate: { type: Number },
+        total: { type: Object },
         listings: { type: Array, default: () => [] }
     },
     data: () => ({
@@ -74,14 +79,16 @@ export default {
 <style lang="scss" scoped>
     .OrderBlock {
         display: flex;
-        padding: 10px;
-        border-radius: 10px;
+        border-radius: 15px;
         border: 1px solid var(--color-border);
+        overflow: hidden;
+        background-color: var(--color-bg-xweak);
     }
+
     .OrderBlock_cover {
-        width: 120px;
-        height: 120px;
-        border-radius: 10px;
+        width: 110px;
+        height: 110px;
+        border-radius: 15px;
         background-size: cover;
         background-color: var(--color-bg-xweak);
         background-position: center;
@@ -93,12 +100,14 @@ export default {
 
     .OrderBlock_images {
         position: relative;
+        padding: 15px 0 15px 15px;
+        background-color: var(--color-bg-light);
     }
 
     .OrderBlock_others {
         position: absolute;
-        bottom: -4px;
-        right: -4px;
+        bottom: 10px;
+        right: -3px;
         display: flex;
     }
 
@@ -106,7 +115,7 @@ export default {
         flex-shrink: 0;
         width: 35px;
         height: 35px;
-        border-radius: 5px;
+        border-radius: 8px;
         border: 2px solid var(--color-bg-light);
         background-size: cover;
         background-color: var(--color-bg-xweak);
@@ -120,18 +129,25 @@ export default {
 
         @for $i from 1 through 4 {
             &:nth-child(#{$i}) {
-                right: #{($i - 1) * 20}px;
+                right: #{($i - 1) * 25}px;
             }
         }
     }
 
     .OrderBlock_content {
         flex-grow: 1;
+        padding: 15px;
+        border-top-right-radius: 15px;
+        border-bottom-right-radius: 15px;
+        background-color: var(--color-bg-light);
     }
 
-    .OrderBlock_price {
-        width: 40%;
-        border-radius: 10px;
-        background-color: var(--color-emerald-xweak);
+    .OrderBlock_right {
+        padding: 10px;
+        flex-shrink: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
     }
 </style>

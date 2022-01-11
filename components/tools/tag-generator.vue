@@ -5,10 +5,8 @@
                 <div class="b p-20 br-m">
                     <input-base type="text" label="Que veux-tu vendre ?" v-model="search" :attrs="{ required: true }" />
 
-                    {{ allTags.length }} restants
-
-                    <transition-group tag="div" class="mt-20" name="tag">
-                        <div class="ShopTag ShopTag--ice m-3" v-for="tag in saved" :key="tag">
+                    <transition-group tag="div" class="bg-bg-xweak br-s p-10 mt-20" name="tag" v-if="saved.length > 0">
+                        <div class="ShopTag ShopTag--ice mb-3 mh-3" v-for="tag in saved" :key="tag">
                             <span>
                                 <i class="fal fa-magnifying-glass" @click="generate(tag)"></i>
 
@@ -24,22 +22,20 @@
                 <div class="bg-precious-xweak p-20 br-m text-center">
                     <div>
                         <transition-group tag="div" name="tag">
-                            <div class="ShopTag m-3" :class="{ 'is-loading': isLoading }" v-for="tag in displayedTags.filter(r => r.visible)" :key="tag.order">
+                            <div class="ShopTag mb-10 mh-5" :class="{ 'is-loading': isLoading }" v-for="tag in displayedTags.filter(r => r.visible)" :key="tag.order">
                                 <span>
                                     <i class="fal fa-plus" @click="save(tag.value, tag.order)" v-if="!saved.includes(tag.value)"></i>
 
                                     {{ tag.value }} ({{ tag.score }})
-
-                                    <!-- <a v-for="(info, i) in tag.info" :href="info.url" :key="i">{{ i }}</a> -->
                                 </span>
                             </div>
                         </transition-group>
 
-                        <hr class="Separator mv-10">
-
-                        <button-base :modifiers="['secondary', 's']" :class="{ 'is-loading': isLoading }" icon-before="arrows-rotate" type="submit">
-                            Générer
-                        </button-base>
+                        <div :class="{ 'mt-10': displayedTags.length > 0 }">
+                            <button-base :modifiers="displayedTags.length > 0 ? ['secondary', 's'] : ['precious']" :class="{ 'is-loading': isLoading, 'is-disabled': !search }" icon-before="arrows-rotate" type="submit">
+                                Générer
+                            </button-base>
+                        </div>
                     </div>
                 </div>
 
