@@ -132,7 +132,9 @@ exports.syncShop = async function (id, syncImages = false) {
                         }
                     }))
 
-                    console.log()
+                    let transaction = order.transactions[0] ? order.transactions[0] : null
+
+                    console.log(order)
                     
                     return {
                         id: order.receipt_id,
@@ -140,6 +142,8 @@ exports.syncShop = async function (id, syncImages = false) {
                         email: order.buyer_email,
                         name: order.name,
                         orderDate: order.create_timestamp,
+                        shippedDate: transaction ? transaction.shipped_timestamp : undefined,
+                        expectedDate: transaction ? transaction.expected_ship_date : undefined,
                         adress1: order.first_line,
                         adress2: order.second_line,
                         zip: order.zip,

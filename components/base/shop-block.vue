@@ -15,10 +15,10 @@
 
             <div class="mt-20">
                 <span class="mh-5" @mouseenter="(e) => $tOpen(`${listings.length} fiches produits synchronisées`, e)" @mouseleave="$tClose">
-                    <i class="fal fa-memo"></i>  {{ listings.length }}
+                    <i class="fal fa-clipboard-list mr-3"></i>  {{ listings.length }}
                 </span>
 
-                <span class="mh-5" @mouseenter="(e) => $tOpen(`${orders.length} commandes synchronisées`, e)" @mouseleave="$tClose"><i class="fal fa-receipt"></i> {{ orders.length }}</span>
+                <span class="mh-5" @mouseenter="(e) => $tOpen(`${orders.length} commandes synchronisées`, e)" @mouseleave="$tClose"><i class="fal fa-receipt mr-3"></i> {{ orders.length }}</span>
             </div>
         </div>
 

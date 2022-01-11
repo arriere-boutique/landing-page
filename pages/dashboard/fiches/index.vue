@@ -3,9 +3,15 @@
         <div class="Wrapper Wrapper--left">
             <p class="ft-2xl-bold mv-40">Mes fiches produit</p>
 
-            <div class="row-s">
-                <div class="col-4 mb-20" v-for="listing in listings" :key="listing._id" @click="openListing(listing._id)">
-                    <listing-block v-bind="listing" />
+            <div class="Page_cols">
+                <div class="row-s">
+                    <div class="col-6 mb-20" v-for="listing in listings" :key="listing._id" @click="openListing(listing._id)">
+                        <listing-block v-bind="listing" />
+                    </div>
+                </div>
+
+                <div class="Page_side">
+                    Hello
                 </div>
             </div>
         </div>

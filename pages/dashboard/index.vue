@@ -4,7 +4,7 @@
             <p class="ft-3xl-bold mv-40">Bonjour {{ user.name }} ! <i class="ml-5 fal fa-sparkles"></i></p>
 
             <div class="Grid">
-                <div class="one">
+                <div class="cell-width-8">
                     <div class="Tile fx-align-end bg-gum-xweak">
                         <div>
                             <i class="fal fa-xl fa-sparkles"></i>
@@ -17,12 +17,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="two">
+                <div class="cell-width-4 cell-height-2">
                     <div class="Tile bg-gum-xweak">
 
                     </div>
                 </div>
-                <div class="three">
+                <div class="cell-width-4">
                     <div class="Tile fx-dir-column fx-justify-between bg-emerald-xweak">
                         <div>
                             <i class="fal fa-lg fa-coin"></i>
@@ -36,7 +36,7 @@
                         </p>
                     </div>
                 </div>
-                <div class="four">
+                <div class="cell-width-4">
                     <div class="Tile fx-dir-column fx-justify-between bg-precious-xweak">
                         <div>
                             <i class="fal fa-lg fa-box"></i>
@@ -78,37 +78,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    .Grid {
-        display: grid;
-        grid-template-columns: repeat(12, 1fr);
-        grid-gap: 30px;
-        grid-auto-rows: minmax(200px, auto);
-    }
-
-    .Tile {
-        border-radius: 10px;
-        height: 100%;
-        display: flex;
-        padding: 20px;
-    }
-
-    .one {
-        grid-column: auto / span 8;
-        grid-row: 1;
-    }
-
-    .two {
-        grid-column: auto / span 4;
-        grid-row: 1 / 3;
-    }
-
-    .three {
-        grid-column: auto / span 5;
-        grid-row: 2;
-    }
-
-    .four {
-        grid-column: auto / span 3;
-        grid-row: 2;
-    }
 </style>

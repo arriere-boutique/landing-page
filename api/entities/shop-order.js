@@ -25,7 +25,10 @@ let ShopOrderEntity = {
 
         shop: { type: mongoose.Schema.Types.ObjectId, write: 'self', ref: 'shop' },
         owner: { type: mongoose.Schema.Types.ObjectId, write: 'self', ref: 'user' },
-        orderDate: { type: Number }
+
+        orderDate: { type: Number },
+        expectedDate: { type: Number },
+        shippedDate: { type: Number },
     }, { timestamps: true })
 }
 
