@@ -4,13 +4,13 @@
             <div class="mv-40">
                 <breadcrumbs :items="[
                     { label: 'Outils', to: { name: 'dashboard-outils' } },
-                    { label: 'Générateur de mots-clés', active: true },
+                    { label: 'Calculatrice de profits', active: true },
                 ]" />
                 
-                <p class="ft-3xl-bold mt-5">Générateur de mots-clés</p>
+                <p class="ft-3xl-bold mt-5">Calculatrice de profits</p>
             </div>
 
-            <tag-generator />
+            <profit-calculator />
         </div>
     </div>
 </template>

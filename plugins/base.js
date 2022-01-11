@@ -37,6 +37,15 @@ Vue.mixin({
         $randomBetween: (min, max) => {
             return Math.floor(Math.random() * (max - min + 1) + min)
         },
+        $copy (text) {
+            navigator.clipboard.writeText(text).then(() => {
+                this.$store.commit('flashes/add', {
+                    title: `Copié dans le presse-papier`,
+                    text: `"${text}"`,
+                    type: 'success'
+                })
+            })
+        },
         $tOpen (content, e, params = {}) {
             this.$store.commit('tooltips/open', {
                 content, element: e.target, ...params
