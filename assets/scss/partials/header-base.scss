@@ -247,6 +247,14 @@
     transform: translateY(100%);
 }
 
+.HeaderBase--blog {
+
+    .HeaderBase_wrapper {
+        padding: 0;
+        width: auto;
+    }
+}
+
 .HeaderBase--shop {
     background-color: var(--color-bg-light);
     border-bottom: 1px solid var(--color-border);

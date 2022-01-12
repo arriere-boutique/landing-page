@@ -31,7 +31,7 @@
                             <p class="ft-s-medium text-uppercase">30 derniers jours</p>
                         </div>
 
-                        <p class="ft-4xl-bold">
+                        <p class="ft-4xl-bold mt-20">
                             {{ getTotalProfit() }}<span class="ft-xl-bold">€</span>
                         </p>
                     </div>
@@ -45,7 +45,7 @@
                             <p class="ft-s-medium text-uppercase">30 derniers jours</p>
                         </div>
 
-                        <p class="ft-5xl-bold">
+                        <p class="ft-5xl-bold mt-20">
                             {{ getOrderCount() }}
                         </p>
                     </div>

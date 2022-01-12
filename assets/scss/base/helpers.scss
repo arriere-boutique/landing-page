@@ -118,7 +118,10 @@
         --color-current-xweak: var(--color-#{$color}-xweak);
 
         --color-accent: var(--color-#{map-get($accent-colors, $color)});
-        --color-accent-weak: var(--color-#{map-get($accent-colors, $color)}-weak);
+        --color-accent-50: var(--color-#{map-get($accent-colors, $color)}-50);
+        --color-accent-75: var(--color-#{map-get($accent-colors, $color)}-75);
+        --color-accent-strong: var(--color-#{map-get($accent-colors, $color)}-strong);
+        --color-accent-xweak: var(--color-#{map-get($accent-colors, $color)}-xweak);
     }
 }
 
@@ -136,6 +139,9 @@
 .color-accent { color: var(--color-accent); }
 .fill-accent { fill: var(--color-accent); }
 .color-accent-weak { color: var(--color-accent-weak); }
+.color-accent-strong { color: var(--color-accent-strong); }
+.color-accent-50 { color: var(--color-accent-50); }
+.color-accent-75 { color: var(--color-accent-50); }
 
 .bg-current { background-color: var(--color-current); }
 .bg-current-weak { background-color: var(--color-current-weak); }

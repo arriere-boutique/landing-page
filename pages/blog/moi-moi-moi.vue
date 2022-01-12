@@ -108,6 +108,7 @@ import blob4 from '@/assets/img/blob/blob-ab.jpg'
 
 export default {
     name: 'AboutPage',
+    layout: 'blog',
     data: () => ({
         assets: { blob1, blob2, blob3, blob4 }
     }),

@@ -40,6 +40,7 @@
 <script>
 export default {
     name: 'HomeBlog',
+    layout: 'blog',
     async fetch () {
         if (this.$route.params.category && this.$route.params.category != 'blog') {
             this.$data.categories = [ this.$slugToCategory(this.$route.params.category) ]

@@ -1,6 +1,39 @@
 <template>
     <footer class="FooterBase">
-        
+        <!-- <div class="bg-ice-xweak pv-30" v-if="!isShop">
+            <div class="Wrapper">
+                <div class="d-flex fx-align-center d-block@s">
+                    <div class="p-relative fx-no-shrink mr-10 mb-20@s">
+                        <p class="marker ft-hand-xl color-precious mt-40 n-ml-10 ml-20@s mt-30@s">Salut !</p>
+                        <img :src="assets.blobHelp" width="200" />
+                    </div>
+
+                    <div class="ft-m ml-20">
+                        <p class="ft-2xl-bold color-precious mb-10">Besoin d'un coup de main ?</p>
+
+                        <p class="mb-20">
+                            <b>Pas facile de s'y retrouver.</b> Développer une marque et commencer à vivre de ses créations prend du temps et beaucoup d'efforts. Mais je suis là pour t'aider à faire rêver tes clients grâce à tes créations originales. <b>Je propose des fournitures spécialement pour les vendeurs : stickers, goodies, cartes de visites...</b>
+                        </p>
+
+                        <button-base
+                            :modifiers="['precious', 'icon-duck']"
+                            iconBefore="sparkles"
+                            tag="a"
+                            target="_blank"
+                            href="https://arriereboutiquefr.etsy.com/"
+                            text="Je visite la boutique"
+                        />
+                    </div>
+                </div>
+            </div>
+        </div> -->
+
+        <div class="bg-bg-light pv-40 b-top">
+            <div class="Wrapper Wrapper--s">
+                <emailing-form />
+            </div>
+        </div>
+
         <div class="bg-gum-xweak">
             <div class="FooterBase_nav Wrapper Wrapper--l">
                 <div class="FooterBase_links fx-grow row-xs">
