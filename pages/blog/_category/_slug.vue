@@ -52,6 +52,7 @@
 <script>
 export default {
     name: 'ArticlePage',
+    layout: 'blog',
     async fetch () {
         await this.$store.dispatch('articles/get', { query: { slug: this.$route.params.slug }})
         await this.$store.dispatch('articles/fetch')

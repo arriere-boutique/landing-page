@@ -29,6 +29,9 @@ export default {
 
     env: {
         baseUrl: process.env.BASE_URL,
+        blogUrl: process.env.BLOG_URL,
+        boutiqueUrl: process.env.SHOP_URL,
+        dashboardUrl: process.env.DASHBOARD_URL,
         etsy: process.env.ETSY
     },
 
@@ -37,6 +40,14 @@ export default {
     buildModules: [
         '@nuxtjs/google-analytics',
         '@nuxtjs/moment',
+        [
+            '@nuxtjs/router',
+            {
+                path: 'router',
+                fileName: 'index.js',
+                keepDefaultRouter: true,
+            }
+        ]
     ],
 
     modules: [

@@ -3,20 +3,28 @@
         <div class="Wrapper Wrapper--left">
             <p class="ft-2xl-bold mv-40">Mes paramètres</p>
 
-            <p class="ft-l-medium"><span class="round bg-pond-xweak mr-5">{{ shops.length }}</span> Boutiques connectées</p>
+            <p class="ft-xl-medium"><span class="round bg-pond-xweak mr-5">{{ shops.length }}</span> Boutiques connectées</p>
 
             <div class="row-xs mt-10" v-if="shops">
                 <div class="col-4 pv-10" v-for="shop in shops" :key="shop._id">
                     <shop-block v-bind="shop" :is-syncing="shopsSyncing.includes(shop._id)" @sync="syncShop(shop._id)" @delete="promptDelete(shop._id)" />
                 </div>
+
                 <div class="col-4 pv-10" v-if="token">
                     <placeholder class="br-m" text="Ajout en cours..." />
                 </div>
+
                 <div class="col-4 pv-10 d-flex" :style="{ minHeight: '325px' }">
                     <div class="text-center height-100 d-flex width-100 fx-justify-center br-m fx-align-center bg-ice-xweak">
                         <button-base icon-before="plus" :modifiers="['ice']" @click="connectShop">Connecter une boutique</button-base>
                     </div>
                 </div>
+            </div>
+
+            <p class="ft-xl-medium mt-40">Mon compte</p>
+
+            <div class="bg-bg-xweak p-20 mt-20 br-m">
+                <link-base tag="nuxt-link" :attrs="{ to: localePath({ name: 'compte-logout' }) }">Se déconnecter</link-base>
             </div>
         </div>
     </div>

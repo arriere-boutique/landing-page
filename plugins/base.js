@@ -33,6 +33,11 @@ Vue.mixin({
             value: { color: 'duck', fa: 'fa-gem', slug: 'valeur-percue' }
         }
     }),
+    computed: {
+        $baseUrl () {
+            return process.env.baseUrl
+        }
+    },
     methods: {
         $randomBetween: (min, max) => {
             return Math.floor(Math.random() * (max - min + 1) + min)
