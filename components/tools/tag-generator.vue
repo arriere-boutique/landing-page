@@ -330,6 +330,10 @@ export default {
 
     .ShopTag.is-weak {
         opacity: 0.5;
+
+        &:hover {
+            opacity: 1;
+        }
     }
 
     @keyframes baseSpin {

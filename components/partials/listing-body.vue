@@ -2,16 +2,17 @@
     <div v-if="listing">
         <p class="ft-xl-bold">{{ listing.title }}</p>
 
-        
         <div class="p-20 b br-m mt-30">
             <p class="ft-l-bold">Estimation du profit</p>
 
             <profit-calculator
+                class="mt-20"
+                :modifiers="['s']"
                 :price="listing.price"
                 v-model="formData"
             />
 
-            <div class="text-right">
+            <div class="text-right mt-20">
                 <button-base icon-before="floppy-disk" :modifiers="['gum']" :class="{ 'is-loading': isLoading }" @click="save">Sauvegarder</button-base>
             </div>
         </div>
@@ -33,7 +34,8 @@ export default {
         formData: {
             shippingCost: 0,
             shippingMaterials: 0,
-            materials: []
+            materials: [],
+            costs: {}
         }
     }),
     computed: {
@@ -49,7 +51,9 @@ export default {
 
                 this.formData = {
                     ...this.formData,
-                    ...v,
+                    shippingCost: v.shippingCost,
+                    shippingMaterials: v.shippingMaterials,
+                    costs: v.costs,
                     materials: v.materials.length > 0 ? [ ...v.materials ] : [
                         { id: Math.random(), label: '', cost: 0 }
                     ]
@@ -61,18 +65,11 @@ export default {
         async save () {
             this.isLoading = true
 
+            console.log(this.formData)
+
             await this.$store.dispatch('listings/update', {
                 _id: this.listing._id,
-                params: {
-                    ...this.formData,
-                    costs: {
-                        shipping: this.totalShipping,
-                        production: this.totalProduction,
-                        fees: this.totalEtsyFees,
-                        totalCosts: this.totalCosts,
-                        totalRemaining: this.totalRemaining
-                    }
-                }
+                params: this.formData
             })
 
             this.isLoading = false

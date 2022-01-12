@@ -1,6 +1,7 @@
 .InputBase {
     border-radius: 6px;
-
+    align-items: stretch;
+    
     &.is-focused {
 
         .InputBase_element::placeholder {
