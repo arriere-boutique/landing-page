@@ -38,6 +38,9 @@ Vue.mixin({
             return Math.floor(Math.random() * (max - min + 1) + min)
         },
         $copy (text) {
+            console.log(navigator.clipboard)
+            if (!navigator.clipboard) return 
+
             navigator.clipboard.writeText(text).then(() => {
                 this.$store.commit('flashes/add', {
                     title: `Copié dans le presse-papier`,
