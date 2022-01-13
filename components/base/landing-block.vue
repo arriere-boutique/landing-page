@@ -4,7 +4,9 @@
         class="LandingBlock"
         :class="[ $modifiers ]"
     >
-        <div class="LandingBlock_cover" :style="{ backgroundImage: `url(${customization.background ? customization.background : '' })` }"></div>
+        <div class="LandingBlock_cover">
+            <landing-content class="LandingBlock_contentPreview" :content="{ title, slug, logo, customization, links }" />
+        </div>
 
         <div class="LandingBlock_content">
             <p class="ft-m-medium line-1 ellipsis-1">{{ title }}</p>
@@ -27,6 +29,7 @@ export default {
         slug: { type: String },
         logo: { type: String },
         customization: { type: Object },
+        links: { type: Array },
         modifiers: { type: Array, default: () => [] }
     }
 }
@@ -50,16 +53,25 @@ export default {
     }
     .LandingBlock_cover {
         display: flex;
-        background-color: var(--color-bg-weak);
+        height: 200px;
+        position: relative;
         overflow: hidden;
-        background-size: cover;
-        background-position: center;
 
         &::before {
             content: "";
             display: block;
             padding-bottom: 100%;
         }
+    }
+
+    .LandingBlock_contentPreview {
+        height: 500px;
+        position: absolute !important;
+        top: 0;
+        left: 0;
+        width: 200% !important;
+        transform: scale(0.5) translate3d(-50%, -50%, 0);
+        pointer-events: none;
     }
 
     .LandingBlock_content {
