@@ -15,7 +15,7 @@
                         <button-base
                             tag="nuxt-link"
                             :modifiers="['precious', 'secondary']"
-                            :attrs="{ to: localePath({ name: 'dashboard-outils-generateur-tags' }) }"
+                            :attrs="{ to: localePath({ name: 'outils-generateur-tags' }) }"
                         >
                             Trouver des mot-clés
                         </button-base>
@@ -33,7 +33,7 @@
                         <button-base
                             tag="nuxt-link"
                             :modifiers="['duck', 'secondary']"
-                            :attrs="{ to: localePath({ name: 'dashboard-outils-calculatrice-de-profit' }) }"
+                            :attrs="{ to: localePath({ name: 'outils-calculatrice-de-profit' }) }"
                         >
                             Calculer mon profit
                         </button-base>

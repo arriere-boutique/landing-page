@@ -3,7 +3,7 @@
         <div class="Wrapper Wrapper--left pb-40">
             <div class="mv-40">
                 <breadcrumbs :items="[
-                    { label: 'Outils', to: { name: 'dashboard-outils' } },
+                    { label: 'Outils', to: { name: 'outils' } },
                     { label: 'Générateur de mots-clés', active: true },
                 ]" />
                 
