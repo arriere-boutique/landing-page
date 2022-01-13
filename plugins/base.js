@@ -35,7 +35,10 @@ Vue.mixin({
     }),
     computed: {
         $baseUrl () {
-            return process.env.baseUrl
+            return  process.env.baseUrl
+        },
+        $dashboardUrl () {
+            return  process.env.dashboardUrl
         }
     },
     methods: {

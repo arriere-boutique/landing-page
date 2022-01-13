@@ -28,7 +28,7 @@ export default {
         async fetch ({ commit }, params = {}) {
             try {
                 const response = await this.$axios.$get(storeUtils.getQuery('/entities', {
-                    $self: 'owner',
+                    owner: '$self',
                     type: 'shop',
                 }))
                 

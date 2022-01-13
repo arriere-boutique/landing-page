@@ -1,7 +1,7 @@
 export default {
-    state: {
+    state: () => ({
         subdomain: ''
-    },
+    }),
     mutations: {
         setSubdomain (state, data) {
             state.subdomain = data

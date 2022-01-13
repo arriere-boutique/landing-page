@@ -1,27 +1,28 @@
 const mongoose = require('mongoose')
 
 let ShopEntity = {
-    read: 'self',
+    read: 'public',
     write: 'self',
     fields: new mongoose.Schema({
-        category: { type: String, write: 'self' },
-        categoryCustom: { type: String, write: 'self' },
+        category: { type: String, write: 'self', read: 'self' },
+        categoryCustom: { type: String, write: 'self', read: 'self' },
         name: { type: String, write: 'self' },
-        id: { type: String, write: 'self' },
-        link: { type: String, write: 'self' },
-        logo: { type: String, write: 'self' },
-        openingDate: { type: Date, write: 'self' },
-        etsyId: { type: String, write: 'self' },
-        etsyToken: { type: String, write: 'self' },
-        etsyRefreshToken: { type: String, write: 'self' },
-        etsyRefreshed: { type: Date, write: 'self' },
+        id: { type: String, write: 'self', read: 'self' },
+        slug: { type: String, write: 'self' },
+        link: { type: String, write: 'self', read: 'self' },
+        logo: { type: String, write: 'self', read: 'self' },
+        openingDate: { type: Date, write: 'self', read: 'self' },
+        etsyId: { type: String, write: 'self', read: 'self' },
+        etsyToken: { type: String, write: 'self', read: 'self' },
+        etsyRefreshToken: { type: String, write: 'self', read: 'self' },
+        etsyRefreshed: { type: Date, write: 'self', read: 'self' },
         orders: [
-            { type: mongoose.Schema.Types.ObjectId, ref: 'shopOrder' }
+            { type: mongoose.Schema.Types.ObjectId, ref: 'shopOrder', read: 'self' }
         ],
         listings: [
-            { type: mongoose.Schema.Types.ObjectId, ref: 'shopListing' }
+            { type: mongoose.Schema.Types.ObjectId, ref: 'shopListing', read: 'self' }
         ],
-        owner: { type: mongoose.Schema.Types.ObjectId, write: 'self', ref: 'user' }
+        owner: { type: mongoose.Schema.Types.ObjectId, write: 'self', read:'self', ref: 'user' }
     }, { timestamps: true })
 }
 

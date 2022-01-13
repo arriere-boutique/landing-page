@@ -23,11 +23,12 @@ export default {
     class: 'NavDashboard',
     data: () => ({
         links: [
-            { label: `Tableau de bord`, icon: 'book-heart', path: { name: 'dashboard' } },
-            { label: `Mes commandes`, icon: 'receipt', path: { name: 'dashboard-commandes' } },
-            { label: `Mes fiches produit`, icon: 'clipboard-list', path: { name: 'dashboard-fiches' } },
-            { label: `Outils`, icon: 'rocket-launch', path: { name: 'dashboard-outils' } },
-            { label: `Paramètres`, icon: 'cog', path: { name: 'dashboard-parametres' } }
+            { label: `Tableau de bord`, icon: 'book-heart', path: { name: '/' } },
+            { label: `Mes commandes`, icon: 'receipt', path: { name: 'commandes' } },
+            { label: `Mes fiches produit`, icon: 'clipboard-list', path: { name: 'fiches' } },
+            { label: `Mes pages`, icon: 'arrow-pointer', path: { name: 'pages' } },
+            { label: `Outils`, icon: 'rocket-launch', path: { name: 'outils' } },
+            { label: `Paramètres`, icon: 'cog', path: { name: 'parametres' } }
         ]
     })
 }

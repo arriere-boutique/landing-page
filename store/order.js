@@ -14,7 +14,7 @@ export default {
         async recover ({ commit }) {
             try {
                 const response = await this.$axios.$get(storeUtils.getQuery('/entities', {
-                    $self: 'owner',
+                    owner: '$self',
                     $sort: 'createdAt',
                     $sortValue: -1,
                     $limit: 1,
