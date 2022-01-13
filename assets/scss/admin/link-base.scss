@@ -16,13 +16,14 @@
         background-color: var(--color-onyx);
         transition: all 100ms ease;
         pointer-events: none;
+        transform-origin: left;
     }
 
     &:hover {
         opacity: 0.75;
 
         &::before {
-            transform: scaleX(0.9);
+            transform: scaleX(0.95);
         }
     }
 
@@ -30,7 +31,7 @@
         opacity: 0.5;
 
         &::before {
-            transform: scaleX(0.8);
+            transform: scaleX(0.9);
         }
     }
 }

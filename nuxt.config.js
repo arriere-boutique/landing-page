@@ -28,10 +28,12 @@ export default {
     ],
 
     env: {
+        baseDomain: process.env.BASE_DOMAIN,
         baseUrl: process.env.BASE_URL,
         blogUrl: process.env.BLOG_URL,
         boutiqueUrl: process.env.SHOP_URL,
         dashboardUrl: process.env.DASHBOARD_URL,
+        PEXELS: process.env.PEXELS,
         etsy: process.env.ETSY
     },
 

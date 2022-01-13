@@ -25,54 +25,12 @@ exports.getEntities = async function (req, res) {
             if (!result[0]) throw 'id-not-found' 
         } else {
             let query = req.query
-            let parsedQuery = query
-            let options = {}
             delete query.type
             
-            Object.keys(query).forEach((key, value) => {
-                value = query[key]
-                
-                if (key.startsWith('$or')) {
-                    if (value) {
-                        let fieldName = key.replace('$or', '').toLowerCase()
-
-                        value = value.split(',').map(v => ({
-                            [fieldName]: v
-                        }))
-
-                        parsedQuery.$or = value
-                    }
-
-                    delete parsedQuery[key]
-                }
-
-                if (key.startsWith('$self')) {
-                    if (value && user) {
-                        parsedQuery[value] = user._id
-                    } else {
-                        cancel = true
-                    }
-
-                    delete parsedQuery[key]
-                }
-            })
-
-            if (query['$sort']) {
-                options.sort = { [query['$sort']]: query['$sortValue'] }
-
-                delete parsedQuery['$sort']
-                delete parsedQuery['$sortValue']
-            }
-
-            if (query['$limit']) {
-                options.limit = parseInt(query['$limit'])
-
-                delete parsedQuery['$limit']
-            }
-
-            result = cancel ? [] : await Entity.model.find(parsedQuery, null, options)
+            let parsed = parseQuery(query, user)
+            result = cancel ? [] : await Entity.model.find(parsed.query, null, parsed.options)
         }
-        
+
         if (!result) throw 'search-not-found'
 
         if (Array.isArray(result)) {
@@ -112,15 +70,17 @@ exports.createEntity = async function (req, res) {
 
         if (!accessCheck('write', Entity, result, user)) throw 'unauthorized'
 
-        fields = fieldsCheck('write', fields, Entity, result, user)
+        fields = result ? fieldsCheck('write', fields, Entity, result, user) : fields
         delete fields._id
 
         if (typeSetters[req.body.type]) fields = await typeSetters[req.body.type](fields, req)
 
+        fields = parseQuery(fields, user)
+
         if (result) {
-            data = await Entity.model.findByIdAndUpdate(req.body._id, fields)
+            data = await Entity.model.findByIdAndUpdate(req.body._id, fields.query)
         } else {
-            data = await Entity.model.create(fields)
+            data = await Entity.model.create(fields.query)
         }
 
         if (!data) throw 'error'
@@ -236,4 +196,50 @@ const typeSetters = {
             }
         })
     },
+}
+
+const parseQuery = function (query, user) {
+    let parsedQuery = { ...query }
+    let options = {}
+    
+    Object.keys(query).forEach((key, value) => {
+        value = query[key]
+        
+        if (key.startsWith('$or')) {
+            if (value) {
+                let fieldName = key.replace('$or', '').toLowerCase()
+
+                value = value.split(',').map(v => ({
+                    [fieldName]: v
+                }))
+
+                parsedQuery.$or = value
+            }
+
+            delete parsedQuery[key]
+        }
+
+        if (value == '$self') {
+            if (user) {
+                parsedQuery[key] = user._id
+            } else {
+                cancel = true
+            }
+        }
+    })
+
+    if (query['$sort']) {
+        options.sort = { [query['$sort']]: query['$sortValue'] }
+
+        delete parsedQuery['$sort']
+        delete parsedQuery['$sortValue']
+    }
+
+    if (query['$limit']) {
+        options.limit = parseInt(query['$limit'])
+
+        delete parsedQuery['$limit']
+    }
+
+    return { query: parsedQuery, options }
 }

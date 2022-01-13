@@ -32,7 +32,7 @@
                     <i class="fal fa-user"></i>
                 </a>
 
-                <a :href="$baseUrl" class="HeaderBase_button mr-5">
+                <a :href="$env.baseUrl" class="HeaderBase_button mr-5">
                     <i class="fal fa-home"></i>
                 </a>
             </div>

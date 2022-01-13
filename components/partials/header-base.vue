@@ -22,7 +22,7 @@
                     </component>
                 </div>
 
-                <a :href="localePath({ name: 'dashboard' })" class="HeaderBase_button mr-5">
+                <a :href="$dashboardUrl" class="HeaderBase_button mr-5">
                     <i class="fal fa-user"></i>
                 </a>
             </div>

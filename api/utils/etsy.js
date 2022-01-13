@@ -36,6 +36,7 @@ exports.syncShop = async function (id, syncImages = false) {
 
             const shopData = await $fetch(`https://openapi.etsy.com/v3/application/users/${shop.etsyId}/shops`, { headers })
 
+            if (!shop.slug) shop.slug = shopData.shop_name.toLowerCase()
             shop.name = shopData.shop_name
             shop.link = shopData.url
             shop.logo = shopData.icon_url_fullxfull
