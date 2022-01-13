@@ -25,10 +25,12 @@ exports.logUser = async function (req, res) {
             data = user
         } else {
             if (!req.body.email || !req.body.password || !req.body.token) throw 'missingFields'
+            
+            if (process.env.NODE_ENV == "PRODUCTION") {
+                const challenge = await $fetch(`https://www.google.com/recaptcha/api/siteverify?secret=${process.env.RECAPTCHA_SECRET}&response=${req.body.token}`)
 
-            const challenge = await $fetch(`https://www.google.com/recaptcha/api/siteverify?secret=${process.env.RECAPTCHA_SECRET}&response=${req.body.token}`)
-
-            if (!challenge.success) throw 'challenge-failed'
+                if (!challenge.success) throw 'challenge-failed'
+            }
 
             user = await Entities.user.model.findOne({ email: req.body.email })
             
