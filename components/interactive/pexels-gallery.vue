@@ -1,11 +1,26 @@
 <template>
     <form @submit.prevent="() => search(query)" class="PexelsGallery">
-        <input-base type="text" label="Rechercher" v-model="query" />
+        <div class="PexelsGallery_search p-20" :style="{ '--background': `url(${random.src ? random.src.large : ''})` }">
+            <div>
+                <input-base type="text" class="mr-10" v-model="query" />
+                <button-base type="submit" :modifiers="['secondary', 's', 'white']" :class="{ 'is-loading': isLoading }">
+                    Rechercher
+                </button-base>
+            </div>
+        </div>
 
-        <div class="" ref="container">
-            <div class="PexelsGallery_row" v-for="(row, i) in photos" :key="i">
-                <div class="PexelsGallery_photo" v-for="photo in row.photos" :key="photo.id" :style="{ '--width': photo.width + 'px', '--height': photo.height + 'px' }" @click="$emit('select', photo.original)">
-                    <img :src="photo.original.src.medium" :width="Math.min(photo.original.width * 0.8, photo.width)" :height="Math.min(photo.original.height * 0.8, photo.height)" />
+        <div class="p-30">
+            <div ref="container">
+                <div class="PexelsGallery_row" v-for="(row, i) in rows" :key="i">
+                    <div class="PexelsGallery_photo" v-for="photo in row.photos" :key="photo.id" :style="{ '--width': photo.width + 'px', '--height': photo.height + 'px' }" @click="$emit('select', photo.original)">
+                        <img :src="photo.original.src.medium" :width="Math.min(photo.original.width * 0.8, photo.width)" :height="Math.min(photo.original.height * 0.8, photo.height)" />
+                    </div>
+                </div>
+
+                <div class="text-center mt-20">
+                    <button-base type="button" :modifiers="['secondary', 's']" :class="{ 'is-loading': isLoading }" icon-before="arrows-rotate" @click="getNext">
+                        Afficher d'autres
+                    </button-base>
                 </div>
             </div>
         </div>
@@ -20,27 +35,57 @@ export default {
     components: { InputBase },
     data: () => ({
         query: '',
+        prevQuery: '',
+        isLoading: false,
         photos: [],
-        maxWidth: 0
+        rows: [],
+        offset: 0,
+        maxWidth: 0,
+        random: {}
     }),
     props: {
         height: { type: Number, default: 150 }
     },
+    computed: {
+        displayedPhotos () {
+            return this.photos.slice(0, 15)
+        }
+    },  
     mounted () {
         this.$data.maxWidth = this.$refs.container.offsetWidth
         this.search()
+        
     },
     methods: {
+        getNext () {
+            this.photos = this.photos.slice(15)
+
+            if (this.photos.length > 15) {
+                this.rows = this.arrangePhotos(this.displayedPhotos)
+            } else {
+                this.search(this.query)
+            }
+        },
         async search (v = null) {
+            this.isLoading = true
+
+            if (this.query == this.prevQuery) this.offset += 1
+            this.prevQuery = this.query
+
             let params = {
-                query: { per_page: 10, orientation: 'portrait' }
+                query: { per_page: 100, page: this.offset }
             }
 
             if (v) params.query = { ...params.query, query: v }
 
             let response = await this.$store.dispatch('pexels/fetch', params)
 
-            this.photos = this.arrangePhotos(response)
+            this.photos = response
+            this.rows = this.arrangePhotos(this.displayedPhotos)
+
+            this.random = this.photos[this.$randomBetween(0, this.photos.length - 1)]
+
+            this.isLoading = false
         },
         arrangePhotos (items) {
             let photos = items.slice()
@@ -97,23 +142,53 @@ export default {
 
 <style lang="scss" scoped>
     .PexelsGallery {
-        border: 1px solid var(--color-onyx);
-        padding: 20px;
+        border: 2px solid var(--color-onyx);
         border-radius: 10px;
+        overflow: hidden;
+    }
+
+    .PexelsGallery_search {
+        border-bottom: 2px solid var(--color-onyx);
+        position: relative;
+        background-color: var(--color-onyx);
+
+        &::before {
+            content: "";
+            position: absolute;
+            top: -5%;
+            left: -5%;
+            width: 110%;
+            height: 110%;
+            background-size: cover;
+            background-position: center;
+            background-image: var(--background);
+            opacity: 0.3;
+            filter: blur(2px);
+        }
+
+        & > div {
+            display: flex;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
     }
 
     .PexelsGallery_row {
         display: flex;
         align-items: flex-start;
         margin-bottom: 5px;
+        justify-content: center;
     }
 
     .PexelsGallery_photo {
         margin-right: 5px;
         width: var(--width);
         height: var(--height);
+        border-radius: 4px;
         cursor: pointer;
         transition: all 150ms ease;
+        overflow: hidden;
 
         &:active {
             opacity: 0.5;

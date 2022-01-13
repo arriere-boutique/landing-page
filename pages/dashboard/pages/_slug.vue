@@ -1,43 +1,83 @@
 <template>
     <div class="PageEditor Wrapper--left">
-        <p class="ft-2xl-bold mv-40">{{ formData.title ? formData.title : 'Nouvelle page' }}</p>
-
+        <div class="mv-40">
+            <breadcrumbs :items="[
+                { label: 'Pages', to: { name: 'pages' } },
+                { label: formData.title ? formData.title : 'Nouvelle page', active: true },
+            ]" />
+            
+            <p class="ft-3xl-bold mt-5">{{ formData.title ? formData.title : 'Nouvelle page' }}</p>
+        </div>
+        
         <div class="d-flex">
-            <div class="PageEditor_preview fx-no-shrink">
-                <div class="PageEditor_previewHeader">
-                    <link-base :link="fullLink" target="_blank">{{ fullLink }}</link-base>
+            <div class="PageEditor_previewContainer">
+                <div class="PageEditor_preview fx-no-shrink">
+                    <div class="PageEditor_previewHeader">
+                        <link-base :link="fullLink" class="ellipsis-1" target="_blank">{{ fullLink }}</link-base>
+
+                        <div class="copy" @click="() => $copy(fullLink)"><i class="fal fa-copy"></i></div>
+                    </div>
+
+                    <landing-content class="PageEditor_content" :content="formData" />
                 </div>
-                <landing-content class="PageEditor_content" :content="formData" />
             </div>
-            <form class="fx-grow ml-30" @submit.prevent="update">
-                <input-base label="Titre de la page" v-model="formData.title" :attrs="{ required: true }"></input-base>
-                <textarea v-model="formData.description"></textarea>
 
-                <div class="d-flex fx-align-center">
-                    <select class="fx-no-shrink" v-model="formData.shop">
-                        <option v-for="shop in shops" :value="shop._id" :key="shop.slug">
-                            {{ shop.slug.toLowerCase() }}
-                        </option>
-                    </select>
-                    <p class="fx-no-shrink mh-10">.arriere-boutique.fr/</p>
-                    <input-base label="Slug" v-model="formData.slug" :attrs="{ required: true }"></input-base>
+            <form class="fx-grow ml-30" @submit.prevent="update">
+                <div class="br-m p-20 bg-gum-xweak">
+                    <p class="ft-s-bold mb-20">Informations principales</p>
+
+                    <input-base label="Titre de la page" v-model="formData.title" :attrs="{ required: true }" />
+                    <textarea v-model="formData.description" class="mt-10" placeholder="Texte d'introduction"></textarea>
                 </div>
 
-                <div class="d-flex fx-align-center mv-10" v-for="(link, i) in formData.links" :key="i">
-                    <input-base type="text" label="Texte du lien" v-model="link.label" />
-                    <input-base type="text" class="ml-10" label="Lien" v-model="link.href" />
+                <div class="br-m p-20 bg-pond-xweak mv-10">
+                    <p class="ft-s-bold mb-20">Liste de boutons</p>
 
-                    <div class="Buttons d-flex fx-no-shrink ml-10">
-                        <div class="Button" @click="() => deleteLink(i)" v-if="formData.links.length > 1"><i class="fal fa-sm fa-trash-alt"></i></div>
-                        <div class="Button ml-5" v-if="i == formData.links.length - 1" @click="addLink"><i class="fal fa-plus"></i></div>
+                    <div class="d-flex fx-align-center mv-10" v-for="link in formData.links" :key="link.id">
+                        <input-base type="text" label="Texte du lien" :value="link.label" @input="(v) => updateLink(link.id, { ...link, label: v })"/>
+                        <input-base type="text" class="ml-10" label="Lien" :value="link.href" @input="(v) => updateLink(link.id, { ...link, href: v })"/>
+
+                        <div class="Buttons d-flex fx-no-shrink ml-10">
+                            <toggle-base :value="link.active" @input="(v) => updateLink(link.id, { ...link, active: v })" />
+
+                            <div class="Button round bg-bg-light b ml-10" @click="() => deleteLink(link.id)" v-if="formData.links.length > 1"><i class="fal fa-sm fa-trash-alt"></i></div>
+                        </div>
+                    </div>
+
+                    <div class="text-right mt-5">
+                        <link-base fa="plus" @click.native.prevent="addLink">Ajouter un lien</link-base>
                     </div>
                 </div>
 
-                <div class="bg-onyx">
-                    <input type="range" min="0" max="100" :value="formData.customization['background-opacity']" @input="(e) => updateCustomization('background-opacity', e.target.value)">
+                <div class="p-20 b br-m mv-10">
+                    <p class="ft-s-bold mb-20">Personnalisation</p>
+                    
+                    <div class="d-flex">
+                        <div class="bg-bg-xweak fx-grow br-m mr-20">
+                            <input type="range" min="0" max="100" :value="formData.customization['background-opacity']" @input="(e) => updateCustomization('background-opacity', e.target.value)">
+                        </div>
+
+                        <p class="ft-m-bold">{{ formData.customization['background-opacity'] }}%</p>
+                    </div>
+
+                    <pexels-gallery @select="(v) => { updateCustomization('background', v.src.original); updateCustomization('background-thumbnail', v.src.large) }"/>
                 </div>
 
-                <pexels-gallery @select="(v) => { updateCustomization('background', v.src.original); updateCustomization('background-thumbnail', v.src.large) }"/>
+                <div class="p-20 b br-m mv-10">
+                    <p class="ft-s-bold mb-10">Personnaliser mon lien</p>
+
+                    <div class="d-flex fx-align-center">
+                        <select-base
+                            class="fx-no-shrink width-auto"
+                            :options="shops.map(s => ({ id: s._id, label: s.slug.toLowerCase() }))"
+                            v-model="formData.shop"
+                        />
+                        <p class="fx-no-shrink mh-10">.arriere-boutique.fr/</p>
+                        <input-base v-model="formData.slug" :attrs="{ required: true }"></input-base>
+                    </div>
+
+                    <p class="ft-xs-medium mt-10">Lien final : <span class="text-underline">{{ fullLink }}</span></p>
+                </div>
 
                 <div class="mt-30 text-right">
                     <button-base
@@ -54,11 +94,11 @@
 </template>
 
 <script>
-import { InputBase } from 'instant-coffee-core'
+import { InputBase, SelectBase, ToggleBase } from 'instant-coffee-core'
 
 export default {
     name: 'DashboardPage',
-    components: { InputBase },
+    components: { InputBase, SelectBase, ToggleBase },
     middleware: 'loggedUser',
     layout: 'dashboard',
     async fetch () {
@@ -76,7 +116,7 @@ export default {
             slug: 'ma-page',
             customization: {},
             logo: '',
-            links: [ { label: 'Mon lien', href: '' } ],
+            links: [ { id: Math.random(), label: 'Mon lien', href: '', active: true } ],
             shop: '',
         }
     }),
@@ -133,11 +173,14 @@ export default {
         this.isLoading = false
     },
     methods: {
-        deleteLink (i) {
-            this.formData.links.splice(i, 1)
-        },
         addLink () {
-            this.formData.links.push({ label: '', href: '' })
+            this.formData.links.push({ id: Math.random(), label: '', href: '', active: true })
+        },
+        deleteLink (id) {
+            this.formData.links = this.formData.links.filter(l => l.id != id)
+        },
+        updateLink (id, v) {
+            this.formData.links = this.formData.links.map(l => l.id == id ? v : l)
         },
         updateCustomization (key, v) {
             this.formData.customization = { ...this.formData.customization, [key]: v }
@@ -181,21 +224,53 @@ export default {
 <style lang="scss" scoped>
     .PageEditor_preview {
         width: 450px;
+        height: 600px;
         border: 1px solid var(--color-border);
         border-radius: 10px;
         overflow: hidden;
         display: flex;
         flex-direction: column;
+        position: sticky;
+        top: 30px;
     }
 
     .PageEditor_content {
-        height: 600px;
         display: flex;
         flex-grow: 1;
     }
 
     .PageEditor_previewHeader {
-        padding: 10px 15px;
+        padding: 0 15px;
+        display: flex;
+        justify-content: space-between;
+
+        .LinkBase {
+            margin: 15px 0;
+        }
+
+        .copy {
+            border-left: 1px solid var(--color-border);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            padding: 0 0 0 15px;
+
+            &:hover {
+                color: var(--color-ft-weak);
+            }
+        }
+    }
+
+    .Button {
+        cursor: pointer;
+        transition: all 150ms;
+
+        &:hover {
+            color: var(--color-ft-weak);
+        }
+    }
+    .PageEditor_previewContainer {
+        position: relative;
     }
 
 </style>

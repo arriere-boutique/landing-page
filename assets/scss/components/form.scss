@@ -58,6 +58,13 @@ input, select {
     width: 100%;
 }
 
+textarea {
+  border-radius: 5px;
+  border: 1px solid var(--color-border);
+  background-color: var(--color-bg-light);
+  padding: 10px 15px;
+}
+
 .InputBase_label, .SelectBase_label {
   font: var(--ft-s-medium);
   background-color: transparent;
@@ -99,4 +106,13 @@ input, select {
     padding: 5px 10px;
     flex-grow: 1;
   }
+}
+
+
+.Toggle_container {
+  background-color: var(--color-bg-weak);
+}
+
+.Toggle_checkbox:checked + .Toggle_container {
+  background-color: var(--color-pond);
 }

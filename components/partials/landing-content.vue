@@ -10,7 +10,7 @@
             <h2 class="LandingPage_text" v-if="content.description">{{ content.description }}</h2>
 
             <div class="LandingPage_buttons">
-                <button-base class="LandingPage_button" :modifiers="['full']" v-for="(link, i) in content.links" tag="a" :link="link.href" :key="i">
+                <button-base class="LandingPage_button" :modifiers="['full']" v-for="(link, i) in content.links.filter(l => l.active)" tag="a" :link="link.href" :key="i">
                     {{ link.label }}
                 </button-base>
             </div>

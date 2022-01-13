@@ -47,7 +47,10 @@ $colors: (
     "ft-xweak": #ddd9e8,
     "ft-light": #ffffff,
     
+    "white-strong": #ffffff,
     "white": #ffffff,
+    "white-weak": #ffffff,
+    "white-xweak": #ffffff,
 
     "precious-strong": #4b39f6,
     "precious": #6b4bff,
@@ -113,7 +116,7 @@ $colors: (
     "shadow": rgba(207, 215, 231, 0.3)
 );
 
-$main-colors: ("gum", "duck", "pond", "ice", "precious", "sunset", "emerald");
+$main-colors: ("gum", "duck", "pond", "ice", "precious", "sunset", "emerald", "white");
 
 $accent-colors: (
     "gum": "pond",
