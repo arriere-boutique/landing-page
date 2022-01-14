@@ -20,9 +20,9 @@
                     </div>
                 </div>
 
-                <div class="Page_side">
+                <!-- <div class="Page_side">
                     Hello
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
@@ -33,6 +33,14 @@ export default {
     name: 'DashboardOrders',
     middleware: 'loggedUser',
     layout: 'dashboard',
+    async fetch () {
+        this.shops.forEach(shop => {
+            this.$store.dispatch('shop/sync', {
+                notification: false,
+                params: { id: shop._id, syncItems: [ 'orders' ] }
+            })
+        })
+    },
     computed: {
         user () { return this.$store.state.auth.user },
         shops () { return this.$store.state.shop.items },

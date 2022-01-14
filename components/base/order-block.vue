@@ -21,24 +21,24 @@
 
         <div class="OrderBlock_content pl-20">
             <p class="ft-l-medium ellipsis-1">Pour {{ name }}</p>
-            <p class="ft-s">Commandé {{ $moment.unix(orderDate).fromNow() }}</p>
+            <p class="ft-s">Commandé le {{ $moment.unix(orderDate).format('DD MMM YYYY') }}</p>
 
             <div class="mt-10 d-flex ft-s-medium fx-wrap">
                 <p class="mb-3 mr-15"><i class="fal fa-receipt mr-3"></i> {{ $round(total.amount / total.divisor) }}€ </p>
                 <p class="mb-3 mr-15"><i class="fal fa-box-full mr-3"></i> {{ listings.length }} article(s)</p>
-                <p class="mb-3 mr-15" v-if="expectedDate && status != 'Completed'"><i class="fal fa-box mr-3"></i> À envoyer dans les {{ $moment().to($moment.unix(expectedDate)) }}</p>
+                <p class="mb-3 mr-15" v-if="expectedDate && status != 'Completed'"><i class="fal fa-box mr-3"></i> À envoyer avant le {{ $moment.unix(expectedDate).format('D MMM YYYY') }}</p>
                 <p class="mb-3 mr-15" v-if="shippedDate && status == 'Completed'"><i class="fal fa-box-circle-check mr-3"></i> Envoyé le {{ $moment.unix(shippedDate).format('D MMM YYYY') }}</p>
             </div>
         </div>
 
-        <div class="OrderBlock_right">
+        <!-- <div class="OrderBlock_right">
             <span class="round b bg-bg-light mv-3">
                 <i class="fal fa-gift-card"></i>
             </span>
             <span class="round b bg-bg-light mv-3">
                 <i class="fal fa-ellipsis-vertical"></i>
             </span>
-        </div>
+        </div> -->
     </div>
 </template>
 

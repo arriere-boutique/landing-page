@@ -3,7 +3,8 @@ const mongoose = require('mongoose')
 let LandingEntity = {
     read: 'public',
     write: 'user',
-    unique: [ 'slug', 'shop' ],
+    unique: 'slug',
+    uniqueConditions: [ 'shop' ],
     fields: new mongoose.Schema({
         slug: { type: String, write: 'self' },
         isHome: { type: Boolean, write: 'admin', default: false },

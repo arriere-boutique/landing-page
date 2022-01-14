@@ -69,22 +69,27 @@ export default {
         async search (v = null) {
             this.isLoading = true
 
-            if (this.query == this.prevQuery) this.offset += 1
-            this.prevQuery = this.query
+            try {
 
-            let params = {
-                query: { per_page: 100, page: this.offset }
+                if (this.query == this.prevQuery) this.offset += 1
+                this.prevQuery = this.query
+
+                let params = {
+                    query: { per_page: 100, page: this.offset }
+                }
+
+                if (v) params.query = { ...params.query, query: v }
+
+                let response = await this.$store.dispatch('pexels/fetch', params)
+
+                this.photos = response
+                this.rows = this.arrangePhotos(this.photos)
+
+                this.random = this.photos[this.$randomBetween(0, this.photos.length - 1)]
+            } catch (e) {
+
             }
-
-            if (v) params.query = { ...params.query, query: v }
-
-            let response = await this.$store.dispatch('pexels/fetch', params)
-
-            this.photos = response
-            this.rows = this.arrangePhotos(this.photos)
-
-            this.random = this.photos[this.$randomBetween(0, this.photos.length - 1)]
-
+            
             this.isLoading = false
         },
         arrangePhotos (items) {

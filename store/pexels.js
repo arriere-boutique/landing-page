@@ -16,6 +16,8 @@ export default {
                     ...params.query,
                 }), { headers: { Authorization: process.env.PEXELS }})
 
+                if (!response.photos) throw Error('pexels-error')
+
                 return response.photos
             } catch (e) {
                 return storeUtils.handleErrors(e, commit, 'Erreur de connexion à Pexels')

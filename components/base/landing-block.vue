@@ -1,42 +1,72 @@
 <template>
-    <nuxt-link
-        :to="localePath({ name: 'pages-slug', params: { slug: slug } })"
+    <div
         class="LandingBlock"
-        :class="[ $modifiers ]"
+        :class="{ 'is-disabled': !isActive, ...$modifiers }"
     >
-        <div class="LandingBlock_cover">
+        <nuxt-link class="LandingBlock_cover" :to="localePath({ name: 'pages-id', params: { id: _id } })">
             <landing-content class="LandingBlock_contentPreview" :is-preview="true" :content="{ title, slug, logo, customization, links }" />
-        </div>
+        </nuxt-link>
 
         <div class="LandingBlock_content">
             <p class="ft-m-medium line-1 ellipsis-1">{{ title }}</p>
 
-            <button-base class="mt-20" :modifiers="['secondary', 'xs']" icon-before="copy" @click="$copy(fullLink)">
-                Copier lien
-            </button-base>
+            <div class="d-flex fx-justify-between fx-align-center">
+                <div>
+                    <toggle-base v-model="formData.isActive" class="mr-10" v-if="!isHome" />
+                </div>
+
+                <button-base class="mt-20" :modifiers="['secondary', 'xs']" :class="{ 'is-disabled': !isActive }" icon-before="copy" @click="$copy(link)">
+                    Copier lien
+                </button-base>
+            </div>
         </div>
 
         <div class="LandingBlock_footer">
 
         </div>
-    </nuxt-link>
+    </div>
 </template>
 
 <script>
-import { ModifiersMixin } from 'instant-coffee-core'
+import { ModifiersMixin, ToggleBase } from 'instant-coffee-core'
 
 export default {
     name: 'LandingBlock',
+    components: { ToggleBase },
     mixins: [ ModifiersMixin ],
     props: {
+        _id: { type: String },
         title: { type: String },
         slug: { type: String },
         logo: { type: String },
+        isHome: { type: Boolean },
+        isActive: { type: Boolean },
         customization: { type: Object },
         link: { type: String, default: '' },
         links: { type: Array },
         modifiers: { type: Array, default: () => [] }
     },
+    data: () => ({
+        formData: {
+            isActive: true
+        }
+    }),
+    watch: {
+        isActive: {
+            immediate: true,
+            handler (v) {
+                this.formData.isActive = v
+            }
+        },
+        ['formData.isActive'] (v) {
+            if (v != this.isActive) {
+                this.$store.dispatch('landings/create', {
+                    _id: this._id,
+                    params: { isActive: v }
+                })
+            }
+        }
+    }
 }
 </script>
 
@@ -53,7 +83,16 @@ export default {
 
         &:hover {
             transform: translateY(-3px);
+            opacity: 1;
             box-shadow: 0 3px 12px 0px var(--color-shadow);
+        }
+
+        &.is-disabled {
+            opacity: 0.5;
+
+            &:hover {
+                opacity: 1;
+            }
         }
     }
     .LandingBlock_cover {
