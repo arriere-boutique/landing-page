@@ -17,12 +17,12 @@ exports.getEntities = async function (req, res) {
         let Entity = req.query.type ? Entities[req.query.type] : null
         let result = null
 
-        if (!Entity) throw 'entity-not-found'
+        if (!Entity) throw Error('entity-not-found')
 
         if (req.query._id) {
             result = await Entity.model.find({ _id: req.query._id })
 
-            if (!result[0]) throw 'id-not-found' 
+            if (!result[0]) throw Error('id-not-found' )
         } else {
             let query = req.query
             delete query.type
@@ -31,20 +31,20 @@ exports.getEntities = async function (req, res) {
             result = cancel ? [] : await Entity.model.find(parsed.query, null, parsed.options)
         }
 
-        if (!result) throw 'search-not-found'
+        if (!result) throw Error('search-not-found')
 
         if (Array.isArray(result)) {
             result = result.filter(r => accessCheck('read', Entity, r, user))
         } else if (!accessCheck('read', Entity, result, user)) {
-            throw 'unauthorized'
+            throw Error('unauthorized')
         }
 
         result = result.map(v => fieldsCheck('read', v._doc, Entity, v, user))
 
         data = req.query._id ? result[0] : (typeGetters[req.query.type] ? typeGetters[req.query.type](result) : result)
-    } catch (err) {
-        console.error(err)
-        errors.push({ code: err.code, message: err.errmsg })
+    } catch (e) {
+        console.error(e)
+        errors.push(e)
     }
     
     res.send({
@@ -64,11 +64,11 @@ exports.createEntity = async function (req, res) {
         let fields = params
 
         let Entity = req.body.type ? Entities[req.body.type] : null
-        if (!Entity) throw 'no-entity-type'
+        if (!Entity) throw Error('no-entity-type')
 
         let result = req.body._id ? await Entity.model.findById(req.body._id) : null
 
-        if (!accessCheck('write', Entity, result, user)) throw 'unauthorized'
+        if (!accessCheck('write', Entity, result, user)) throw Error('unauthorized')
 
         fields = result ? fieldsCheck('write', fields, Entity, result, user) : fields
         delete fields._id
@@ -76,20 +76,34 @@ exports.createEntity = async function (req, res) {
         if (typeSetters[req.body.type]) fields = await typeSetters[req.body.type](fields, req)
 
         fields = parseQuery(fields, user)
+        console.log(fields)
+
+        if (Entity.unique) {
+            let params = Entity.unique.reduce((params, key) => {
+                if (!fields[key]) throw Error('missingDuplicateParameter')
+
+                return { ...params, [key]: fields[key] }
+            }, {})
+            
+            let duplicate = await Entity.model.findOne(params)
+            if (duplicate) throw Error('duplicateFound')
+        }
 
         if (result) {
             data = await Entity.model.findByIdAndUpdate(req.body._id, fields.query)
         } else {
+
             data = await Entity.model.create(fields.query)
         }
 
-        if (!data) throw 'error'
+        if (!data) throw Error('error')
 
         data = await Entity.model.find({ _id: data._id })
         data = fieldsCheck('read', data[0]._doc, Entity, data[0], user)
-    } catch (err) {
-        console.warn(err)
-        errors.push({ code: err.code, message: err.errmsg })
+    } catch (e) {
+        console.warn(e)
+        console.warn(e)
+errors.push(e.message)
     }
 
     res.send({
@@ -104,18 +118,18 @@ exports.deleteEntity = async function (req, res) {
     let errors = []
     
     try {
-        if (!req.query._id) throw 'no-id-supplied'
+        if (!req.query._id) throw Error('no-id-supplied')
     
         let Entity = req.query.type ? Entities[req.query.type] : null
-        if (!Entity) throw 'no-entity-type'
+        if (!Entity) throw Error('no-entity-type')
 
         let result = await Entity.model.findById(req.query._id)
-        if (!accessCheck('write', Entity, result, user)) throw 'unauthorized'
+        if (!accessCheck('write', Entity, result, user)) throw Error('unauthorized')
 
         await result.remove()
-    } catch (err) {
-        console.warn(err)
-        errors.push({ code: err.code, message: err.errmsg })
+    } catch (e) {
+        console.warn(e)
+        errors.push(e)
     }
 
     res.send({

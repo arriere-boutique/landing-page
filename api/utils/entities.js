@@ -9,7 +9,7 @@ exports.createEntity = async function (params) {
             entity = params._id ? await Entity.findById(params._id) : null
             let entityType = entity ? entity.type : await EntityType.findOne({ id: params.type })
 
-            if (!entityType) throw 'entity-type-no-exist'
+            if (!entityType) throw Error('entity-type-no-exist')
 
             if (!entity) {
                 entity = await Entity.create({
@@ -23,9 +23,9 @@ exports.createEntity = async function (params) {
             entity.save()
 
             resolve(entity)
-        } catch (err) {
-            console.error(err)
-            reject(err)
+        } catch (e) {
+            console.error(e)
+            reject(e)
         }
     })
 }

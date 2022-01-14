@@ -55,7 +55,10 @@ exports.syncShop = async function (id, syncImages = false, firstSync = false) {
                         links: [
                             { id: Math.random(), label: 'Ma boutique Etsy', href: shop.link, active: true }
                         ],
-                        customization: {},
+                        customization: {
+                            'background-color': '#000000',
+                            'background-opacity': '',
+                        },
                         shop: shop._id,
                         owner: shop.owner
                     })
@@ -211,9 +214,9 @@ exports.syncShop = async function (id, syncImages = false, firstSync = false) {
             }
 
             resolve(shop)
-        } catch (err) {
-            console.error(err)
-            reject(err)
+        } catch (e) {
+            console.error(e)
+            reject(e)
         }
     })
 }

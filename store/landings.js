@@ -52,15 +52,21 @@ export default {
                     ...params,
                     type: 'landing'
                 })
+
+                console.log(response)
                 
-                if (response.errors.length > 0) throw response.errors
+                if (response.status == 0) throw Error(response.errors[0])
 
                 commit('updateOne', response.data)
+
+                commit('flashes/add', {
+                    title: 'Page enregistrée',
+                    type: 'success'
+                }, { root: true })
                 
-                return response
+                return response.data
             } catch (e) {
-                console.error(e)
-                return e
+                return storeUtils.handleErrors(e, commit, `Échec de l'enregistrement`)
             }
         },
         async delete ({ commit }, _id) {

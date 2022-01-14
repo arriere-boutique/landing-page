@@ -16,10 +16,10 @@ const ROLES = {
 exports.generatePassword = function (password) {
     return new Promise((resolve, reject) => {
         bcrypt.genSalt(10, function(err, salt) {
-            if (err) reject(err)
+            if (e) reject(e)
             
             bcrypt.hash(password, salt, function(err, hash) {
-                if (err) reject(err)
+                if (e) reject(e)
 
                 resolve(hash)
             })
@@ -31,23 +31,23 @@ exports.authenticate = async function (headers) {
     try {
         let user = null
 
-        if (!headers['authorization']) throw 'no-headers'
+        if (!headers['authorization']) throw Error('no-headers')
 
         let token = headers['authorization'].split(' ')[1]
-        if (!token) throw 'no-token'
+        if (!token) throw Error('no-token')
 
         user = await jwt.verify(token, process.env.SECRET, (err, decoded) => {
             return new Promise (resolve => {
                 let fetched = false
 
-                if (err) throw 'fail-token'
+                if (e) throw Error('fail-token')
                 fetched = Entities.user.model.findOne({ _id: decoded.id }, '-password')
 
                 resolve(!err && fetched ? fetched : false)
             })
         })
 
-        if (!user) throw 'user-not-found'
+        if (!user) throw Error('user-not-found')
 
         return user
     } catch (e) {

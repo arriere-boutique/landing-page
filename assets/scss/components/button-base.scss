@@ -95,6 +95,20 @@
     }
 }
 
+.ButtonBase--xs {
+    font: var(--ft-xs-medium);
+
+    .ButtonBase_content {
+        min-height: 20px;
+        padding: 5px 10px;
+    }
+
+    .ButtonBase_iconBefore {
+        margin-right: 6px;
+        font-size: 14px;
+    }
+}
+
 .ButtonBase--full {
     display: flex;
     width: 100%;

@@ -10,6 +10,10 @@
 
         <div class="LandingBlock_content">
             <p class="ft-m-medium line-1 ellipsis-1">{{ title }}</p>
+
+            <button-base class="mt-20" :modifiers="['secondary', 'xs']" icon-before="copy" @click="$copy(fullLink)">
+                Copier lien
+            </button-base>
         </div>
 
         <div class="LandingBlock_footer">
@@ -29,9 +33,10 @@ export default {
         slug: { type: String },
         logo: { type: String },
         customization: { type: Object },
+        link: { type: String, default: '' },
         links: { type: Array },
         modifiers: { type: Array, default: () => [] }
-    }
+    },
 }
 </script>
 

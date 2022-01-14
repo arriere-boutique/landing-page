@@ -78,7 +78,7 @@ export default {
             try {
                 if (!this.$auth.user) {
                     await this.dispatch('user/createGuest')
-                    if (!this.$auth.user) throw 'user-not-created'
+                    if (!this.$auth.user) throw Error('user-not-created')
                 }
 
                 let items = [ item ].reduce((total, current) => {

@@ -10,7 +10,7 @@ exports.redirect = async function (req, res) {
     try {
         let token = await Entities.token.model.findOne({ id: req.query.state })
 
-        if (!token) throw 'token-not-found'
+        if (!token) throw Error('token-not-found')
 
         await Entities.token.model.findByIdAndDelete(token._id)
 
@@ -29,9 +29,9 @@ exports.redirect = async function (req, res) {
                 'Content-Type': 'application/json'
             }
         })
-    } catch (err) {
-        console.warn(err)
-        errors.push({ code: err.code, message: err.errmsg })
+    } catch (e) {
+        console.warn(e)
+        errors.push(e)
 
         res.redirect(process.env.DASHBOARD_URL + `/parametres?error=1`)
     }

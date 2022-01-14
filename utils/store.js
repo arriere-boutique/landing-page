@@ -25,12 +25,12 @@ export default {
         return items
     },
     handleErrors (e, commit, text) {
-        e = Array.isArray(e) ? e : [e]
+        e = Array.isArray(e) ? e : [ e ]
 
         e.forEach(e => {
             commit('flashes/add', {
                 title: text,
-                text: (e.code ? e.code + ' : ' : '') + e.message
+                text: e.message
             }, { root: true })
 
             console.error(e)
