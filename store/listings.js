@@ -16,7 +16,7 @@ export default {
                     type: 'shopListing'
                 })
                 
-                if (response.errors.length > 0) throw response.errors
+                if (response.status == 0) throw Error(response.errors[0])
 
                 commit('flashes/add', { title: 'Sauvegarde réussie', duration: 2000, type: 'success' }, { root: true })
 

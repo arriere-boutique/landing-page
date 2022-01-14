@@ -59,7 +59,7 @@ export default {
                     formData.append('file', params.file)
                     
                     const response = await this.$axios.$post('/entities', formData)
-                    if (response.errors.length > 0) throw response.errors
+                    if (response.status == 0) throw Error(response.errors[0])
                     
                     resolve(response.data)
                 } catch (e) {
@@ -74,14 +74,13 @@ export default {
                     params: { _id, type: 'mediaCollection' }
                 })
                 
-                if (response.errors.length > 0) throw response.errors
+                if (response.status == 0) throw Error(response.errors[0])
                 
                 commit('deleteOne', _id)
                 
                 return response
             } catch (e) {
-                console.error(e)
-                return e
+                return storeUtils.handleErrors(e, commit, `Une erreur est survenue`)
             }
         }
     },

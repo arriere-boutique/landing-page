@@ -21,28 +21,26 @@ export default {
                     type: 'order'
                 }))
                 
-                if (response.errors.length > 0) throw response.errors
+                if (response.status == 0) throw Error(response.errors[0])
 
                 commit('updateOrder', response.data[0] ? response.data[0] : null)
 
                 return response.data[0] ? response.data[0] : null
             } catch (e) {
-                console.error(e)
-                return e
+                return storeUtils.handleErrors(e, commit, `Une erreur est survenue`)
             }
         },
         async update ({ commit, fetch, rootGetters }, params = {}) {
             try {
                 const response = await this.$axios.$post('/order', params)
                 
-                if (response.errors.length > 0) throw response.errors
+                if (response.status == 0) throw Error(response.errors[0])
 
                 commit('updateOrder', response.data)
 
                 return response.data
             } catch (e) {
-                console.error(e)
-                return e
+                return storeUtils.handleErrors(e, commit, `Une erreur est survenue`)
             }
         },
         async checkout ({ state }) {
@@ -51,12 +49,11 @@ export default {
                     id: state.order._id
                 })
                 
-                if (response.errors.length > 0) throw response.errors
+                if (response.status == 0) throw Error(response.errors[0])
                 
                 return response.data
             } catch (e) {
-                console.error(e)
-                return e
+                return storeUtils.handleErrors(e, commit, `Une erreur est survenue`)
             }
         },
         async fetch ({ state }, params) {
@@ -66,12 +63,11 @@ export default {
                     type: 'order'
                 }))
                 
-                if (response.errors.length > 0) throw response.errors
+                if (response.status == 0) throw Error(response.errors[0])
 
                 return response.data
             } catch (e) {
-                console.error(e)
-                return e
+                return storeUtils.handleErrors(e, commit, `Une erreur est survenue`)
             }
         },
         async addItem ({ state }, item) {

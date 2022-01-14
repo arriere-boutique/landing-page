@@ -15,7 +15,7 @@ export default {
                     ...params
                 })
                 
-                if (response.errors.length > 0) throw response.errors
+                if (response.status == 0) throw Error(response.errors[0])
 
                 return response
             } catch (e) {
@@ -27,12 +27,11 @@ export default {
             try {
                 const response = await this.$axios.$get('/subscribers')
                 
-                if (response.errors.length > 0) throw response.errors
+                if (response.status == 0) throw Error(response.errors[0])
                 
                 return response
             } catch (e) {
-                console.error(e)
-                return e
+                return storeUtils.handleErrors(e, commit, `Une erreur est survenue`)
             }
         },
         async delete ({ commit }, email) {
@@ -41,12 +40,11 @@ export default {
                     params: { email }
                 })
                 
-                if (response.errors.length > 0) throw response.errors
+                if (response.status == 0) throw Error(response.errors[0])
                 
                 return response
             } catch (e) {
-                console.error(e)
-                return e
+                return storeUtils.handleErrors(e, commit, `Une erreur est survenue`)
             }
         }
     }
