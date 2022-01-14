@@ -12,13 +12,13 @@ exports.createOrder = async function (req, res) {
     let options = {}
 
     try {
-        if (!user) throw 'no-user-no-order'
+        if (!user) throw Error('no-user-no-order')
 
         if (req.body.items) options.items = req.body.items
         
         let existing = req.body._id ? await Entities.order.model.findById(req.body._id) : false
         if (existing && existing.completed) {
-            if (!accessCheck('write', Entities.order, existing, user)) throw 'unauthorized'
+            if (!accessCheck('write', Entities.order, existing, user)) throw Error('unauthorized')
         }
 
         if (existing) {
@@ -34,9 +34,9 @@ exports.createOrder = async function (req, res) {
 
         data = await Entities.order.model.find({ _id: data._id })
         data = fieldsCheck('read', data[0]._doc, Entities.order, data[0], user)
-    } catch (err) {
-        console.error(err)
-        errors.push({ code: err.code, message: err.errmsg })
+    } catch (e) {
+        console.error(e)
+        errors.push(e)
     }
 
     res.send({
@@ -51,7 +51,7 @@ exports.checkoutOrder = async function (req, res) {
 
     try {
         let order = await Entities.order.model.findById(req.body.id)
-        if (!order) throw 'order-not-found'
+        if (!order) throw Error('order-not-found')
         
         let intent = await req.app.locals.stripe.paymentIntents.create({
             amount: order.price.total,
@@ -61,12 +61,12 @@ exports.checkoutOrder = async function (req, res) {
             }
         })
 
-        if (!intent) throw 'stripe-intent-failed'
+        if (!intent) throw Error('stripe-intent-failed')
 
         data.token = intent.client_secret
-    } catch (err) {
-        console.warn(err)
-        errors.push({ code: err.code, message: err.errmsg })
+    } catch (e) {
+        console.warn(e)
+        errors.push(e)
     }
 
     res.send({

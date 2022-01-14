@@ -7,7 +7,7 @@ const uploadFile = function ({ app, file, name }) {
             app.locals.s3.putObject({
                 Bucket: process.env.S3_BUCKET, Key: name, Body: fs.createReadStream(file.path)
             }, (err, data) => {
-                console.warn(err)
+                console.warn(e)
                 resolve(err ? false : true)
             })
         })
@@ -23,8 +23,8 @@ const replaceFile = function ({ app, file, name, old }) {
             await new Promise(resolve => {
                 app.locals.s3.deleteObject({
                     Bucket: process.env.S3_BUCKET, Key: old
-                }, (err) => {
-                    console.warn(err)
+                }, (e) => {
+                    console.warn(e)
                     resolve(true)
                 })
             })

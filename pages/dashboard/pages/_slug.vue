@@ -34,8 +34,8 @@
                     <p class="ft-s-bold mb-20">Liste de boutons</p>
 
                     <div class="d-flex fx-align-center mv-10" v-for="link in formData.links" :key="link.id">
-                        <input-base type="text" label="Texte du lien" :value="link.label" @input="(v) => updateLink(link.id, { ...link, label: v })"/>
-                        <input-base type="text" class="ml-10" label="Lien" :value="link.href" @input="(v) => updateLink(link.id, { ...link, href: v })"/>
+                        <input-base type="text" label="Texte du lien" :value="link.label" :attrs="{ required: true }" @input="(v) => updateLink(link.id, { ...link, label: v })"/>
+                        <input-base type="text" class="ml-10" label="Lien" :value="link.href" :attrs="{ required: true }" @input="(v) => updateLink(link.id, { ...link, href: v })"/>
 
                         <div class="Buttons d-flex fx-no-shrink ml-10">
                             <toggle-base :value="link.active" @input="(v) => updateLink(link.id, { ...link, active: v })" />
@@ -72,7 +72,7 @@
                         </div>
                     </div>
 
-                    <div class="mt-10">
+                    <div class="mt-20">
                         <pexels-gallery @select="(v) => { setPhotoColor(v.avg_color); updateCustomization('background', { src: v.src.original, photographer: { url: v.photographer_url, name: v.photographer} }); updateCustomization('background-thumbnail', v.src.large) }"/>
                     </div>
                 </div>
@@ -94,7 +94,7 @@
                     <p class="ft-xs-medium mt-10">Lien final : <span class="text-underline">{{ fullLink }}</span></p>
                 </div>
 
-                <div class="mt-30 text-right">
+                <div class="fixedSubmit text-right" :class="{ 'is-active': changesMade }">
                     <button-base
                         :modifiers="['gum']"
                         :class="{ 'is-disabled': !changesMade, 'is-loading': isLoading }"
@@ -131,7 +131,7 @@ export default {
             description: '',
             slug: 'ma-page',
             customization: {
-                'background-opacity': 0.5,
+                'background-opacity': 50,
                 'background-color': '#000000'
             },
             logo: '',
@@ -153,7 +153,7 @@ export default {
 
             let link = `https://${this.currentShop.slug}.${process.env.baseDomain}`
 
-            if (this.formData.slug) link += '/' + this.formData.slug
+            if (this.formData.slug && !this.formData.isHome) link += '/' + this.formData.slug
 
             return link
         }
@@ -200,7 +200,12 @@ export default {
             this.photoColor = value
         },
         addLink () {
-            this.formData.links.push({ id: Math.random(), label: '', href: '', active: true })
+            this.formData.links = [ ...this.formData.links, {
+                id: Math.random(),
+                label: '',
+                href: '',
+                active: true
+            } ]
         },
         deleteLink (id) {
             this.formData.links = this.formData.links.filter(l => l.id != id)
@@ -226,7 +231,7 @@ export default {
         async deleteEntity () {
             let response = await this.$store.dispatch('landings/delete', this.$data._id)
 
-            if (response.status == 1) {
+            if (response) {
                 this.$router.push({ path: this.localePath({ name: 'pages' }) })
             }
         },
@@ -235,12 +240,13 @@ export default {
                 _id: this.formData._id && this.slug != 'new' ? this.formData._id : undefined,
                 params: {
                     ...this.parseForm(this.formData),
+                    link: this.fullLink,
                     shop: this.currentShop._id,
                     owner: '$self'
                 },
             })
 
-            if (response.status == 1) {
+            if (response) {
                 this.$router.push({ path: this.localePath({ name: 'pages-slug', params: { slug: response.data.slug } }) })
             }
         }
@@ -286,6 +292,22 @@ export default {
             &:hover {
                 color: var(--color-ft-weak);
             }
+        }
+    }
+
+    .fixedSubmit {
+        position: sticky;
+        z-index: 6;
+        border-top: 1px solid var(--color-border);
+        padding: 20px 0;
+        bottom: 0;
+        background-color: var(--color-bg-light);
+        transform: translateY(100%);
+        transition: all 200ms ease;
+
+        &.is-active {
+            margin-top: 20px;
+            transform: translateY(0);
         }
     }
 

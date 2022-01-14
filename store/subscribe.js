@@ -18,8 +18,8 @@ export default {
                 if (response.errors.length > 0) throw response.errors
 
                 return response
-            } catch (err) {
-                console.error(err)
+            } catch (e) {
+                console.error(e)
                 throw err
             }
         },

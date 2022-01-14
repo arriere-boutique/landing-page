@@ -27,8 +27,8 @@ exports.syncEtsy = async function (req, res) {
 
     try {
         data = await syncShop(req.body.id)
-    } catch (err) {
-        console.warn(err)
+    } catch (e) {
+        console.warn(e)
         errors.push({ code: err.code, message: err.errmsg })
     }
 
@@ -44,7 +44,7 @@ exports.linkShop  = async function (req, res) {
     let user = await authenticate(req.headers)
     
     try {
-        if (!req.body.etsyId || !req.body.etsyToken) throw 'missingToken'
+        if (!req.body.etsyId || !req.body.etsyToken) throw Error('missingToken')
         let existing = await Entities.shop.model.findOne({ owner: user._id, etsyId: req.body.etsyId })
 
         let params = {
@@ -66,13 +66,9 @@ exports.linkShop  = async function (req, res) {
         }
 
         data = await syncShop(data._id, true, true)
-    } catch (err) {
-        console.warn(err)
-
-        errors.push({
-            code: err.code,
-            message: err.errmsg ? err.errmsg : err
-        })
+    } catch (e) {
+        console.warn(e)
+        errors.push(e.message)
     }
 
     res.send({
@@ -89,8 +85,8 @@ exports.unlinkShop  = async function (req, res) {
     try {
         let shop = await Entities.shop.model.findById(req.body.id)
 
-        if (!shop) throw 'shopNotFound'
-        if (!shop.owner.equals(user._id)) throw 'unauthorized'
+        if (!shop) throw Error('shopNotFound')
+        if (!shop.owner.equals(user._id)) throw Error('unauthorized')
 
         await Entities.shopListing.model.deleteMany({ owner: user._id, _id: { $in: shop.listings } })
         await Entities.shopOrder.model.deleteMany({ owner: user._id, _id: { $in: shop.orders } })
@@ -102,13 +98,9 @@ exports.unlinkShop  = async function (req, res) {
             shops: user.shops.filter(s => s.equals(shop._id))
         })
 
-    } catch (err) {
-        console.warn(err)
-
-        errors.push({
-            code: err.code,
-            message: err.errmsg ? err.errmsg : err
-        })
+    } catch (e) {
+        console.warn(e)
+        errors.push(e.message)
     }
 
     res.send({
@@ -150,13 +142,9 @@ exports.searchListings = async function (req, res) {
         }))
         
         data = results.reduce((all, current) => [ ...all, ...current ], [])
-    } catch (err) {
-        console.warn(err)
-
-        errors.push({
-            code: err.code,
-            message: err.errmsg ? err.errmsg : err
-        })
+    } catch (e) {
+        console.warn(e)
+        errors.push(e.message)
     }
 
     res.send({

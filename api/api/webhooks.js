@@ -7,8 +7,8 @@ exports.webhooks = async function (req, res) {
 
     try {
         event = req.app.locals.stripe.webhooks.constructEvent(req.body, sig, process.env.STRIPE_WEBHOOKS)
-    } catch (err) {
-        console.error(err)
+    } catch (e) {
+        console.error(e)
         res.status(400).send(`Webhook Error: ${err.message}`)
         return
     }

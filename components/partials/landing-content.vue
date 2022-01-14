@@ -27,7 +27,7 @@
         <div class="LandingPage_footer">
             <div>
                 <div class="LandingPage_credits p-10" v-if="content.customization && content.customization.background && content.customization.background.photographer">
-                    <p class="round mr-5"><i class="fal fa-camera"></i></p>
+                    <p class="round-s mr-5"><i class="fal fa-camera"></i></p>
                     <link-base
                         :modifiers="['light', 's']"
                         :link="content.customization.background.photographer.url"
@@ -56,14 +56,18 @@ export default {
     }),
     async mounted () {
         if (this.content.customization && this.content.customization['background'] && !this.isPreview) {
-            await new Promise((resolve, reject) => {
-                let img = new Image()
-                img.onload = () => resolve(img.height)
-                img.onerror = reject
-                img.src = this.content.customization['background'].src
-            })
+            try {
+                await new Promise((resolve, reject) => {
+                    let img = new Image()
+                    img.onload = () => resolve(img.height)
+                    img.onerror = reject
+                    img.src = this.content.customization['background'].src
+                })
 
-            this.isLoading = false
+                this.isLoading = false
+            } catch (e) {
+                this.isLoading = false
+            }
         }
 
         setTimeout(() => this.isLoading = false, 5000)

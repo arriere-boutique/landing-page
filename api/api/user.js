@@ -4,6 +4,7 @@ const { $fetch } = require('ohmyfetch/node')
 const Entities = require('../entities')
 
 const { authenticate } = require('../utils/user')
+const { ErrorModel } = require('sib-api-v3-sdk')
 
 exports.logUser = async function (req, res) {
     let errors = []
@@ -24,18 +25,18 @@ exports.logUser = async function (req, res) {
 
             data = user
         } else {
-            if (!req.body.email || !req.body.password || !req.body.token) throw 'missingFields'
+            if (!req.body.email || !req.body.password || !req.body.token) throw Error('missingFields')
             
             if (process.env.NODE_ENV == "PRODUCTION") {
                 const challenge = await $fetch(`https://www.google.com/recaptcha/api/siteverify?secret=${process.env.RECAPTCHA_SECRET}&response=${req.body.token}`)
 
-                if (!challenge.success) throw 'challenge-failed'
+                if (!challenge.success) throw Error('challenge-failed')
             }
 
             user = await Entities.user.model.findOne({ email: req.body.email })
             
-            if (register && user) throw 'alreadyRegistered'
-            if (!register && !user) throw 'emailNotFound'
+            if (register && user) throw Error('alreadyRegistered')
+            if (!register && !user) throw Error('emailNotFound')
             
             if (user) {
                 authenticated = await user.comparePassword(req.body.password)
@@ -59,7 +60,7 @@ exports.logUser = async function (req, res) {
                 user.owner = user._id
                 user.save()
                 
-                if (!user) throw 'error'
+                if (!user) throw Error('error')
 
                 authenticated = true
 
@@ -78,8 +79,8 @@ exports.logUser = async function (req, res) {
                     }
                     
                     if (process.env.NODE_ENV == "PRODUCTION") await apiInstance.createContact(createContact)
-                } catch (err) {
-                    console.error(err)
+                } catch (e) {
+                    console.error(e)
                 }
             }
 
@@ -88,12 +89,12 @@ exports.logUser = async function (req, res) {
                     expiresIn: 864000
                 })
             } else {
-                throw 'wrongCredentials'
+                throw Error('wrongCredentials')
             }
         }
-    } catch (err) {
-        console.error(err)
-        errors.push(err)
+    } catch (e) {
+        console.error(e)
+        errors.push(e)
     }
     
     res.send({
@@ -109,12 +110,12 @@ exports.getUser = async function (req, res) {
     try {
         user = await authenticate(req.headers)
 
-        if (!user) throw 'wrongCredentials'
+        if (!user) throw Error('wrongCredentials')
 
         user.shops = await Promise.all(user.shops.map(async shop => await Entities.shop.model.findById(shop)))
-    } catch (err) {
-        console.error(err)
-        errors.push(err)
+    } catch (e) {
+        console.error(e)
+        errors.push(e)
     }
 
     res.send({

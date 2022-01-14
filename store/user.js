@@ -17,10 +17,10 @@ export default {
                     data: { _id: state.guestId ? state.guestId : undefined, type: 'guest' }
                 })
     
-                if (response.data.status != 1) throw 'error'
+                if (response.data.status != 1) throw Error('error')
             } catch (e) {
                 console.error(e)
-                return e
+                return null
             }
         },
         async createGuest ({ state }) {
@@ -29,10 +29,10 @@ export default {
                     data: { _id: state.guestId ? state.guestId : undefined, type: 'guest' }
                 })
     
-                if (response.data.status != 1) throw 'error'
+                if (response.data.status != 1) throw Error('error')
             } catch (e) {
                 console.error(e)
-                return e
+                return null
             }
         },
         async fetch ({ commit }) {
@@ -44,7 +44,7 @@ export default {
                 return response
             } catch (e) {
                 console.error(e)
-                return e
+                return null
             }
         },
         async update ({ commit, rootState }, params) {
@@ -55,14 +55,14 @@ export default {
                     type: 'user'
                 })
                 
-                if (response.errors.length > 0) throw response.errors
+                if (response.errors.length > 0) throw Error(response.errors[0])
 
                 this.$auth.fetchUser()
     
                 return response
             } catch (e) {
                 console.error(e)
-                return e
+                return null
             }
         }
     }
