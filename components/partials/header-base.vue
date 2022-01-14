@@ -1,10 +1,10 @@
 <template>
     <header class="HeaderBase" :class="{ 'is-scrolled': state.isScrolled }">
-        <div class="HeaderBase_wrapper">
+        <div class="HeaderBase_wrapper Wrapper Wrapper--m">
             <div class="HeaderBase_left">
-                <nuxt-link class="HeaderBase_logo" :to="localePath({ name: 'blog' })">
+                <a class="HeaderBase_logo" :href="$baseUrl">
                     <icon-base name="logo/logo-main" :height="state.isScrolled ? 35 : 45" />
-                </nuxt-link>
+                </a>
             </div>
 
             <div class="HeaderBase_right">

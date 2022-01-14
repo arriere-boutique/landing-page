@@ -2,7 +2,7 @@
     <footer class="FooterBase">
         
         <div class="bg-gum-xweak">
-            <div class="FooterBase_nav Wrapper Wrapper--l">
+            <div class="FooterBase_nav Wrapper Wrapper--m">
                 <div class="FooterBase_links fx-grow row-xs">
                     <div class="col-6 pv-60 col-12@s pv-20@s" v-for="(item, i) in items" :key="i">
                         <p class="ft-m-bold">{{ item.label }}</p>

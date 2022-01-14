@@ -24,7 +24,7 @@
             </transition-group>
         </div>
 
-        <div class="LandingPage_footer">
+        <div class="LandingPage_footer" v-if="!isPreview">
             <div>
                 <div class="LandingPage_credits p-10" v-if="content.customization && content.customization.background && content.customization.background.photographer">
                     <p class="round-s mr-5"><i class="fal fa-camera"></i></p>
