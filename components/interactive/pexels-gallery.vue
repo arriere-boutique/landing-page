@@ -11,7 +11,7 @@
 
         <div class="p-30">
             <div ref="container">
-                <div class="PexelsGallery_row" v-for="(row, i) in rows" :key="i">
+                <div class="PexelsGallery_row" v-for="(row, i) in displayedRows" :key="i">
                     <div class="PexelsGallery_photo" v-for="photo in row.photos" :key="photo.id" :style="{ '--width': photo.width + 'px', '--height': photo.height + 'px' }" @click="$emit('select', photo.original)">
                         <img :src="photo.original.src.medium" :width="Math.min(photo.original.width * 0.8, photo.width)" :height="Math.min(photo.original.height * 0.8, photo.height)" />
                     </div>
@@ -44,11 +44,13 @@ export default {
         random: {}
     }),
     props: {
-        height: { type: Number, default: 150 }
+        height: { type: Number, default: 150 },
+        maxRows: { type: [Number, Boolean], default: 2 },
+        maxPhotos: { type: [Number, Boolean], default: false }
     },
     computed: {
-        displayedPhotos () {
-            return this.photos.slice(0, 15)
+        displayedRows () {
+            return this.rows.slice(0, 2)
         }
     },  
     mounted () {
@@ -58,10 +60,8 @@ export default {
     },
     methods: {
         getNext () {
-            this.photos = this.photos.slice(15)
-
-            if (this.photos.length > 15) {
-                this.rows = this.arrangePhotos(this.displayedPhotos)
+            if (this.rows.length > 2) {
+                this.rows = this.rows.slice(2)
             } else {
                 this.search(this.query)
             }
@@ -81,7 +81,7 @@ export default {
             let response = await this.$store.dispatch('pexels/fetch', params)
 
             this.photos = response
-            this.rows = this.arrangePhotos(this.displayedPhotos)
+            this.rows = this.arrangePhotos(this.photos)
 
             this.random = this.photos[this.$randomBetween(0, this.photos.length - 1)]
 
@@ -134,7 +134,7 @@ export default {
                 }))
             })
 
-            return rows
+            return rows.filter(r => r.photos.length > 0)
         }
     }
 }

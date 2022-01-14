@@ -40,3 +40,20 @@
     position: relative;
     transition: all 100ms ease;
 }
+
+.LinkBase--s {
+    font: var(--ft-xs-medium);
+    line-height: 1;
+
+    &::before {
+        bottom: -4px;
+    }
+}
+
+.LinkBase--light {
+    color: var(--color-ft-light);
+
+    &::before {
+        background-color: var(--color-ft-light);
+    }
+}

@@ -68,7 +68,7 @@ export default {
 
                 return storeUtils.getQuery('https://www.etsy.com/oauth/connect', {
                     response_type: 'code',
-                    redirect_uri: 'http://localhost:3000/api/oauth/redirect',
+                    redirect_uri: process.env.baseUrl + '/api/oauth/redirect',
                     scope: ['shops_r', 'shops_w', 'listings_r', 'listings_w', 'address_r', 'billing_r', 'email_r', 'profile_r', 'profile_w', 'transactions_r', 'transactions_w'].join('%20'),
                     client_id: 'p7yi9v1ughgg9uy0d39tljzr',
                     state: state.stateId,

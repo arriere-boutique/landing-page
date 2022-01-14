@@ -78,6 +78,28 @@
     transform: translateY(0);
 }
 
+
+// 
+
+.default-enter {
+    opacity: 0;
+    transform: translateY(-5px);
+}
+
+.default-enter-to {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.default-leave-active {
+    position: absolute;
+    transition: all ease-in-out 300ms;
+}
+
+.default-move {
+    transition: all ease-in-out 300ms;
+}
+
 .round,
 .round-s,
 .round-xs {

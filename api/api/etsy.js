@@ -65,7 +65,7 @@ exports.linkShop  = async function (req, res) {
             await Entities.user.model.findByIdAndUpdate(user._id, { shops })
         }
 
-        data = await syncShop(data._id, true)
+        data = await syncShop(data._id, true, true)
     } catch (err) {
         console.warn(err)
 
@@ -94,7 +94,13 @@ exports.unlinkShop  = async function (req, res) {
 
         await Entities.shopListing.model.deleteMany({ owner: user._id, _id: { $in: shop.listings } })
         await Entities.shopOrder.model.deleteMany({ owner: user._id, _id: { $in: shop.orders } })
+        await Entities.landing.model.deleteMany({ owner: user._id, shop: shop._id })
         await Entities.shop.model.deleteOne({ owner: user._id, _id: shop._id })
+
+        await Entities.user.model.findByIdAndUpdate(user._id, {
+            ...user,
+            shops: user.shops.filter(s => s.equals(shop._id))
+        })
 
     } catch (err) {
         console.warn(err)
