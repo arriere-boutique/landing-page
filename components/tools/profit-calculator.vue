@@ -8,7 +8,9 @@
                     <div class="col-6" >
                         <input-base label="Prix actuel" suffix="€" class="is-disabled" :value="price.amount / price.divisor">
                             <tooltip text="C'est le prix que tu as renseigné sur Etsy. Pour le modifier, rendez-vous là-bas !" />
-                        </input-base> 
+                        </input-base>
+
+                        <input-base type="number" class="mt-10" label="Frais d'expédition" suffix="€" v-model="formData.shippingPrice" />
                     </div>
                     <div class="col-6">
                         <input-base type="number" label="Simuler un prix" suffix="€" v-model="simulatedPrice">
@@ -37,7 +39,7 @@
             <div>
                 <p class="ft-l-bold mb-15"><i class="fal fa-truck mr-3"></i> Expédition</p>
 
-                <input-base type="number" label="Frais d'envoi" suffix="€" v-model="formData.shippingPrice">
+                <input-base type="number" label="Frais d'envoi" suffix="€" v-model="formData.shippingCost">
                     <tooltip text="Ce que tu payes au transporteur (La Poste, Mondial Relay...)" />
                 </input-base>
 

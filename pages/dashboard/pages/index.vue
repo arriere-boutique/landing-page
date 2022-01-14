@@ -1,15 +1,25 @@
 <template>
     <div>
-        <div class="Wrapper Wrapper--left">
+        <div class="Wrapper Wrapper--left pb-40">
             <p class="ft-2xl-bold mv-40">Mes pages</p>
 
             <div class="Page_cols">
                 <div class="fx-grow">
-                    <div class="row-s">
-                        <div class="col-6" v-for="landing in landings" :key="landing._id">
+                    <transition-group name="default" class="row-s">
+                        <div class="col-6 col-12@m mb-20" v-for="landing in landings.filter(l => l.isActive)" :key="landing._id">
                             <landing-block v-bind="landing" />
                         </div>
-                    </div>
+                    </transition-group>
+
+                    <template v-if="landings.filter(l => !l.isActive).length > 0">
+                        <p class="ft-xl-bold mt-40 mb-20">Pages désactivées</p>
+
+                        <transition-group name="default" class="row-s">
+                            <div class="col-6 col-12@m mb-20" v-for="landing in landings.filter(l => !l.isActive)" :key="landing._id">
+                                <landing-block v-bind="landing" />
+                            </div>
+                        </transition-group>
+                    </template>
                 </div>
 
                 <div class="Page_side p-20 text-center">
@@ -18,7 +28,7 @@
                         :modifiers="['ice']"
                         tag="nuxt-link"
                         :attrs="{
-                            to: localePath({ name: 'pages-slug', params: { slug: 'new' }})
+                            to: localePath({ name: 'pages-id', params: { slug: 'new' }})
                         }"
                     >
                         Créer une page

@@ -13,11 +13,11 @@
                 <button-base
                     class="LandingPage_button"
                     :modifiers="['full']"
-                    v-for="(link, i) in content.links.filter(l => l.active)"
+                    v-for="link in content.links.filter(l => l.active)"
                     tag="a"
                     :link="link.href"
                     :target="isPreview ? true : false"
-                    :key="i"
+                    :key="link.id"
                 >
                     {{ link.label }}
                 </button-base>

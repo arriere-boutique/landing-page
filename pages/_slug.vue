@@ -25,6 +25,7 @@ export default {
                 update: false,
                 query: {
                     slug: this.slug ? this.slug : 'home',
+                    isActive: true,
                     shop: this.shop._id
                 }
             })
@@ -36,6 +37,7 @@ export default {
                     update: false,
                     query: {
                         slug: 'home',
+                        isActive: true,
                         shop: this.shop._id
                     }
                 })

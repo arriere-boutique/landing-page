@@ -26,7 +26,7 @@
                 </span>
             </div>
             <div>
-                <span>
+                <span @mouseenter="(e) => $tOpen(`Profit estimé par vente de cet article`, e)" @mouseleave="$tClose">
                     <i class="fal fa-coin mr-3"></i> <span v-if="costs.totalRemaining">{{ costs.totalRemaining|round }}€</span>
                     <span class="round-s bg-sunset-xweak" v-else>?</span>
                 </span>

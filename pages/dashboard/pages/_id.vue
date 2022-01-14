@@ -77,7 +77,7 @@
                     </div>
                 </div>
 
-                <div class="p-20 b br-m mv-10">
+                <div class="p-20 b br-m mv-10" v-if="!formData.isHome">
                     <p class="ft-m-bold mb-10">Personnaliser mon lien</p>
 
                     <div class="d-flex fx-align-center">
@@ -88,7 +88,7 @@
                         />
                         <p class="fx-no-shrink mh-10">.arriere-boutique.fr/</p>
 
-                        <input-base v-model="formData.slug" style="min-width: 120px" :attrs="{ required: true }" v-if="!formData.isHome"/>
+                        <input-base v-model="formData.slug" style="min-width: 120px" :attrs="{ required: true }"/>
                     </div>
 
                     <p class="ft-xs-medium mt-10">Lien final : <span class="text-underline">{{ fullLink }}</span></p>
@@ -117,12 +117,12 @@ export default {
     middleware: 'loggedUser',
     layout: 'dashboard',
     async fetch () {
-        this.slug = this.$route.params.slug
+        this._id = this.$route.params.id
 
-        this.slug && this.slug != 'new' && !this.$route.query.clone ? await this.$store.dispatch('landings/get', { query: { slug: this.slug } }) : {}
+        this._id && this._id != 'new' && !this.$route.query.clone ? await this.$store.dispatch('landings/get', { query: { _id: this._id } }) : {}
     },
     data: () => ({
-        slug: '',
+        _id: '',
         isLoading: true,
         photoColor: '',
         prevFormData: {},
@@ -140,7 +140,7 @@ export default {
         }
     }),
     computed: {
-        serverEntity () { return this.$store.getters['landings/findOne']({ slug: this.$data.slug }, true) },
+        serverEntity () { return this.$store.getters['landings/findOne']({ _id: this._id }, true) },
         shops () { return this.$store.state.shop.items },
         changesMade () {
             return JSON.stringify(this.parseForm(this.formData)) != JSON.stringify(this.parseForm(this.prevFormData))
@@ -237,7 +237,7 @@ export default {
         },
         async update () {
             let response = await this.$store.dispatch('landings/create', {
-                _id: this.formData._id && this.slug != 'new' ? this.formData._id : undefined,
+                _id: this.formData._id ? this.formData._id : undefined,
                 params: {
                     ...this.parseForm(this.formData),
                     link: this.fullLink,
@@ -247,7 +247,7 @@ export default {
             })
 
             if (response) {
-                this.$router.push({ path: this.localePath({ name: 'pages-slug', params: { slug: response.data.slug } }) })
+                this.$router.push({ path: this.localePath({ name: 'pages-id', params: { slug: response._id } }) })
             }
         }
     }

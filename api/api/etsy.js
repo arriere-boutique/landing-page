@@ -26,10 +26,10 @@ exports.syncEtsy = async function (req, res) {
     let user = await authenticate(req.headers)
 
     try {
-        data = await syncShop(req.body.id)
+        data = await syncShop(req.body.id, req.body.syncItems ? req.body.syncItems : ['info', 'listings', 'orders'])
     } catch (e) {
         console.warn(e)
-        errors.push({ code: err.code, message: err.errmsg })
+        errors.push(e.message)
     }
 
     res.send({
@@ -65,7 +65,7 @@ exports.linkShop  = async function (req, res) {
             await Entities.user.model.findByIdAndUpdate(user._id, { shops })
         }
 
-        data = await syncShop(data._id, true, true)
+        data = await syncShop(data._id, ['info', 'listings', 'orders', 'listing-photos'], true)
     } catch (e) {
         console.warn(e)
         errors.push(e.message)

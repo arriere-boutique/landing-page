@@ -76,23 +76,21 @@ exports.createEntity = async function (req, res) {
         if (typeSetters[req.body.type]) fields = await typeSetters[req.body.type](fields, req)
 
         fields = parseQuery(fields, user)
-        console.log(fields)
+        
+        if (Entity.unique && fields.query[Entity.unique]) {
+            let params = [ Entity.unique, ...Entity.uniqueConditions].reduce((params, key) => {
+                if (!fields.query[key]) throw Error('missingDuplicateParameter')
 
-        if (Entity.unique) {
-            let params = Entity.unique.reduce((params, key) => {
-                if (!fields[key]) throw Error('missingDuplicateParameter')
-
-                return { ...params, [key]: fields[key] }
+                return { ...params, [key]: fields.query[key] }
             }, {})
             
             let duplicate = await Entity.model.findOne(params)
-            if (duplicate) throw Error('duplicateFound')
+            if (duplicate && (!result || !duplicate._id.equals(result._id))) throw Error('duplicateFound')
         }
 
         if (result) {
             data = await Entity.model.findByIdAndUpdate(req.body._id, fields.query)
         } else {
-
             data = await Entity.model.create(fields.query)
         }
 
@@ -103,7 +101,7 @@ exports.createEntity = async function (req, res) {
     } catch (e) {
         console.warn(e)
         console.warn(e)
-errors.push(e.message)
+        errors.push(e.message)
     }
 
     res.send({

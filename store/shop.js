@@ -41,15 +41,6 @@ export default {
                 return storeUtils.handleErrors(e, commit, 'Échec lors de la récupération des données de boutique')
             }
         },
-        async ping () {
-            try {
-                const response = await this.$axios.$get(storeUtils.getQuery('/etsy/ping'))
-                return response.data
-            } catch (e) {
-                console.error(e)
-                return null
-            }
-        },
         async auth ({ commit, state }) {
             try {
                 const codes = generateCodes()
@@ -79,11 +70,13 @@ export default {
                 return storeUtils.handleErrors(e, commit, 'Échec lors de la connection de la boutique')
             }
         },
-        async sync ({ commit, dispatch }, id) {
+        async sync ({ commit, dispatch }, params) {
             try {
-                const response = await this.$axios.$post('/etsy/sync', { id })
+                const response = await this.$axios.$post('/etsy/sync', {
+                    ...params.params
+                })
 
-                if (response.status == 0) throw response.errors
+                if (response.status == 0) throw Error(response.errors[0])
 
                 commit('flashes/add', {
                     title: response.data.name + ' synchronisée',
@@ -103,7 +96,7 @@ export default {
                     ...params
                 })
                 
-                if (response.status == 0) throw response.errors
+                if (response.status == 0) throw Error(response.errors[0])
 
                 commit('flashes/add', {
                     title: `Mission réussie, ta boutique ${response.data.name} a correctement été ajoutée !`,
@@ -121,7 +114,7 @@ export default {
             try {
                 const response = await this.$axios.$post('/etsy/unlink', { id })
                 
-                if (response.status == 0) throw response.errors
+                if (response.status == 0) throw Error(response.errors[0])
 
                 commit('flashes/add', {
                     title: 'Mission réussie, ta boutique est déconnectée.',

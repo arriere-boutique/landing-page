@@ -14,7 +14,7 @@
                     <placeholder class="br-m" text="Ajout en cours..." />
                 </div>
 
-                <div class="col-4 pv-10 d-flex" :style="{ minHeight: '325px' }">
+                <div class="col-4 pv-10 d-flex" :style="{ minHeight: '325px' }" v-if="!token">
                     <div class="text-center height-100 d-flex width-100 fx-justify-center br-m fx-align-center bg-ice-xweak">
                         <button-base icon-before="plus" :modifiers="['ice']" @click="connectShop">Connecter une boutique</button-base>
                     </div>
@@ -47,23 +47,27 @@ export default {
         this.token = this.$route.query.token
 
         if (this.token) {
-            let refresh = this.$route.query.refresh
-            let query = Object.assign({}, this.$route.query)
-            
-            delete query.token
-            delete query.refresh
+            try {
+                let refresh = this.$route.query.refresh
+                let query = Object.assign({}, this.$route.query)
+                
+                delete query.token
+                delete query.refresh
 
-            this.$router.replace({ query })
+                this.$router.replace({ query })
 
-            await this.$store.dispatch('shop/create', {
-                etsyId: this.token.split('.')[0],
-                etsyToken: this.token,
-                etsyRefresh: refresh
-            })
+                await this.$store.dispatch('shop/create', {
+                    etsyId: this.token.split('.')[0],
+                    etsyToken: this.token,
+                    etsyRefresh: refresh
+                })
 
-            this.$auth.fetchUser()
+                this.$auth.fetchUser()
 
-            this.token = false
+                this.token = false
+            } catch (e) {
+                this.token = false
+            }
         }
     },
     methods: {
@@ -74,7 +78,9 @@ export default {
         async syncShop (id) {
             this.shopsSyncing.push(id)
 
-            let response = await this.$store.dispatch('shop/sync', id)
+            await this.$store.dispatch('shop/sync', {
+                params: { id, syncItems: [ 'info', 'listings', 'orders', 'listing-photos'] }
+            })
 
             this.shopsSyncing = this.shopsSyncing.filter(s => s._id == id)
         },
