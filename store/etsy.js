@@ -12,7 +12,7 @@ export default {
                     ...params
                 }))
                 
-                if (response.errors.length > 0) throw response.errors
+                if (response.status == 0) throw Error(response.errors[0])
 
                 return response.data
             } catch (e) {

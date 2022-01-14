@@ -32,7 +32,7 @@ export default {
                     type: 'shop',
                 }))
                 
-                if (response.errors.length > 0) throw response.errors
+                if (response.status == 0) throw Error(response.errors[0])
 
                 commit('setShops', response.data)
 
@@ -64,7 +64,7 @@ export default {
                     type: 'token'
                 })
                 
-                if (response.errors.length > 0) throw response.errors
+                if (response.status == 0) throw Error(response.errors[0])
 
                 return storeUtils.getQuery('https://www.etsy.com/oauth/connect', {
                     response_type: 'code',

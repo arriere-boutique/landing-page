@@ -37,13 +37,15 @@ export default {
                     ...params.query,
                     type: 'landing'
                 }))
+
+                if (response.status == 0) throw Error(response.errors[0])
    
                 if (params.update !== false) commit('updateOne', Array.isArray(response.data) ? response.data[0] : response.data)
 
                 return response.data
             } catch (e) {
-                console.error(e)
-                return null
+                return storeUtils.handleErrors(e, commit, `Une erreur est survenue`)
+
             }
         },
         async create ({ commit }, params = {}) {
@@ -52,11 +54,9 @@ export default {
                     ...params,
                     type: 'landing'
                 })
-
-                console.log(response)
                 
                 if (response.status == 0) throw Error(response.errors[0])
-
+                
                 commit('updateOne', response.data)
 
                 commit('flashes/add', {
@@ -66,7 +66,7 @@ export default {
                 
                 return response.data
             } catch (e) {
-                return storeUtils.handleErrors(e, commit, `Échec de l'enregistrement`)
+                return storeUtils.handleErrors(e, commit, `Une erreur est survenue`)
             }
         },
         async delete ({ commit }, _id) {
@@ -75,14 +75,13 @@ export default {
                     params: { _id, type: 'landing' }
                 })
 
-                if (response.errors.length > 0) throw response.errors
+                if (response.status == 0) throw Error(response.errors[0])
                 
                 commit('deleteOne', _id)
                 
                 return response
             } catch (e) {
-                console.error(e)
-                return e
+                return storeUtils.handleErrors(e, commit, `Une erreur est survenue`)
             }
         }
     },

@@ -40,7 +40,7 @@ exports.authenticate = async function (headers) {
             return new Promise (resolve => {
                 let fetched = false
 
-                if (e) throw Error('fail-token')
+                if (err) throw Error('fail-token')
                 fetched = Entities.user.model.findOne({ _id: decoded.id }, '-password')
 
                 resolve(!err && fetched ? fetched : false)

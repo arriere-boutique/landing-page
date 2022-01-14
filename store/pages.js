@@ -54,14 +54,13 @@ export default {
                     type: 'page'
                 })
                 
-                if (response.errors.length > 0) throw response.errors
+                if (response.status == 0) throw Error(response.errors[0])
 
                 commit('updateOne', response.data)
                 
                 return response
             } catch (e) {
-                console.error(e)
-                return e
+                return storeUtils.handleErrors(e, commit, `Une erreur est survenue`)
             }
         },
         async delete ({ commit }, _id) {
@@ -74,14 +73,13 @@ export default {
                     type: response.status == 1 ? 'success' : 'error'
                 }, { root: true })
                 
-                if (response.errors.length > 0) throw response.errors
+                if (response.status == 0) throw Error(response.errors[0])
                 
                 commit('deleteOne', _id)
                 
                 return response
             } catch (e) {
-                console.error(e)
-                return e
+                return storeUtils.handleErrors(e, commit, `Une erreur est survenue`)
             }
         }
     },
