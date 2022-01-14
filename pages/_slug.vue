@@ -1,5 +1,9 @@
 <template>
     <div class="LandingPage">
+        <template v-if="!shop">
+            Subdomain does not exist
+        </template>
+
         <landing-content :content="content" v-if="shop && content" />
     </div>
 </template>
@@ -17,22 +21,30 @@ export default {
             this.shop = response[0]
             this.slug = this.$route.params.slug
 
-            if (this.slug) {
+            let content = await this.$store.dispatch('landings/get', {
+                update: false,
+                query: {
+                    slug: this.slug ? this.slug : 'home',
+                    shop: this.shop._id
+                }
+            })
+
+            if (content && content.length > 0) {
+                this.content = content[0]
+            } else if (this.slug) {
                 let content = await this.$store.dispatch('landings/get', {
                     update: false,
                     query: {
-                        slug: this.slug,
+                        slug: 'home',
                         shop: this.shop._id
                     }
                 })
 
-                console.log(content)
-
                 if (content && content.length > 0) {
                     this.content = content[0]
                 } else {
-                    // this.$router.push(this.localePath({ name: 'slug', params: { slug: null }}))
-                }
+                    this.shop = null
+                }   
             }
         }
     },

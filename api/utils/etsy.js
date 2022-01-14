@@ -3,7 +3,7 @@ const moment = require('moment')
 const Entities = require('../entities')
 const { $fetch } = require('ohmyfetch/node')
 
-exports.syncShop = async function (id, syncImages = false) {
+exports.syncShop = async function (id, syncImages = false, firstSync = false) {
     return new Promise(async (resolve, reject) => {
 
         try {
@@ -44,6 +44,26 @@ exports.syncShop = async function (id, syncImages = false) {
             shop.openingDate = shopData.create_date
 
             shop.save()
+            
+            if (firstSync) {
+                try {
+                    await Entities.landing.model.create({
+                        isHome: true,
+                        title: `Bienvenue chez ${shop.name} !`,
+                        logo: shop.logo,
+                        slug: 'home',
+                        links: [
+                            { id: Math.random(), label: 'Ma boutique Etsy', href: shop.link, active: true }
+                        ],
+                        customization: {},
+                        shop: shop._id,
+                        owner: shop.owner
+                    })
+                } catch (e) {
+                    console.warn('Landing creation failed')
+                    console.error(e)
+                }
+            }
 
             try {
                 let listingData = await $fetch(`https://openapi.etsy.com/v3/application/shops/${shopData.shop_id}/listings?limit=100&language=fr`, { headers })

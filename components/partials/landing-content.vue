@@ -1,5 +1,5 @@
 <template>
-    <div class="LandingPage_content" :class="{ 'is-loaded': !isLoading }" :style="custom">
+    <div class="LandingPage_content" :class="{ 'is-loaded': !isLoading, 'is-preview': isPreview }" :style="custom">
 
         <div class="LandingPage_backgroundColor"></div>
 
@@ -9,15 +9,35 @@
             <h1 class="LandingPage_title">{{ content.title }}</h1>
             <h2 class="LandingPage_text" v-if="content.description">{{ content.description }}</h2>
 
-            <div class="LandingPage_buttons">
-                <button-base class="LandingPage_button" :modifiers="['full']" v-for="(link, i) in content.links.filter(l => l.active)" tag="a" :link="link.href" :key="i">
+            <transition-group tag="div" name="default" class="LandingPage_buttons">
+                <button-base
+                    class="LandingPage_button"
+                    :modifiers="['full']"
+                    v-for="(link, i) in content.links.filter(l => l.active)"
+                    tag="a"
+                    :link="link.href"
+                    :target="isPreview ? true : false"
+                    :key="i"
+                >
                     {{ link.label }}
                 </button-base>
-            </div>
+            </transition-group>
         </div>
 
         <div class="LandingPage_footer">
-            <a class="LandingPage_footerLogo fill-bg-light" :href="$baseUrl">
+            <div>
+                <div class="LandingPage_credits p-10" v-if="content.customization && content.customization.background && content.customization.background.photographer">
+                    <p class="round mr-5"><i class="fal fa-camera"></i></p>
+                    <link-base
+                        :modifiers="['light', 's']"
+                        :link="content.customization.background.photographer.url"
+                        target="_blank"
+                    >
+                        {{ content.customization.background.photographer.name }}
+                    </link-base>
+                </div>
+            </div>
+            <a class="LandingPage_footerLogo fill-bg-light" :href="$baseUrl" target="_blank">
                 <icon-base name="logo/logo-main" />
             </a>
         </div>
@@ -28,18 +48,19 @@
 export default {
     name: 'LandingContent',
     props: {
-        content: { type: [Object, Boolean], default: false }
+        content: { type: [Object, Boolean], default: false },
+        isPreview: { type: Boolean, default: false }
     },
     data: () => ({
         isLoading: true
     }),
     async mounted () {
-        if (this.content.customization['background']) {
+        if (this.content.customization && this.content.customization['background'] && !this.isPreview) {
             await new Promise((resolve, reject) => {
                 let img = new Image()
                 img.onload = () => resolve(img.height)
                 img.onerror = reject
-                img.src = this.content.customization['background']
+                img.src = this.content.customization['background'].src
             })
 
             this.isLoading = false
@@ -49,12 +70,15 @@ export default {
     },
     computed: {
         custom () {
+            if (!this.content.customization) return {}
+            
             return Object.keys(this.content.customization).reduce((total, current) =>  {
                 let value = this.content.customization[current]
 
-                if (!['background', 'background-opacity', 'background-thumbnail'].includes(current)) return total
+                if (!['background', 'background-opacity', 'background-thumbnail', 'background-color'].includes(current)) return total
 
-                if (current == 'background' || current == 'background-thumbnail') value = `url(${value})`
+                if (current == 'background-thumbnail') value = `url(${value})`
+                if (current == 'background') value = `url(${value.src})`
                 if (current == 'background-opacity') value = value / 100
 
                 return { ...total, [`--${current}`]: value }
@@ -109,7 +133,7 @@ export default {
         left: 0;
         width: 100%;
         height: 100%;
-        background-color: black;
+        background-color: var(--background-color, black);
         z-index: 5;
         transition: all 1000ms;
         opacity: var(--background-opacity, 0);
@@ -155,10 +179,12 @@ export default {
 
     .LandingPage_footer {
         position: relative;
-        margin: 5vh auto;
+        padding: 30px;
         z-index: 5;
         width: 100%;
-        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
     }
 
     .LandingPage_footerLogo {
@@ -166,10 +192,43 @@ export default {
         max-width: 120px;
         width: 20%;
         display: block;
-        margin: 0 auto;
 
         .IconBase {
             width: 100%;
+        }
+    }
+
+    .LandingPage_credits {
+        text-align: left;
+        background-color: var(--color-white-25);
+        border-radius: 10px;
+        opacity: 0.5;
+        display: flex;
+        align-items: center;
+        transition: all 300ms ease;
+
+        & > p {
+            background-color: var(--color-white-50);
+        }
+
+        &:hover {
+            opacity: 1;
+        }
+    }
+
+    .LandingPage_content.is-preview {
+
+        &::before {
+            transition: all 100ms ease;
+            filter: none;
+        }
+
+        &::after {
+            display: none;
+        }
+
+        .LandingPage_backgroundColor {
+            transition: none;
         }
     }
 </style>

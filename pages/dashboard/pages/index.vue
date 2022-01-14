@@ -5,7 +5,7 @@
 
             <div class="Page_cols">
                 <div class="fx-grow">
-                    <div class="row-xs">
+                    <div class="row-s">
                         <div class="col-6" v-for="landing in landings" :key="landing._id">
                             <landing-block v-bind="landing" />
                         </div>

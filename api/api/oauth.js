@@ -33,8 +33,8 @@ exports.redirect = async function (req, res) {
         console.warn(err)
         errors.push({ code: err.code, message: err.errmsg })
 
-        res.redirect(process.env.BASE_URL + `/dashboard/parametres?error=1`)
+        res.redirect(process.env.DASHBOARD_URL + `/parametres?error=1`)
     }
 
-    res.redirect(process.env.BASE_URL + `/dashboard/parametres?token=${response.access_token}&refresh=${response.refresh_token}`)
+    res.redirect(process.env.DASHBOARD_URL + `/parametres?token=${response.access_token}&refresh=${response.refresh_token}`)
 }

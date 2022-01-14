@@ -1,5 +1,5 @@
 <template>
-    <div class="PageEditor Wrapper--left">
+    <div class="PageEditor Wrapper--left pb-40">
         <div class="mv-40">
             <breadcrumbs :items="[
                 { label: 'Pages', to: { name: 'pages' } },
@@ -18,13 +18,13 @@
                         <div class="copy" @click="() => $copy(fullLink)"><i class="fal fa-copy"></i></div>
                     </div>
 
-                    <landing-content class="PageEditor_content" :content="formData" />
+                    <landing-content class="PageEditor_content" :is-preview="true" :content="parseForm(formData)" />
                 </div>
             </div>
 
-            <form class="fx-grow ml-30" @submit.prevent="update">
+            <form class="fx-grow" @submit.prevent="update">
                 <div class="br-m p-20 bg-gum-xweak">
-                    <p class="ft-s-bold mb-20">Informations principales</p>
+                    <p class="ft-m-bold mb-20">Informations principales</p>
 
                     <input-base label="Titre de la page" v-model="formData.title" :attrs="{ required: true }" />
                     <textarea v-model="formData.description" class="mt-10" placeholder="Texte d'introduction"></textarea>
@@ -50,30 +50,45 @@
                 </div>
 
                 <div class="p-20 b br-m mv-10">
-                    <p class="ft-s-bold mb-20">Personnalisation</p>
+                    <p class="ft-m-bold mb-20">Personnalisation</p>
                     
-                    <div class="d-flex">
-                        <div class="bg-bg-xweak fx-grow br-m mr-20">
-                            <input type="range" min="0" max="100" :value="formData.customization['background-opacity']" @input="(e) => updateCustomization('background-opacity', e.target.value)">
-                        </div>
-
-                        <p class="ft-m-bold">{{ formData.customization['background-opacity'] }}%</p>
+                    <div class="mv-10">
+                        <p class="ft-s-medium mb-10">Couleur de fond</p>
+                        <color-picker
+                            :before="[ { hex: 'auto', display: this.photoColor, fa: 'wand-magic-sparkles' } ]"
+                            :value="formData.customization['background-color']"
+                            @input="setColorPicker"
+                            />
                     </div>
 
-                    <pexels-gallery @select="(v) => { updateCustomization('background', v.src.original); updateCustomization('background-thumbnail', v.src.large) }"/>
+                    <div class="mv-10">
+                        <p class="ft-s-medium mb-10">Transparence de l'image de fond</p>
+                        <div class="d-flex">
+                            <div class="bg-bg-xweak fx-grow br-m mr-20">
+                                <input type="range" min="0" max="100" :value="formData.customization['background-opacity']" @input="(e) => updateCustomization('background-opacity', e.target.value)">
+                            </div>
+
+                            <p class="ft-m-medium">{{ formData.customization['background-opacity'] }}%</p>
+                        </div>
+                    </div>
+
+                    <div class="mt-10">
+                        <pexels-gallery @select="(v) => { setPhotoColor(v.avg_color); updateCustomization('background', { src: v.src.original, photographer: { url: v.photographer_url, name: v.photographer} }); updateCustomization('background-thumbnail', v.src.large) }"/>
+                    </div>
                 </div>
 
                 <div class="p-20 b br-m mv-10">
-                    <p class="ft-s-bold mb-10">Personnaliser mon lien</p>
+                    <p class="ft-m-bold mb-10">Personnaliser mon lien</p>
 
                     <div class="d-flex fx-align-center">
                         <select-base
-                            class="fx-no-shrink width-auto"
+                            class="width-auto"
                             :options="shops.map(s => ({ id: s._id, label: s.slug.toLowerCase() }))"
                             v-model="formData.shop"
                         />
                         <p class="fx-no-shrink mh-10">.arriere-boutique.fr/</p>
-                        <input-base v-model="formData.slug" :attrs="{ required: true }"></input-base>
+
+                        <input-base v-model="formData.slug" style="min-width: 120px" :attrs="{ required: true }" v-if="!formData.isHome"/>
                     </div>
 
                     <p class="ft-xs-medium mt-10">Lien final : <span class="text-underline">{{ fullLink }}</span></p>
@@ -109,12 +124,16 @@ export default {
     data: () => ({
         slug: '',
         isLoading: true,
+        photoColor: '',
         prevFormData: {},
         formData: {
             title: '',
             description: '',
             slug: 'ma-page',
-            customization: {},
+            customization: {
+                'background-opacity': 0.5,
+                'background-color': '#000000'
+            },
             logo: '',
             links: [ { id: Math.random(), label: 'Mon lien', href: '', active: true } ],
             shop: '',
@@ -173,6 +192,13 @@ export default {
         this.isLoading = false
     },
     methods: {
+        setColorPicker (value) {
+            this.formData.customization = { ...this.formData.customization, ['background-color']: value == 'auto' ? this.photoColor : value }
+        },
+        setPhotoColor (value) {
+            if (this.formData.customization['background-color'] == this.photoColor) this.setColorPicker(value)
+            this.photoColor = value
+        },
         addLink () {
             this.formData.links.push({ id: Math.random(), label: '', href: '', active: true })
         },
@@ -209,6 +235,7 @@ export default {
                 _id: this.formData._id && this.slug != 'new' ? this.formData._id : undefined,
                 params: {
                     ...this.parseForm(this.formData),
+                    shop: this.currentShop._id,
                     owner: '$self'
                 },
             })
@@ -232,6 +259,7 @@ export default {
         flex-direction: column;
         position: sticky;
         top: 30px;
+        background-color: var(--color-bg-light);
     }
 
     .PageEditor_content {
@@ -271,6 +299,19 @@ export default {
     }
     .PageEditor_previewContainer {
         position: relative;
+        margin-right: 30px;
+    }
+
+    @media screen and (max-width: 1200px) {
+        
+        .PageEditor_previewContainer {
+            position: fixed;
+            z-index: 5;
+            bottom: 15px;
+            left: 15px;
+            transform-origin: left bottom;
+            transform: scale(0.7);
+        }
     }
 
 </style>

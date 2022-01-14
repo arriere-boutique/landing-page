@@ -2,6 +2,7 @@
     <component
         :is="tag ? tag : (link || (node && node.attrs.link) ? 'a' : 'div')"
         class="LinkBase"
+        :class="[ ...$modifiers ]"
         :target="target"
         :href="node && node.attrs.link ? node.attrs.link : link"
         v-bind="attrs"
@@ -16,8 +17,10 @@
 </template>
 
 <script>
+import { ModifiersMixin } from 'instant-coffee-core'
 export default {
     name: 'LinkBase',
+    mixins: [ ModifiersMixin ],
     props: {
         tag: { type: [String, Boolean], default: false },
         fa: { type: [ String, Boolean ], default: false },

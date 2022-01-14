@@ -87,7 +87,6 @@ export default {
         },
         async syncShop () {
             let response = await this.$store.dispatch('shop/syncInfo')
-            console.log(response)
         }
     }
 }

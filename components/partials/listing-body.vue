@@ -65,8 +65,6 @@ export default {
         async save () {
             this.isLoading = true
 
-            console.log(this.formData)
-
             await this.$store.dispatch('listings/update', {
                 _id: this.listing._id,
                 params: this.formData

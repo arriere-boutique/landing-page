@@ -5,7 +5,7 @@
         :class="[ $modifiers ]"
     >
         <div class="LandingBlock_cover">
-            <landing-content class="LandingBlock_contentPreview" :content="{ title, slug, logo, customization, links }" />
+            <landing-content class="LandingBlock_contentPreview" :is-preview="true" :content="{ title, slug, logo, customization, links }" />
         </div>
 
         <div class="LandingBlock_content">
