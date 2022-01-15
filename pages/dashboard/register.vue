@@ -5,23 +5,30 @@
 
             <popin-base :is-active="isPopinActive" :modifiers="['absolute-header', 'pond', 'm']">
                 <template slot="content">
-                    <div>
-                        <form @submit.prevent="submitForm" class="p-40" v-if="step == 0">
-                            <p class="ft-xl-bold mb-30">J'ai juste besoin de quelques infos supplémentaires <i class="fal fa-cat ml-3"></i></p>
+                    <div class="p-40">
+                        <slider-block>
+                            <template slot="step1">
+                                <form @submit.prevent="submitForm" v-if="step == 0">
+                                    <p class="ft-xl-bold mb-30">J'ai juste besoin de quelques infos supplémentaires <i class="fal fa-cat ml-3"></i></p>
 
-                            <register-form :no-submit="true" :initial-data="initData" @formChange="updateForm" />
-                            
-                            <errors :items="errors" class="mt-10"/>
+                                    <register-form :no-submit="true" :initial-data="initData" @formChange="updateForm" />
+                                    
+                                    <errors :items="errors" class="mt-10"/>
 
-                            <div class="text-right mt-10">
-                                <button-base type="submit" :modifiers="['gum']" :class="{ 'is-loading': isLoading }">
-                                    Valider
-                                </button-base>
-                            </div>
-                        </form>
-                        <div class="p-40" v-if="step == 1">
-                            Bitch
-                        </div>
+                                    <div class="text-right mt-10">
+                                        <button-base type="submit" :modifiers="['gum']" :class="{ 'is-loading': isLoading }">
+                                            Valider
+                                        </button-base>
+                                    </div>
+                                </form>
+                            </template>
+                            <template slot="step2">
+                                Bitch
+                            </template>
+                            <template slot="step3">
+                                Bitch
+                            </template>
+                        </slider-block>
                     </div>
                 </template>
             </popin-base>
