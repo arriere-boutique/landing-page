@@ -22,12 +22,13 @@ export default {
     components: { TooltipManager },
     async fetch () {
         try {
-            await this.$store.dispatch('shop/fetch')
+            if (this.user && this.user.role != 'guest') await this.$store.dispatch('shop/fetch')
         } catch (e) {
             console.error(e)
         }
     },
     computed: {
+        savedUser () { return this.$store.state.auth.user },
         classes () { return this.$store.state.page.body.classes }
     },
     async mounted () {

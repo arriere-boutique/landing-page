@@ -8,7 +8,6 @@
     }
 }
 
-
 .PopinBase_footer {
     background-color: transparent;
     border-top: 1px solid var(--color-border);
@@ -66,6 +65,13 @@
     }
 }
 
+.PopinBase--m {
+    
+    .PopinBase_body {
+        max-width: 550px;
+    }
+}
+
 .PopinBase--s {
     
     .PopinBase_body {
@@ -108,5 +114,17 @@
 
     .PopinBase_body {
         border-radius: 0;
+    }
+}
+
+.PopinBase--pond {
+    
+    &.is-active {
+        background-color: var(--color-pond-xweak-75);
+    }
+
+    .PopinBase_body {    
+        box-shadow: 2px 4px 10px 0 var(--color-pond-25);
+        border-color: var(--color-pond-25);
     }
 }

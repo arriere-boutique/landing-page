@@ -44,7 +44,8 @@ exports.getEntities = async function (req, res) {
         data = req.query._id ? result[0] : (typeGetters[req.query.type] ? typeGetters[req.query.type](result) : result)
     } catch (e) {
         console.error(e)
-        errors.push(e)
+
+        errors.push(e.message)
     }
     
     res.send({
@@ -127,7 +128,8 @@ exports.deleteEntity = async function (req, res) {
         await result.remove()
     } catch (e) {
         console.warn(e)
-        errors.push(e)
+
+        errors.push(e.message)
     }
 
     res.send({

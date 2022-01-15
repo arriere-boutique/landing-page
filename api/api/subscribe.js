@@ -40,7 +40,8 @@ exports.createSubscriber = async function (req, res) {
     } catch (e) {
         console.warn(e)
         if (e.response) e = e.response.body.code.replace(/_/g, '-');
-        errors.push(e)
+
+        errors.push(e.message)
     }
     
     res.send({
@@ -60,7 +61,8 @@ exports.getSubscribers = async function (req, res) {
         data = await Entities['subscriber'].model.find()
     } catch (e) {
         console.error(e)
-        errors.push(e)
+
+        errors.push(e.message)
     }
 
     res.send({
