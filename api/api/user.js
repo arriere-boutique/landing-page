@@ -94,9 +94,9 @@ exports.logUser = async function (req, res) {
         }
     } catch (e) {
         console.error(e)
-        errors.push(e)
+        errors.push(e.message)
     }
-    
+
     res.send({
         data, errors, token,
         status: errors.length > 0 ? 0 : 1
@@ -115,7 +115,8 @@ exports.getUser = async function (req, res) {
         user.shops = await Promise.all(user.shops.map(async shop => await Entities.shop.model.findById(shop)))
     } catch (e) {
         console.error(e)
-        errors.push(e)
+
+        errors.push(e.message)
     }
 
     res.send({

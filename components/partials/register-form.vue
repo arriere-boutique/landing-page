@@ -1,7 +1,13 @@
 <template>
     <div class="">
         <component :is="noSubmit ? 'div' : 'form'" @submit.prevent="onSubmit">
-            <input-base label="Ton adresse e-mail" class="mb-10" :attrs="{ required: true, autocomplete: 'email', }" v-model="formData.email" type="email" v-if="!aboutOnly" />
+            <input-base
+                label="Ton adresse e-mail"
+                class="mb-10"
+                :attrs="{ required: true, autocomplete: 'email', }"
+                v-model="formData.email" type="email"
+                v-if="!aboutOnly"
+            />
 
             <input-base
                 label="Ton prénom"
@@ -13,19 +19,16 @@
             />
 
             <input-base
-                label="Mot de passe"
+                label="Choisis un mot de passe"
                 type="password"
+                :helpers="['reveal']"
                 :attrs="{ autocomplete: 'new-password' }"
                 v-model="formData.password"
                 v-if="!aboutOnly"
             />
 
-            <label class="d-flex ft-s-medium mt-10">
-                <input type="checkbox" v-model="formData.newsletter">
-
-                <p class="n-mt-3 ml-5">
-                    J'accepte de recevoir la super newsletter de l'Arrière Boutique, <b>garantie sans spam !</b>
-                </p>
+            <label class="d-flex ft-s-medium mt-15">
+                <toggle-base label="J'accepte de recevoir la super newsletter de l'Arrière Boutique, garantie sans spam !" v-model="formData.newsletter" />
             </label>
 
             <button-base type="submit" :icon-before="state.loading ? '' : 'party-horn'" :class="{ 'is-disabled': state.isSuccess || state.loading }" v-if="!noSubmit">
@@ -48,15 +51,16 @@ const CATEGORIES = [
     { id: 7, label: 'Je vends autre chose' },
 ]
 
-import { InputBase, SelectBase } from 'instant-coffee-core'
+import { InputBase, SelectBase, ToggleBase } from 'instant-coffee-core'
 
 export default {
     name: 'RegisterForm',
-    components: { InputBase, SelectBase },
+    components: { InputBase, SelectBase, ToggleBase },
     props: {
         type: { type: String },
         noSubmit: { type: Boolean, default: false },
         aboutOnly: { type: Boolean, default: false },
+        initialData: { type: Object, default: () => ({}) }
     },
     data: () => ({
         CATEGORIES,
@@ -82,6 +86,15 @@ export default {
             deep: true,
             handler (v) {
                 this.$emit('formChange', this.formData)
+            }
+        },
+        initialData: {
+            immediate: true,
+            handler (v) {
+                this.formData = {
+                    ...this.formData,
+                    ...v
+                }
             }
         }
     },

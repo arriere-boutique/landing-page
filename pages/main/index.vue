@@ -5,8 +5,8 @@
                 <h1 class="ft-3xl-bold color-pond-strong">Prends soin de tes clients, on s'occupe du reste</h1>
                 <h2 class="ft-xl-medium color-ft mt-30">Simplifie-toi la gestion de ta boutique Etsy, passe plus de temps à créer <i class="fal fa-sparkles ml-3"></i></h2>
 
-                <form class="d-flex mt-30">
-                    <input-base label="Ton adresse e-mail" v-model="formData.email" />
+                <form class="d-flex mt-30" @submit.prevent="onRegister">
+                    <input-base type="email" label="Ton adresse e-mail" v-model="formData.email" />
 
                     <button-base type="submit" class="ml-20" :modifiers="[]">
                         C'est parti !
@@ -119,6 +119,11 @@ export default {
                 }
             }
         } 
+    },
+    methods: {
+        onRegister () {
+            window.location.href = process.env.dashboardUrl + '/register?email=' + this.formData.email
+        }
     },
     head () {
         let meta = {

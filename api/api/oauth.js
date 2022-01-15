@@ -31,7 +31,8 @@ exports.redirect = async function (req, res) {
         })
     } catch (e) {
         console.warn(e)
-        errors.push(e)
+
+        errors.push(e.message)
 
         res.redirect(process.env.DASHBOARD_URL + `/parametres?error=1`)
     }

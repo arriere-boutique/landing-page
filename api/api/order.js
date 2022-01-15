@@ -36,7 +36,8 @@ exports.createOrder = async function (req, res) {
         data = fieldsCheck('read', data[0]._doc, Entities.order, data[0], user)
     } catch (e) {
         console.error(e)
-        errors.push(e)
+
+        errors.push(e.message)
     }
 
     res.send({
@@ -66,7 +67,8 @@ exports.checkoutOrder = async function (req, res) {
         data.token = intent.client_secret
     } catch (e) {
         console.warn(e)
-        errors.push(e)
+
+        errors.push(e.message)
     }
 
     res.send({

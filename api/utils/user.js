@@ -16,10 +16,10 @@ const ROLES = {
 exports.generatePassword = function (password) {
     return new Promise((resolve, reject) => {
         bcrypt.genSalt(10, function(err, salt) {
-            if (e) reject(e)
+            if (err) reject(err)
             
             bcrypt.hash(password, salt, function(err, hash) {
-                if (e) reject(e)
+                if (err) reject(err)
 
                 resolve(hash)
             })

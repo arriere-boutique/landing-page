@@ -80,7 +80,8 @@ export default {
     },
     mounted () {
         this.$data.itemsLeft = {
-            blog: { label: 'Le blog', href: process.env.blogUrl }
+            blog: { label: 'Le blog', href: process.env.blogUrl },
+            login: { label: 'Se connecter', href: process.env.dashboardUrl }
         }
 
         this.$data.itemsRight = {
