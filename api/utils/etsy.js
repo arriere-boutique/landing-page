@@ -35,6 +35,8 @@ exports.syncShop = async function (id, syncItems = [], firstSync = false) {
             
             if (firstSync) {
                 try {
+                    // Check duplicate pages
+                    
                     await Entities.landing.model.create({
                         isHome: true,
                         title: `Bienvenue chez ${shop.name} !`,

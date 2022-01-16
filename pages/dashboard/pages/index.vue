@@ -28,7 +28,7 @@
                         :modifiers="['ice']"
                         tag="nuxt-link"
                         :attrs="{
-                            to: localePath({ name: 'pages-id', params: { slug: 'new' }})
+                            to: localePath({ name: 'pages-id', params: { id: 'new' }})
                         }"
                     >
                         Créer une page

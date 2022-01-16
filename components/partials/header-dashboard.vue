@@ -1,5 +1,5 @@
 <template>
-    <header class="HeaderDashboard bg-pond-xweak">
+    <header class="HeaderDashboard bg-bg-xweak">
         <div class="HeaderDashboard_wrapper">
             <div class="HeaderDashboard_links">
                 <link-base tag="nuxt-link" :attrs="{ to: localePath({ name: 'blog' }) }" class="HeaderDashboard_link mr-20">Le blog</link-base>

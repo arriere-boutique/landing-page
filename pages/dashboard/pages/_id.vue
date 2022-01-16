@@ -247,7 +247,7 @@ export default {
             })
 
             if (response) {
-                this.$router.push({ path: this.localePath({ name: 'pages-id', params: { slug: response._id } }) })
+                this.$router.push({ path: this.localePath({ name: 'pages-id', params: { id: response._id } }) })
             }
         }
     }
