@@ -26,17 +26,19 @@
             </div>
 
             <form class="fx-grow" @submit.prevent="update">
-                <div v-for="module in formData.modules" :key="module.id" class="mv-10">
+                <transition-group name="default" tag="div">
                     <component
+                        v-for="(module, i) in orderedModules" :key="module.id" class="mv-10"
                         :is="module.type + '-edit'"
                         :module="module"
+                        :order="i"
+                        :module-count="orderedModules.length"
                         @input="(v) => setModule(module.id, v)"
                     />
-                </div> 
+                </transition-group> 
 
-                <div class="bg-bg-xweak d-flex fx-align-center fx-justify-between br-m cursor-pointer p-20">
-                    <link-base>Ajouter un module</link-base>
-                    <i class="fal fa-plus"></i>
+                <div class="bg-bg-xweak d-flex fx-align-center fx-justify-center br-m p-20">
+                    <link-base fa="plus">Ajouter un module</link-base>
                 </div>
 
                 <hr class="Separator mv-40">
@@ -158,6 +160,9 @@ export default {
             if (this.formData.slug && !this.formData.isHome) link += '/' + this.formData.slug
 
             return link
+        },
+        orderedModules () {
+            return [ ...this.formData.modules ].sort((a, b) => a.position - b.position)
         }
     },
     watch: {
@@ -196,7 +201,7 @@ export default {
     },
     methods: {
         setModule (id, value) {
-            this.formData.modules = this.formData.modules.map(m => ({ ...(m.id == id ? value : m) }))
+            this.formData.modules = this.formData.modules.map((m) => ({ ...(m.id == id ? value : m) }))
         },
         setColorPicker (value) {
             this.formData.customization = { ...this.formData.customization, ['background-color']: value == 'auto' ? this.photoColor : value }

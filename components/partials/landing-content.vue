@@ -7,7 +7,7 @@
             <div class="LandingPage_logo" v-if="content.logo" :style="{ backgroundImage: `url(${content.logo})` }"></div>
 
             <transition-group tag="div" name="default" class="LandingPage_modules">
-                <div v-for="module in content.modules" :key="module.id">
+                <div v-for="module in orderedModules" :key="module.id">
                     <component :is="module.type + '-view'" v-bind="module" :is-preview="isPreview" class="mv-20" />
                 </div>
             </transition-group>
@@ -79,6 +79,9 @@ export default {
 
                 return { ...total, [`--${current}`]: value }
             }, {})
+        },
+        orderedModules () {
+            return [ ...this.content.modules ].sort((a, b) => a.position - b.position)
         }
     }
 }
