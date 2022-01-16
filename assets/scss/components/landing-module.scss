@@ -1,14 +1,14 @@
 .LandingModule {
     padding: 20px;
     border-radius: 20px;
-    background-color: var(--color-pond-xweak);
+    background-color: var(--color-current-xweak);
 }
 
 .LandingModule_header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    color: var(--color-pond-strong);
+    color: var(--color-current-strong);
     font: var(--ft-m-medium);
     margin-bottom: 20px;
 }

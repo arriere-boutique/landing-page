@@ -148,7 +148,7 @@
 @each $color in $main-colors {
     
     .is-#{$color} {
-        --color-strong: var(--color-#{$color}-strong);
+        --color-current-strong: var(--color-#{$color}-strong);
         --color-current: var(--color-#{$color});
         --color-current-weak: var(--color-#{$color}-weak);
         --color-current-xweak: var(--color-#{$color}-xweak);
@@ -162,14 +162,10 @@
     --color-current: var(--color-gum);
     --color-current-weak: var(--color-gum-weak);
     --color-current-xweak: var(--color-bg-light);
-
-    --color-accent: var(--color-pond);
-    --color-accent-weak: var(--color-gum-weak);
-    --color-accent-xweak: var(--color-gum-xweak);
 }
 
 .color-current { color: var(--color-current); }
-.fill-current { fill: var(--color-accent); }
+.fill-current { fill: var(--color-current); }
 .color-current-weak { color: var(--color-current-weak); }
 .color-current-strong { color: var(--color-current-strong); }
 .color-current-50 { color: var(--color-current-50); }

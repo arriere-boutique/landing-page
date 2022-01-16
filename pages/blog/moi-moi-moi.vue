@@ -7,7 +7,7 @@
 
             <div class="fx-grow pl-60 pl-0@s pt-20@s">
                 <div class="max-width-l">
-                    <p class="ft-2xl-bold">Un créatif, né juste au bon moment.<br><b class="color-accent">Salut, je m'appelle Théotime !</b></p>
+                    <p class="ft-2xl-bold">Un créatif, né juste au bon moment.<br><b class="color-current">Salut, je m'appelle Théotime !</b></p>
 
                     <p class="mt-20 ft-m-medium">J'ai 26 ans. J'ai grandi avec un ordinateur dans les mains et ça a toujours été pour moi un outil créatif incroyable.<br><br>Touche-à-tout, amoureux des chiens et  un petit peu timide. <b>Et toujours des projets fous en tête !</b></p>
                 </div>
@@ -19,7 +19,7 @@
                 <div class="fx-grow pr-30 p-relative pr-0@s pb-20@s">
                     <div class="max-width-l">
                         <p class="ft-2xl-bold">
-                            Difficile de trouver sa voie quand <br><b class="color-accent">on est intéressé par tout.</b>
+                            Difficile de trouver sa voie quand <br><b class="color-current">on est intéressé par tout.</b>
                         </p>
 
                         <p class="mt-20 ft-m">
@@ -29,7 +29,7 @@
                             <br><br>
                             J'ai la chance d'avoir obtenu un <b>Master Développeur créatif & designer</b> à la super école d'art <b>Les Gobelins</b>. J'ai ensuite travaillé plusieurs années dans une agence créative puis dans une start-up en plein essor. Plutôt confortable.
                             <br><br>
-                            <b class="color-accent">Mais j'ai toujours eu l'impression qu'il me manquait quelque chose.</b>
+                            <b class="color-current">Mais j'ai toujours eu l'impression qu'il me manquait quelque chose.</b>
                         </p>
                     </div>
                 </div>
@@ -49,7 +49,7 @@
                 <div class="fx-grow pl-30 pl-0@s pt-20@s">
                     <div class="max-width-l">
                         <p class="ft-2xl-bold">
-                            Wooow, mais c'est génial Etsy !<br><b class="color-accent">Mes premières boutiques.</b>
+                            Wooow, mais c'est génial Etsy !<br><b class="color-current">Mes premières boutiques.</b>
                         </p>
 
                         <p class="mt-20 ft-m">
@@ -79,7 +79,7 @@
                 <div class="fx-grow pl-0@s pb-20@s p-relative">
                     <div class="max-width-l">
                         <p class="ft-2xl-bold">
-                            Construire quelque chose à soi, <br><b class="color-accent">mais pour les autres.</b>
+                            Construire quelque chose à soi, <br><b class="color-current">mais pour les autres.</b>
                         </p>
 
                         <p class="mt-20 ft-m">
@@ -87,7 +87,7 @@
                             <br><br>
                             Je décide de croire en moi et de me lancer en tant qu'entrepreneur. Je quitte mon travail salarié.
                             <br><br>
-                            <b class="color-accent">Aujourd'hui, je veux partager avec toi ce que j'ai appris (et ce que j'apprends encore chaque jour). C'est une joie de rencontrer des personnes aussi douées pour les aider à faire reconnaître leur travail à sa juste valeur.</b>
+                            <b class="color-current">Aujourd'hui, je veux partager avec toi ce que j'ai appris (et ce que j'apprends encore chaque jour). C'est une joie de rencontrer des personnes aussi douées pour les aider à faire reconnaître leur travail à sa juste valeur.</b>
                         </p>
                     </div>
                 </div>

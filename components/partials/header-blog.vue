@@ -5,7 +5,7 @@
                 <nuxt-link class="HeaderBase_logo" :to="localePath({ name: 'blog' })">
                     <icon-base name="logo/logo-main" :height="state.isScrolled ? 35 : 45" />
 
-                    <span class="ft-m-bold color-accent ml-5">Le blog</span>
+                    <span class="ft-m-bold color-current ml-5">Le blog</span>
                 </nuxt-link>
             </div>
 

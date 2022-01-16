@@ -2,7 +2,7 @@
 }
 
 .ArticlePage_title {
-    color: var(--color-accent);
+    color: var(--color-current);
 }
 
 .ArticlePage_banner {
@@ -27,12 +27,12 @@
     text-transform: uppercase;
     letter-spacing: 2px;
     margin-bottom: 15px;
-    color: var(--color-accent-weak);
+    color: var(--color-current-weak);
 }
 
 .ArticlePage_cover {
     overflow: hidden;
-    background-color: var(--color-accent-weak);
+    background-color: var(--color-current-weak);
     border-radius: 10px;
     width: 33%;
     max-width: 350px;
