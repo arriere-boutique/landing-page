@@ -3,7 +3,7 @@
         <div class="GoPage_container">
             <div class="text-center">
                 <a href="https://arriere-boutique.fr">
-                    <icon-base name="logo/logo-main" :height="55" class="fill-accent" />
+                    <icon-base name="logo/logo-main" :height="55" class="fill-current" />
                 </a>
 
                 <p class="mv-20">Te transmettre mon expérience de manière simple et pragmatique pour que tu puisses te concentrer sur ce qui te fait vibrer : la création.</p>

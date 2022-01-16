@@ -6,12 +6,12 @@
             </div>
 
             <div class="fx-grow pl-30 pl-0@s pb-40@s p-relative">
-                <div class="marker ft-hand-xl color-accent ml-40@s n-mt-20@s">Bienvenue !</div>
+                <div class="marker ft-hand-xl color-current ml-40@s n-mt-20@s">Bienvenue !</div>
 
                 <div class="max-width-l mt-10 ft-l">
                     <p><b>Toi et moi,</b> nous avons un rêve commun : faire connaître nos créations et valoriser le fait-main français. C'est pour cette raison que j'ai créé l'Arrière Boutique.</p>
 
-                    <p class="mt-20 color-accent ft-bold">Te transmettre mon expérience de manière simple et pragmatique pour que <b>tu puisses te concentrer sur ce qui te fait vibrer : la création. </b></p>
+                    <p class="mt-20 color-current ft-bold">Te transmettre mon expérience de manière simple et pragmatique pour que <b>tu puisses te concentrer sur ce qui te fait vibrer : la création. </b></p>
                 </div>
             </div>
         </div>
@@ -29,7 +29,7 @@
                         tag="nuxt-link"
                         text="Tous les articles"
                         icon-after="long-arrow-right"
-                        :modifiers="['accent']"
+                        :modifiers="['current']"
                         :attrs="{ to: localePath({ name: 'category', params: { category: 'blog' } }) }"
                     />
                 </div>
@@ -53,14 +53,14 @@
             <div class="Wrapper">
                 <div class="d-flex fx-align-center d-block@s">
                     <div class="fx-grow mr-20 mr-0@s">
-                        <h2 class="ft-2xl-bold">Les vidéos <span class="color-accent strike">pour ceux qui n'aiment pas lire</span></h2>
+                        <h2 class="ft-2xl-bold">Les vidéos <span class="color-current strike">pour ceux qui n'aiment pas lire</span></h2>
                         <p class="max-width-l mt-5">Je publie régulièrement des vidéos pour parler un peu plus en détails de sujets qui me tiennent à coeur. N'hésite pas à t'abonner !</p>
                     </div>
                     
                     <button-base
                         class="mt-20@s"
                         tag="a"
-                        :modifiers="['accent']"
+                        :modifiers="['current']"
                         text="La chaîne Youtube"
                         icon-after="play"
                         link="https://www.youtube.com/channel/UCn1oYqWvUQvbE9DwlEVTgNg"

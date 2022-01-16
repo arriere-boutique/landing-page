@@ -114,20 +114,6 @@
     }
 }
 
-.ButtonBase--accent {
-    background-color: var(--color-accent);
-    box-shadow: 0 3px 8px 0 var(--color-accent-50);
-
-    &:hover {
-        box-shadow: 0 1px 4px 0 var(--color-accent-75);
-    }
-
-    &:active {
-        box-shadow: 0 0px 3px 0 var(--color-accent);
-        background-color: var(--color-accent-strong);
-    }
-}
-
 .ButtonBase--s {
 
     .ButtonBase_content {
@@ -247,7 +233,7 @@
     }
 
     &:hover {
-        color: var(--color-accent);
+        color: var(--color-current);
         transform: none;
 
         .ButtonBase_content {
@@ -256,7 +242,7 @@
         }
 
         &::before, &::after {
-            background: var(--color-accent);
+            background: var(--color-current);
         }
 
         &::after {
@@ -272,10 +258,6 @@
     .ButtonBase_iconBefore {
         margin-right: 5px;
         font-size: 16px;
-    }
-
-    &.ButtonBase--accent {
-        color: var(--color-accent);
     }
 
     &.ButtonBase--strong {

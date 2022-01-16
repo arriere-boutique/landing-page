@@ -19,7 +19,7 @@
                 </div>
                 <div class="FooterBase_brand">
                     <nuxt-link class="d-block" :to="localePath({ name: '/' })">
-                        <icon-base name="logo/logo-main" class="fill-accent" :height="65" />
+                        <icon-base name="logo/logo-main" class="fill-current" :height="65" />
                     </nuxt-link>
 
                     <div class="Title_secondary Title_secondary--s color-ft mv-40">

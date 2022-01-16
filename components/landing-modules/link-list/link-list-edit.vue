@@ -1,5 +1,5 @@
 <template>
-    <div class="LandingModule">
+    <div class="LandingModule is-pond">
         <div class="LandingModule_header">
             <p>Liste de boutons</p>
             <p><i class="fal fa-arrows-up-down-left-right"></i></p>

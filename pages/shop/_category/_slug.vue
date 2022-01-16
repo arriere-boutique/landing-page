@@ -12,14 +12,14 @@
                             <img :src="product.cover">
                         </div>
 
-                        <div class="Block bg-accent-xweak mt-20 pv-5 ph-15">
+                        <div class="Block bg-current-xweak mt-20 pv-5 ph-15">
                             <div class="mv-10 d-flex fx-align-center" v-if="product.link.includes('calendly')">
-                                <i class="color-accent fal fa-calendar-alt fa-xl mr-15"></i>
+                                <i class="color-current fal fa-calendar-alt fa-xl mr-15"></i>
                                 <button-base :modifiers="['link', 'strong']" v-bind="booking" class="ft-m-medium">Voir mes disponibilités en direct</button-base>
                             </div>
 
                             <div class="mv-10 d-flex fx-align-center" v-else-if="delivery">
-                                <i class="color-accent fal fa-circle-bolt fa-xl mr-15"></i>
+                                <i class="color-current fal fa-circle-bolt fa-xl mr-15"></i>
                                 <p class="ft-m-medium" v-html="delivery"></p>
                             </div>
                         </div>
