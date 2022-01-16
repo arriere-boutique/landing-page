@@ -79,10 +79,12 @@ export default {
 
                 if (response.status == 0) throw Error(response.errors[0])
 
-                commit('flashes/add', {
-                    title: response.data.name + ' synchronisée',
-                    type: 'success'
-                }, { root: true })
+                if (params.notification !== false) {
+                    commit('flashes/add', {
+                        title: response.data.name + ' synchronisée',
+                        type: 'success'
+                    }, { root: true })
+                }
 
                 dispatch('fetch')
 

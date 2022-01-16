@@ -2,15 +2,18 @@
     padding: 20px;
     border-radius: 20px;
     background-color: var(--color-current-xweak);
+    overflow: hidden;
 }
 
 .LandingModule_header {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: space-between;
     color: var(--color-current-strong);
     font: var(--ft-m-medium);
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--color-current-25);
 
     & > p {
         line-height: 1;

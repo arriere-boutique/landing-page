@@ -81,7 +81,7 @@ export default {
             }, {})
         },
         orderedModules () {
-            return [ ...this.content.modules ].sort((a, b) => a.position - b.position)
+            return [ ...this.content.modules ].filter(m => m.active !== false).sort((a, b) => a.position - b.position)
         }
     }
 }
@@ -89,6 +89,7 @@ export default {
 
 <style lang="scss" scoped>
     .LandingPage_content {
+        min-height: 100%;
         width: 100%;
         display: flex;
         flex-direction: column;

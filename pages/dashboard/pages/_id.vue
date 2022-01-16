@@ -19,26 +19,33 @@
                             <div class="copy" @click="() => $copy(fullLink)"><i class="fal fa-copy"></i></div>
                         </div>
 
-                        <landing-content class="PageEditor_content" :is-preview="true" :content="parseForm(formData)" />
+                        <div class="PageEditor_contentScroll">
+                            <div class="PageEditor_content">
+                                <landing-content :is-preview="true" :content="parseForm(formData)" />
+                            </div>
+                        </div>
                     </template>
                     <placeholder v-else />
                 </div>
             </div>
 
-            <form class="fx-grow" @submit.prevent="update">
+            <form id="mainForm" @submit.prevent="update"></form>
+
+            <div class="fx-grow" v-if="isInit">
                 <transition-group name="default" tag="div">
                     <component
-                        v-for="(module, i) in orderedModules" :key="module.id" class="mv-10"
+                        v-for="(module, i) in orderedModules" :key="module.id" class="mb-10"
                         :is="module.type + '-edit'"
                         :module="module"
                         :order="i"
                         :module-count="orderedModules.length"
                         @input="(v) => setModule(module.id, v)"
+                        @delete="() => deleteModule(module.id)"
                     />
                 </transition-group> 
 
                 <div class="bg-bg-xweak d-flex fx-align-center fx-justify-center br-m p-20">
-                    <link-base fa="plus">Ajouter un module</link-base>
+                    <link-base fa="plus" @click.native.prevent="isModuleLibraryActive = true">Ajouter un module</link-base>
                 </div>
 
                 <hr class="Separator mv-40">
@@ -59,7 +66,7 @@
                         <p class="ft-s-medium mb-10">Transparence de l'image de fond</p>
                         <div class="d-flex">
                             <div class="bg-bg-xweak fx-grow br-m mr-20">
-                                <input type="range" min="0" max="100" :value="formData.customization['background-opacity']" @input="(e) => updateCustomization('background-opacity', e.target.value)">
+                                <input type="range" min="0" max="100" :value="formData.customization['background-opacity']" @input="(e) => updateCustomization('background-opacity', e.target.value)" :attrs="{ form: 'mainForm' }">
                             </div>
 
                             <p class="ft-m-medium">{{ formData.customization['background-opacity'] }}%</p>
@@ -78,11 +85,12 @@
                         <select-base
                             class="width-auto"
                             :options="shops.map(s => ({ id: s._id, label: s.slug.toLowerCase() }))"
+                            :attrs="{ form: 'mainForm' }"
                             v-model="formData.shop"
                         />
                         <p class="fx-no-shrink mh-10">.arriere-boutique.fr/</p>
 
-                        <input-base v-model="formData.slug" style="min-width: 120px" :attrs="{ required: true }"/>
+                        <input-base v-model="formData.slug" style="min-width: 120px" :attrs="{ required: true, form: 'mainForm' }"/>
                     </div>
 
                     <p class="ft-xs-medium mt-10">Lien final : <span class="text-underline">{{ fullLink }}</span></p>
@@ -93,12 +101,22 @@
                         :modifiers="['gum']"
                         :class="{ 'is-disabled': !changesMade, 'is-loading': isLoading }"
                         type="submit"
+                        :attrs="{ form: 'mainForm' }"
                     >
                         Sauvegarder les changements
                     </button-base>
                 </div>
-            </form>
+            </div>
+            <div class="fx-grow" v-else>
+                <placeholder class="br-s mb-10" :modifiers="['simple', 'h', 'xs']" />
+                <placeholder class="br-s mb-10" :modifiers="['simple', 'h', 'xs']" />
+                <placeholder class="br-s mb-20" :modifiers="['simple', 'h', 'xs']" />
+                <placeholder class="br-s mb-20" :modifiers="['simple', 'h']" />
+                <placeholder class="br-s mb-20" :modifiers="['simple', 'h']" />
+            </div>
         </div>
+
+        <module-library :is-active="isModuleLibraryActive" @close="isModuleLibraryActive = false" @add="addModule" />
     </div>
 </template>
 
@@ -123,6 +141,7 @@ export default {
     data: () => ({
         _id: '',
         isLoading: true,
+        isModuleLibraryActive: false,
         isInit: false,
         photoColor: '',
         prevFormData: {},
@@ -147,7 +166,7 @@ export default {
         serverEntity () { return this.$store.getters['landings/findOne']({ _id: this._id }, true) },
         shops () { return this.$store.state.shop.items },
         changesMade () {
-            return JSON.stringify(this.parseForm(this.formData)) != JSON.stringify(this.parseForm(this.prevFormData))
+            return JSON.stringify(this.formData) != JSON.stringify(this.prevFormData)
         },
         currentShop () {
             return this.shops.find(s => s._id == this.formData.shop)
@@ -163,6 +182,9 @@ export default {
         },
         orderedModules () {
             return [ ...this.formData.modules ].sort((a, b) => a.position - b.position)
+        },
+        moduleList () {
+            return Object.values(Modules).filter(m => m.metadata).map(m => m.metadata.name)
         }
     },
     watch: {
@@ -200,8 +222,15 @@ export default {
         this.isLoading = false
     },
     methods: {
+        deleteModule (id) {
+            this.formData.modules = this.formData.modules.filter(m => m.id != id)
+        },
+        addModule (module) {
+            this.formData.modules = [ ...this.formData.modules, { id: Math.random(), type: module.name, active: true, ...module.default } ]
+        },  
         setModule (id, value) {
-            this.formData.modules = this.formData.modules.map((m) => ({ ...(m.id == id ? value : m) }))
+            let modules = [ ...this.formData.modules].map(m => ({ ...(m.id == id ? value : m) }))
+            this.formData.modules = modules.sort((a, b) => a.position - b.position).map((m, i) => ({ ...m, position: i }))
         },
         setColorPicker (value) {
             this.formData.customization = { ...this.formData.customization, ['background-color']: value == 'auto' ? this.photoColor : value }
@@ -222,7 +251,8 @@ export default {
         },
         parseForm (form) {
             return {
-                ...form
+                ...form,
+                modules: [ ...form.modules ].filter(m => this.moduleList.includes(m.type))
             }
         },
         async deleteEntity () {
@@ -268,6 +298,10 @@ export default {
     .PageEditor_content {
         display: flex;
         flex-grow: 1;
+    }
+
+    .PageEditor_contentScroll {
+        overflow: auto;
     }
 
     .PageEditor_previewHeader {
