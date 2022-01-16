@@ -12,42 +12,34 @@
         <div class="d-flex">
             <div class="PageEditor_previewContainer">
                 <div class="PageEditor_preview fx-no-shrink">
-                    <div class="PageEditor_previewHeader">
-                        <link-base :link="fullLink" class="ellipsis-1" target="_blank">{{ fullLink }}</link-base>
+                    <template v-if="isInit">
+                        <div class="PageEditor_previewHeader">
+                            <link-base :link="fullLink" class="ellipsis-1" target="_blank">{{ fullLink }}</link-base>
 
-                        <div class="copy" @click="() => $copy(fullLink)"><i class="fal fa-copy"></i></div>
-                    </div>
+                            <div class="copy" @click="() => $copy(fullLink)"><i class="fal fa-copy"></i></div>
+                        </div>
 
-                    <landing-content class="PageEditor_content" :is-preview="true" :content="parseForm(formData)" />
+                        <landing-content class="PageEditor_content" :is-preview="true" :content="parseForm(formData)" />
+                    </template>
+                    <placeholder v-else />
                 </div>
             </div>
 
             <form class="fx-grow" @submit.prevent="update">
-                <div class="br-m p-20 bg-gum-xweak">
-                    <p class="ft-m-bold mb-20">Informations principales</p>
+                <div v-for="module in formData.modules" :key="module.id" class="mv-10">
+                    <component
+                        :is="module.type + '-edit'"
+                        :module="module"
+                        @input="(v) => setModule(module.id, v)"
+                    />
+                </div> 
 
-                    <input-base label="Titre de la page" v-model="formData.title" :attrs="{ required: true }" />
-                    <textarea v-model="formData.description" class="mt-10" placeholder="Texte d'introduction"></textarea>
+                <div class="bg-bg-xweak d-flex fx-align-center fx-justify-between br-m cursor-pointer p-20">
+                    <link-base>Ajouter un module</link-base>
+                    <i class="fal fa-plus"></i>
                 </div>
 
-                <div class="br-m p-20 bg-pond-xweak mv-10">
-                    <p class="ft-s-bold mb-20">Liste de boutons</p>
-
-                    <div class="d-flex fx-align-center mv-10" v-for="link in formData.links" :key="link.id">
-                        <input-base type="text" label="Texte du lien" :value="link.label" :attrs="{ required: true }" @input="(v) => updateLink(link.id, { ...link, label: v })"/>
-                        <input-base type="text" class="ml-10" label="Lien" :value="link.href" :attrs="{ required: true }" @input="(v) => updateLink(link.id, { ...link, href: v })"/>
-
-                        <div class="Buttons d-flex fx-no-shrink ml-10">
-                            <toggle-base :value="link.active" @input="(v) => updateLink(link.id, { ...link, active: v })" />
-
-                            <div class="Button round bg-bg-light b ml-10" @click="() => deleteLink(link.id)" v-if="formData.links.length > 1"><i class="fal fa-sm fa-trash-alt"></i></div>
-                        </div>
-                    </div>
-
-                    <div class="text-right mt-5">
-                        <link-base fa="plus" @click.native.prevent="addLink">Ajouter un lien</link-base>
-                    </div>
-                </div>
+                <hr class="Separator mv-40">
 
                 <div class="p-20 b br-m mv-10">
                     <p class="ft-m-bold mb-20">Personnalisation</p>
@@ -58,7 +50,7 @@
                             :before="[ { hex: 'auto', display: this.photoColor, fa: 'wand-magic-sparkles' } ]"
                             :value="formData.customization['background-color']"
                             @input="setColorPicker"
-                            />
+                        />
                     </div>
 
                     <div class="mv-10">
@@ -110,32 +102,42 @@
 
 <script>
 import { InputBase, SelectBase, ToggleBase } from 'instant-coffee-core'
+import Modules from '@/components/landing-modules'
+import Placeholder from '~/components/base/placeholder.vue'
 
 export default {
     name: 'DashboardPage',
-    components: { InputBase, SelectBase, ToggleBase },
+    components: { InputBase, SelectBase, ToggleBase, ...Modules, Placeholder },
     middleware: 'loggedUser',
     layout: 'dashboard',
+    fetchOnServer: false,
     async fetch () {
         this._id = this.$route.params.id
 
-        this._id && this._id != 'new' && !this.$route.query.clone ? await this.$store.dispatch('landings/get', { query: { _id: this._id } }) : {}
+        if (this._id && this._id != 'new' && !this.$route.query.clone) await this.$store.dispatch('landings/get', { query: { _id: this._id } })
+
+        this.isInit = true
     },
     data: () => ({
         _id: '',
         isLoading: true,
+        isInit: false,
         photoColor: '',
         prevFormData: {},
-        formData: {
-            title: '',
-            description: '',
+        formData: {},
+        defaultData: {
             slug: 'ma-page',
             customization: {
                 'background-opacity': 50,
                 'background-color': '#000000'
             },
             logo: '',
-            links: [ { id: Math.random(), label: 'Mon lien', href: '', active: true } ],
+            modules: [
+                { id: Math.random(), type: 'title-block', position: 0, title: '', description: '' },
+                { id: Math.random(), type: 'link-list', position: 1, links: [
+                    { id: Math.random(), label: 'Mon lien', href: '', active: true }
+                ] }
+            ],
             shop: '',
         }
     }),
@@ -172,13 +174,14 @@ export default {
                 let form = this.decodeForm(v)
 
                 this.formData = {
+                    ...this.defaultData,
                     ...this.formData,
                     ...form
                 }
 
-                if (this.formData.links.length <= 0) this.formData.links = [ { label: '', href: '' } ]
                 if (!this.formData.logo && this.currentShop) this.formData.logo = this.currentShop.logo
-
+                if (!this.formData.modules || this.formData.modules.length <= 0) this.formData.modules = this.defaultData.modules
+                
                 this.prevFormData = { ...this.formData }
             }
         }
@@ -192,26 +195,15 @@ export default {
         this.isLoading = false
     },
     methods: {
+        setModule (id, value) {
+            this.formData.modules = this.formData.modules.map(m => ({ ...(m.id == id ? value : m) }))
+        },
         setColorPicker (value) {
             this.formData.customization = { ...this.formData.customization, ['background-color']: value == 'auto' ? this.photoColor : value }
         },
         setPhotoColor (value) {
             if (this.formData.customization['background-color'] == this.photoColor) this.setColorPicker(value)
             this.photoColor = value
-        },
-        addLink () {
-            this.formData.links = [ ...this.formData.links, {
-                id: Math.random(),
-                label: '',
-                href: '',
-                active: true
-            } ]
-        },
-        deleteLink (id) {
-            this.formData.links = this.formData.links.filter(l => l.id != id)
-        },
-        updateLink (id, v) {
-            this.formData.links = this.formData.links.map(l => l.id == id ? v : l)
         },
         updateCustomization (key, v) {
             this.formData.customization = { ...this.formData.customization, [key]: v }

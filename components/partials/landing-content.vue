@@ -6,21 +6,10 @@
         <div class="LandingPage_container" v-if="content">
             <div class="LandingPage_logo" v-if="content.logo" :style="{ backgroundImage: `url(${content.logo})` }"></div>
 
-            <h1 class="LandingPage_title">{{ content.title }}</h1>
-            <h2 class="LandingPage_text" v-if="content.description">{{ content.description }}</h2>
-
-            <transition-group tag="div" name="default" class="LandingPage_buttons">
-                <button-base
-                    class="LandingPage_button"
-                    :modifiers="['full']"
-                    v-for="link in content.links.filter(l => l.active)"
-                    tag="a"
-                    :link="link.href"
-                    :target="isPreview ? true : false"
-                    :key="link.id"
-                >
-                    {{ link.label }}
-                </button-base>
+            <transition-group tag="div" name="default" class="LandingPage_modules">
+                <div v-for="module in content.modules" :key="module.id">
+                    <component :is="module.type + '-view'" v-bind="module" :is-preview="isPreview" class="mv-20" />
+                </div>
             </transition-group>
         </div>
 
@@ -45,8 +34,11 @@
 </template>
 
 <script>
+import Modules from '@/components/landing-modules'
+
 export default {
     name: 'LandingContent',
+    components: { ...Modules },
     props: {
         content: { type: [Object, Boolean], default: false },
         isPreview: { type: Boolean, default: false }
@@ -157,18 +149,6 @@ export default {
         margin: 10vh auto;
         position: relative;
         z-index: 10;
-    }
-
-    .LandingPage_title {
-        font: var(--ft-l-bold);
-    }
-
-    .LandingPage_buttons {
-        margin-top: 20px;
-    }
-
-    .LandingPage_button {
-        margin: 10px auto;
     }
 
     .LandingPage_logo {

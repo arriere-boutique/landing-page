@@ -32,15 +32,12 @@
     }
 }
 
-.LayoutDashboard_navContainer {
+.LayoutDashboard_nav {
     position: fixed;
     z-index: 10;
     top: 0;
     left: 0;
     height: 100%;
-}
-
-.LayoutDashboard_nav {
     width: 300px;
     transition: box-shadow 200ms ease-out;
 
@@ -107,6 +104,12 @@
         transition: border-radius 150ms ease;
     }
 
+    .LayoutDashboard_toggle {
+        bottom: 15px;
+        left: 15px;
+        right: auto;
+    }
+
     .LayoutDashboard_ab {
         display: none;
     }
@@ -143,7 +146,7 @@
                 margin: 20px;
                 height: 100px;
                 border-radius: 20px;
-            }
+            } 
 
             .LayoutDashboard_ab {
                 display: block;
