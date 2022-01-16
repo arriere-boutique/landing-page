@@ -6,6 +6,7 @@ const TokenEntity = {
     fields: new mongoose.Schema({
         id: { type: String },
         value: { type: String },
+        value2: { type: String },
         type: { type: String },
         expiration: { type: Date }
     }, { timestamps: true })

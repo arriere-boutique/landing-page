@@ -28,7 +28,7 @@ export default {
         }
     },
     computed: {
-        savedUser () { return this.$store.state.auth.user },
+        user () { return this.$store.state.auth.user },
         classes () { return this.$store.state.page.body.classes }
     },
     async mounted () {

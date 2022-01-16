@@ -57,7 +57,7 @@ exports.syncShop = async function (id, syncItems = [], firstSync = false) {
             }
 
             if (syncItems.includes('listings')) {
-                let listings = await syncListings(shop, syncItems.includes('listing-photos')) 
+                let listings = await syncListings(shop, syncItems.includes('listing-photos'))
                 shop.listings = listings
                 shop.save()
             }
@@ -111,7 +111,7 @@ const syncOrders = async function (shop) {
                 let listings = []
                 
                 listings = await Promise.all(order.transactions.map(async listing => {
-                    let existing = await Entities.shopListing.model.findOne({ id: listing.listing_id })
+                    let existing = await Entities.shopListing.model.findOne({ shop: shop._id, id: listing.listing_id })
 
                     return {
                         listingId: existing ? existing._id : null,
@@ -150,7 +150,7 @@ const syncOrders = async function (shop) {
             }))
 
             let orderIds = ordersData.map(i => i.id)
-            let ordersToUpdate = await Entities.shopOrder.model.find({ id: { $in: orderIds } })
+            let ordersToUpdate = await Entities.shopOrder.model.find({ shop: shop._id, id: { $in: orderIds } })
 
             await Promise.all(ordersToUpdate.map(async order => {
                 let corresponding = ordersData.find(o => o.id == order.id)
@@ -230,7 +230,7 @@ const syncListings = async function (shop, syncImages = false) {
             listingData = await getListingData()
 
             let listingIds = listingData.map(i => i.id)
-            let listingsToUpdate = await Entities.shopListing.model.find({ id: { $in: listingIds } })
+            let listingsToUpdate = await Entities.shopListing.model.find({ shop: shop._id, id: { $in: listingIds } })
 
             await Promise.all(listingsToUpdate.map(async listing => {
                 let corresponding = listingData.find(l => l.id == listing.id)
@@ -240,6 +240,8 @@ const syncListings = async function (shop, syncImages = false) {
 
                 return data
             }))
+
+            console.log(listingIds)
 
             let newListings = await Promise.all(listingIds.map(async id => {
                 let corresponding = listingData.find(l => l.id == id)
