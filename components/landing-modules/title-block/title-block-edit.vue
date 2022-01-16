@@ -1,9 +1,6 @@
 <template>
     <div class="LandingModule is-ice">
-        <div class="LandingModule_header">
-            <p>Texte</p>
-            <p><i class="fal fa-arrows-up-down-left-right"></i></p>
-        </div>
+        <landing-module-header title="Texte" v-model="formData.position" :max="moduleCount" :order="order" />
 
         <div>
             <input-base label="Titre" v-model="formData.title" :attrs="{ required: true }" />
@@ -19,12 +16,15 @@ export default {
     name: 'ListLinkEdit',
     components: { InputBase, SelectBase, ToggleBase },
     props: {
-        module: { type: Object, default: () => ({}) }
+        module: { type: Object, default: () => ({}) },
+        moduleCount: { type: Number, default: 0 },
+        order: { type: Number, default: 0 }
     },
     data: () => ({
         formData: {
             title: '',
-            paragraph: ''
+            paragraph: '',
+            position: 0,
         }
     }),
     watch: {

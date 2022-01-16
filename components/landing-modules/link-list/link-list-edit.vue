@@ -1,10 +1,7 @@
 <template>
     <div class="LandingModule is-pond">
-        <div class="LandingModule_header">
-            <p>Liste de boutons</p>
-            <p><i class="fal fa-arrows-up-down-left-right"></i></p>
-        </div>
-
+        <landing-module-header title="Liste de boutons" v-model="formData.position" :max="moduleCount" :order="order" />
+        
         <div>
             <div class="d-flex fx-align-center mv-10" v-for="link in formData.links" :key="link.id">
                 <input-base type="text" label="Texte du lien" :value="link.label" :attrs="{ required: true }" @input="(v) => updateLink(link.id, { ...link, label: v })"/>
@@ -31,7 +28,9 @@ export default {
     name: 'ListLinkEdit',
     components: { InputBase, SelectBase, ToggleBase },
     props: {
-        module: { type: Object, default: () => ({}) }
+        module: { type: Object, default: () => ({}) },
+        moduleCount: { type: Number, default: 0 },
+        order: { type: Number, default: 0 }
     },
     data: () => ({
         formData: {
@@ -41,6 +40,7 @@ export default {
     watch: {
         module: {
             immediate: true,
+            deep: true,
             handler (v) {
                 if (JSON.stringify(this.formData) == JSON.stringify(v)) return
                 this.formData = { ...v }

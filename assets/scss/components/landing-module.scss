@@ -6,9 +6,13 @@
 
 .LandingModule_header {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
     color: var(--color-current-strong);
     font: var(--ft-m-medium);
     margin-bottom: 20px;
+
+    & > p {
+        line-height: 1;
+    }
 }
