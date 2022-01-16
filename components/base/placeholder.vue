@@ -126,51 +126,6 @@ export default {
                 opacity: 0;
             }
         }
-
-        @keyframes animate2 {
-            0% {
-                transform: translateY(0);
-            }
-
-            10% {
-                transform: translateY(-10px) scale(0.5) rotate(10deg);
-                opacity: 0;
-            }
-
-            30% {
-                transform: translateY(-20px) scale(0);
-                opacity: 0;
-            }
-
-            31% {
-                opacity: 1;
-            }
-            
-            33% {
-                transform: translateY(2px);
-            }
-
-            40% {
-                transform: translateY(-4px);
-            }
-
-            44% {
-                transform: translateY(0px);
-            }
-
-            46% {
-                transform: translateY(-1px);
-            }
-
-            50% {
-                transform: translateY(0);
-            }
-        
-            100% {
-                transform: translateY(0);
-            }
-        }
-
         &::before {
             content: "";
             display: block;
@@ -207,9 +162,25 @@ export default {
     }
 
     .Placeholder--h {
+        height: auto;
 
         &::before {
             padding-bottom: 50%;
+        }
+
+        &.Placeholder--s::before {
+            padding-bottom: 25%;
+        }
+
+        &.Placeholder--xs::before {
+            padding-bottom: 10%;
+        }
+    }
+
+    .Placeholder--simple {
+        
+        & > div {
+            display: none;
         }
     }
 </style>

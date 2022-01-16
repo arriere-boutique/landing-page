@@ -57,3 +57,14 @@
         background-color: var(--color-ft-light);
     }
 }
+
+@each $color in $main-colors {
+
+    .LinkBase--#{$color} {
+        color: var(--color-#{$color});
+    
+        &::before {
+            background-color: var(--color-#{$color});
+        }
+    }
+}

@@ -2,11 +2,11 @@
     <header class="HeaderBase HeaderBase--blog" :class="{ 'is-scrolled': state.isScrolled }">
         <div class="HeaderBase_wrapper Wrapper Wrapper--l">
             <div class="HeaderBase_left">
-                <nuxt-link class="HeaderBase_logo" :to="localePath({ name: 'blog' })">
+                <a class="HeaderBase_logo" :href="$blogUrl">
                     <icon-base name="logo/logo-main" :height="state.isScrolled ? 35 : 45" />
 
                     <span class="ft-m-bold color-current ml-5">Le blog</span>
-                </nuxt-link>
+                </a>
             </div>
 
             <div class="HeaderBase_right">
