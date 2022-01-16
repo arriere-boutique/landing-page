@@ -1,10 +1,10 @@
 <template>
-    <div class="LandingModule is-ice" :class="[ `is-${$options.metadata.color}` ]">
+    <div class="LandingModule" :class="[ `is-${$options.metadata.color}` ]">
         <landing-module-header :title="$options.metadata.title" :value="formData.position" @input="changePosition" :max="moduleCount" :order="order" :fa="$options.metadata.fa"  />
 
         <div class="d-flex fx-align-center">
             <div class="fx-grow ellipsis-1 color-ft ft-m-medium">
-                "{{ formData.title }}"
+                {{ formData.items.length }} fiches sélectionnées
             </div>
             <div class="d-flex fx-align-center">
                 <link-base @click="$emit('delete')" class="mr-10" :modifiers="['pepper']" v-if="!formData.active">Supprimer</link-base>
@@ -14,8 +14,8 @@
         </div>
 
         <landing-module-popin :is-active="isActive" @reset="reset" @submit="submit" @close="isActive = false">
-            <input-base label="Titre" v-model="formData.title" :attrs="{ required: true }" />
-            <textarea v-model="formData.paragraph" class="mt-10" placeholder="Texte"></textarea>
+            <input-base type="text" v-model="formData.title" />
+            <listing-selector v-model="formData.items" />
         </landing-module-popin>
     </div>
 </template>
@@ -24,17 +24,17 @@
 import { InputBase, SelectBase, ToggleBase } from 'instant-coffee-core'
 
 export default {
-    name: 'ListLinkEdit',
+    name: 'ListingGridEdit',
     components: { InputBase, SelectBase, ToggleBase },
     metadata: {
-        name: 'title-block',
-        fa: 'text',
-        color: 'ice',
-        title: 'Zone de texte',
+        name: 'listing-grid',
+        fa: 'shopping',
+        color: 'sunset',
+        title: `Grille d'articles Etsy`,
         description: `Affiche du texte sur ta page.`,
         default: {
-            title: 'Premier texte',
-            paragraph: 'Deuxième texte'
+            title: 'Découvrez ma boutique',
+            items: []
         }
     },
     props: {
@@ -44,13 +44,10 @@ export default {
     },
     data: () => ({
         isActive: false,
-        formData: {
-            active: true,
-            title: '',
-            paragraph: '',
-            position: 0,
-        }
+        formData: {}
     }),
+    computed: {
+    },
     watch: {
         module: {
             immediate: true,

@@ -1,13 +1,15 @@
 <template>
     <div class="LandingModule" :class="[ `is-${$options.metadata.color}` ]">
-        <landing-module-header title="Liste de boutons" :value="formData.position" @input="changePosition" :max="moduleCount" :order="order" :fa="$options.metadata.fa" />
+        <landing-module-header :title="$options.metadata.title" :value="formData.position" @input="changePosition" :max="moduleCount" :order="order" :fa="$options.metadata.fa" />
         
         <div class="d-flex fx-align-center">
             <div class="fx-grow ellipsis-1 color-ft ft-m-medium">
                 <i class="fal fa-link mr-5"></i> {{ formData.links.filter(b => b.active).length }} bouton(s)
             </div>
-            <div>
+            <div class="d-flex fx-align-center">
+                <link-base @click="$emit('delete')" class="mr-10" :modifiers="['pepper']" v-if="!formData.active">Supprimer</link-base>
                 <link-base @click="isActive = true">Modifier</link-base>
+                <toggle-base class="ml-10" :value="formData.active" @input="toggle" />
             </div>
         </div>
         
@@ -70,6 +72,9 @@ export default {
         }
     },
     methods: {
+        toggle () {
+            this.$emit('input', { ...this.formData, active: !this.formData.active })
+        },
         changePosition (position) {
             this.$emit('input', { ...this.formData, position })
         },

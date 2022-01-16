@@ -9,6 +9,20 @@ export default {
 
     },
     actions: { 
+        async fetch ({ commit }, params = {}) {
+            try {
+                const response = await this.$axios.$get(storeUtils.getQuery('/entities', {
+                    ...params.query,
+                    type: 'shopListing'
+                }))
+
+                if (response.status == 0) throw Error(response.errors[0])
+
+                return response.data
+            } catch (e) {
+                return storeUtils.handleErrors(e, commit, 'Échec lors de la récupération des données de boutique')
+            }
+        },
         async update ({ commit }, params = {}) {
             try {
                 const response = await this.$axios.$post('/entities', {
