@@ -1,5 +1,5 @@
 <template>
-    <div class="Layout LayoutDashboard" :class="[ classes ]">
+    <div class="Layout LayoutDashboard" :class="[ ...classes, { 'is-compact': isCompact } ]">
         <nav-dashboard />
 
         <div class="LayoutDashboard_content">
@@ -29,7 +29,8 @@ export default {
     },
     computed: {
         user () { return this.$store.state.auth.user },
-        classes () { return this.$store.state.page.body.classes }
+        classes () { return this.$store.state.page.body.classes },
+        isCompact () { return this.$store.state.page.isNavCompact }
     },
     async mounted () {
         try {

@@ -2,22 +2,34 @@
     <div
         class="LandingBlock"
         :class="{ 'is-disabled': !isActive, ...$modifiers }"
+        @click="goEdit"
     >
-        <nuxt-link class="LandingBlock_cover" :to="localePath({ name: 'pages-id', params: { id: _id } })">
-            <landing-content class="LandingBlock_contentPreview" :is-preview="true" :content="{ title, slug, logo, customization, links }" />
-        </nuxt-link>
+        <div class="LandingBlock_cover"  :style="{ backgroundImage: `url(${customization['background-thumbnail'] ? customization['background-thumbnail'] : ''})` }">
+        </div>
 
         <div class="LandingBlock_content">
-            <p class="ft-m-medium line-1 ellipsis-1">{{ title }}</p>
+            <p class="ft-m-medium ellipsis-2" style="min-height: 48px">{{ title }}</p>
 
-            <div class="d-flex fx-justify-between fx-align-center">
-                <div>
-                    <toggle-base v-model="formData.isActive" class="mr-10" v-if="!isHome" />
+            <div class="d-flex fx-justify-between fx-align-center mt-20">
+                <div class="fx-grow mr-5">
+                    <button-base :modifiers="['secondary', 'xs', 'full']" :link="link" tag="a" target="_blank" :class="{ 'is-disabled': !isActive }" icon-before="arrow-up-right-from-square" @click.native.stop>
+                        Voir
+                    </button-base>
                 </div>
 
-                <button-base class="mt-20" :modifiers="['secondary', 'xs']" :class="{ 'is-disabled': !isActive }" icon-before="copy" @click="$copy(link)">
-                    Copier lien
+                <button-base :modifiers="['secondary', 'xs']" :class="{ 'is-disabled': !isActive }" icon-before="link" @click.native.stop="$copy(link)">
+                    Copier le lien
                 </button-base>
+            </div>
+
+            <div class="d-flex fx-justify-between fx-align-center mt-20">
+                <div class="ft-s-medium" v-if="isHome">
+                    <span class="round-s bg-bg-xweak mr-5"><i class="fal fa-home"></i></span>
+                    Page d'accueil
+                </div>
+                <div v-else>
+                    <toggle-base v-model="formData.isActive" class="mr-10" v-if="!isHome" :label="formData.isActive ? 'Page active' : 'Page désactivée'" @click.native.stop />
+                </div>
             </div>
         </div>
 
@@ -66,6 +78,11 @@ export default {
                 })
             }
         }
+    },
+    methods: {
+        goEdit () {
+            this.$router.push(this.localePath({ name: 'pages-id', params: { id: this._id } }))
+        }
     }
 }
 </script>
@@ -97,25 +114,12 @@ export default {
     }
     .LandingBlock_cover {
         display: flex;
-        height: 200px;
+        height: 75px;
         position: relative;
         overflow: hidden;
-
-        &::before {
-            content: "";
-            display: block;
-            padding-bottom: 100%;
-        }
-    }
-
-    .LandingBlock_contentPreview {
-        height: 500px;
-        position: absolute !important;
-        top: 0;
-        left: 0;
-        width: 200% !important;
-        transform: scale(0.5) translate3d(-50%, -50%, 0);
-        pointer-events: none;
+        background-size: cover;
+        background-position: center;
+        background-color: var(--color-bg-weak);
     }
 
     .LandingBlock_content {

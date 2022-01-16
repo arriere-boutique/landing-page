@@ -1,18 +1,175 @@
 .LayoutDashboard {
     min-height: 100vh;
+    
+    .NavItem {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font: var(--ft-m-medium);
+        padding: 20px;
+        transition: background-color 150ms ease, color 150ms ease;
+        position: relative;
+        white-space: nowrap;
+
+        i {
+            transition: all 150ms ease;
+        }
+
+        &.is-active-exact {
+            color: var(--color-pond-strong);
+            background-color: var(--color-pond-xweak);
+        }
+
+        &:hover {
+            background-color: var(--color-pond-xweak);
+        }
+    }
+
+    .NavItem_icon {
+        text-align: center;
+        width: 30px;
+        flex-shrink: 0;
+    }
 }
 
-.LayoutDashboard_nav {
-    width: 300px;
-    box-shadow: 0 0 6px 0 var(--color-shadow);
-    background-color: var(--color-bg-light);
-    border-right: 1px solid var(--color-border);
+.LayoutDashboard_navContainer {
     position: fixed;
+    z-index: 10;
     top: 0;
     left: 0;
     height: 100%;
 }
 
+.LayoutDashboard_nav {
+    width: 300px;
+    transition: box-shadow 200ms ease-out;
+
+    &::after {
+        content: "";
+        display: block;
+        top: 0;
+        left: 0;
+        width: 300px;
+        height: 100%;
+        background-color: var(--color-bg-light);
+        position: absolute;
+        transform-origin: left;
+        transition: all 200ms ease-out;
+    }
+}
+
+.LayoutDashboard_logo {
+    background: var(--color-pond-xweak);
+    margin: 20px;
+    padding: 10px;
+    height: 100px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-pond);
+    text-align: center;
+}
+
+.LayoutDashboard_abCompact {
+    display: none;
+}
+
+.LayoutDashboard_logo,
+.LayoutDashboard_links {
+    position: relative;
+    z-index: 2;
+}
+
 .LayoutDashboard_content {
     margin-left: 300px;
+    min-height: 100vh;
+    border-left: 1px solid var(--color-border);
+}
+
+.LayoutDashboard_toggle {
+    position: absolute;
+    bottom: 30px;
+    right: -20px;
+    z-index: 2;
+}
+
+.LayoutDashboard.is-compact {
+
+    .LayoutDashboard_content {
+        margin-left: 70px;
+    }
+
+    .LayoutDashboard_logo {
+        margin: 0;
+        height: 120px;
+        border-radius: 0px;
+        transition: border-radius 150ms ease;
+    }
+
+    .LayoutDashboard_ab {
+        display: none;
+    }
+
+    .LayoutDashboard_abCompact {
+        display: block;
+    }
+
+    .NavItem {
+        border-radius: 50%;
+
+        .NavItem_label,
+        .NavItem_arrow {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateX(-5px);
+        }
+    }
+
+    .LayoutDashboard_nav {
+        width: 70px;
+        
+        &::after {
+            transform: scaleX(calc(70 / 300));
+        }
+
+        &:hover {
+            width: 300px;
+            box-shadow: 0 0 0 9999px var(--color-onyx-25);
+            transition-delay: 150ms;
+
+            .LayoutDashboard_logo {
+                margin: 20px;
+                height: 100px;
+                border-radius: 20px;
+            }
+
+            .LayoutDashboard_ab {
+                display: block;
+            }
+        
+            .LayoutDashboard_abCompact {
+                display: none;
+            }
+
+            .NavItem {    
+                border-radius: 0;
+            }
+    
+            .NavItem_label,
+            .NavItem_arrow {
+                position: relative;
+                opacity: 1;
+                pointer-events: all;
+                transform: translateX(0);
+                transition: all 250ms ease;
+                transition-delay: 150ms;
+            }
+
+            &::after {
+                transform: scaleX(1);
+            }
+        }
+    }
 }

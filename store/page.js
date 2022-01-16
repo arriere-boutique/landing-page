@@ -2,6 +2,7 @@ export default {
     namespaced: true,
     state: () => ({
         isCartActive: false,
+        isNavCompact: false,
         body: {
             classes: [ 'is-fill' ],
             color: 'gum'
@@ -11,6 +12,9 @@ export default {
         }    
     }),
     mutations: {
+        toggleCompact (state) {
+            state.isNavCompact = !state.isNavCompact
+        },
         toggleCart (state) {
             state.isCartActive = !state.isCartActive
         },

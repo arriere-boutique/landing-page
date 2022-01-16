@@ -14,7 +14,7 @@
         </div>
 
         <div class="SliderBlock_footer" v-if="!hideFooter">
-            <div class="SliderBlock_bullets" @click="$emit('prev')">
+            <div class="SliderBlock_bullets">
                 <div class="SliderBlock_bullet" :class="{ 'is-active': slot == activeSlot }" v-for="slot in dynSlots" :key="slot"></div>
             </div>
 

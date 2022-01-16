@@ -73,6 +73,47 @@
     }
 }
 
+.ButtonBase--light {
+    background-color: var(--color-bg-light);
+    border: 1px solid var(--color-border);
+    color: var(--color-ft);
+    box-shadow: none;
+
+    &:hover {
+        box-shadow: none;
+    }
+
+    &:active {
+        box-shadow: none;
+        color: var(--color-ft);
+        background-color: var(--color-border);
+    }
+}
+
+.ButtonBase--round {
+
+    .ButtonBase_iconAfter {
+        margin-left: 0;
+    }
+
+    .ButtonBase_iconBefore {
+        margin-right: 0;
+    }
+
+    .ButtonBase_content {
+        width: 45px;
+        height: 45px;
+    }
+
+    &.ButtonBase--s {
+
+        .ButtonBase_content {
+            width: 40px;
+            height: 40px;
+        }
+    }
+}
+
 .ButtonBase--accent {
     background-color: var(--color-accent);
     box-shadow: 0 3px 8px 0 var(--color-accent-50);

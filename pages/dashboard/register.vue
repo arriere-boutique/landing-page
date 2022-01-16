@@ -131,35 +131,41 @@ export default {
             newsletter: true
         }
     }),
+    computed: {  
+        user () { return this.$store.state.auth.user },
+    },
     async mounted () {
-        this.initData = { ...this.initData, email: this.$route.query.email }
-        setTimeout(() => this.isPopinActive = true, 1000)
-        setTimeout(() => this.isSkippable = true, 5000)
+        if (!this.user || this.user.role == 'guest' || this.user.shops.length <= 0) {
+            this.initData = { ...this.initData, email: this.$route.query.email }
+            
+            setTimeout(() => this.isPopinActive = true, 1000)
+            setTimeout(() => this.isSkippable = true, 5000)
 
-        if (this.$route.query.token) {
-            this.isLoading = true
-            this.step = 2
+            if (this.$route.query.token) {
+                this.isLoading = true
+                this.step = 2
 
-            setTimeout(() => {
-                if (this.isLoading) this.step = 3
-            }, 6000)
+                setTimeout(() => {
+                    if (this.isLoading) this.step = 3
+                }, 6000)
 
-            try {
-                let refresh = this.$route.query.refresh
+                try {
+                    let refresh = this.$route.query.refresh
 
-                let response = await this.$store.dispatch('shop/create', {
-                    etsyId: this.$route.query.token.split('.')[0],
-                    etsyToken: this.$route.query.token,
-                    etsyRefresh: refresh
-                })
+                    let response = await this.$store.dispatch('shop/create', {
+                        etsyId: this.$route.query.token.split('.')[0],
+                        etsyToken: this.$route.query.token,
+                        etsyRefresh: refresh
+                    })
 
-                this.$auth.fetchUser()
+                    this.$auth.fetchUser()
 
-                this.step = 3
-                this.isLoading = false
-            } catch (e) {
-                this.step = 1
-                this.isLoading = false
+                    this.step = 3
+                    this.isLoading = false
+                } catch (e) {
+                    this.step = 1
+                    this.isLoading = false
+                }
             }
         }
     },  
