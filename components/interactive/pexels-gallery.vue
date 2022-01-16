@@ -1,9 +1,9 @@
 <template>
-    <form @submit.prevent="() => search(query)" class="PexelsGallery">
+    <div class="PexelsGallery">
         <div class="PexelsGallery_search p-20" :style="{ '--background': `url(${random.src ? random.src.large : ''})` }">
             <div>
                 <input-base type="text" class="mr-10" v-model="query" />
-                <button-base type="submit" :modifiers="['secondary', 's', 'white']" :class="{ 'is-loading': isLoading }">
+                <button-base type="submit" :modifiers="['secondary', 's', 'white']" :class="{ 'is-loading': isLoading }" @click="() => search(query)">
                     Rechercher
                 </button-base>
             </div>
@@ -24,7 +24,7 @@
                 </div>
             </div>
         </div>
-    </form>
+    </div>
 </template>
 
 <script>

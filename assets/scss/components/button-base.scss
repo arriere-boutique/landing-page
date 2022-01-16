@@ -4,11 +4,11 @@
     line-height: 1;
     color: var(--color-ft-light);
     padding: 0;
-    transition: all 100ms ease;
     border-radius: 40px;
     background-color: var(--color-pond);
     position: relative;
     box-shadow: 0 3px 8px 0 var(--color-pond-50);
+    transition: box-shadow 100ms ease, background-color 100ms ease, color 100ms ease, transform 100ms ease, opacity 100ms ease;
     
     &:hover {
         transform: scale(0.98);

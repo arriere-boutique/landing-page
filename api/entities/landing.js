@@ -12,7 +12,7 @@ let LandingEntity = {
         description: { type: String, write: 'self' },
         logo: { type: String, write: 'self' },
         link: { type: String, write: 'self' },
-        links: { type: Array },
+        modules: { type: Array },
         customization: { type: Object, write: 'self' },
         isActive: { type: Boolean, write: 'self', default: true },
         shop: { type: mongoose.Schema.Types.ObjectId, write: 'self', ref: 'shop' },
