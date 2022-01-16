@@ -128,3 +128,10 @@
         border-color: var(--color-pond-25);
     }
 }
+
+.PopinBase--hide-close {
+
+    .PopinBase_close {
+        display: none;
+    }
+}

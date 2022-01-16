@@ -3,33 +3,56 @@
         <div class="Wrapper Wrapper--left">
             <p class="ft-3xl-bold mv-40">Bonjour ! <i class="ml-5 fal fa-sparkles"></i></p>
 
-            <popin-base :is-active="isPopinActive" :modifiers="['absolute-header', 'pond', 'm']">
+            <popin-base :is-active="isPopinActive" :modifiers="['absolute-header', 'hide-close', 'pond', 'm']">
                 <template slot="content">
-                    <div class="p-40">
-                        <slider-block>
-                            <template slot="step1">
-                                <form @submit.prevent="submitForm" v-if="step == 0">
-                                    <p class="ft-xl-bold mb-30">J'ai juste besoin de quelques infos supplémentaires <i class="fal fa-cat ml-3"></i></p>
+                    <slider-block @next="step += 1" @prev="step -= 1" :step="step" item-class="p-40" :hide-footer="step == 2">
+                        <template slot="step1">
+                            <form id="register" @submit.prevent="submitForm">
+                                <p class="ft-xl-bold mb-30">J'ai juste besoin de quelques infos supplémentaires <i class="fal fa-cat ml-3"></i></p>
 
-                                    <register-form :no-submit="true" :initial-data="initData" @formChange="updateForm" />
-                                    
-                                    <errors :items="errors" class="mt-10"/>
+                                <register-form
+                                    :no-submit="true"
+                                    :initial-data="initData"
+                                    @formChange="updateForm"
+                                />
+                                
+                                <errors :items="errors" class="mt-10"/>
+                            </form>
+                        </template>
+                        <template slot="step2">
+                            <p class="ft-xl-bold mb-30">Ravi de te rencontrer, {{ formData.name }}. <i class="fal fa-sparkles ml-3"></i></p>
 
-                                    <div class="text-right mt-10">
-                                        <button-base type="submit" :modifiers="['gum']" :class="{ 'is-loading': isLoading }">
-                                            Valider
-                                        </button-base>
-                                    </div>
-                                </form>
-                            </template>
-                            <template slot="step2">
-                                Bitch
-                            </template>
-                            <template slot="step3">
-                                Bitch
-                            </template>
-                        </slider-block>
-                    </div>
+                            <p class="ft-m-medium mv-10">Pour profiter au mieux de ton Arrière Boutique, je te conseille fortement de connecter ta boutique Etsy.</p>
+
+                            <p class="color-ft-weak mv-10">Certaines fonctionnalités ne seront pas disponibles sans cette action de ta part.</p>
+
+                            <div class="text-center br-m mt-30 p-30 bg-ice-xweak">
+                                <button-base icon-before="plus" :modifiers="['ice']" @click="connectShop">Connecter une boutique</button-base>
+                            </div>
+                        </template>
+                        <template slot="step3">
+                            <placeholder :modifiers="['h']" class="br-m">
+                                <p class="ft-m-bold mt-10">Synchronisation de ta boutique en cours</p>
+                                <p class="ft-s mt-5">Patience, cela peut prendre quelques minutes...</p>
+                            </placeholder>
+                        </template>
+                        <template slot="step4">
+                            <p class="ft-xl-bold mb-30">Génial, c'est tout bon ! Il est temps de te familiariser avec ton nouvel espace <i class="fal fa-home-heart ml-3"></i></p>
+                        </template>
+                        <template slot="submit">
+                            <button-base type="submit" :attrs="{ form: 'register' }" :modifiers="['gum']" :class="{ 'is-loading': isLoading }" v-if="step == 0">
+                                Valider
+                            </button-base>
+
+                            <button-base type="button" :modifiers="['xs', 'secondary']" @click="step = 2" :class="{ 'is-loading': isLoading }" v-if="step == 1 && isSkippable">
+                                Ignorer cette étape
+                            </button-base>
+
+                            <button-base :modifiers="['gum']" @click="isPopinActive = false" v-if="step == 3">
+                                Je découvre mon Arrière Boutique
+                            </button-base>
+                        </template>
+                    </slider-block>
                 </template>
             </popin-base>
 
@@ -91,13 +114,13 @@ import { InputBase, ToggleBase } from 'instant-coffee-core'
 export default {
     name: 'DashboardRegister',
     components: { InputBase, ToggleBase },
-    middleware: 'loggedIn',
     layout: 'dashboard',
     data: () => ({
         isPopinActive: false,
         errors: [],
         step: 0,
         isLoading: false,
+        isSkippable: false,
         initData: {
             email: ''
         },
@@ -108,9 +131,37 @@ export default {
             newsletter: true
         }
     }),
-    mounted () {
+    async mounted () {
         this.initData = { ...this.initData, email: this.$route.query.email }
         setTimeout(() => this.isPopinActive = true, 1000)
+        setTimeout(() => this.isSkippable = true, 5000)
+
+        if (this.$route.query.token) {
+            this.isLoading = true
+            this.step = 2
+
+            setTimeout(() => {
+                if (this.isLoading) this.step = 3
+            }, 6000)
+
+            try {
+                let refresh = this.$route.query.refresh
+
+                let response = await this.$store.dispatch('shop/create', {
+                    etsyId: this.$route.query.token.split('.')[0],
+                    etsyToken: this.$route.query.token,
+                    etsyRefresh: refresh
+                })
+
+                this.$auth.fetchUser()
+
+                this.step = 3
+                this.isLoading = false
+            } catch (e) {
+                this.step = 1
+                this.isLoading = false
+            }
+        }
     },  
     methods: {
         getOrderCount (limit = 30, unit = 'days') {
@@ -141,6 +192,10 @@ export default {
             }
 
             this.isLoading = false
+        },
+        async connectShop () {
+            let response = await this.$store.dispatch('shop/auth', window.location.href.split('?')[0])
+            if (response) window.location = response
         }
     }
 }

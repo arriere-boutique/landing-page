@@ -31,7 +31,7 @@ export default {
                     owner: '$self',
                     type: 'shop',
                 }))
-                
+
                 if (response.status == 0) throw Error(response.errors[0])
 
                 commit('setShops', response.data)
@@ -41,7 +41,7 @@ export default {
                 return storeUtils.handleErrors(e, commit, 'Échec lors de la récupération des données de boutique')
             }
         },
-        async auth ({ commit, state }) {
+        async auth ({ commit, state }, redirect) {
             try {
                 const codes = generateCodes()
                 commit('setStateId', codes.state)
@@ -50,6 +50,7 @@ export default {
                     params: {
                         id: state.stateId,
                         value: codes.codeVerifier,
+                        value2: redirect,
                         type: 'oauth'
                     },
                     type: 'token'

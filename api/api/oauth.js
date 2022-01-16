@@ -4,8 +4,8 @@ const { $fetch } = require('ohmyfetch/node')
 const { authenticate, accessCheck, fieldsCheck } = require('../utils/user')
 
 exports.redirect = async function (req, res) {
-    let errors = []
     let response = null
+    let redirect = process.env.DASHBOARD_URL + '/parametres'
     
     try {
         let token = await Entities.token.model.findOne({ id: req.query.state })
@@ -21,6 +21,7 @@ exports.redirect = async function (req, res) {
             code: req.query.code,
             code_verifier: token.value,
         }
+        if (token.value2) redirect = token.value2
 
         response = await $fetch('https://api.etsy.com/v3/public/oauth/token', {
             method: 'POST',
@@ -31,11 +32,7 @@ exports.redirect = async function (req, res) {
         })
     } catch (e) {
         console.warn(e)
-
-        errors.push(e.message)
-
-        res.redirect(process.env.DASHBOARD_URL + `/parametres?error=1`)
+        res.redirect(redirect + '?error=1')
     }
-
-    res.redirect(process.env.DASHBOARD_URL + `/parametres?token=${response.access_token}&refresh=${response.refresh_token}`)
+    res.redirect(redirect + `?token=${response.access_token}&refresh=${response.refresh_token}`)
 }

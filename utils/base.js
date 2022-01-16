@@ -24,8 +24,17 @@ export function randomEmoji() {
     return EMOJIS[randomBetween(0, EMOJIS.length - 1)] + '️'
 }
 
-export function randomIcon() {
-    return ICONS[randomBetween(0, ICONS.length - 1)]
+export function randomIcon(theme, exclude) {
+    let icons = ICONS.filter(i => {
+        let result = true
+
+        if (theme && !i.themes.includes(theme)) result = false
+        if (exclude && exclude.includes(i.value)) result = false
+
+        return result
+    })
+
+    return icons[randomBetween(0, icons.length - 1)].value
 }
 
 export function sortDate (items, property = 'date') {
