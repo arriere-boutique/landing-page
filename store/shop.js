@@ -137,7 +137,10 @@ export default {
             return state.items.reduce((total, current) => [ ...total, ...current.orders ], [])
         },
         allListings: (state) => {
-            return state.items.reduce((total, current) => [ ...total, ...current.listings ], [])
+            return state.items.reduce((total, current) => [ ...total, ...current.listings ], []).map(l => ({
+                ...l,
+                thumbnail: l.images && l.images[0] ? l.images[0].thumbnail : null
+            }))
         },
         listingById: (state, getters) => (id) => {
             let item = getters.allListings.find(l => l._id == id)

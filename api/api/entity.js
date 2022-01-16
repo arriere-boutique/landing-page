@@ -12,6 +12,7 @@ exports.getEntities = async function (req, res) {
     let errors = []
     let data = []
     let cancel = false
+    let idQuery = req.query._id && !req.query._id.includes('$in')
 
     try {
         let Entity = req.query.type ? Entities[req.query.type] : null
@@ -19,10 +20,10 @@ exports.getEntities = async function (req, res) {
 
         if (!Entity) throw Error('entity-not-found')
 
-        if (req.query._id) {
+        if (idQuery) {
             result = await Entity.model.find({ _id: req.query._id })
 
-            if (!result[0]) throw Error('id-not-found' )
+            if (!result[0]) throw Error('id-not-found')
         } else {
             let query = req.query
             delete query.type
@@ -41,7 +42,7 @@ exports.getEntities = async function (req, res) {
 
         result = result.map(v => fieldsCheck('read', v._doc, Entity, v, user))
 
-        data = req.query._id ? result[0] : (typeGetters[req.query.type] ? typeGetters[req.query.type](result) : result)
+        data = idQuery ? result[0] : (typeGetters[req.query.type] ? typeGetters[req.query.type](result) : result)
     } catch (e) {
         console.error(e)
 
@@ -239,6 +240,9 @@ const parseQuery = function (query, user) {
             } else {
                 cancel = true
             }
+        }
+        if (typeof value === 'string' && value.startsWith('$in')) {
+            parsedQuery[key] = { '$in': value.replace('$in', '').split(',') }
         }
     })
 

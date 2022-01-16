@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
 let ShopListingEntity = {
-    read: 'self',
+    read: 'public',
     write: 'self',
     fields: new mongoose.Schema({
         id: { type: String, write: 'self' },
@@ -16,7 +16,7 @@ let ShopListingEntity = {
         shippingCost: { type: Number, default: 0, write: 'self' },
         shippingMaterials: { type: Number, default: 0, write: 'self' },
         materials: { type: Array, write: 'self' },
-        costs: { type: Object, write: 'self' },
+        costs: { type: Object, write: 'self', read: 'self' },
         shop: { type: mongoose.Schema.Types.ObjectId, write: 'self', ref: 'shop' },
         owner: { type: mongoose.Schema.Types.ObjectId, write: 'self', ref: 'user' }
     }, { timestamps: true })

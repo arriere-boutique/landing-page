@@ -226,7 +226,7 @@ export default {
             this.formData.modules = this.formData.modules.filter(m => m.id != id)
         },
         addModule (module) {
-            this.formData.modules = [ ...this.formData.modules, { id: Math.random(), type: module.name, active: true, ...module.default } ]
+            this.formData.modules = [ ...this.formData.modules, { id: Math.random(), type: module.name, active: true, position: this.formData.modules.length, ...module.default } ]
         },  
         setModule (id, value) {
             let modules = [ ...this.formData.modules].map(m => ({ ...(m.id == id ? value : m) }))
