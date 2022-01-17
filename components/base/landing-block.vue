@@ -8,9 +8,9 @@
         </div>
 
         <div class="LandingBlock_content">
-            <p class="ft-m-medium ellipsis-2" style="min-height: 48px">{{ title }}</p>
+            <p class="ft-m-medium ellipsis-2" style="min-height: 48px">{{ slug }}</p>
 
-            <div class="d-flex fx-justify-between fx-align-center mt-20">
+            <div class="d-flex fx-justify-between fx-align-center">
                 <div class="fx-grow mr-5">
                     <button-base :modifiers="['secondary', 'xs', 'full']" :link="link" tag="a" target="_blank" :class="{ 'is-disabled': !isActive }" icon-before="arrow-up-right-from-square" @click.native.stop>
                         Voir

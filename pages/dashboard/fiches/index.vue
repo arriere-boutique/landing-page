@@ -49,7 +49,7 @@
 <script>
 export default {
     name: 'DashboardListings',
-    middleware: 'loggedUser',
+    middleware: 'loggedUserAndShop',
     layout: 'dashboard',
     async fetch () {
         this.shops.forEach(shop => {

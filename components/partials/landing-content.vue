@@ -81,7 +81,7 @@ export default {
             }, {})
         },
         orderedModules () {
-            return [ ...this.content.modules ].filter(m => m.active !== false).sort((a, b) => a.position - b.position)
+            return this.content.modules ? [ ...this.content.modules ].filter(m => m.active !== false).sort((a, b) => a.position - b.position) : []
         }
     }
 }
