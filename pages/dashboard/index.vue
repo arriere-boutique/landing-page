@@ -27,12 +27,12 @@
                         <div>
                             <i class="fal fa-lg fa-coin"></i>
 
-                            <p class="ft-xl-bold">Profit estimé</p>
+                            <p class="ft-xl-bold">Chiffre d'affaire</p>
                             <p class="ft-s-medium text-uppercase">30 derniers jours</p>
                         </div>
 
                         <p class="ft-4xl-bold mt-20">
-                            {{ getTotalProfit() }}<span class="ft-xl-bold">€</span>
+                            {{ getTotalProfit()|round }}<span class="ft-xl-bold">€</span>
                         </p>
                     </div>
                 </div>

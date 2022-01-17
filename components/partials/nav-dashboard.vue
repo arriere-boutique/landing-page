@@ -12,7 +12,7 @@
 
         <div class="LayoutDashboard_links mt-20">
             <component
-                :is="link.locked ? 'div' : 'nuxt-link'"
+                :is="link.locked || link.dev ? 'div' : 'nuxt-link'"
                 class="NavItem"
                 :class="{ 'is-disabled': link.locked || link.dev }"
                 v-for="link in links"
@@ -25,7 +25,7 @@
 
                 <p class="NavItem_label mh-10 fx-grow">{{ link.label }}</p>
 
-                <div class="NavItem_arrow" @mouseenter="(e) => link.tooltip ? $tOpen(link.tooltip, e) : undefined" @mouseleave="$tClose">
+                <div class="NavItem_arrow" @mouseenter="(e) => link.tooltip || link.locked ? $tOpen(link.locked ? `Pour accéder à cette page, tu dois avoir au moins une boutique Etsy connectée.` : link.tooltip, e) : undefined" @mouseleave="$tClose">
                     <i class="fal fa-circle-question" v-if="link.dev"></i>
                     <i class="fal fa-lock" v-else-if="link.locked"></i>
                     <i class="fal fa-arrow-right" v-else></i>

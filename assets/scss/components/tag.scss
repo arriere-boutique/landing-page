@@ -6,12 +6,13 @@
     padding: 5px 15px;
     border-radius: 20px;
     font: var(--ft-s-medium);
-    color: var(--color-ft);
-    text-transform: uppercase;
-    background-color: var(--color-onyx-2xweak);
+    color: var(--color-current-xstrong, var(--color-ft));
+    background-color: var(--color-current-weak, var(--color-onyx-2xweak));
     transition: all 100ms ease;
+}
 
-    &:hover {
-        color: var(--color-onyx-weak);
-    }
+.Tag--s {
+    height: 28px;
+    padding: 3px 12px;
+    font: var(--ft-xs-medium);
 }
