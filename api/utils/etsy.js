@@ -39,16 +39,22 @@ exports.syncShop = async function (id, syncItems = [], firstSync = false) {
                     
                     await Entities.landing.model.create({
                         isHome: true,
-                        title: `Bienvenue chez ${shop.name} !`,
                         logo: shop.logo,
                         slug: 'home',
-                        links: [
-                            { id: Math.random(), label: 'Ma boutique Etsy', href: shop.link, active: true }
-                        ],
                         customization: {
+                            'background': {
+                                src: 'https://images.pexels.com/photos/62693/pexels-photo-62693.jpeg'
+                            },
                             'background-color': '#000000',
-                            'background-opacity': '',
+                            'background-opacity': '30',
+                            'background-thumbnail': 'https://images.pexels.com/photos/62693/pexels-photo-62693.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'
                         },
+                        modules: [
+                            { id: Math.random(), type: 'title-block', position: 0, active: true, title: `Bienvenue chez ${shop.name} !`},
+                            { id: Math.random(), type: 'link-list', position: 1, active: true, links: [
+                                { id: Math.random(), label: 'Ma boutique Etsy', href: shop.link, active: true }
+                            ] }
+                        ],
                         shop: shop._id,
                         owner: shop.owner
                     })

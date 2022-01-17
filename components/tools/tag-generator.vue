@@ -142,8 +142,8 @@ export default {
                 let response = await this.$store.dispatch('etsy/similarTags', {
                     keywords: this.search,
                     offset: this.offset,
-                    samples: 3,
-                    limit: 30
+                    samples: 1,
+                    limit: 100
                 })
 
                 if (response) {

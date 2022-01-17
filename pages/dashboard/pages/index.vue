@@ -43,7 +43,7 @@
 <script>
 export default {
     name: 'DashboardPages',
-    middleware: 'loggedUser',
+    middleware: 'loggedUserAndShop',
     layout: 'dashboard',
     async fetch () {
         await this.$store.dispatch('landings/fetch', { owner: '$self' })

@@ -1,17 +1,10 @@
 <template>
     <div class="LandingModule" :class="[ `is-${$options.metadata.color}` ]">
         <landing-module-header :title="$options.metadata.title" :value="formData.position" @input="changePosition" :max="moduleCount" :order="order" :fa="$options.metadata.fa" />
-        
-        <div class="d-flex fx-align-center">
-            <div class="fx-grow ellipsis-1 color-ft ft-m-medium">
-                <i class="fal fa-link mr-5"></i> {{ formData.links.filter(b => b.active).length }} bouton(s)
-            </div>
-            <div class="d-flex fx-align-center">
-                <link-base @click="$emit('delete')" class="mr-10" :modifiers="['pepper']" v-if="!formData.active">Supprimer</link-base>
-                <link-base @click="isActive = true">Modifier</link-base>
-                <toggle-base class="ml-10" :value="formData.active" @input="toggle" />
-            </div>
-        </div>
+
+        <landing-module-actions :is-active="formData.active" @open="isActive = true" @toggle="toggle" @delete="$emit('delete')">
+            <i class="fal fa-link mr-5"></i> {{ module.links.filter(b => b.active).length }} bouton(s)
+        </landing-module-actions>
         
         <landing-module-popin :is-active="isActive" @reset="reset" @submit="submit" @close="isActive = false">
             <div class="d-flex fx-align-center mv-10" v-for="link in formData.links" :key="link.id">
@@ -33,11 +26,11 @@
 </template>
 
 <script>
-import { InputBase, SelectBase, ToggleBase } from 'instant-coffee-core'
+import LandingModuleMixin from '../landing-module-mixin'
 
 export default {
     name: 'ListLinkEdit',
-    components: { InputBase, SelectBase, ToggleBase },
+    mixins: [ LandingModuleMixin ],
     metadata: {
         name: 'link-list',
         fa: 'link',
@@ -50,40 +43,7 @@ export default {
             ]
         }
     },
-    props: {
-        module: { type: Object, default: () => ({}) },
-        moduleCount: { type: Number, default: 0 },
-        order: { type: Number, default: 0 }
-    },
-    data: () => ({
-        isActive: false,
-        formData: {
-            links: []
-        }
-    }),
-    watch: {
-        module: {
-            immediate: true,
-            deep: true,
-            handler (v) {
-                if (JSON.stringify(this.formData) == JSON.stringify(v)) return
-                this.formData = { ...v }
-            }
-        }
-    },
     methods: {
-        toggle () {
-            this.$emit('input', { ...this.formData, active: !this.formData.active })
-        },
-        changePosition (position) {
-            this.$emit('input', { ...this.formData, position })
-        },
-        reset () {
-            this.formData = { ...this.module }
-        },
-        submit () {
-            this.$emit('input', this.formData)
-        },
         addLink () {
             this.formData.links = [ ...this.formData.links, {
                 id: Math.random(),
@@ -97,7 +57,7 @@ export default {
         },
         updateLink (id, v) {
             this.formData.links = this.formData.links.map(l => l.id == id ? v : l)
-        },
+        }
     }
 }
 </script>

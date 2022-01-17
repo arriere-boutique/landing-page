@@ -86,7 +86,7 @@ export default {
         },
         promptDelete (id) {
             this.$store.commit('popin/open', {
-                title: `Déconnecter ta boutique entraîne la suppression des données associées sur ton Arrière Boutique`,
+                title: `Si tu déconnectes ta boutique, tu n'auras plus accès à certaines fonctionnalités de ton Arrière Boutique.`,
                 text: 'Es-tu bien sûr·e de vouloir faire ça ?',
                 actions: [
                     { label: 'Déconnecter', color: 'gum', count: 1, action: () => this.deleteShop(id) }

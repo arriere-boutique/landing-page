@@ -94,8 +94,7 @@ exports.unlinkShop  = async function (req, res) {
         await Entities.shop.model.deleteOne({ owner: user._id, _id: shop._id })
 
         await Entities.user.model.findByIdAndUpdate(user._id, {
-            ...user,
-            shops: user.shops.filter(s => s.equals(shop._id))
+            shops: user.shops.filter(s => s != req.body.id)
         })
 
     } catch (e) {
@@ -124,21 +123,26 @@ exports.searchListings = async function (req, res) {
 
         data = Array.from(Array(req.query.samples ? parseInt(req.query.samples) : 1))
 
-        let offset = query.offset
+        let offset = parseInt(query.offset)
+        let limit = query.limit ? parseInt(query.limit) : 50
         let results = await Promise.all(data.map(async (v, i) => {
-            offset = offset * (i + 1)
-            query.offset = offset
+            // offset = offset + (limit * i)
+            // query.offset = offset
             
-            if (!offset) offset = 50
+            // if (!offset) offset = limit
 
             url.search = new URLSearchParams(query).toString()
+            
+            try {
+                const response = await $fetch(url, {
+                    method: 'GET',
+                    headers: { 'x-api-key': process.env.ETSY, }
+                })
 
-            const response = await $fetch(url, {
-                method: 'GET',
-                headers: { 'x-api-key': process.env.ETSY, }
-            })
-
-            return response.results
+                return response.results
+            } catch (e) {
+                return []
+            }
         }))
         
         data = results.reduce((all, current) => [ ...all, ...current ], [])

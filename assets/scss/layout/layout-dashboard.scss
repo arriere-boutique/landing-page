@@ -20,8 +20,12 @@
             background-color: var(--color-pond-xweak);
         }
 
-        &:hover {
+        &:hover:not(.is-disabled) {
             background-color: var(--color-pond-xweak);
+        }
+
+        &.is-disabled {
+            color: var(--color-ft-xweak);
         }
     }
 

@@ -128,7 +128,7 @@ import Placeholder from '~/components/base/placeholder.vue'
 export default {
     name: 'DashboardPage',
     components: { InputBase, SelectBase, ToggleBase, ...Modules, Placeholder },
-    middleware: 'loggedUser',
+    middleware: 'loggedUserAndShop',
     layout: 'dashboard',
     fetchOnServer: false,
     async fetch () {
@@ -149,15 +149,16 @@ export default {
         defaultData: {
             slug: 'ma-page',
             customization: {
-                'background-opacity': 50,
-                'background-color': '#000000'
+                'background': {
+                    src: 'https://images.pexels.com/photos/62693/pexels-photo-62693.jpeg'
+                },
+                'background-color': '#000000',
+                'background-opacity': '30',
+                'background-thumbnail': 'https://images.pexels.com/photos/62693/pexels-photo-62693.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'
             },
-            logo: '',
             modules: [
-                { id: Math.random(), type: 'title-block', position: 0, title: '', description: '' },
-                { id: Math.random(), type: 'link-list', position: 1, links: [
-                    { id: Math.random(), label: 'Mon lien', href: '', active: true }
-                ] }
+                { id: Math.random(), type: 'title-block', position: 0, active: true, ...Modules.TitleBlockEdit.metadata.default },
+                { id: Math.random(), type: 'link-list', position: 1, active: true, ...Modules.LinkListEdit.metadata.default }
             ],
             shop: '',
         }
@@ -298,10 +299,12 @@ export default {
     .PageEditor_content {
         display: flex;
         flex-grow: 1;
+        min-height: 100%;
     }
 
     .PageEditor_contentScroll {
         overflow: auto;
+        flex-grow: 1;
     }
 
     .PageEditor_previewHeader {
