@@ -8,6 +8,14 @@
             <Nuxt />
         </div>
 
+        <popin-base :is-active="false" :modifiers="['absolute-header', 'l']">
+            <template slot="content">
+                <div class="p-40">
+                    <subscriptions />
+                </div>
+            </template>
+        </popin-base>
+
         <tooltip-manager />
         <flashes-manager />
         <popin-manager />

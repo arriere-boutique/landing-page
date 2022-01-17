@@ -55,6 +55,13 @@
     text-decoration: underline;
 }
 
+.text-dashed {
+    text-decoration: underline;
+    text-decoration-style: dashed;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+}
+
 .ft-hand, .ft-hand-xs, .ft-hand-s, .ft-hand-m, .ft-hand-l, .ft-hand-xl {
     text-transform: uppercase;
 }
@@ -76,6 +83,20 @@
 .fade-enter-to {
     opacity: 1;
     transform: translateY(0);
+}
+
+.spin {
+    animation: spin 1000ms cubic-bezier(0.39, 0.32, 0.18, 0.87) 0s infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 
@@ -149,6 +170,7 @@
 @each $color in $main-colors {
     
     .is-#{$color} {
+        --color-current-xstrong: var(--color-#{$color}-xstrong);
         --color-current-strong: var(--color-#{$color}-strong);
         --color-current: var(--color-#{$color});
         --color-current-weak: var(--color-#{$color}-weak);
@@ -165,9 +187,16 @@
     --color-current-xweak: var(--color-bg-light);
 }
 
+.Separator {
+    border: none;
+    height: 1px;
+    background-color: var(--color-border);
+}
+
 .color-current { color: var(--color-current); }
 .fill-current { fill: var(--color-current); }
 .color-current-weak { color: var(--color-current-weak); }
+.color-current-xstrong { color: var(--color-current-xstrong); }
 .color-current-strong { color: var(--color-current-strong); }
 .color-current-50 { color: var(--color-current-50); }
 .color-current-75 { color: var(--color-current-50); }
@@ -176,11 +205,6 @@
 .bg-current-weak { background-color: var(--color-current-weak); }
 .bg-current-xweak { background-color: var(--color-current-xweak); }
 
-.Separator {
-    border: none;
-    height: 1px;
-    background-color: var(--color-border);
-}
 
 .link {
     font-weight: 500;

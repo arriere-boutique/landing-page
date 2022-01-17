@@ -38,5 +38,21 @@ export default {
             'duplicate-parameter': `J'admire beaucoup ton enthousiasme mais tu fais déjà partie de la liste !`,
             'challenge-failed': `Oh oh, on dirait que notre système de sécurité te considère comme un robot... Peux-tu réessayer plus tard ?`
         }
+    },
+    tiers: {
+        categories: {
+            pages: {
+                label: 'Pages personnalisées'
+            },
+            orders: {
+                label: 'Gestion des commandes'
+            },
+            fun: {
+                label: 'Fonctions cools'
+            },
+            tools: {
+                label: 'Outils'
+            },
+        }
     }
 }
