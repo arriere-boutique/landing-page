@@ -38,33 +38,36 @@
                     <div class="Subs_col" :class="[ `Subs_col--${tier.id}`, `is-${tier.color}` ]" v-for="tier in tiers" :key="tier.id">
                         <template v-if="tier.id != 'free'">
                             <div class="d-flex fx-align-center">
-                                <div class="fx-grow">
-                                    <p class="ft-xl-bold text-through">
-                                        {{ tier.prices.base }}<span class="ft-s-medium">€ / mois</span>
-                                    </p>
+                                <div class="fx-grow ft-s-medium color-current-xstrong col-6 text-right" :class="{ 'color-ft-xweak': monthly }">
+                                    Paiement tous les 6 mois
+                                </div>
+
+                                <toggle-base class="Toggle--shade mh-15" :modifiers="['shade']" v-model="monthly" />
+
+                                <div class="fx-grow ft-s-medium color-current-xstrong col-6" :class="{ 'color-ft-xweak': !monthly }">
+                                    Paiement chaque mois
                                 </div>
                             </div>
                             
                             <hr class="Separator bg-current-weak mv-20">
 
                             <div class="d-flex fx-align-center">
-                                <div class="fx-grow">
-                                    <p class="ft-2xl-bold">
-                                        {{ tier.prices.early }}<span class="ft-s-medium">€ / mois</span>
+                                <div class="fx-grow fx-no-shrink">
+                                    <p class="ft-m-medium line-1">
+                                        <span class="text-through">{{ (tier.prices[monthly ? 'monthly' : 'semi'].base / (monthly ? 1 : 6))|round  }}<span class="ft-s-medium">€</span></span>**
                                     </p>
-                                    <p class="Tag Tag--s n-ml-5" :class="[ `is-${tier.color}` ]">Tarif early-bird</p>
+
+                                    <p class="ft-2xl-bold line-1">
+                                        {{ (tier.prices[monthly ? 'monthly' : 'semi'].early / (monthly ? 1 : 6))|round }}<span class="ft-s-medium">€ / mois</span>
+                                    </p>
                                 </div>
                                 
-                                <div>
+                                <div class="text-right ml-20">
                                     <button-base :modifiers="[ tier.color ]">
                                         Je m'abonne
                                     </button-base>
-                                </div>
-                            </div>
 
-                            <div class="Gauge mt-20">
-                                <div>
-                                    <span>99 restants</span>
+                                    <p class="Tag Tag--s n-ml-5 mt-10" :class="[ `is-${tier.color}` ]">Plus que 46 à ce tarif*</p>
                                 </div>
                             </div>
                         </template>
@@ -77,11 +80,14 @@
 
 <script>
 import TIERS from '@/static/tiers.js'
+import { ToggleBase } from 'instant-coffee-core'
 
 export default {
     name: 'Subscriptions',
+    components: { ToggleBase },
     data: () => ({
-        tiers: TIERS
+        tiers: TIERS,
+        monthly: false
     }),
 }
 </script>
@@ -130,6 +136,7 @@ export default {
     .Subs_header {
         flex-shrink: 0;
         position: sticky;
+        z-index: 5;
         top: 0px;
         background: var(--color-bg-light);
         border-bottom: 1px solid var(--color-border);
