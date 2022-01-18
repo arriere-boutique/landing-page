@@ -117,3 +117,14 @@ textarea {
 .Toggle_checkbox:checked + .Toggle_container {
   background-color: var(--color-current);
 }
+
+.Toggle--shade {
+
+  .Toggle_container {
+    background-color: var(--color-current);
+  }
+
+  .Toggle_checkbox:checked + .Toggle_container {
+    background-color: var(--color-current-strong);
+  }
+}

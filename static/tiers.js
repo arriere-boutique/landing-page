@@ -29,8 +29,14 @@ export default [
         color: 'pond',
         icon: 'sparkles',
         prices: {
-            base: 9.99,
-            early: 4.99
+            semi: {
+                base: 49.95,
+                early: 29.95
+            },
+            monthly: {
+                base: 9.99,
+                early: 5.99
+            }
         },
         features: {
             pages: [
@@ -56,8 +62,14 @@ export default [
         color: 'precious',
         icon: 'stars',
         prices: {
-            base: 16.99,
-            early: 11.99
+            semi: {
+                base: 71.95,
+                early: 59.95
+            },
+            monthly: {
+                base: 16.99,
+                early: 11.99
+            }
         },
         features: {
             pages: [
