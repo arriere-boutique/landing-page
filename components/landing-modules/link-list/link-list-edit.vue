@@ -1,10 +1,20 @@
 <template>
     <div class="LandingModule" :class="[ `is-${$options.metadata.color}` ]">
-        <landing-module-header :title="$options.metadata.title" :value="formData.position" @input="changePosition" :max="moduleCount" :order="order" :fa="$options.metadata.fa" />
+        <landing-module-header
+            :subtitle="`${module.links.filter(b => b.active).length} boutons actifs`"
+            :value="formData.position"
+            :max="moduleCount"
+            :order="order"
+            v-bind="$options.metadata"
+            @input="changePosition"
+        />
 
-        <landing-module-actions :is-active="formData.active" @open="isActive = true" @toggle="toggle" @delete="$emit('delete')">
-            <i class="fal fa-link mr-5"></i> {{ module.links.filter(b => b.active).length }} bouton(s)
-        </landing-module-actions>
+        <landing-module-actions
+            :is-active="formData.active"
+            @open="isActive = true"
+            @toggle="toggle"
+            @delete="$emit('delete')"
+        />
         
         <landing-module-popin :is-active="isActive" @reset="reset" @submit="submit" @close="isActive = false">
             <div class="d-flex fx-align-center mv-10" v-for="link in formData.links" :key="link.id">

@@ -1,7 +1,7 @@
 <template>
     <div class="d-flex fx-align-center">
         <div class="fx-grow ellipsis-1 color-ft ft-m-medium">
-            <slot></slot>
+            {{ data.startDate }}
         </div>
         <div class="d-flex fx-align-center">
             <link-base @click="$emit('delete')" class="mr-10" :modifiers="['pepper']" v-if="!isActive">Supprimer</link-base>
@@ -19,7 +19,8 @@ export default {
     name: 'LandingModuleActions',
     components: { ToggleBase },
     props: {
-        isActive: { type: Boolean }
+        isActive: { type: Boolean },
+        data: { type: Object }
     }
 }
 </script>
