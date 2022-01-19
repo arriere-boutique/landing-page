@@ -71,6 +71,8 @@ export default {
                         label: `Mes fiches produit`,
                         icon: 'clipboard-list',
                         locked: !this.shops || this.shops.length <= 0,
+                        dev: true,
+                        tooltip: `Bientôt, tu pourras gérer des fiches produits en quelques clics.`,
                         path: { name: 'fiches' }
                     }, {
                         label: `Mes pages`,

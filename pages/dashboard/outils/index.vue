@@ -21,7 +21,7 @@
                         </button-base>
                     </div>
                 </div>
-
+                
                 <div class="Tile bg-duck-xweak cell-width-6 cell-height-2">
                     <div class="mb-20">
                         <i class="fal fa-chart-column"></i>
@@ -39,6 +39,11 @@
                         </button-base>
                     </div>
                 </div>
+            </div>
+            
+            <p class="ft-xl-bold mt-60 mb-20">Fonctionnalités à venir</p>
+
+            <div class="Grid">
 
                 <div class="Tile bg-bg-xweak cell-width-6 cell-height-2">
                     <div class="mb-20">
