@@ -4,11 +4,9 @@ export default {
     components: { InputBase, SelectBase, ToggleBase },
     props: {
         module: { type: Object, default: () => ({}) },
-        moduleCount: { type: Number, default: 0 },
-        order: { type: Number, default: 0 }
+        modules: { type: Array, default: () => [] }
     },
     data: () => ({
-        isActive: false,
         formData: {}
     }),
     watch: {
@@ -20,30 +18,26 @@ export default {
             }
         }
     },
-    computed: {
-        $modifiers () {
-            let modifiers = {}
-
-            if (this.$props.modifiers) {
-                this.$props.modifiers.forEach(modifier => { 
-                    if (modifier) {
-                        modifiers[this.$options.name + '--' + modifier] = true
-                    }
-                })
-            }
-
-            return modifiers
-        }
-    },
     methods: {
-        toggle (v = {}) {
-            this.$emit('input', { ...this.formData, active: !this.formData.active })
+        delete () {
+            this.$emit('delete')
+        },
+        toggle (v) {
+            this.$emit('input', {
+                ...this.formData,
+                active: v,
+                startDate: null,
+                endDate: null
+            })
         },
         changePosition (position) {
             this.$emit('input', { ...this.formData, position })
         },
         reset () {
             this.formData = { ...this.module }
+        },
+        input (data) {
+            this.formData = { ...this.formData, ...data }
         },
         submit () {
             this.$emit('input', this.formData)

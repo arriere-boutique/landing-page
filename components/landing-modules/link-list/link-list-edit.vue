@@ -1,38 +1,24 @@
 <template>
-    <div class="LandingModule" :class="[ `is-${$options.metadata.color}` ]">
-        <landing-module-header
-            :subtitle="`${module.links.filter(b => b.active).length} boutons actifs`"
-            :value="formData.position"
-            :max="moduleCount"
-            :order="order"
-            v-bind="$options.metadata"
-            @input="changePosition"
-        />
+    <landing-module
+        :metadata="$options.metadata"
+        :form-data="formData"
+        :title="`${module.links.filter(b => b.active).length} boutons actifs`"
+    >
+        <div class="d-flex fx-align-center mv-10" v-for="link in formData.links" :key="link.id">
+            <input-base type="text" label="Texte du lien" :value="link.label" :attrs="{ required: true }" @input="(v) => updateLink(link.id, { ...link, label: v })"/>
+            <input-base type="text" class="ml-10" label="Lien" :value="link.href" :attrs="{ required: true }" @input="(v) => updateLink(link.id, { ...link, href: v })"/>
 
-        <landing-module-actions
-            :is-active="formData.active"
-            @open="isActive = true"
-            @toggle="toggle"
-            @delete="$emit('delete')"
-        />
-        
-        <landing-module-popin :is-active="isActive" @reset="reset" @submit="submit" @close="isActive = false">
-            <div class="d-flex fx-align-center mv-10" v-for="link in formData.links" :key="link.id">
-                <input-base type="text" label="Texte du lien" :value="link.label" :attrs="{ required: true }" @input="(v) => updateLink(link.id, { ...link, label: v })"/>
-                <input-base type="text" class="ml-10" label="Lien" :value="link.href" :attrs="{ required: true }" @input="(v) => updateLink(link.id, { ...link, href: v })"/>
+            <div class="Buttons d-flex fx-no-shrink ml-10">
+                <toggle-base :value="link.active" @input="(v) => updateLink(link.id, { ...link, active: v })" />
 
-                <div class="Buttons d-flex fx-no-shrink ml-10">
-                    <toggle-base :value="link.active" @input="(v) => updateLink(link.id, { ...link, active: v })" />
-
-                    <div class="Button round bg-bg-light b ml-10" @click="() => deleteLink(link.id)" v-if="formData.links.length > 1"><i class="fal fa-sm fa-trash-alt"></i></div>
-                </div>
+                <div class="Button round bg-bg-light b ml-10" @click="() => deleteLink(link.id)" v-if="formData.links.length > 1"><i class="fal fa-sm fa-trash-alt"></i></div>
             </div>
+        </div>
 
-            <div class="text-right mt-5">
-                <link-base fa="plus" @click.native.prevent="addLink">Ajouter un lien</link-base>
-            </div>
-        </landing-module-popin>
-    </div>
+        <div class="text-right mt-5">
+            <link-base fa="plus" @click.native.prevent="addLink">Ajouter un lien</link-base>
+        </div>
+    </landing-module>
 </template>
 
 <script>
