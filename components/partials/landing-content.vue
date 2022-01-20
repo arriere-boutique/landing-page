@@ -81,7 +81,17 @@ export default {
             }, {})
         },
         orderedModules () {
-            return this.content.modules ? [ ...this.content.modules ].filter(m => m.active !== false).sort((a, b) => a.position - b.position) : []
+            return this.content.modules ? [ ...this.content.modules ].filter(m => this.isModuleActive(m)).sort((a, b) => a.position - b.position) : []
+        }
+    },
+    methods: {
+        isModuleActive (data) {
+            let active = data.active
+
+            if (data.startDate) active = this.$moment(data.startDate).isBefore(this.$moment())
+            if (data.endDate && this.$moment(data.endDate).isBefore(this.$moment())) active = false
+
+            return active
         }
     }
 }

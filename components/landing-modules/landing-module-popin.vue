@@ -1,39 +1,46 @@
 <template>
     <popin-base :is-active="isActive" :modifiers="['panel']" @close="$emit('close')">
         <template slot="content">
-            <form @submit.prevent="$emit('close'); $emit('submit')" class="p-40 m-40 bg-current-xweak br-m">
-                <div class="ft-l-bold color-current-strong mb-20">
-                    <i class="fal mr-5" :class="[`fa-${fa}`]"></i> {{ title }}
-                </div>
-
-                <slot></slot>
-
-                <div class="bg-bg-light br-s p-20 mt-20" v-if="value">
-                    <div class="ft-m-medium color-current-strong mb-20">
-                        <i class="fal fa-clock mr-5"></i> Programmation
+            <form @submit.prevent="$emit('close'); $emit('submit')" class="p-40">
+                <div class="p-30 bg-current-xweak br-m">
+                    <div class="ft-l-bold color-current-strong mb-20">
+                        <i class="fal mr-5" :class="[`fa-${metadata.fa}`]"></i> {{ metadata.title }}
                     </div>
 
-                    <div class="row">
-                        <div class="col-6">
+                    <slot></slot>
+                </div>
+
+                <div class="bg-bg-light br-s b p-30 mt-20" v-if="value">
+                    <div class="d-flex fx-align-center">
+                        <div class="ft-l-medium color-ft mb-20">
+                            <i class="fal fa-clock mr-5"></i> Programmation
+                        </div>
+                    </div>
+
+                    <div class="row-s fx-align-center">
+                        <div class="col-5">
                             <input-base
                                 type="datetime-local"
                                 label="Montrer à partir du"
                                 :value="value.startDate"
-                                @input="(v) => update({ startDate: v })"
+                                @input="(v) => $emit('input', { startDate: v })"
                             />
                         </div>
-                        <div>
+                        <div class="col-5">
                             <input-base
                                 type="datetime-local"
                                 label="Cacher après le"
                                 :value="value.endDate"
-                                @input="(v) => update({ endDate: v })"
+                                @input="(v) => $emit('input', { endDate: v })"
                             />
+                        </div>
+                        <div class="col-2">
+                            <link-base v-if="value.startDate || value.endDate" @click.native.stop="resetProgrammation">Supprimer</link-base>
                         </div>
                     </div>
                 </div>
 
-                <div class="d-flex fx-align-center">
+                <div class="d-flex fx-align-center mt-20">
                     <div class="fx-grow mr-20"></div>
 
                     <div>
@@ -58,19 +65,13 @@ import { InputBase, SelectBase, ToggleBase } from 'instant-coffee-core'
 export default {
     components: { InputBase, SelectBase, ToggleBase },
     props: {
-        value: { type: Object },
-        title: { type: String },
-        fa: { type: String },
+        value: { type: Object, default: () => ({})  },
+        metadata: { type: Object, default: () => ({}) },
         isActive: { type: Boolean, default: false }
     },
     methods: {
-        update (data) {
-            console.log(data)
-
-            this.$emit('input', {
-                ...this.value,
-                ...data
-            })
+        resetProgrammation () {
+            this.$emit('input', { startDate: null, endDate: null })
         }
     }
 }

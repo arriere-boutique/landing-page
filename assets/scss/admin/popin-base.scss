@@ -120,9 +120,14 @@
 }
 
 .PopinBase--panel {
+    opacity: 0;
 
     .PopinBase_body {
         border-radius: 0;
+    }
+
+    &.is-active {
+        opacity: 1;
     }
 }
 

@@ -1,102 +1,90 @@
 <template>
     <div class="PageEditor Wrapper--left pb-40">
-        <div class="mv-40">
-            <breadcrumbs :items="[
+        <div class="d-flex fx-align-center mv-40">
+            <breadcrumbs class="fx-no-shrink" :items="[
                 { label: 'Pages', to: { name: 'pages' } },
-                { label: formData.title ? formData.title : 'Nouvelle page', active: true },
+                { label: fullLink ? fullLink : '', href: fullLink ? fullLink : '' },
             ]" />
-            
-            <p class="ft-3xl-bold mt-5">{{ formData.title ? formData.title : 'Nouvelle page' }}</p>
         </div>
-        
         <div class="d-flex">
-            <div class="PageEditor_previewContainer">
-                <div class="PageEditor_preview fx-no-shrink">
-                    <template v-if="isInit">
-                        <div class="PageEditor_previewHeader">
-                            <link-base :link="fullLink" class="ellipsis-1" target="_blank">{{ fullLink }}</link-base>
-
-                            <div class="copy" @click="() => $copy(fullLink)"><i class="fal fa-copy"></i></div>
-                        </div>
-
-                        <div class="PageEditor_contentScroll">
-                            <div class="PageEditor_content">
-                                <landing-content :is-preview="true" :content="parseForm(formData)" />
-                            </div>
-                        </div>
-                    </template>
-                    <placeholder v-else />
-                </div>
-            </div>
-
             <form id="mainForm" @submit.prevent="update"></form>
 
             <div class="fx-grow" v-if="isInit">
-                <transition-group name="default" tag="div">
-                    <component
-                        v-for="(module, i) in orderedModules" :key="module.id" class="mb-10"
-                        :is="module.type + '-edit'"
-                        :module="module"
-                        :order="i"
-                        :module-count="orderedModules.length"
-                        @input="(v) => setModule(module.id, v)"
-                        @delete="() => deleteModule(module.id)"
-                    />
-                </transition-group> 
+                <nav-bar class="mb-40" :items="navItems" />
 
-                <div class="bg-bg-xweak d-flex fx-align-center fx-justify-center br-m p-20">
-                    <link-base fa="plus" @click.native.prevent="isModuleLibraryActive = true">Ajouter un module</link-base>
-                </div>
+                <transition name="fade">
+                    <div v-show="section == 'modules'">
+                        <transition-group name="default" tag="div">
+                            <component
+                                v-for="module in orderedModules" :key="module.id" class="mb-10"
+                                :is="module.type + '-edit'"
+                                :modules="orderedModules"
+                                :module="module"
+                                @input="(v) => setModule(module.id, v)"
+                                @delete="() => deleteModule(module.id)"
+                            />
+                        </transition-group> 
 
-                <hr class="Separator mv-40">
-
-                <div class="p-20 b br-m mv-10">
-                    <p class="ft-m-bold mb-20">Personnalisation</p>
-                    
-                    <div class="mv-10">
-                        <p class="ft-s-medium mb-10">Couleur de fond</p>
-                        <color-picker
-                            :before="[ { hex: 'auto', display: this.photoColor, fa: 'wand-magic-sparkles' } ]"
-                            :value="formData.customization['background-color']"
-                            @input="setColorPicker"
-                        />
-                    </div>
-
-                    <div class="mv-10">
-                        <p class="ft-s-medium mb-10">Transparence de l'image de fond</p>
-                        <div class="d-flex">
-                            <div class="bg-bg-xweak fx-grow br-m mr-20">
-                                <input type="range" min="0" max="100" :value="formData.customization['background-opacity']" @input="(e) => updateCustomization('background-opacity', e.target.value)" :attrs="{ form: 'mainForm' }">
-                            </div>
-
-                            <p class="ft-m-medium">{{ formData.customization['background-opacity'] }}%</p>
+                        <div class="bg-bg-xweak d-flex fx-align-center fx-justify-center br-m p-20">
+                            <link-base fa="plus" @click.native.prevent="isModuleLibraryActive = true">Ajouter un module</link-base>
                         </div>
                     </div>
+                </transition>
 
-                    <div class="mt-20">
-                        <pexels-gallery @select="(v) => { setPhotoColor(v.avg_color); updateCustomization('background', { src: v.src.original, photographer: { url: v.photographer_url, name: v.photographer} }); updateCustomization('background-thumbnail', v.src.large) }"/>
+                <transition name="fade">
+                    <div v-show="section == 'style'">
+                        <div class="p-20 b br-m mv-10">
+                            <div class="mv-10">
+                                <p class="ft-s-medium mb-10">Couleur de fond</p>
+                                <color-picker
+                                    :before="[ { hex: 'auto', display: this.photoColor, fa: 'wand-magic-sparkles' } ]"
+                                    :value="formData.customization['background-color']"
+                                    @input="setColorPicker"
+                                />
+                            </div>
+
+                            <div class="mv-10">
+                                <p class="ft-s-medium mb-10">Transparence de l'image de fond</p>
+                                <div class="d-flex">
+                                    <div class="bg-bg-xweak fx-grow br-m mr-20">
+                                        <input type="range" min="0" max="100" :value="formData.customization['background-opacity']" @input="(e) => updateCustomization('background-opacity', e.target.value)" :attrs="{ form: 'mainForm' }">
+                                    </div>
+
+                                    <p class="ft-m-medium">{{ formData.customization['background-opacity'] }}%</p>
+                                </div>
+                            </div>
+
+                            <div class="mt-20">
+                                <pexels-gallery @select="(v) => { setPhotoColor(v.avg_color); updateCustomization('background', { src: v.src.original, photographer: { url: v.photographer_url, name: v.photographer} }); updateCustomization('background-thumbnail', v.src.large) }"/>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                </transition>
+                
+                <transition name="fade">
+                    <div v-show="section == 'config'">
+                        Hey bro
+                        <div class="p-20 b br-m mv-10" v-if="!formData.isHome">
+                            <p class="ft-m-bold mb-10">Personnaliser mon lien</p>
 
-                <div class="p-20 b br-m mv-10" v-if="!formData.isHome">
-                    <p class="ft-m-bold mb-10">Personnaliser mon lien</p>
+                            <div class="d-flex fx-align-center">
+                                <select-base
+                                    class="width-auto"
+                                    :options="shops.map(s => ({ id: s._id, label: s.slug.toLowerCase() }))"
+                                    :attrs="{ form: 'mainForm' }"
+                                    v-model="formData.shop"
+                                />
+                                <p class="fx-no-shrink mh-10">.arriere-boutique.fr/</p>
 
-                    <div class="d-flex fx-align-center">
-                        <select-base
-                            class="width-auto"
-                            :options="shops.map(s => ({ id: s._id, label: s.slug.toLowerCase() }))"
-                            :attrs="{ form: 'mainForm' }"
-                            v-model="formData.shop"
-                        />
-                        <p class="fx-no-shrink mh-10">.arriere-boutique.fr/</p>
+                                <input-base v-model="formData.slug" style="min-width: 120px" :attrs="{ required: true, form: 'mainForm' }"/>
+                            </div>
 
-                        <input-base v-model="formData.slug" style="min-width: 120px" :attrs="{ required: true, form: 'mainForm' }"/>
+                            <p class="ft-xs-medium mt-10">Lien final : <span class="text-underline">{{ fullLink }}</span></p>
+                        </div>
                     </div>
+                </transition>
 
-                    <p class="ft-xs-medium mt-10">Lien final : <span class="text-underline">{{ fullLink }}</span></p>
-                </div>
-
-                <div class="fixedSubmit text-right" :class="{ 'is-active': changesMade }">
+                <div class="fixedSubmit text-right" :class="{ 'is-active': changesMade }" v-show="changesMade">
                     <button-base
                         :modifiers="['gum']"
                         :class="{ 'is-disabled': !changesMade, 'is-loading': isLoading }"
@@ -113,6 +101,19 @@
                 <placeholder class="br-s mb-20" :modifiers="['simple', 'h', 'xs']" />
                 <placeholder class="br-s mb-20" :modifiers="['simple', 'h']" />
                 <placeholder class="br-s mb-20" :modifiers="['simple', 'h']" />
+            </div>
+
+            <div class="PageEditor_previewContainer">
+                <div class="PageEditor_preview fx-no-shrink">
+                    <template v-if="isInit">
+                        <div class="PageEditor_contentScroll">
+                            <div class="PageEditor_content">
+                                <landing-content :is-preview="true" :content="parseForm(formData)" />
+                            </div>
+                        </div>
+                    </template>
+                    <placeholder v-else />
+                </div>
             </div>
         </div>
 
@@ -146,6 +147,7 @@ export default {
         photoColor: '',
         prevFormData: {},
         formData: {},
+        section: 'modules',
         defaultData: {
             slug: 'ma-page',
             customization: {
@@ -186,6 +188,13 @@ export default {
         },
         moduleList () {
             return Object.values(Modules).filter(m => m.metadata).map(m => m.metadata.name)
+        },
+        navItems () {
+            return [
+                { label: 'Blocs', isActive: this.section == 'modules', onClick: () => this.section = 'modules' },
+                { label: 'Personnalisation', isActive: this.section == 'style', onClick: () => this.section = 'style' },
+                { label: 'Paramètres', isActive: this.section == 'config', onClick: () => this.section = 'config' },
+            ]
         }
     },
     watch: {
@@ -283,17 +292,24 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    .PageEditor_preview {
-        width: 450px;
-        height: 600px;
-        border: 1px solid var(--color-border);
+    .PageEditor_previewContainer {
+        position: relative;
+        margin-left: 30px;
         border-radius: 10px;
+        width: 400px;
+        background: var(--color-bg-xweak);
+    }
+
+    .PageEditor_preview {
+        margin-top: 50px;
         overflow: hidden;
         display: flex;
         flex-direction: column;
         position: sticky;
         top: 30px;
-        background-color: var(--color-bg-light);
+        transform-origin: top center;
+        overflow: hidden;
+        transform: scale(0.7);
     }
 
     .PageEditor_content {
@@ -303,30 +319,13 @@ export default {
     }
 
     .PageEditor_contentScroll {
+        width: 400px;
+        height: 700px;
         overflow: auto;
         flex-grow: 1;
-    }
-
-    .PageEditor_previewHeader {
-        padding: 0 15px;
-        display: flex;
-        justify-content: space-between;
-
-        .LinkBase {
-            margin: 15px 0;
-        }
-
-        .copy {
-            border-left: 1px solid var(--color-border);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            padding: 0 0 0 15px;
-
-            &:hover {
-                color: var(--color-ft-weak);
-            }
-        }
+        box-sizing: border-box;
+        border-radius: 40px;
+        border: 15px solid var(--color-onyx);
     }
 
     .fixedSubmit {
@@ -352,10 +351,6 @@ export default {
         &:hover {
             color: var(--color-ft-weak);
         }
-    }
-    .PageEditor_previewContainer {
-        position: relative;
-        margin-right: 30px;
     }
 
     @media screen and (max-width: 1200px) {
