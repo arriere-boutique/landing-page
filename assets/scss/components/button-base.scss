@@ -92,12 +92,9 @@
 
 .ButtonBase--round {
 
-    .ButtonBase_iconAfter {
-        margin-left: 0;
-    }
-
+    .ButtonBase_iconAfter,
     .ButtonBase_iconBefore {
-        margin-right: 0;
+        margin: 0;
     }
 
     .ButtonBase_content {
@@ -110,6 +107,42 @@
         .ButtonBase_content {
             width: 40px;
             height: 40px;
+        }
+    
+        .ButtonBase_iconAfter,
+        .ButtonBase_iconBefore {
+            margin: 0;
+        }
+
+    }
+
+    &.ButtonBase--xs {
+
+        .ButtonBase_content {
+            width: 35px;
+            height: 35px;
+        }
+    
+        .ButtonBase_iconAfter,
+        .ButtonBase_iconBefore {
+            margin: 0;
+        }
+    }
+
+    &.ButtonBase--2xs {
+
+        .ButtonBase_content {
+            width: 30px;
+            height: 30px;
+            min-height: 0;
+            min-width: 0;
+            padding: 0;
+        }
+    
+        .ButtonBase_iconAfter,
+        .ButtonBase_iconBefore {
+            margin: 0;
+            font-size: 14px;
         }
     }
 }
@@ -126,8 +159,13 @@
     font: var(--ft-xs-medium);
 
     .ButtonBase_content {
-        min-height: 20px;
+        min-height: 35px;
         padding: 5px 10px;
+    }
+
+    .ButtonBase_iconAfter {
+        margin-left: 6px;
+        font-size: 14px;
     }
 
     .ButtonBase_iconBefore {

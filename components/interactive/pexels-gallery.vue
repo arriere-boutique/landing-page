@@ -2,7 +2,7 @@
     <form @submit.prevent="() => search(query)" class="PexelsGallery">
         <div class="PexelsGallery_search p-20" :style="{ '--background': `url(${random.src ? random.src.large : ''})` }">
             <div>
-                <input-base type="text" class="mr-10" v-model="query" />
+                <input-base type="text" class="mr-10" :modifiers="['no-label']" v-model="query" :attrs="{ placeholder: 'Nature, art abstrait, atelier...' }" />
                 <button-base type="submit" :modifiers="['secondary', 's', 'white']" :class="{ 'is-loading': isLoading }">
                     Rechercher
                 </button-base>
@@ -56,7 +56,6 @@ export default {
     mounted () {
         this.$data.maxWidth = this.$refs.container.offsetWidth
         this.search()
-        
     },
     methods: {
         getNext () {

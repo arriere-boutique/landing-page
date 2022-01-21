@@ -9,11 +9,11 @@
         <div class="d-flex">
             <form id="mainForm" @submit.prevent="update"></form>
 
-            <div class="fx-grow" v-if="isInit">
+            <div class="fx-grow fx-no-shrink max-width-l" v-if="isInit">
                 <nav-bar class="mb-40" :items="navItems" />
 
                 <transition name="fade">
-                    <div v-show="section == 'modules'">
+                    <div v-if="section == 'modules'">
                         <transition-group name="default" tag="div">
                             <component
                                 v-for="module in orderedModules" :key="module.id" class="mb-10"
@@ -32,7 +32,7 @@
                 </transition>
 
                 <transition name="fade">
-                    <div v-show="section == 'style'">
+                    <div v-if="section == 'style'">
                         <div class="p-20 b br-m mv-10">
                             <div class="mv-10">
                                 <p class="ft-s-medium mb-10">Couleur de fond</p>
@@ -62,7 +62,7 @@
                 </transition>
                 
                 <transition name="fade">
-                    <div v-show="section == 'config'">
+                    <div v-if="section == 'config'">
                         Hey bro
                         <div class="p-20 b br-m mv-10" v-if="!formData.isHome">
                             <p class="ft-m-bold mb-10">Personnaliser mon lien</p>
@@ -85,17 +85,19 @@
                 </transition>
 
                 <div class="fixedSubmit text-right" :class="{ 'is-active': changesMade }" v-show="changesMade">
+                    <link-base @click.native.prevent="reset" type="button" class="mr-20">Annuler les changements</link-base>
+
                     <button-base
                         :modifiers="['gum']"
                         :class="{ 'is-disabled': !changesMade, 'is-loading': isLoading }"
                         type="submit"
                         :attrs="{ form: 'mainForm' }"
                     >
-                        Sauvegarder les changements
+                        Sauvegarder
                     </button-base>
                 </div>
             </div>
-            <div class="fx-grow" v-else>
+            <div class="fx-grow fx-no-shrink max-width-l" v-else>
                 <placeholder class="br-s mb-10" :modifiers="['simple', 'h', 'xs']" />
                 <placeholder class="br-s mb-10" :modifiers="['simple', 'h', 'xs']" />
                 <placeholder class="br-s mb-20" :modifiers="['simple', 'h', 'xs']" />
@@ -272,6 +274,12 @@ export default {
                 this.$router.push({ path: this.localePath({ name: 'pages' }) })
             }
         },
+        reset () {
+            this.formData = {
+                ...this.decodeForm(this.formData),
+                ...this.decodeForm(this.serverEntity)
+            }
+        },
         async update () {
             let response = await this.$store.dispatch('landings/create', {
                 _id: this.formData._id ? this.formData._id : undefined,
@@ -296,7 +304,8 @@ export default {
         position: relative;
         margin-left: 30px;
         border-radius: 10px;
-        width: 400px;
+        min-width: 400px;
+        flex-grow: 1;
         background: var(--color-bg-xweak);
     }
 
@@ -304,6 +313,7 @@ export default {
         margin-top: 50px;
         overflow: hidden;
         display: flex;
+        align-items: center;
         flex-direction: column;
         position: sticky;
         top: 30px;

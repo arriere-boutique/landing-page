@@ -4,7 +4,7 @@
         :form-data="formData"
         :title="`${module.items.length} sélectionnées`"
     >
-        <input-base type="text" v-model="formData.title" />
+        <input-base type="text" label="Titre" class="mb-20" v-model="formData.title" />
         <listing-selector v-model="formData.items" />
     </landing-module>
 </template>
