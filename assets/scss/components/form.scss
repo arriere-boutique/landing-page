@@ -110,6 +110,16 @@ textarea {
 }
 
 
+.InputBase--no-label {
+
+  input {
+    &::placeholder {
+      color: var(--color-ft-weak);
+      opacity: 1;
+    }
+  }
+}
+
 .Toggle_container {
   background-color: var(--color-bg-weak);
 }

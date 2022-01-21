@@ -22,6 +22,7 @@
                             <input-base
                                 type="datetime-local"
                                 label="Montrer à partir du"
+                                :attrs="{ min: minStartDate, max: maxStartDate }"
                                 :value="value.startDate"
                                 @input="(v) => $emit('input', { startDate: v })"
                             />
@@ -30,6 +31,7 @@
                             <input-base
                                 type="datetime-local"
                                 label="Cacher après le"
+                                :attrs="{ min: minEndDate }"
                                 :value="value.endDate"
                                 @input="(v) => $emit('input', { endDate: v })"
                             />
@@ -68,6 +70,17 @@ export default {
         value: { type: Object, default: () => ({})  },
         metadata: { type: Object, default: () => ({}) },
         isActive: { type: Boolean, default: false }
+    },
+    computed: {
+        minStartDate () {
+            return this.$moment().format('yyyy-MM-DDThh:mm')
+        },
+        maxStartDate () {
+            return this.value.endDate ? this.$moment(this.value.endDate).format('yyyy-MM-DDThh:mm') : false
+        },
+        minEndDate () {
+            return (this.value.startDate ? this.$moment(this.value.startDate) : this.$moment()).format('yyyy-MM-DDThh:mm')
+        }
     },
     methods: {
         resetProgrammation () {
