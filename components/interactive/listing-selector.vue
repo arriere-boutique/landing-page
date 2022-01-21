@@ -15,6 +15,9 @@
                     </div>
                 </div>
             </div>
+            <div class="col-6 mb-10" v-for="i in (Math.max(limit - showingListings.length, 0))" :key="i">
+                <div class="bg-bg-xweak height-100 br-s"></div>
+            </div>
         </transition-group>
 
         <div class="d-flex fx-justify-end fx-align-center">
