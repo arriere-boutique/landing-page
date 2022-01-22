@@ -20,7 +20,8 @@ export default {
         fa: 'grid-2',
         color: 'sunset',
         title: `Grille d'articles Etsy`,
-        description: `Affiche du texte sur ta page.`,
+        description: `Affiche plusieurs articles de ta boutique Etsy.`,
+        requirements: ['shop'],
         default: {
             title: 'Découvrez ma boutique',
             items: []

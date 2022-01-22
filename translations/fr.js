@@ -54,5 +54,10 @@ export default {
                 label: 'Outils'
             },
         }
+    },
+    modules: {
+        requirements: {
+            shop: `au moins 1 boutique Etsy connectée`
+        }
     }
 }

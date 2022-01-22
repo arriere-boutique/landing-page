@@ -3,7 +3,7 @@
         <div class="Breadcrumbs_item" :class="{ 'is-active': item.active }" v-for="(item, i) in items" :key="i">
             <p v-if="item.active">{{ item.label }}</p>
             
-            <link-base :modifiers="['m']" :tag="item.href ? 'a' : 'nuxt-link'" :href="item.href" :attrs="{ to: localePath(item.to) }" v-else>
+            <link-base :modifiers="['m']" :tag="item.href ? 'a' : 'nuxt-link'" :href="item.href" :attrs="{ to: localePath(item.to) }" target="_blank" v-else>
                 {{ item.label }}
             </link-base>
         </div>

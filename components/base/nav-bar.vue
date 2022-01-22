@@ -1,10 +1,10 @@
 <template>
     <div class="NavBar">
-        <div class="NavBar_item" :class="{ 'is-active': item.isActive }" v-for="(item, i) in items" :key="i">
-            <link-base :modifiers="['m']" :tag="item.href ? 'a' : 'nuxt-link'" :href="item.href" :attrs="{ to: localePath(item.to) }" v-if="item.href || item.to">
+        <div v-for="(item, i) in items" :key="i">
+            <link-base class="NavBar_item" :class="{ 'is-active': item.isActive }" :modifiers="['m']" :tag="item.href ? 'a' : 'nuxt-link'" :href="item.href" :attrs="{ to: localePath(item.to) }" v-if="item.href || item.to">
                 {{ item.label }}
             </link-base>
-            <div @click="() => item.onClick ? item.onClick() : undefined" v-else>
+            <div class="NavBar_item" :class="{ 'is-active': item.isActive }" @click="() => item.onClick ? item.onClick() : undefined" v-else>
                 {{ item.label }}
             </div>
         </div>

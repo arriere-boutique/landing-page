@@ -4,7 +4,7 @@
         :form-data="formData"
         :title="`${module.links.filter(b => b.active).length} boutons actifs`"
     >
-        <div class="d-flex fx-align-center mv-10" v-for="link in formData.links" :key="link.id">
+        <div class="Link d-flex fx-align-center mv-10" :class="{ 'is-inactive': !link.active }" v-for="link in formData.links" :key="link.id">
             <input-base type="text" label="Texte du lien" :value="link.label" :attrs="{ required: true }" @input="(v) => updateLink(link.id, { ...link, label: v })"/>
             <input-base type="text" class="ml-10" label="Lien" :value="link.href" :attrs="{ required: true }" @input="(v) => updateLink(link.id, { ...link, href: v })"/>
 
@@ -58,6 +58,15 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
+    .Link {
+
+        &.is-inactive {
+            
+            .InputBase {
+                opacity: 0.5;
+            }
+        }
+    }
 
 </style>
