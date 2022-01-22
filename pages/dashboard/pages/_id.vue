@@ -6,6 +6,7 @@
                 { label: fullLink ? fullLink : '', href: fullLink ? fullLink : '' },
             ]" />
         </div>
+
         <div class="d-flex">
             <form id="mainForm" @submit.prevent="update"></form>
 
@@ -34,7 +35,7 @@
                 <transition name="fade">
                     <div v-if="section == 'style'">
                         <div class="p-20 b br-m mv-10">
-                            <div class="mv-10">
+                            <div class="mb-20">
                                 <p class="ft-s-medium mb-10">Couleur de fond</p>
                                 <color-picker
                                     :before="[ { hex: 'auto', display: this.photoColor, fa: 'wand-magic-sparkles' } ]"
@@ -43,7 +44,7 @@
                                 />
                             </div>
 
-                            <div class="mv-10">
+                            <div class="mb-20">
                                 <p class="ft-s-medium mb-10">Transparence de l'image de fond</p>
                                 <div class="d-flex">
                                     <div class="bg-bg-xweak fx-grow br-m mr-20">
@@ -54,9 +55,7 @@
                                 </div>
                             </div>
 
-                            <div class="mt-20">
-                                <pexels-gallery @select="(v) => { setPhotoColor(v.avg_color); updateCustomization('background', { src: v.src.original, photographer: { url: v.photographer_url, name: v.photographer} }); updateCustomization('background-thumbnail', v.src.large) }"/>
-                            </div>
+                            <pexels-gallery @select="(v) => { setPhotoColor(v.avg_color); updateCustomization('background', { src: v.src.original, photographer: { url: v.photographer_url, name: v.photographer} }); updateCustomization('background-thumbnail', v.src.large) }"/>
                         </div>
                     </div>
                 </transition>
@@ -237,8 +236,8 @@ export default {
         deleteModule (id) {
             this.formData.modules = this.formData.modules.filter(m => m.id != id)
         },
-        addModule (module) {
-            this.formData.modules = [ ...this.formData.modules, { id: Math.random(), type: module.name, active: true, position: this.formData.modules.length, ...module.default } ]
+        addModule (type) {
+            this.formData.modules = [ ...this.formData.modules, { id: Math.random(), type, active: true, position: this.formData.modules.length, ...module.default } ]
         },  
         setModule (id, value) {
             let modules = [ ...this.formData.modules].map(m => ({ ...(m.id == id ? value : m) }))

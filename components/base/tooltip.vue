@@ -1,6 +1,6 @@
 <template>
     <span class="TooltipIcon" @mouseenter="(e) => $tOpen(text, e)" @mouseleave="$tClose">
-        <i class="fal fa-circle-question"></i>
+        <i class="fal" :class="[ `fa-${icon}` ]"></i>
     </span>
 </template>
 
@@ -8,7 +8,8 @@
 export default {
     name: 'Tooltip',
     props: {
-        text: { type: String }
+        text: { type: String },
+        icon: { type: String, default: 'circle-question' }
     }
 }
 </script>

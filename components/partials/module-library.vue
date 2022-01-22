@@ -3,16 +3,27 @@
         <template slot="content">
             <div class="p-60">
                 <div class="row-xs">
-                    <div class="col-4" v-for="module in modules" :key="module.name">
-                        <div class="Module Tile" :class="[ `is-${module.color}` ]" @click="$emit('close'); $emit('add', module)">
-                            <p class="ft-l color-current-strong">
-                                <i class="fal fa-link" :class="[ `fa-${module.fa}` ]"></i>
-                            </p>
+                    <div class="col-4 mb-10" v-for="module in availableModules" :key="module.name">
+                        <module-tile v-bind="module" @click="$emit('close'); $emit('add', module.name)" />
+                    </div>
+                </div>
 
-                            <div class="mt-30">
-                                <p class="ft-l-bold">{{ module.title }}</p>
-                                <p class="ft-s-medium mt-5">{{ module.description }}</p>
-                            </div>
+                <div v-if="unavailableModules.length > 0">
+                    <p class="mt-40 mb-10 ft-s-bold">Non-disponibles</p>
+
+                    <div class="row-xs">
+                        <div class="col-4 mb-10" v-for="module in unavailableModules" :key="module.name">
+                            <module-tile  v-bind="module" :has-requirements="hasRequirements(module)" />
+                        </div>
+                    </div>
+                </div>
+
+                <div v-if="developingModules.length > 0">
+                    <p class="mt-40 mb-10 ft-s-bold">En cours en développement</p>
+
+                    <div class="row-xs">
+                        <div class="col-4 mb-10" v-for="module in developingModules" :key="module.name">
+                            <module-tile v-bind="module" />
                         </div>
                     </div>
                 </div>
@@ -33,15 +44,33 @@ export default {
 
     }),
     computed: {
+        shops () { return this.$store.state.shop.items },
         modules () {
             return Object.values(Modules).filter(m => m.metadata).map(m => m.metadata)
+        },
+        availableModules () {
+            return this.modules.filter(m => !m.dev && !this.hasRequirements(m))
+        },
+        unavailableModules () {
+            return this.modules.filter(m => !m.dev && this.hasRequirements(m))
+        },
+        developingModules () {
+            return this.modules.filter(m => m.dev)
+        }
+    },
+    methods: {
+        hasRequirements (metadata) {
+            let required = []
+
+            if (metadata.requirements) {
+                required = metadata.requirements.reduce((total, requirement) => {
+                    if (requirement == 'shop' && this.shops.length <= 0) return [ ...total, requirement ]
+                    return total
+                }, [])
+            }
+
+            return required.length > 0 ? required : false
         }
     }
 }
 </script>
-
-<style lang="scss" scoped>
-    .Module {
-        cursor: pointer;
-    }
-</style>
