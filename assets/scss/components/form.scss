@@ -72,6 +72,11 @@ textarea {
   color: var(--color-ft-weak);
 }
 
+.InputBase_errorPopin {
+  z-index: 5;
+  border-radius: 10px;
+}
+
 .InputBase.is-value,
 .InputBase.is-focused {
 

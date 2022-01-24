@@ -60,6 +60,14 @@ export default {
     name: 'DashboardIndex',
     middleware: 'loggedUser',
     layout: 'dashboard',
+    async fetch () {
+        this.shops.forEach(shop => {
+            this.$store.dispatch('shop/sync', {
+                notification: false,
+                params: { id: shop._id, syncItems: [ 'orders' ] }
+            })
+        })
+    },
     computed: {
         user () { return this.$store.state.auth.user },
         orders () { return this.$store.getters['shop/allOrders'] }

@@ -59,6 +59,7 @@ export default {
     },
     head () {
         let meta = {
+            title: this.content && this.content.title ? this.content.title : `Bienvenue dans mon univers`,
             meta: [
                 { hid: 'description', name: 'description', content: `` }
             ]

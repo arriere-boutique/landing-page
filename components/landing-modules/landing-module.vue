@@ -15,13 +15,14 @@
             :max="modules.length"
             :metadata="metadata"
             @input="$parent.changePosition"
+            @edit="isPopinActive = true"
+            @delete="$parent.delete"
         />
 
         <landing-module-actions
             :data="formData"
             @open="isPopinActive = true"
             @toggle="$parent.toggle(!isModuleActive)"
-            @delete="$parent.delete"
         />
         
         <landing-module-popin

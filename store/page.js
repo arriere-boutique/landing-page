@@ -3,6 +3,7 @@ export default {
     state: () => ({
         isCartActive: false,
         isNavCompact: false,
+        isBodyOverflow: true,
         body: {
             classes: [ 'is-fill' ],
             color: 'gum'
@@ -12,6 +13,15 @@ export default {
         }    
     }),
     mutations: {
+        toggleOverflow (state, v) {
+            if (!state.isBodyOverflow || v === true) {
+                state.isBodyOverflow = true
+            } else if (state.isBodyOverflow) {
+                state.isBodyOverflow = false 
+            }
+            
+            document.body.classList.toggle('o-hidden', !state.isBodyOverflow)
+        },
         toggleCompact (state) {
             state.isNavCompact = !state.isNavCompact
         },

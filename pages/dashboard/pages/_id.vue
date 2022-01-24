@@ -3,7 +3,7 @@
         <div class="d-flex fx-align-center mv-40">
             <breadcrumbs class="fx-no-shrink" :items="[
                 { label: 'Pages', to: { name: 'pages' } },
-                { label: fullLink ? fullLink : '', href: fullLink ? fullLink : '' },
+                { label: formData.title ? formData.title : 'Ma page', href: fullLink ? fullLink : '' },
             ]" />
         </div>
 
@@ -62,7 +62,8 @@
                 
                 <transition name="fade">
                     <div v-if="section == 'config'">
-                        Hey bro
+                        <input-base label="Titre de la page" v-model="formData.title" />
+
                         <div class="p-20 b br-m mv-10" v-if="!formData.isHome">
                             <p class="ft-m-bold mb-10">Personnaliser mon lien</p>
 
@@ -149,6 +150,7 @@ export default {
         prevFormData: {},
         formData: {},
         section: 'modules',
+        title: '',
         defaultData: {
             slug: 'ma-page',
             customization: {
@@ -234,6 +236,7 @@ export default {
     },
     methods: {
         deleteModule (id) {
+            console.log(id)
             this.formData.modules = this.formData.modules.filter(m => m.id != id)
         },
         addModule (type) {
@@ -335,6 +338,10 @@ export default {
         box-sizing: border-box;
         border-radius: 40px;
         border: 15px solid var(--color-onyx);
+        
+        &::-webkit-scrollbar {
+            width: 0px;
+        }
     }
 
     .fixedSubmit {

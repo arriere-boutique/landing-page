@@ -11,21 +11,18 @@
                     </div>
 
                     <div class="ListingSelector_checkbox">
-                        <button-base icon-before="plus" :modifiers="['light', 'round', '2xs']" @click.native.prevent="select(listing._id)" />
+                        <button-base icon-before="plus" type="button" :modifiers="['light', 'round', '2xs']" @click="select(listing._id)" />
                     </div>
                 </div>
-            </div>
-            <div class="col-6 mb-10" v-for="i in (Math.max(limit - showingListings.length, 0))" :key="i">
-                <div class="bg-bg-xweak height-100 br-s"></div>
             </div>
         </transition-group>
 
         <div class="d-flex fx-justify-end fx-align-center">
-            <button-base icon-before="angle-left" :modifiers="['light', 'round', 'xs']" @click.native.prevent="offset -= limit" v-show="this.offset > 0" />
+            <button-base icon-before="angle-left" type="button" :modifiers="['light', 'round', 'xs']" @click="offset -= limit" v-show="this.offset > 0" />
 
             <p class="ft-xs-medium mh-10">{{ (this.offset / this.limit) + 1 }} / {{ this.maxPages }}</p>
 
-            <button-base icon-after="angle-right" :modifiers="['light', 'xs']" :class="{ 'is-disabled': this.offset >= this.maxPages }" @click.native.prevent="offset += limit">Page suivante</button-base>
+            <button-base icon-after="angle-right" type="button" :modifiers="['light', 'xs']" :class="{ 'is-disabled': this.offset >= this.maxPages - 1 }" @click.native.prevent="offset += limit">Page suivante</button-base>
         </div>
 
         <div v-if="selectedListings.length > 0">
@@ -39,7 +36,7 @@
                     </div>
 
                     <div class="ListingSelector_checkbox">
-                        <button-base icon-before="minus" :modifiers="['light', 'round', '2xs']" @click.native.prevent="deselect(listing._id)" />
+                        <button-base icon-before="minus" type="button" :modifiers="['light', 'round', '2xs']" @click="deselect(listing._id)" />
                     </div>
                 </div>
             </transition-group>
