@@ -6,7 +6,7 @@
     >
         <div class="Link d-flex fx-align-center mv-10" :class="{ 'is-inactive': !link.active }" v-for="link in formData.links" :key="link.id">
             <input-base type="text" label="Texte du lien" :value="link.label" :attrs="{ required: true }" @input="(v) => updateLink(link.id, { ...link, label: v })"/>
-            <input-base type="text" class="ml-10" label="Lien" :value="link.href" :attrs="{ required: true }" @input="(v) => updateLink(link.id, { ...link, href: v })"/>
+            <input-base type="text" class="ml-10" label="Lien" :value="link.href" :attrs="{ required: true }" @input="(v) => updateLink(link.id, { ...link, href: v })" :validator="$validator('email')"/>
 
             <div class="Buttons d-flex fx-no-shrink ml-10">
                 <toggle-base :value="link.active" @input="(v) => updateLink(link.id, { ...link, active: v })" />

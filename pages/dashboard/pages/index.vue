@@ -27,12 +27,15 @@
                         icon-before="plus"
                         :modifiers="['ice']"
                         tag="nuxt-link"
+                        :class="{ 'is-disabled': true }"
                         :attrs="{
                             to: localePath({ name: 'pages-id', params: { id: 'new' }})
                         }"
                     >
                         Créer une page
                     </button-base>
+
+                    <div class="bg-ice-xweak p-20 line-2 color-ice-strong br-s ft-s-medium mt-20">Bientôt, tu pourras créer plusieurs pages selon tes besoins !</div>
                 </div>
             </div>
         </div>

@@ -7,6 +7,11 @@
         <div class="d-flex fx-align-center">
             <i class="fal fa-arrow-up c-pointer ml-10" @click="() => $emit('input', value - 1.5)" :class="{ 'is-disabled': false }"></i>
             <i class="fal fa-arrow-down c-pointer ml-10" @click="() => $emit('input', value + 1.5)" :class="{ 'is-disabled': false }"></i>
+
+            <quick-menu class="ml-10" :items="[
+                { label: 'Modifier', action: () => this.$emit('edit') },
+                { label: 'Supprimer définitivement', action: () => this.$emit('delete') },
+            ]" />
         </div>
     </div>
 </template>

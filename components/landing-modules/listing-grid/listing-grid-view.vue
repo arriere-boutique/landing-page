@@ -12,7 +12,7 @@
                     </div>
 
                     <p class="Listing_title ellipsis-2">{{ listing.title }}</p>
-                    <p class="Listing_price">{{ (listing.price.amount / listing.price.divisor)|round }}€</p>
+                    <!-- <p class="Listing_price">{{ (listing.price.amount / listing.price.divisor)|round }}€</p> -->
                 </a>
             </div>
         </div>

@@ -41,6 +41,7 @@ exports.syncShop = async function (id, syncItems = [], firstSync = false) {
                         isHome: true,
                         logo: shop.logo,
                         slug: 'home',
+                        title: `Bienvenue chez ${shop.name} !`,
                         customization: {
                             'background': {
                                 src: 'https://images.pexels.com/photos/62693/pexels-photo-62693.jpeg'

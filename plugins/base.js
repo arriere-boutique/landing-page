@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import moment from 'moment'
 import { ButtonBase, PopinBase } from 'instant-coffee-core'
+import Validators from '@/utils/validators'
 import LogoYellow from '@/assets/img/logo/logo-yellow.png'
 
 moment.locale('fr')
@@ -31,13 +32,13 @@ Vue.mixin({
             seo: { color: 'pond', fa: 'fa-search', slug: 'referencement-seo' },
             identity: { color: 'ice', fa: 'fa-store', slug: 'identite-de-marque' },
             value: { color: 'duck', fa: 'fa-gem', slug: 'valeur-percue' }
-        }
+        },
     }),
     computed: {
         $baseUrl () { return  process.env.baseUrl },
         $dashboardUrl () { return process.env.dashboardUrl },
         $blogUrl () { return process.env.blogUrl },
-        $shopUrl () { return process.env.shopUrl },
+        $shopUrl () { return process.env.shopUrl }
     },
     methods: {
         $randomBetween: (min, max) => {
@@ -117,6 +118,15 @@ Vue.mixin({
             }
             
             return array
+        },
+        $onPopinOpen () {
+            this.$store.commit('page/toggleOverflow', false)
+        },
+        $onPopinClose () {
+            this.$store.commit('page/toggleOverflow', true)
+        },
+        $validator (type) {
+            return Validators[type]
         }
     }
 })
