@@ -18,16 +18,13 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
 import {} from '@/utils/base'
 
 export default {
     name: 'DashboardPage',
     layout: 'admin',
     async fetch () {
-        await this.$store.dispatch('events/fetch', {
-            query: {}
-        })
+
     },
     computed: {
         user () { return this.$store.state.auth.user }

@@ -1,5 +1,5 @@
 <template>
-    <nav class="NavAdmin" :class="[ `NavAdmin--${user.theme ? user.theme.color : 'gum'}` ]">
+    <nav class="NavAdmin" :class="[]">
         <nuxt-link to="/" class="NavAdmin_logo">
             <icon-base name="logo/logo-main" :height="50" />
         </nuxt-link>
@@ -14,18 +14,6 @@
                 >
                     <i class="fal mr-3" :class="[ `fa-${item.icon}` ]"></i> {{ item.label }}
                 </nuxt-link>
-
-                <!-- <div class="NavAdmin_sub" v-if="item.items && item.items.length > 0">
-                    <nuxt-link
-                        v-for="(sub, i) in item.items"
-                        class="NavAdmin_link"
-                        :class="{ 'is-disabled': sub.disabled }"
-                        :attrs="{ to: localePath({ name: sub.link }) }"
-                        :key="i"
-                    >
-                        {{ sub.label }}
-                    </nuxt-link>
-                </div> -->
             </div>
         </div>
 
@@ -45,10 +33,6 @@ export default {
             { label: 'Utilisateurs', icon: 'scroll', link: 'admin-users' },
             { label: 'Bibliothèque de médias', icon: 'image', link: 'admin-other-medias' }
         ]
-    }),
-    computed: {
-        user () { return this.$store.state.user.info },
-        icon () { return this.user.theme ? this.user.theme.icon : 'cat-space' }
-    }
+    })
 }
 </script>

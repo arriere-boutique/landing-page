@@ -8,7 +8,7 @@
         </div>
 
         <div class="LandingBlock_content">
-            <p class="ft-m-medium ellipsis-2" style="min-height: 48px">{{ title ? title : 'Ma page' }}</p>
+            <p class="ft-m-medium ellipsis-2 line-2 mb-10" style="min-height: 48px">{{ title ? title : 'Ma page' }}</p>
 
             <div class="d-flex fx-justify-between fx-align-center">
                 <div class="fx-grow mr-5">
