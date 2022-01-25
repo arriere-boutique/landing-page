@@ -12,28 +12,20 @@
             <div class="HeaderBase_right">
                 <nav class="HeaderBase_nav">
                     <div v-for="(item, key) in itemsLeft" class="HeaderBase_navParent" :class="{ 'is-parent': item.items != undefined }"  :key="key">
-                        <component  class="HeaderBase_navLink" :is="item.path ? 'nuxt-link' : 'a'" :to="localePath(item.path)" :href="item.href" :target="item.href ? '_blank' : ''">
+                        <component  class="HeaderBase_navLink" :is="item.path ? 'nuxt-link' : 'a'" :to="localePath(item.path)" :href="item.href">
                             {{ item.label }}
                         </component>
                     </div>
                 </nav>
 
                 <div v-for="(item, key) in itemsRight" class="HeaderBase_navParent" :class="{ 'is-parent': item.items != undefined }"  :key="key">
-                    <component  class="HeaderBase_navLink" :is="item.path ? 'nuxt-link' : 'a'" :to="localePath(item.path)" :href="item.href" :target="item.href ? '_blank' : ''">
+                    <component  class="HeaderBase_navLink" :is="item.path ? 'nuxt-link' : 'a'" :to="localePath(item.path)" :href="item.href">
                         {{ item.label }}
                     </component>
                 </div>
-                
-                <a :href="localePath({ name: 'admin' })" class="HeaderBase_button mr-5" v-if="user && user.role == 'admin'">
-                    <i class="fal fa-crown"></i>
-                </a>
 
                 <a :href="localePath({ name: 'admin' })" class="HeaderBase_button mr-5" v-if="user && user.role != 'guest'">
                     <i class="fal fa-user"></i>
-                </a>
-
-                <a :href="$baseUrl" class="HeaderBase_button mr-5">
-                    <i class="fal fa-home"></i>
                 </a>
             </div>
 
@@ -48,7 +40,6 @@
                         :is="item.path ? 'nuxt-link' : 'a'"
                         :to="localePath(item.path)"
                         :href="item.href"
-                        :target="item.href ? '_blank' : ''"
                     >
                         {{ item.label }}
                     </component>
@@ -92,6 +83,7 @@ export default {
         this.$data.itemsLeft = {
             articles: { label: 'Articles & astuces', path: { name: 'articles' } },
             about: { label: `Qui suis-je ?`, path: { name: 'moi-moi-moi' } },
+            ab: { label: `Crée ton Arrière Boutique`, href: this.$baseUrl },
         }
 
         this.$data.itemsRight = {

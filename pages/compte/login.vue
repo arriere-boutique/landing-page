@@ -1,6 +1,6 @@
 <template>
     <div class="bg-bg-light o-hidden">
-        <div class="Wrapper Wrapper">
+        <div class="Wrapper Wrapper--m">
             <div class="row-xl">
                 <div class="col-6 pv-60">
                     <div class="pv-30 br-m">
@@ -27,7 +27,7 @@
                     <div class="bg-to-right bg-gum-xweak"></div>
 
                     <form autocomplete="off" @submit.prevent="submitForm('register')" class="p-30 bg-bg-light br-m p-relative">
-                        <p class="ft-2xl-bold"><i class="fal fa-hand-wave mr-5"></i> Nous rejoindre</p>
+                        <p class="ft-2xl-bold"><i class="fal fa-hand-wave mr-5"></i> Crée ton Arrière Boutique</p>
 
                         <register-form :no-submit="true" class="mt-30" @formChange="updateForm" />
 

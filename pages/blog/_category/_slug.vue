@@ -1,6 +1,6 @@
 <template>
     <article class="ArticlePage bg-bg-light" v-if="article">
-        <div class="ArticlePage_banner pt-30 pb-60 pt-0@s pb-40@s">
+        <div class="ArticlePage_banner pv-40 pt-0@s pb-40@s">
             <div class="ArticlePage_bannerWrapper Wrapper Wrapper--m">
                 <div class="ArticlePage_cover" v-if="article.cover">
                     <img class="width-100" :src="article.cover" />
