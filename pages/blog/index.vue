@@ -1,6 +1,6 @@
 <template>
-    <div class="HomePage">
-        <div class="Wrapper d-flex fx-align-center d-block@s">
+    <div class="HomePage bg-gum-xweak">
+        <div class="Wrapper pt-40 is-pond d-flex fx-align-center d-block@s">
             <div class="HomePage_pictures">
                 <img class="HomePage_picture" :src="assets.blob1">
             </div>
@@ -11,12 +11,12 @@
                 <div class="max-width-l mt-10 ft-l">
                     <p><b>Toi et moi,</b> nous avons un rêve commun : faire connaître nos créations et valoriser le fait-main français. C'est pour cette raison que j'ai créé l'Arrière Boutique.</p>
 
-                    <p class="mt-20 color-current ft-bold">Te transmettre mon expérience de manière simple et pragmatique pour que <b>tu puisses te concentrer sur ce qui te fait vibrer : la création. </b></p>
+                    <p class="mt-20 color-current-strong ft-medium">Te transmettre mon expérience de manière simple et pragmatique pour que tu puisses te concentrer sur ce qui te fait vibrer : la création.</p>
                 </div>
             </div>
         </div>
 
-        <div class="bg-bg-light pv-60 is-ice">
+        <div class="bg-bg-light pv-60 is-gum">
             <div class="Wrapper">
                 <div class="d-flex fx-align-center d-block@s">
                     <div class="fx-grow mr-20 mr-0@s">
@@ -49,7 +49,7 @@
                 
             </div>
         </div>
-        <div class="pv-60 is-gum" :class="[`bg-bg-xweak`]" v-if="videos.length > 0">
+        <div class="pv-60 is-pond" :class="[`bg-pond-xweak`]" v-if="videos.length > 0">
             <div class="Wrapper">
                 <div class="d-flex fx-align-center d-block@s">
                     <div class="fx-grow mr-20 mr-0@s">
@@ -60,7 +60,7 @@
                     <button-base
                         class="mt-20@s"
                         tag="a"
-                        :modifiers="['current']"
+                        :modifiers="['pond']"
                         text="La chaîne Youtube"
                         icon-after="play"
                         link="https://www.youtube.com/channel/UCn1oYqWvUQvbE9DwlEVTgNg"

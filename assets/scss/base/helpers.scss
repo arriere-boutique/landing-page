@@ -171,6 +171,11 @@
         --color-current: var(--color-#{$color});
         --color-current-weak: var(--color-#{$color}-weak);
         --color-current-xweak: var(--color-#{$color}-xweak);
+        --color-current-xweak-0: var(--color-#{$color}-xweak-0);
+        --color-current-xweak-25: var(--color-#{$color}-xweak-25);
+        --color-current-xweak-50: var(--color-#{$color}-xweak-50);
+        --color-current-xweak-75: var(--color-#{$color}-xweak-75);
+        --color-current-0: var(--color-#{$color}-0);
         --color-current-25: var(--color-#{$color}-25);
         --color-current-50: var(--color-#{$color}-50);
         --color-current-75: var(--color-#{$color}-75);
@@ -189,17 +194,17 @@
     background-color: var(--color-border);
 }
 
-.color-current { color: var(--color-current); }
-.fill-current { fill: var(--color-current); }
-.color-current-weak { color: var(--color-current-weak); }
-.color-current-xstrong { color: var(--color-current-xstrong); }
-.color-current-strong { color: var(--color-current-strong); }
+.color-current { color: var(--color-current, var(--color-pond)); }
+.fill-current { fill: var(--color-current, var(--color-pond)); }
+.color-current-weak { color: var(--color-current-weak, var(--color-pond-weak)); }
+.color-current-xstrong { color: var(--color-current-xstrong, var(--color-pond-xstrong)); }
+.color-current-strong { color: var(--color-current-strong, var(--color-pond-strong)); }
 .color-current-50 { color: var(--color-current-50); }
 .color-current-75 { color: var(--color-current-50); }
 
-.bg-current { background-color: var(--color-current); }
-.bg-current-weak { background-color: var(--color-current-weak); }
-.bg-current-xweak { background-color: var(--color-current-xweak); }
+.bg-current { background-color: var(--color-current, var(--color-pond)); }
+.bg-current-weak { background-color: var(--color-current-weak, var(--color-pond-weak)); }
+.bg-current-xweak { background-color: var(--color-current-xweak, var(--color-pond-xweak)); }
 
 
 .link {

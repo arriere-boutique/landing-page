@@ -1,11 +1,11 @@
 <template>
     <footer class="FooterBase">
         
-        <div class="bg-gum-xweak">
+        <div class="bg-pond-xweak">
             <div class="FooterBase_nav Wrapper Wrapper--m">
                 <div class="FooterBase_links fx-grow row-xs">
                     <div class="col-6 pv-60 col-12@s pv-20@s" v-for="(item, i) in items" :key="i">
-                        <p class="ft-m-bold">{{ item.label }}</p>
+                        <p class="ft-m-bold color-current-xstrong">{{ item.label }}</p>
 
                         <div class="FooterBase_navLink" v-for="(link, j) in item.items" :key="j">
                             <nuxt-link class="link" :to="localePath(link.path)" v-if="link.path">
@@ -24,7 +24,7 @@
 
                     <div class="Title_secondary Title_secondary--s color-ft mv-40">
                         Le seul endroit où vos rêves sont impossibles, c'est dans votre tête
-                        <p class="color-pond mt-20">R. Schuller</p>
+                        <p class="color-pond-strong mt-20">R. Schuller</p>
                     </div>
 
                     <div class="d-flex fx-align-center fx-justify-center">

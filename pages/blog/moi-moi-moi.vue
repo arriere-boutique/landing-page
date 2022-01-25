@@ -1,6 +1,6 @@
 <template>
-    <div class="AboutPage">
-        <div class="Wrapper Wrapper--l d-flex fx-align-center d-block@s pb-30">
+    <div class="AboutPage bg-pond-xweak">
+        <div class="Wrapper Wrapper--l d-flex fx-align-center d-block@s pv-40">
             <div class="max-width-s">
                 <img class="width-100" :src="assets.blob1">
             </div>
@@ -58,16 +58,6 @@
                             Je découvre Etsy par hasard. C'est une révélation. Quelques semaines plus tard, je lançais ma première boutique, sans trop savoir ce que je faisais. <b>Évidemment ça n'a pas fonctionné.</b>
                             <br><br>
                             <i>J'avais cette vision un peu naïve et me disait qu'il suffisait d'avoir de beaux produits pour vendre. Je me rends compte que le produit en lui-même importe peu au final.</i>
-                        </p>
-
-                        <h2 class="ft-xl-bold mb-20 mt-60">Mais au fil de mes expériences et de mes différentes boutiques, j'ai élaboré ma petite recette du succès</h2>
-
-                        <p>
-                            <b class="color-gum">Identité de marque :</b> avoir une véritable vision et savoir la transmettre à tes clients. 
-                            <br><br>
-                            <b class="color-precious">Valeur perçue :</b> la valeur réelle de ton produit importe peu. Si tu arrives à faire rêver à travers un écran, ta vente est assurée : peu importe le prix que tu demandes.
-                            <br><br>
-                            <b class="color-pond">Référencement :</b> se rendre visible sur les moteurs de recherche mais aussi grâce aux réseaux sociaux.
                         </p>
                     </div>
                 </div>

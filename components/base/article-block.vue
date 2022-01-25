@@ -5,7 +5,7 @@
         :href="link"
         :target="link ? '_blank' : undefined"
         class="ArticleBlock"
-        :class="[ $modifiers, `ArticleBlock--${$theme(category).color}` ]"
+        :class="[ $modifiers, `is-${$theme(category).color}` ]"
         :to="path ? path : localePath({ name: 'category-slug', params: { category: $theme(category).slug, slug } })"
     >
         <div class="ArticleBlock_image" :style="{ backgroundImage: `url(${image})` }"></div>

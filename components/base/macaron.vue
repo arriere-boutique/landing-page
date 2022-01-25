@@ -1,5 +1,5 @@
 <template>
-    <div class="Macaron">
+    <div class="Macaron" :class="[ $modifiers ]">
         <div class="Macaron_bg" v-html="assets.macaron">
         </div>
 
@@ -12,10 +12,12 @@
 </template>
 
 <script>
+import { ModifiersMixin } from 'instant-coffee-core'
 import macaron from '@/assets/img/label/macaron.svg.html'
 
 export default {
     name: 'Macaron',
+    mixins: [ ModifiersMixin ],
     props: {
         name: { type: String, default: '' },
     },
@@ -64,12 +66,18 @@ export default {
     }
 
     .Macaron_bg path {
-        fill: var(--color-current-weak, var(--color-bg-light));
-        fill: var(--color-bg-light);
+        fill: var(--color-current-xweak, var(--color-bg-light));
     }
 
     .Macaron_svg path {
         fill: var(--color-current-xstrong, var(--color-ft));
+    }
+
+    .Macaron--light {
+
+        .Macaron_bg path {
+            fill: var(--color-bg-light);
+        }
     }
 
 </style>
