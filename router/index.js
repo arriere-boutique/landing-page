@@ -17,7 +17,7 @@ export function createRouter(ssrContext, createDefaultRouter, routerOptions) {
     routesDirectory = matcher[1] || matcher[0];
     // if the subdomain is not in the list of user provided domains, set the rootdirectory to root - domain given by the user
     
-    if (routesDirectory != 'arriere-boutique') {
+    if (routesDirectory != 'arriere-boutique' && routesDirectory != 'www') {
       let found = subdomains.find(s => s.sub == routesDirectory)
       routesDirectory = found ? found.directory : '';
     } else {
