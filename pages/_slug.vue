@@ -1,9 +1,5 @@
 <template>
     <div class="LandingPage">
-        <template v-if="!shop">
-            Subdomain does not exist
-        </template>
-
         <landing-content :content="content" v-if="shop && content" />
     </div>
 </template>
@@ -56,6 +52,9 @@ export default {
     }),
     computed: {
         subdomain () { return this.$store.state.subdomain }
+    },
+    mounted () {
+        if (!this.shop) window.location = this.$baseUrl
     },
     head () {
         let meta = {
