@@ -77,7 +77,7 @@
 
                     
                     <link-base @click="onRegister" :modifiers="['ft']" class="ml-10">
-                        Créer mon Arrière Boutique
+                        Créer ma page
                     </link-base>
                 </div>
                 <div class="Section2_right">

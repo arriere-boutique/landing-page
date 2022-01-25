@@ -175,6 +175,8 @@ export default {
                     this.formData = { ...this.formData, ...this.user }
                 }, 500)
             }
+        } else {
+            this.$router.push(this.localePath({ name: 'index' }))
         }
     },  
     watch: {

@@ -1,6 +1,6 @@
 <template>
     <header class="HeaderBase" :class="{ 'is-scrolled': state.isScrolled }">
-        <div class="HeaderBase_wrapper Wrapper Wrapper--m">
+        <div class="HeaderBase_wrapper Wrapper Wrapper--l">
             <div class="HeaderBase_left">
                 <a class="HeaderBase_logo" :href="$baseUrl">
                     <icon-base name="logo/logo-main" :height="state.isScrolled ? 35 : 45" />
@@ -22,8 +22,8 @@
                     </component>
                 </div>
 
-                <a :href="$dashboardUrl" class="HeaderBase_button mr-5">
-                    <i class="fal fa-user"></i>
+                <a :href="$dashboardUrl" class="HeaderBase_button mr-5" v-if="user && user.role != 'guest'">
+                    <i class="fal fa-store"></i>
                 </a>
             </div>
 
