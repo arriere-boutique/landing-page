@@ -3,7 +3,7 @@
         <div class="d-flex fx-align-center mv-40">
             <breadcrumbs class="fx-no-shrink" :items="[
                 { label: 'Pages', to: { name: 'pages' } },
-                { label: formData.title ? formData.title : 'Ma page', href: fullLink ? fullLink : '' },
+                { label: fullLink ? fullLink : 'Ma page', href: fullLink ? fullLink : '' },
             ]" />
         </div>
 
