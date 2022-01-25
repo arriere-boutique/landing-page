@@ -12,6 +12,13 @@
     transition: all 100ms ease;
 }
 
+.Tag--l {
+    min-height: 45px;
+    padding: 10px 20px;
+    font: var(--ft-l-medium);
+    line-height: 1.2;
+}
+
 .Tag--s {
     min-height: 28px;
     padding: 7px 12px;

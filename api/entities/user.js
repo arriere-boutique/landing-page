@@ -17,6 +17,7 @@ let UserEntity = {
         city: { type: String, write: 'self' },
         postalCode: { type: String, write: 'self' },
         country: { type: String, write: 'self' },
+        advices: { type: Array, write: 'self' },
         shops: [
             { type: mongoose.Schema.Types.ObjectId, ref: 'shop' }
         ],

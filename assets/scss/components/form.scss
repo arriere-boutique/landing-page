@@ -130,16 +130,16 @@ textarea {
 }
 
 .Toggle_checkbox:checked + .Toggle_container {
-  background-color: var(--color-current);
+  background-color: var(--color-current, var(--color-pond));
 }
 
 .Toggle--shade {
 
   .Toggle_container {
-    background-color: var(--color-current);
+    background-color: var(--color-current, var(--color-pond));
   }
 
   .Toggle_checkbox:checked + .Toggle_container {
-    background-color: var(--color-current-strong);
+    background-color: var(--color-current-strong, var(--color-pond-strong));
   }
 }

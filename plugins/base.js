@@ -24,6 +24,9 @@ Vue.mixin({
         },
         round: (value, decimals = 2) => {
             return (Math.round(value * Math.pow(10, decimals)) / Math.pow(10, decimals)).toFixed(decimals)
+        },
+        fixed: (value) => {
+            return ('0' + value).slice(-2)
         }
     },
     data: () => ({

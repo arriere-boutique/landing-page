@@ -22,6 +22,7 @@
                 label="Choisis un mot de passe"
                 type="password"
                 :helpers="['reveal']"
+                :validator="$validator('password')"
                 :attrs="{ autocomplete: 'new-password' }"
                 v-model="formData.password"
                 v-if="!aboutOnly"

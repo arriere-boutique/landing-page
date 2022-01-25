@@ -10,5 +10,12 @@ export default {
         }
 
         return { valid: errors.length == 0, errors }
+    },
+    password (v) {
+        let errors = []
+
+        if (v.length < 6) errors.push('Ton mot de passe doit faire au moins 6 caractères.')
+
+        return { valid: errors.length == 0, errors }
     }
 }

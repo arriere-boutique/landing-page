@@ -69,6 +69,7 @@ export default {
         })
     },
     computed: {
+        shops () { return this.$store.state.shop.items },
         user () { return this.$store.state.auth.user },
         orders () { return this.$store.getters['shop/allOrders'] }
     },

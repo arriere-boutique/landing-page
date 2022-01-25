@@ -1,5 +1,5 @@
 <template>
-    <div class="PageEditor Wrapper--left pb-40">
+    <div class="PageEditor Wrapper--left pb-100">
         <div class="d-flex fx-align-center mv-40">
             <breadcrumbs class="fx-no-shrink" :items="[
                 { label: 'Pages', to: { name: 'pages' } },
@@ -62,7 +62,9 @@
                 
                 <transition name="fade">
                     <div v-if="section == 'config'">
-                        <input-base label="Titre de la page" v-model="formData.title" />
+                        <input-base label="Titre de la page" v-model="formData.title">
+                            <tooltip text="Ce titre s'affichera dans les résultats Google." />
+                        </input-base>
 
                         <div class="p-20 b br-m mv-10" v-if="!formData.isHome">
                             <p class="ft-m-bold mb-10">Personnaliser mon lien</p>

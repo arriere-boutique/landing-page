@@ -43,7 +43,7 @@
     }
 
     path {
-        fill: var(--color-current);
+        fill: var(--color-current, var(--color-pond));
     }
 }
 

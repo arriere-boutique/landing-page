@@ -59,9 +59,17 @@
 
 @each $color in $main-colors {
     
-    &.PopinBase_footerAction--#{$color} {
-        color: var(--color-#{$color});
-        background-color: var(--color-#{$color}-xweak);
+
+    .PopinBase--#{$color} {
+        
+        &.is-active .PopinBase_hider {
+            background-color: var(--color-#{$color}-xweak-75);
+        }
+
+        .PopinBase_body {    
+            box-shadow: 2px 6px 10px 0 var(--color-#{$color}-strong-25);
+            border-color: var(--color-border);
+        }
     }
 }
 
@@ -128,18 +136,6 @@
 
     &.is-active {
         opacity: 1;
-    }
-}
-
-.PopinBase--pond {
-    
-    &.is-active {
-        background-color: var(--color-pond-xweak-75);
-    }
-
-    .PopinBase_body {    
-        box-shadow: 2px 4px 10px 0 var(--color-pond-25);
-        border-color: var(--color-pond-25);
     }
 }
 

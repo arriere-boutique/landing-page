@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="Wrapper Wrapper--left pb-40">
+        <div class="Wrapper Wrapper--left pb-100">
             <div class="mv-40">
                 <breadcrumbs :items="[
                     { label: 'Outils', to: { name: 'dashboard-outils' } },
