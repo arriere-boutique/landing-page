@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="Wrapper Wrapper--left pb-40">
+        <div class="Wrapper Wrapper--left pb-100">
             <p class="ft-2xl-bold mv-40">Mes pages</p>
 
             <div class="Page_cols">

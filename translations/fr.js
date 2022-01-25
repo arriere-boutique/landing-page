@@ -59,5 +59,21 @@ export default {
         requirements: {
             shop: `au moins 1 boutique Etsy connectée`
         }
+    },
+    advices: {
+        ['tag-generator']: [
+            {
+                title: `Trouve de nouveaux mots-clés en quelques clics`,
+                text: `Commence ta recherche avec un mot-clé général qui décrit ton article (ex : Bijou minimaliste, Carnet voyage...). Sélectionne les mot-clés qui te parlent le plus.`
+            }, {
+                title: `Explore et précise ta recherche`,
+                text: `Plus ton mot-clé est précis, plus tu as de chances de trouver des termes intéressants. <b>N'hésite pas à relancer fréquemment la recherche avec un mot-clé plus précis.</b>`
+            }, {
+                title: `Comment ça marche ?`,
+                text: `À partir de ta recherche, j'effectue une recherche d'articles sur Etsy et Google. J'extrais ensuite tout leurs mots-clés et les trie pour te présenter les plus utilisés. Mais attention, ils ne sont pas tous bons à prendre ! <b>Je t'explique ça en vidéo.</b>`
+            }, {
+                youtube: `WE60E3YY8KQ` 
+            }
+        ]
     }
 }

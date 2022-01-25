@@ -10,6 +10,34 @@
     font-display: block;
 }
 
+@mixin box-shadow() {
+    box-shadow: 0 3px 6px 0 var(--color-shadow);
+}
+
+@mixin mockup-loading($color: var(--color-bg-xweak)) {
+    @include absolute-fill;
+    width: 200px;
+    transform-origin: left;
+    animation: 750ms ease-in-out 0ms infinite mockup-loading;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0), #{$color}, rgba(255, 255, 255, 0));
+}
+
+@keyframes mockup-loading {
+    0% {
+        opacity: 0;
+        transform: scaleX(0) translateX(0%);
+    }
+
+    50% {
+        opacity: 0.8;
+    }
+
+    100% {
+        opacity: 0;
+        transform: scaleX(1) translateX(50%);
+    }
+}
+
 html {
     scroll-behavior: smooth;
 }

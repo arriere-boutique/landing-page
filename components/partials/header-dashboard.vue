@@ -10,7 +10,7 @@
             </div>
 
             <div class="HeaderDashboard_right">
-                <div class="HeaderDashboard_profile"></div>
+                <!-- <div class="HeaderDashboard_profile"></div> -->
             </div>
         </div>
     </header>

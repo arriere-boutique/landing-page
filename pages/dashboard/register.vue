@@ -44,11 +44,11 @@
                                 Valider
                             </button-base>
 
-                            <button-base type="button" :modifiers="['xs', 'secondary']" @click="step = 2" :class="{ 'is-loading': isLoading }" v-if="step == 1 && isSkippable">
+                            <button-base type="button" :modifiers="['xs', 'secondary']" @click="step = 3" :class="{ 'is-loading': isLoading }" v-if="step == 1 && isSkippable">
                                 Ignorer cette étape
                             </button-base>
 
-                            <button-base :modifiers="['gum']" @click="isPopinActive = false" v-if="step == 3">
+                            <button-base :modifiers="['gum']" @click="step = 4" v-if="step == 3">
                                 Je découvre mon Arrière Boutique
                             </button-base>
                         </template>
@@ -167,8 +167,21 @@ export default {
                     this.isLoading = false
                 }
             }
+
+            if (this.user && this.user.role != 'guest') {
+                this.step = 1
+
+                setTimeout(() => {
+                    this.formData = { ...this.formData, ...this.user }
+                }, 500)
+            }
         }
     },  
+    watch: {
+        step (v) {
+            if (v == 4) this.$router.push(this.localePath({ name: 'index' }))
+        }
+    },
     methods: {
         getOrderCount (limit = 30, unit = 'days') {
             return 47

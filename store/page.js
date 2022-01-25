@@ -6,7 +6,7 @@ export default {
         isBodyOverflow: true,
         body: {
             classes: [ 'is-fill' ],
-            color: 'gum'
+            color: ''
         },
         meta: {
             title: ''

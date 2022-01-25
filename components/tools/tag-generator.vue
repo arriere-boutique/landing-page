@@ -10,7 +10,7 @@
                     <div class="bg-bg-xweak p-15 ph-20" v-if="saved.length > 0">
                         <div class="d-flex fx-align-center fx-wrap mb-10">
                             <div class="ft-s-medium fx-grow">
-                                <span class="round-s bg-bg-light mr-3">{{ saved.length }}</span> Mots-clés sauvegardés 
+                                <span class="round-s bg-bg-light mr-3">{{ saved.length }}</span> Mots-clés sélectionnés 
                             </div>
 
                             <link-base @click="$copy(saved.join(', '))">Tout copier</link-base>
@@ -27,8 +27,12 @@
                                 </span>
                             </div>
                         </transition-group>
+
+                        <p class="mt-20 ft-xs-medium">Attention, cette liste est perdue quand tu quittes la page. Pense à les copier en sécurité !</p>
                     </div>
                 </div>
+
+                <advice-block class="mt-20 is-precious" type="tag-generator" />
             </div>
             <div class="col-6">
                 <div class="bg-precious-xweak p-20 br-m text-center">
