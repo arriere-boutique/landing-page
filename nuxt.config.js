@@ -102,6 +102,11 @@ export default {
     ],
 
     auth: {
+        cookie: {
+          options: {
+            domain: '.' + process.env.BASE_DOMAIN
+          }
+        },
         redirect: {
             logout: false,
             login: '/compte/login',
