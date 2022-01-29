@@ -4,7 +4,7 @@
             <div class="p-60">
                 <div class="row-xs">
                     <div class="col-4 mb-10" v-for="module in availableModules" :key="module.name">
-                        <module-tile v-bind="module" @click="$emit('close'); $emit('add', module.name)" />
+                        <module-tile v-bind="module" @click.native="$emit('close'); $emit('add', module)" />
                     </div>
                 </div>
 
