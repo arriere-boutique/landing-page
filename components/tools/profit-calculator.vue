@@ -331,4 +331,27 @@ export default {
         }
     }
 
+    
+    .ProfitCalculator--insert {
+        .price {
+            grid-column: auto / span 12;
+        }
+        .shipping {
+            grid-column: auto / span 6;
+        }
+
+        .etsy {
+            grid-column: auto / span 6;
+        }
+
+        .production {
+            grid-column: auto / span 12;
+        }
+
+        .total {
+            grid-column: auto / span 12;
+            grid-row: auto;
+        }
+    }
+
 </style>

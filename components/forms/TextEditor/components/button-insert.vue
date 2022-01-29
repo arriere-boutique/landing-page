@@ -26,6 +26,9 @@ export default {
         currentNode: { type: [Object, Boolean], default: false },
         options: { type: Array, default: () => ([
             { label: `C'est quoi Canva ?`, value: 'what-is-canva' },
+            { label: `Générateur de tags`, value: 'tag-generator' },
+            { label: `Calculatrice de profits`, value: 'profit-calculator' },
+            { label: `Créer son Arrière Boutique`, value: 'register' },
         ]) }
     },
     data: () => ({
