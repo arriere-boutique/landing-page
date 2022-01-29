@@ -32,10 +32,10 @@
             <div class="Section3_wrapper fx-center Wrapper Wrapper--l">
                 <div class="max-width-xl">
                     <div class="mv-40">
-                        <h3 class="ft-4xl line-2 color-current-xstrong mb-10">Créé pour que <b class="ft-medium">ta passion reste un plaisir</b></h3>
+                        <h3 class="ft-4xl line-2 color-current-xstrong mb-10">Ton Arrière Boutique, c'est<br><b class="ft-medium">ton espace pour gérer ta boutique Etsy</b></h3>
                         <p class="ft-l max-width-l">Tu n'es plus seul·e. Grâce à tes nouveaux outils ultra-faciles à prendre en main, tu as plus de temps pour créer.</p>
 
-                        <div class="mt-20 row ft-m-medium color-current-xstrong">
+                        <div class="mt-30 row ft-m-medium color-current-xstrong">
                             <div class="col-6">
                                 <p class="mv-5"><i class="fal fa-check mr-5"></i> Crée une page d'accueil personnalisée</p>
                                 <p class="mv-5"><i class="fal fa-check mr-5"></i> Génére des mots-clés en quelques clics</p>
@@ -46,15 +46,17 @@
                         </div>
 
                         <div class="bg-current-xweak mt-30 ph-30 pv-20 br-m">
-                            <p class="ft-m-bold color-current-xstrong">Et bientôt aussi...</p>
-                            <div class="row ft-m-medium color-current-strong">
+                            <p class="ft-l-bold color-current-xstrong">Et bientôt aussi...</p>
+                            <div class="mt-10 row ft-m-medium color-current-strong">
                                 <div class="col-6">
-                                    <p class="mv-5 d-flex"><i class="fal fa-chart-line mr-10 mt-3"></i> Compare tes prix à la concurrence</p>
-                                    <p class="mv-5 d-flex"><i class="fal fa-gift-card mr-10 mt-3"></i> Imprime les messages cadeau en un clic</p>
+                                    <p class="mt-10 d-flex"><i class="fal fa-chart-line mr-10 mt-3"></i> Compare tes prix à la concurrence</p>
+                                    <p class="mt-10 d-flex"><i class="fal fa-rectangle-vertical-history mr-10 mt-3"></i> Gére plusieurs boutiques au même endroit</p>
+                                    <p class="mt-10 d-flex"><i class="fal fa-gift-card mr-10 mt-3"></i> Imprime les messages cadeau en un clic</p>
+                                    <p class="mt-10 d-flex"><i class="fal fa-truck mr-10 mt-3"></i> Propose la livraison avec Mondial Relay</p>
                                 </div>
                                 <div class="col-6">
-                                    <p class="mv-5 d-flex"><i class="fal fa-trophy mr-10 mt-3"></i> Organise des jeux-concours interactifs</p>
-                                    <p class="mv-5 d-flex"><i class="fal fa-truck mr-10 mt-3"></i> Propose la livraison avec Mondial Relay</p>
+                                    <p class="mt-10 d-flex"><i class="fal fa-trophy mr-10 mt-3"></i> Organise des jeux-concours interactifs</p>
+                                    <p class="mt-10 d-flex"><i class="fal fa-sparkles mr-10 mt-3"></i> Permet à tes clients de vraiment personnaliser leur commandes</p>
                                 </div>
                             </div>
                         </div>
@@ -81,6 +83,10 @@
                     </link-base>
                 </div>
                 <div class="Section2_right">
+                    <transition-group name="fade-h">
+                        <img class="Section2_landing" v-for="landing in landings" :src="landing.landing" :key="landing.id" v-show="landing.id == currentLanding">
+                    </transition-group>
+
                     <transition-group name="fade-h">
                         <div class="Section2_image" v-for="landing in landings" :style="{ backgroundImage: `url(${landing.background})` }" :key="landing.id" @click="nextLanding" v-show="landing.id == currentLanding"></div>
                     </transition-group>
@@ -168,6 +174,10 @@ import video1 from '@/assets/video/landing-ambient-2.mp4'
 import catWork from '@/assets/video/cat-work.mp4'
 import france from '@/assets/img/brands/france.png'
 import about from '@/assets/img/about/portrait_1.jpg'
+import landing1 from '@/assets/img/landing/landing_1.png'
+import landing2 from '@/assets/img/landing/landing_2.png'
+import landing3 from '@/assets/img/landing/landing_3.png'
+import landing4 from '@/assets/img/landing/landing_4.png'
 
 export default {
     name: 'Homepage',
@@ -193,10 +203,10 @@ export default {
     },
     mounted () {
         this.landings = [
-            { id: 0, color: 'duck', background: 'https://images.pexels.com/photos/3817500/pexels-photo-3817500.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260' },
-            { id: 1, color: 'gum', background: 'https://images.pexels.com/photos/8715545/pexels-photo-8715545.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260' },
-            { id: 2, color: 'ice', background: 'https://images.pexels.com/photos/7310197/pexels-photo-7310197.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260' },
-            { id: 3, color: 'emerald', background: 'https://images.pexels.com/photos/4348187/pexels-photo-4348187.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500' },
+            { id: 0, color: 'duck', background: 'https://images.pexels.com/photos/3817500/pexels-photo-3817500.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260', landing: landing1 },
+            { id: 1, color: 'gum', background: 'https://images.pexels.com/photos/8715545/pexels-photo-8715545.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260', landing: landing3 },
+            { id: 2, color: 'ice', background: 'https://images.pexels.com/photos/7310197/pexels-photo-7310197.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260', landing: landing2 },
+            { id: 3, color: 'emerald', background: 'https://images.pexels.com/photos/4348187/pexels-photo-4348187.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500', landing: landing4 },
         ]
     },
     methods: {
@@ -269,6 +279,16 @@ export default {
         min-width: 400px;
         max-width: 500px;
         position: relative;
+    }
+
+    .Section2_landing {
+        display: block;
+        position: absolute;
+        z-index: 8;
+        top: 50%;
+        margin-top: -180px;
+        left: -50px;
+        height: 360px;
     }
 
     .Section2_image {

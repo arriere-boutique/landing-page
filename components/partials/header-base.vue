@@ -80,6 +80,7 @@ export default {
     },
     mounted () {
         this.$data.itemsLeft = {
+            register: { label: 'Créer mon Arrière Boutique', href: process.env.dashboardUrl + '/register' },
             blog: { label: 'Le blog', href: process.env.blogUrl },
             login: { label: 'Se connecter', href: process.env.dashboardUrl }
         }
