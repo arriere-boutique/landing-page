@@ -61,7 +61,7 @@
                     </div>
                 </div>
                 <div class="">
-                    Hello2
+                    
                 </div>
             </div>
         </div>
@@ -188,7 +188,7 @@ export default {
     }),
     computed: {
         supportingShops () {
-            return this.shops.filter(s => s.logo && s.name && s.link).sort((a, b) => this.$moment(b.createdAt).format('YYYYMMDD') - this.$moment(a.createdAt).format('YYYYMMDD'))
+            return this.shops.filter(s => s.logo && s.name && s.link).sort((a, b) => this.$moment(b.createdAt).format('YYYYMMDD') - this.$moment(a.createdAt).format('YYYYMMDD')).slice(0, 6)
         }
     },
     mounted () {

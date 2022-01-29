@@ -201,15 +201,19 @@ export default {
             this.errors = []
             this.isLoading = true
 
-            const token = await this.$recaptcha.execute('login')
-            const response = await this.$auth.loginWith('local', { 
-                data: { ...this.formData, token, type: 'register' }
-            })
+            try {
+                const token = await this.$recaptcha.execute('login')
+                const response = await this.$auth.loginWith('local', { 
+                    data: { ...this.formData, token, type: 'register' }
+                })
 
-            if (response.data.status != 1) {
-                this.errors = response.data.errors
-            } else {
-                this.step += 1
+                if (response.data.status != 1) {
+                    this.errors = response.data.errors
+                } else {
+                    this.step += 1
+                }
+            } catch (e) {
+                console.error(e)
             }
 
             this.isLoading = false

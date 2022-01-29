@@ -3,7 +3,7 @@
         <div class="HeaderBase_wrapper Wrapper Wrapper--l">
             <div class="HeaderBase_left">
                 <a class="HeaderBase_logo" :href="$baseUrl">
-                    <icon-base name="logo/logo-main" :height="state.isScrolled ? 35 : 45" />
+                    <icon-base name="logo/logo-main" :height="state.isScrolled ? 35 : 40" />
                 </a>
             </div>
 
@@ -22,7 +22,7 @@
                     </component>
                 </div>
 
-                <a :href="$dashboardUrl" class="HeaderBase_button mr-5" v-if="user && user.role != 'guest'">
+                <a :href="$dashboardUrl" class="HeaderBase_button ml-20" v-if="user && user.role != 'guest'">
                     <i class="fal fa-store"></i>
                 </a>
             </div>

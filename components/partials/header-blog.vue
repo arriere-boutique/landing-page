@@ -18,7 +18,7 @@
                     </div>
                 </nav>
 
-                <a :href="$dashboardUrl" class="HeaderBase_button mr-5" v-if="user && user.role != 'guest'">
+                <a :href="$dashboardUrl" class="HeaderBase_button ml-20" v-if="user && user.role != 'guest'">
                     <i class="fal fa-store"></i>
                 </a>
             </div>
@@ -76,7 +76,7 @@ export default {
     mounted () {
         this.$data.items = [
             { label: 'Articles & astuces', path: { name: 'articles' } },
-            { label: `Qui suis-je ?`, path: { name: 'moi-moi-moi' } },
+            { label: `Outils pratiques`, path: { name: 'outils-pratiques-etsy' } },
             { label: `Crée ton Arrière Boutique`, href: this.$baseUrl, isHidden: this.user && this.user.role != 'guest' }
         ]
 

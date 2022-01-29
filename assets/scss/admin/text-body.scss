@@ -2,6 +2,7 @@
     font: var(--ft-l);
     line-height: 1.6;
     color: var(--color-ft);
+    white-space: normal;
 
     .ProseMirror {
         outline: none;
@@ -67,6 +68,13 @@
         margin-top: 20px;
     }
 
+    .Insert {
+
+        p + p {
+            margin-top: 0;
+        }
+    }
+
     & > img,
     p > img {
         max-width: calc(100% + 60px);
@@ -120,6 +128,10 @@
     a {
         text-decoration: underline;
     }
+}
+
+.ProseMirror {
+    white-space: normal;
 }
 
 .TextBody--simple {
