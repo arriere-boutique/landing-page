@@ -1,16 +1,16 @@
 <template>
     <div class="HomePage">
-        <div class="HomePage_section1 is-pond Wrapper Wrapper--m">
-            <div class="fx-grow">
+        <div class="HomePage_section1 is-pond Wrapper Wrapper--m pb-40@s">
+            <div class="fx-grow pv-40@s">
                 <div class="max-width-m">
-                    <h1 class="ft-4xl line-2 color-pond-xstrong">Vendre en ligne <b>n'a plus à être une corvée.</b></h1>
+                    <h1 class="Title--xl">Vendre en ligne <b>n'a plus à être une corvée.</b></h1>
                     
                     <h2 class="ft-xl-medium color-ft mt-30">Tout ce qui t'a toujours manqué pour gérer ta boutique Etsy, réuni au même endroit <i class="fal fa-sparkles ml-3"></i></h2>
 
-                    <form class="d-flex mt-30" @submit.prevent="onRegister">
+                    <form class="d-flex mt-30 text-center d-block@s" @submit.prevent="onRegister">
                         <input-base type="email" label="Ton adresse e-mail" v-model="formData.email" />
 
-                        <button-base type="submit" class="ml-20" :modifiers="[]">
+                        <button-base type="submit" class="ml-20 ml-0@s mt-10@s" :modifiers="[]">
                             Je m'inscris, c'est gratuit
                         </button-base>
                     </form>
@@ -32,15 +32,15 @@
             <div class="Section3_wrapper fx-center Wrapper Wrapper--l">
                 <div class="max-width-xl">
                     <div class="mv-40">
-                        <h3 class="ft-4xl line-2 color-current-xstrong mb-10">Ton Arrière Boutique, c'est<br><b class="ft-medium">ton espace pour gérer ta boutique Etsy</b></h3>
+                        <h3 class="Title--xl mb-10">Ton Arrière Boutique, c'est <b class="ft-medium">ton espace pour gérer ta boutique Etsy</b></h3>
                         <p class="ft-l max-width-l">Tu n'es plus seul·e. Grâce à tes nouveaux outils ultra-faciles à prendre en main, tu as plus de temps pour créer.</p>
 
                         <div class="mt-30 row ft-m-medium color-current-xstrong">
-                            <div class="col-6">
+                            <div class="col-6 col-12@s">
                                 <p class="mv-5"><i class="fal fa-check mr-5"></i> Crée une page d'accueil personnalisée</p>
                                 <p class="mv-5"><i class="fal fa-check mr-5"></i> Génére des mots-clés en quelques clics</p>
                             </div>
-                            <div class="col-6">
+                            <div class="col-6 col-12@s">
                                 <p class="mv-5"><i class="fal fa-check mr-5"></i> Calcule ta marge simplement</p>
                             </div>
                         </div>
@@ -48,13 +48,13 @@
                         <div class="bg-current-xweak mt-30 ph-30 pv-20 br-m">
                             <p class="ft-l-bold color-current-xstrong">Et bientôt aussi...</p>
                             <div class="mt-10 row ft-m-medium color-current-strong">
-                                <div class="col-6">
+                                <div class="col-6 col-12@s">
                                     <p class="mt-10 d-flex"><i class="fal fa-chart-line mr-10 mt-3"></i> Compare tes prix à la concurrence</p>
                                     <p class="mt-10 d-flex"><i class="fal fa-rectangle-vertical-history mr-10 mt-3"></i> Gére plusieurs boutiques au même endroit</p>
                                     <p class="mt-10 d-flex"><i class="fal fa-gift-card mr-10 mt-3"></i> Imprime les messages cadeau en un clic</p>
                                     <p class="mt-10 d-flex"><i class="fal fa-truck mr-10 mt-3"></i> Propose la livraison avec Mondial Relay</p>
                                 </div>
-                                <div class="col-6">
+                                <div class="col-6 col-12@s">
                                     <p class="mt-10 d-flex"><i class="fal fa-trophy mr-10 mt-3"></i> Organise des jeux-concours interactifs</p>
                                     <p class="mt-10 d-flex"><i class="fal fa-sparkles mr-10 mt-3"></i> Permet à tes clients de vraiment personnaliser leur commandes</p>
                                 </div>
@@ -71,7 +71,7 @@
         <div class="Section2" :class="[ `is-${landings[currentLanding].color}` ]" v-if="landings[currentLanding]">
             <div class="Section2_wrapper fx-center Wrapper Wrapper--m">
                 <div class="Section2_left">
-                    <h2 class="ft-4xl color-current-xstrong line-2">Crée aujourd'hui <b class="ft-medium">la page qui te ressemble</b>, en quelques clics</h2>
+                    <h2 class="Title--xl">Crée aujourd'hui <b class="ft-medium">la page qui te ressemble</b>, en quelques clics</h2>
 
                     <p class="ft-l mt-20">Les plateformes comme Etsy souvent trop limitées en personnalisation. Immerge tes clients dans TON univers avant de les diriger vers l'achat.</p>
 
@@ -106,11 +106,11 @@
                     </macaron>
                 </div>
                 <div class="Section4_right ft-l pv-60">
-                    <h2 class="ft-3xl color-current-xstrong line-2 mb-20">Par un créateur français, <b class="ft-medium">pour les créateurs français</b></h2>
+                    <h2 class="Title--l mb-20">Par un créateur français, <b class="ft-medium">pour les créateurs français</b></h2>
 
                     <p>J'ai cherché des outils simples et pratiques qui me permettraient de me faciliter ma vie au quotidien. Mais souvent, les outils proposés étaient trop complexes à prendre en main et trop précis. </p>
 
-                    <p class="ft-xl-medium pv-20 ph-30 br-m bg-current-weak mv-30 n-ml-60 max-width-l">"J'ai créé l'Arrière Boutique quand j'ai commencé à me sentir trop limité par les fonctionnalités d'Etsy"</p>
+                    <p class="ft-xl-medium pv-20 ph-30 br-m bg-current-weak mv-30 n-ml-60 max-width-l n-ml-0@s ft-l-medium@s">"J'ai créé l'Arrière Boutique quand j'ai commencé à me sentir trop limité par les fonctionnalités d'Etsy"</p>
 
                     <p>C'est pourquoi j'ai commencé à développer une solution tout-en-un dédiée aux boutiques Etsy, qui rassemble des outils simples mais efficaces, sans perte de temps.</p>
                     
@@ -122,16 +122,16 @@
         </div>
 
         <div class="Section5 is-precious bg-precious-xweak">
-            <div class="Section4_wrapper fx-center Wrapper Wrapper--l pv-60">
+            <div class="Section5_wrapper fx-center Wrapper Wrapper--l pv-60 pv-40@s">
                 <div class="Section5_left ft-l">
-                    <h3 class="ft-3xl color-current-xstrong line-2 mb-20">Un projet <b class="ft-medium">en pleine création</b></h3>
+                    <h3 class="Title--l mb-20">Un projet <b class="ft-medium">en pleine création</b></h3>
 
                     <p>L'Arrière Boutique est en plein développement, c'est pourquoi de nombreuses fonctionnalités ne sont pas encore disponibles. Mais crois-moi, je travaille à fond pour te fournir les meilleurs outils français qui existent !</p>
 
                     <p class="ft-l-medium mt-40 color-current-xstrong">Un grand merci à toutes les boutiques qui soutiennent le projet.</p>
 
                     <div class="row-xs mt-20">
-                        <div class="col-4" v-for="shop in supportingShops" :key="shop._id">
+                        <div class="col-4 col-6@m col-12@s" v-for="shop in supportingShops" :key="shop._id">
                             <a :href="shop.link" class="Home_shop" target="_blank">
                                 <img :src="shop.logo" width="40">
                                 <div>
@@ -142,11 +142,13 @@
                         </div>
                     </div>
                     
-                    <button-base @click="onRegister" :modifiers="['precious']" class="mt-20">
-                        Soutenir le projet
-                    </button-base>
+                    <div class="text-center@s">
+                        <button-base @click="onRegister" :modifiers="['precious']" class="mt-20 ">
+                            Soutenir le projet
+                        </button-base>
+                    </div>
                 </div>
-                <div class="Section5_right fx-no-shrink ml-60">
+                <div class="Section5_right fx-no-shrink ml-60 ml-0@s mt-40@s">
                     <div class="bg-bg-light p-20 br-m text-center">
                         <video class="mb-20 br-s" autoplay loop height="200">
                             <source :src="assets.catWork" type="video/mp4">
@@ -356,5 +358,86 @@ export default {
             border-radius: 50%;
             margin-right: 10px;
         }
+    }
+
+    
+    @include breakpoint-s {
+
+        .HomePage_section1 {
+            display: block;
+        }
+
+        .HomePage_section1right {
+            margin: 0;
+            border-radius: 10px;
+            height: 250px;
+            overflow: hidden;
+        }
+
+        .HomePage_section1video {
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            left: 0;
+        }
+
+        .Macaron {
+            top: 10px;
+            right: 10px;
+        }
+
+        .Section2_wrapper,
+        .Section4_wrapper {
+            flex-direction: column-reverse;
+        }
+
+        .Section2_landing {
+            left: 0;
+            right: 0;
+            margin-left: auto;
+            margin-right: auto;
+            height: 360px;
+        }
+
+        .Section2_arrow {
+            right: 40px;
+        }
+
+        .Section2_left {
+            padding: 40px 0;
+        }
+
+        .Section2_right {
+            width: 100%;
+            max-width: 1000px;
+            overflow: hidden;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .Section2_image {
+            opacity: 0.5;
+        }
+            
+        .Section4_left {
+            width: auto;
+            min-width: 0;
+            max-width: 5000px;
+            margin-right: 0;
+            overflow: hidden;
+            border-radius: 10px;
+            margin-bottom: 40px;
+        }
+
+        .Macaron_2 {
+            left: 10px;
+        }
+
+        .Section5_wrapper {
+            flex-direction: column;
+        }
+
     }
 </style>

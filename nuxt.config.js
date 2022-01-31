@@ -23,6 +23,14 @@ export default {
         '@/assets/scss/global.scss'
     ],
 
+    styleResources: {
+        scss: [
+            '@/assets/scss/base/config.scss',
+            'instant-coffee-core/assets/scss/variables.scss',
+            'instant-coffee-core/assets/scss/mixins.scss'
+        ]
+    },
+
     plugins: [
         { src: '@/plugins/base.js' }
     ],
@@ -59,6 +67,7 @@ export default {
         '@nuxtjs/auth',
         '@nuxtjs/moment',
         '@nuxtjs/google-analytics',
+        '@nuxtjs/style-resources',
         [ '@nuxtjs/recaptcha', {
             hideBadge: true,
             version: 3,
