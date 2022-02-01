@@ -3,7 +3,7 @@
         <div class="PexelsGallery_search p-20" :style="{ '--background': `url(${random.src ? random.src.large : ''})` }">
             <div>
                 <input-base type="text" class="mr-10" :modifiers="['no-label']" v-model="query" :attrs="{ placeholder: 'Nature, art abstrait, atelier...' }" />
-                <button-base type="submit" :modifiers="['secondary', 's', 'white']" :class="{ 'is-loading': isLoading }">
+                <button-base type="submit" :modifiers="['secondary', 's', 'white']" :class="{ 'is-loading': isLoading }" class="mt-10@s">
                     Rechercher
                 </button-base>
             </div>
@@ -55,6 +55,7 @@ export default {
     },  
     mounted () {
         this.$data.maxWidth = this.$refs.container.offsetWidth
+        console.log(this.$refs.container.offsetWidth)
         this.search()
     },
     methods: {
@@ -155,6 +156,7 @@ export default {
         border-bottom: 2px solid var(--color-onyx);
         position: relative;
         background-color: var(--color-onyx);
+        overflow: hidden;
 
         &::before {
             content: "";
@@ -210,6 +212,17 @@ export default {
 
         img {
             display: block;
+        }
+    }
+
+    @include breakpoint-s {
+
+        .PexelsGallery_search {
+
+            & > div {
+                display: block;
+                text-align: center;
+            }
         }
     }
 </style>

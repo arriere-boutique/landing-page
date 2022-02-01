@@ -28,6 +28,7 @@ export default {
 <style lang="scss" scoped>
     .ColorPicker_rows {
         display: flex;
+        flex-wrap: wrap;
     }
 
     .ColorPicker_item {

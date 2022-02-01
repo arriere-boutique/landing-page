@@ -2,7 +2,7 @@
     <div class="ListingSelector">
         <p class="ft-s-medium mb-10">Tes fiches produit ({{ availableListings.length }})</p>
         <transition-group name="fade" tag="div" class="ListingSelector_container row-xs p-relative">
-            <div class="col-6 mb-10" v-for="listing in showingListings" :key="listing._id">
+            <div class="col-6 mb-10 col-12@s" v-for="listing in showingListings" :key="listing._id">
                 <div class="ListingSelector_item">
                     <img :src="listing.thumbnail ? listing.thumbnail : ''">
 
@@ -25,7 +25,7 @@
             <button-base icon-after="angle-right" type="button" :modifiers="['light', 'xs']" :class="{ 'is-disabled': this.offset >= this.maxPages - 1 }" @click.native.prevent="offset += limit">Page suivante</button-base>
         </div>
 
-        <div v-if="selectedListings.length > 0">
+        <div v-if="selectedListings.length > 0" class="mt-30@s">
             <p class="ft-s-medium mb-10">Fiches sélectionnées ({{ selectedListings.length }})</p>
             <transition-group name="default" tag="div" class="p-relative">
                 <div class="ListingSelector_item mb-10" v-for="listing in selectedListings" :key="listing._id">
@@ -105,6 +105,7 @@ export default {
     .ListingSelector_content {
         flex-grow: 1;
         color: var(--color-ft);
+        word-break: break-all;
         font: var(--ft-s);
     }
 

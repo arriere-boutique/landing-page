@@ -41,3 +41,18 @@
   background-color: var(--color-bg-light);
   margin-left: 20px;
 }
+
+@include breakpoint-s {
+
+  .Page_cols {
+    flex-direction: column-reverse;
+    align-items: initial;
+  }
+
+  .Page_side {
+    width: auto;
+    min-width: none;
+    max-width: none;
+    margin: 0 0 20px 0;
+  }
+}

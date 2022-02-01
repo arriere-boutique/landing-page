@@ -1,5 +1,5 @@
 <template>
-    <nav class="LayoutDashboard_nav">
+    <nav class="LayoutDashboard_nav" :class="{ 'is-active': isActive }">
         <div class="LayoutDashboard_logo">
             <div class="LayoutDashboard_ab">
                 <icon-base name="logo/logo-main" class="fill-pond" :width="120" />
@@ -17,6 +17,7 @@
                 :class="{ 'is-disabled': link.locked || link.dev }"
                 v-for="link in links"
                 :to="localePath(link.path)"
+                @click.native="$emit('toggle')"
                 :key="link.icon"
             >
                 <div class="NavItem_icon">
@@ -37,7 +38,7 @@
             class="LayoutDashboard_toggle"
             :icon-before="isCompact ? 'angle-right' : 'angle-left'"
             :modifiers="['round', 's', 'light']"
-            @click="$store.commit('page/toggleCompact')"
+            @click="$store.commit('page/toggleCompact', { save: true })"
         />
     </nav>
 </template>
@@ -45,6 +46,9 @@
 <script>
 export default {
     class: 'NavDashboard',
+    props: {
+        isActive: { type: Boolean, default: false }
+    },
     data: () => ({
         links: []
     }),
@@ -91,6 +95,10 @@ export default {
                 ]
             }
         }
+    },
+    mounted () {
+        if (this.$cookies.get('nav-compact')) this.$store.commit('page/toggleCompact', { force: this.$cookies.get('nav-compact') })
+        if (!process.server && window.innerWidth <= 1000) this.$store.commit('page/toggleCompact', { force: false })
     }
 }
 </script>

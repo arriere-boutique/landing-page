@@ -1,7 +1,7 @@
 <template>
     <div>
         <form @submit.prevent="() => generate()" class="row-s">
-            <div class="col-6">
+            <div class="col-6 col-12@s">
                 <div class="b br-m o-hidden">
                     <div class="p-30">
                         <input-base type="text" label="Que veux-tu vendre ?" v-model="search" :attrs="{ required: true }" />
@@ -32,9 +32,9 @@
                     </div>
                 </div>
 
-                <advice-block class="mt-20 is-precious" type="tag-generator" />
+                <advice-block class="mt-20 is-precious" type="tag-generator" v-if="!isInsert" />
             </div>
-            <div class="col-6">
+            <div class="col-6 col-12@s mt-20@s">
                 <div class="bg-precious-xweak p-20 br-m text-center">
                     <div>
                         <transition-group tag="div" name="tag">
@@ -83,6 +83,9 @@ const BLACKLIST = [ '&quot;', 'avec', 'faites', 'fait', 'main', 'elle', 'pour', 
 export default {
     name: 'TagGenerator',
     components: { InputBase },
+    props: {
+        isInsert: { type: Boolean, default: false }
+    },
     data: () => ({
         isLoading: false,
         lastSearch: '',

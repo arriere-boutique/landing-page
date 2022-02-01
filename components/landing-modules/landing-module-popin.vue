@@ -1,7 +1,7 @@
 <template>
     <popin-base :is-active="isActive" :modifiers="['panel']" @close="$emit('close')">
         <template slot="content">
-            <form @submit.prevent="$emit('close'); $emit('submit')" class="p-40">
+            <form @submit.prevent="$emit('close'); $emit('submit')" class="p-40 p-30@s">
                 <div class="p-30 bg-current-xweak br-m">
                     <div class="ft-l-bold color-current-strong mb-20">
                         <i class="fal mr-5" :class="[`fa-${metadata.fa}`]"></i> {{ metadata.title }}
@@ -18,7 +18,7 @@
                     </div>
 
                     <div class="row-s fx-align-center">
-                        <div class="col-5">
+                        <div class="col-5 col-12@s mt-10@s">
                             <input-base
                                 type="datetime-local"
                                 label="Montrer à partir du"
@@ -27,7 +27,7 @@
                                 @input="(v) => $emit('input', { startDate: v })"
                             />
                         </div>
-                        <div class="col-5">
+                        <div class="col-5 col-12@s mt-10@s">
                             <input-base
                                 type="datetime-local"
                                 label="Cacher après le"
@@ -36,7 +36,7 @@
                                 @input="(v) => $emit('input', { endDate: v })"
                             />
                         </div>
-                        <div class="col-2">
+                        <div class="col-2 col-12@s mt-10@s">
                             <link-base v-if="value.startDate || value.endDate" @click.native.stop="resetProgrammation">Supprimer</link-base>
                         </div>
                     </div>
