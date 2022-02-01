@@ -1,9 +1,9 @@
 <template>
     <div class="Layout LayoutDashboard" :class="[ ...classes, { 'is-compact': isCompact } ]">
-        <nav-dashboard />
+        <nav-dashboard :is-active="isNavActive" @toggle="isNavActive = !isNavActive" />
 
         <div class="LayoutDashboard_content">
-            <header-dashboard />
+            <header-dashboard @toggle="isNavActive = !isNavActive" :is-active="isNavActive" />
             
             <Nuxt />
         </div>
@@ -35,6 +35,9 @@ export default {
             console.error(e)
         }
     },
+    data: () => ({
+        isNavActive: false
+    }),
     computed: {
         user () { return this.$store.state.auth.user },
         classes () { return this.$store.state.page.body.classes },

@@ -1,7 +1,7 @@
 <template>
     <div class="PageEditor Wrapper--left pb-100">
         <div class="d-flex fx-align-center mv-40">
-            <breadcrumbs class="fx-no-shrink" :items="[
+            <breadcrumbs class="fx-no-shrink fx-shrink@s" :items="[
                 { label: 'Pages', to: { name: 'pages' } },
                 { label: fullLink ? fullLink : 'Ma page', href: fullLink ? fullLink : '' },
             ]" />
@@ -10,7 +10,7 @@
         <div class="d-flex">
             <form id="mainForm" @submit.prevent="update"></form>
 
-            <div class="fx-grow fx-no-shrink max-width-l" v-if="isInit">
+            <div class="fx-grow max-width-l" v-if="isInit">
                 <nav-bar class="mb-40" :items="navItems" />
 
                 <transition name="fade">
@@ -99,7 +99,7 @@
                     </button-base>
                 </div>
             </div>
-            <div class="fx-grow fx-no-shrink max-width-l" v-else>
+            <div class="fx-grow fx-no-shrink fx-shrink@s max-width-l" v-else>
                 <placeholder class="br-s mb-10" :modifiers="['simple', 'h', 'xs']" />
                 <placeholder class="br-s mb-10" :modifiers="['simple', 'h', 'xs']" />
                 <placeholder class="br-s mb-20" :modifiers="['simple', 'h', 'xs']" />
@@ -370,15 +370,10 @@ export default {
         }
     }
 
-    @media screen and (max-width: 1200px) {
+    @include breakpoint-s {
         
         .PageEditor_previewContainer {
-            position: fixed;
-            z-index: 5;
-            bottom: 15px;
-            left: 15px;
-            transform-origin: left bottom;
-            transform: scale(0.7);
+            display: none;
         }
     }
 

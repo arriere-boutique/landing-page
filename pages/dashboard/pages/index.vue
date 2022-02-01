@@ -6,7 +6,7 @@
             <div class="Page_cols">
                 <div class="fx-grow">
                     <transition-group name="default" class="row-s">
-                        <div class="col-6 col-12@m mb-20" v-for="landing in landings.filter(l => l.isActive)" :key="landing._id">
+                        <div class="col-6 col-12@xs mb-20" v-for="landing in landings.filter(l => l.isActive)" :key="landing._id">
                             <landing-block v-bind="landing" />
                         </div>
                     </transition-group>
@@ -15,7 +15,7 @@
                         <p class="ft-xl-bold mt-40 mb-20">Pages désactivées</p>
 
                         <transition-group name="default" class="row-s">
-                            <div class="col-6 col-12@m mb-20" v-for="landing in landings.filter(l => !l.isActive)" :key="landing._id">
+                            <div class="col-6 col-12@xs mb-20" v-for="landing in landings.filter(l => !l.isActive)" :key="landing._id">
                                 <landing-block v-bind="landing" />
                             </div>
                         </transition-group>

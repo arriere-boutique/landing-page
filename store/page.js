@@ -22,8 +22,9 @@ export default {
             
             document.body.classList.toggle('o-hidden', !state.isBodyOverflow)
         },
-        toggleCompact (state) {
-            state.isNavCompact = !state.isNavCompact
+        toggleCompact (state, params) {
+            state.isNavCompact = params.force !== undefined ? params.force : !state.isNavCompact
+            if (params.save) this.$cookies.set('nav-compact', JSON.stringify(state.isNavCompact))
         },
         toggleCart (state) {
             state.isCartActive = !state.isCartActive

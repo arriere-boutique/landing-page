@@ -1,6 +1,6 @@
 <template>
     <div class="ProfitCalculator Grid" :class="[ $modifiers ]">
-        <div class="Tile price bg-pond-xweak is-pond">
+        <div class="Tile cw-12 bg-pond-xweak is-pond cw-12@s">
             <div>
                 <p class="ft-l-bold mb-15"><i class="fal fa-box-full mr-3"></i> Prix payé par le client</p>
 
@@ -35,7 +35,7 @@
             </div>
         </div>
 
-        <div class="Tile shipping bg-duck-xweak is-duck">
+        <div class="Tile cw-6 bg-duck-xweak is-duck cw-12@s">
             <div>
                 <p class="ft-l-bold mb-15"><i class="fal fa-truck mr-3"></i> Expédition</p>
 
@@ -54,7 +54,29 @@
             </div>
         </div>
 
-        <div class="Tile etsy bg-sunset-xweak">
+        <div class="Tile cw-6 ch-2 bg-gum-xweak is-gum cw-12@s">
+            <div>
+                <p class="ft-l-bold mb-15"><i class="fal fa-brush mr-3"></i> Production <tooltip class="ml-5" text="Tes dépenses liées à la création de l'article : tissu, fil, papier..." /></p>
+
+                <div class="d-flex fx-align-center mv-10" v-for="(material, i) in formData.materials" :key="material.id">
+                    <input-base type="text" label="Designation" v-model="material.label" />
+
+                    <input-base class="mh-5" type="number" label="Coût" suffix="€" v-model="material.cost" />
+
+                    <div class="Buttons d-flex fx-no-shrink">
+                        <div class="Button" @click="() => deleteMaterial(i)" v-if="formData.materials.length > 1"><i class="fal fa-sm fa-trash-alt"></i></div>
+                        <div class="Button ml-5" v-if="i == formData.materials.length - 1" @click="addMaterial"><i class="fal fa-plus"></i></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-right ft-s-bold mt-20">
+                <span class="ft-m-bold mr-5">Total</span>
+                <span class="ft-3xl-bold line-1">{{ totalProduction|round }}<span class="ft-s-bold">€</span></span>
+            </div>
+        </div>
+
+        <div class="Tile cw-6 bg-sunset-xweak cw-12@s">
             <div>
                 <p class="ft-l-bold mb-10"><i class="fal fa-coin mr-3"></i> Frais de plateforme</p>
 
@@ -81,29 +103,8 @@
             </div>
         </div>
 
-        <div class="Tile production bg-gum-xweak is-gum">
-            <div>
-                <p class="ft-l-bold mb-15"><i class="fal fa-brush mr-3"></i> Production <tooltip class="ml-5" text="Tes dépenses liées à la création de l'article : tissu, fil, papier..." /></p>
 
-                <div class="d-flex fx-align-center mv-10" v-for="(material, i) in formData.materials" :key="material.id">
-                    <input-base type="text" label="Designation" v-model="material.label" />
-
-                    <input-base class="mh-5" type="number" label="Coût" suffix="€" v-model="material.cost" />
-
-                    <div class="Buttons d-flex fx-no-shrink">
-                        <div class="Button" @click="() => deleteMaterial(i)" v-if="formData.materials.length > 1"><i class="fal fa-sm fa-trash-alt"></i></div>
-                        <div class="Button ml-5" v-if="i == formData.materials.length - 1" @click="addMaterial"><i class="fal fa-plus"></i></div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="text-right ft-s-bold mt-20">
-                <span class="ft-m-bold mr-5">Total</span>
-                <span class="ft-3xl-bold line-1">{{ totalProduction|round }}<span class="ft-s-bold">€</span></span>
-            </div>
-        </div>
-
-        <div class="Tile total bg-pond-xweak">
+        <div class="Tile cw-12 bg-pond-xweak cw-12@s">
             <div class="d-flex fx-wrap">
                 <div class="fx-grow">
                     <div class="d-flex">
@@ -289,69 +290,5 @@ export default {
 
 <style lang="scss" scoped>
 
-    .price {
-        grid-column: auto / span 8;
-    }
-
-    .shipping {
-        grid-column: auto / span 4;
-    }
-
-    .etsy {
-        grid-column: auto / span 4;
-    }
-
-    .production {
-        grid-column: auto / span 8;
-    }
-
-    .total {
-        grid-column: 9 / span 4;
-        grid-row: 1 / span 2;
-    }
-
-    .ProfitCalculator--s {
-        .price {
-            grid-column: auto / span 12;
-        }
-        .shipping {
-            grid-column: auto / span 6;
-        }
-
-        .etsy {
-            grid-column: auto / span 6;
-        }
-        .production {
-            grid-column: 7 / span 6;
-            grid-row: 2 / span 2;
-        }
-        .total {
-            grid-column: auto / span 12;
-            grid-row: auto;
-        }
-    }
-
-    
-    .ProfitCalculator--insert {
-        .price {
-            grid-column: auto / span 12;
-        }
-        .shipping {
-            grid-column: auto / span 6;
-        }
-
-        .etsy {
-            grid-column: auto / span 6;
-        }
-
-        .production {
-            grid-column: auto / span 12;
-        }
-
-        .total {
-            grid-column: auto / span 12;
-            grid-row: auto;
-        }
-    }
 
 </style>

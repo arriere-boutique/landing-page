@@ -6,7 +6,7 @@
             <p class="mb-20">Je mets ici à disposition des outils qui pourront te servir à gérer ta Boutique Etsy au mieux.</p>
 
             <div class="Grid">
-                <div class="Tile bg-precious-xweak cell-width-6 cell-height-2">
+                <div class="Tile bg-precious-xweak cw-6 ch-2 cw-12@s">
                     <div class="mb-20">
                         <i class="fal fa-magnifying-glass"></i>
                         <p class="ft-xl-bold mv-5">Trouver de nouveaux mots-clés</p>
@@ -24,7 +24,7 @@
                     </div>
                 </div>
                 
-                <div class="Tile bg-duck-xweak cell-width-6 cell-height-2">
+                <div class="Tile bg-duck-xweak cw-6 ch-2 cw-12@s">
                     <div class="mb-20">
                         <i class="fal fa-chart-column"></i>
                         <p class="ft-xl-bold mv-5">Calculer mon profit</p>

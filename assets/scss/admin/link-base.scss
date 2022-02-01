@@ -50,6 +50,15 @@
     }
 }
 
+.LinkBase--ellipsis {
+    white-space: normal;
+
+    .LinkBase_content {
+        word-break: break-all;
+        @extend .ellipsis-1;
+    }
+}
+
 .LinkBase--light {
     color: var(--color-ft-light);
 

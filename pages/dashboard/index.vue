@@ -1,10 +1,10 @@
 <template>
     <div>
         <div class="Wrapper Wrapper--left">
-            <p class="ft-3xl-bold mv-40">Bonjour {{ user.name }} ! <i class="ml-5 fal fa-sparkles"></i></p>
+            <p class="Title--l ft-bold mv-40">Bonjour {{ user.name }} ! <i class="ml-5 fal fa-sparkles"></i></p>
 
             <div class="Grid">
-                <div class="cell-width-8">
+                <div class="cw-8 cw-12@s">
                     <div class="Tile fx-align-end bg-gum-xweak">
                         <div>
                             <i class="fal fa-xl fa-sparkles"></i>
@@ -17,12 +17,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="cell-width-4 cell-height-2">
+                <div class="cw-4 ch-2 cw-12@s">
                     <div class="Tile bg-gum-xweak">
 
                     </div>
                 </div>
-                <div class="cell-width-4">
+                <div class="cw-4 cw-12@s">
                     <div class="Tile fx-dir-column fx-justify-between bg-emerald-xweak">
                         <div>
                             <i class="fal fa-lg fa-coin"></i>
@@ -36,7 +36,7 @@
                         </p>
                     </div>
                 </div>
-                <div class="cell-width-4">
+                <div class="cw-4 cw-12@s">
                     <div class="Tile fx-dir-column fx-justify-between bg-precious-xweak">
                         <div>
                             <i class="fal fa-lg fa-box"></i>
