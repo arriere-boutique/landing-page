@@ -22,8 +22,7 @@
 </template>
 
 <script>
-import LandingModuleMixin from '../landing-module-mixin'
-
+import LandingModuleMixin from '../landing-module-mixin.js'
 export default {
     name: 'ListLinkEdit',
     mixins: [ LandingModuleMixin ],

@@ -153,7 +153,7 @@
                     <p class="ft-4xl-bold">{{ totalRemaining|round }}<span class="ft-xl-bold">€</span></p>
                 </div>
                     
-                <line-chart
+                <chart-line
                     class="mt-15"
                     :total="totalPrice"
                     :values="[

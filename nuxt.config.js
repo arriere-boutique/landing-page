@@ -45,7 +45,20 @@ export default {
         etsy: process.env.ETSY
     },
 
-    components: true,
+    components: {
+        dirs: [
+            '~/components',
+            '~/components/admin',
+            '~/components/base',
+            '~/components/forms',
+            '~/components/inserts',
+            '~/components/interactive',
+            '~/components/partials',
+            '~/components/tools',
+            '~/components/utils',
+            '~/components/landing-module',
+        ]
+    },
 
     buildModules: [
         '@nuxtjs/google-analytics',
@@ -100,7 +113,7 @@ export default {
         locales: [
             { code: 'fr', iso: 'fr-FR', file: 'fr.js' }
         ],
-        langDir: '/translations/',
+        langDir: '@/translations/',
         defaultLocale: 'fr',
         lazy: true
     },

@@ -9,8 +9,7 @@
 </template>
 
 <script>
-import LandingModuleMixin from '../landing-module-mixin'
-
+import LandingModuleMixin from '../landing-module-mixin.js'
 export default {
     name: 'PromoCodeEdit',
     mixins: [ LandingModuleMixin ],
