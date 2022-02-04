@@ -2,6 +2,10 @@
     <header class="HeaderDashboard bg-bg-xweak">
         <div class="HeaderDashboard_wrapper">
             <div>
+                <a class="HeaderDashboard_logo" :href="$dashboardUrl">
+                    <icon-base name="logo/logo-main" :height="35" />
+                </a>
+
                 <div class="HeaderDashboard_links">
                     <!-- <link-base tag="nuxt-link" :attrs="{ to: localePath({ name: 'abonnements' }) }" class="HeaderDashboard_link mr-20">S'abonner</link-base> -->
 
@@ -12,7 +16,6 @@
             </div>
 
             <div class="HeaderDashboard_right">
-                <!-- <div class="HeaderDashboard_profile"></div> -->
                 <div class="HeaderDashboard_burger" @click="$emit('toggle')" v-show="!isActive">
                     <i class="fa-thin fa-bars"></i>
                 </div>

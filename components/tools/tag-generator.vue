@@ -32,7 +32,7 @@
                     </div>
                 </div>
 
-                <advice-block class="mt-20 is-precious" type="tag-generator" v-if="!isInsert" />
+                <advice-block class="mt-20 is-precious d-none@s" type="tag-generator" v-if="!isInsert" />
             </div>
             <div class="col-6 col-12@s mt-20@s">
                 <div class="bg-precious-xweak p-20 br-m text-center">
@@ -71,6 +71,9 @@
                 </div>
             </div>
         </form>
+
+        
+        <advice-block class="mt-20 is-precious d-none d-block@s" type="tag-generator" v-if="!isInsert" />
     </div>
 </template>
 

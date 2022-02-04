@@ -27,14 +27,22 @@
 }
 
 .HeaderDashboard_burger,
-.HeaderDashboard_close {
+.HeaderDashboard_close,
+.HeaderDashboard_logo {
     display: none;
 }
+
 
 @include breakpoint-s {
 
     .HeaderDashboard_links {
         display: none;
+    }
+
+    .HeaderDashboard_logo {
+        display: block;
+        margin-left: 5px;
+        fill: var(--color-pond);
     }
 
     .HeaderDashboard_burger,
