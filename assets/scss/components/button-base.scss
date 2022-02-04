@@ -102,6 +102,20 @@
         height: 45px;
     }
 
+    &.ButtonBase--l {
+
+        .ButtonBase_content {
+            width: 60px;
+            height: 60px;
+        }
+    
+        .ButtonBase_iconAfter,
+        .ButtonBase_iconBefore {
+            margin: 0;
+        }
+
+    }
+
     &.ButtonBase--s {
 
         .ButtonBase_content {
