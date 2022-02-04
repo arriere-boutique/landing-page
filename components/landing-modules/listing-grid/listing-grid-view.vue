@@ -1,11 +1,11 @@
 <template>
     <div class="Listing_container bg-bg-light" :class="{ 'is-init': isInit }">
-        <div class="ListingContainer_title" v-if="title">
+        <div class="ListingContainer_title n-mt-10" v-if="title">
             {{ title }}
         </div>
 
         <div class="row-s">
-            <div class="col-4" v-for="listing in listings" :key="listing._id"> 
+            <div class="col-6 col-12@s" v-for="listing in listings" :key="listing._id"> 
                 <a :href="listing.link" class="Listing">
                     <div class="Listing_image" :style="{ '--background': `url(${listing.images && listing.images[0] ? listing.images[0].small : '' })` }">
 
@@ -57,9 +57,10 @@ export default {
         margin-bottom: 30px;
         border-bottom: 1px solid var(--color-border);
     }
+
     .Listing_container {
         border-radius: 20px;
-        padding: 20px 30px 0 30px;
+        padding: 30px 30px 0 30px;
     }
 
     .Listing {

@@ -206,7 +206,7 @@ const syncListings = async function (shop, syncImages = false) {
                 for (let listing of listingData.results) {
                     let data = {
                         id: listing.listing_id,
-                        title: listing.title,
+                        title: listing.title.replace('&#39;', `'`),
                         status: listing.state,
                         price: listing.price,
                         link: listing.url,

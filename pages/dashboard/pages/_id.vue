@@ -86,18 +86,27 @@
                     </div>
                 </transition>
 
-                <div class="fixedSubmit text-right" :class="{ 'is-active': changesMade }" v-show="changesMade">
-                    <link-base @click.native.prevent="reset" type="button" class="mr-20">Annuler les changements</link-base>
+                <action-fixed :is-active="changesMade && !isPreview">
+                    <template slot="float">
+                        <button-base class="d-none d-flex@s" :modifiers="['round', 'l']" icon-before="eye" @click="isPreview = !isPreview" />
+                    </template>
+                    <template slot="actions">
+                        <div></div>
 
-                    <button-base
-                        :modifiers="['gum']"
-                        :class="{ 'is-disabled': !changesMade, 'is-loading': isLoading }"
-                        type="submit"
-                        :attrs="{ form: 'mainForm' }"
-                    >
-                        Sauvegarder
-                    </button-base>
-                </div>
+                        <div>
+                            <link-base @click.native.prevent="reset" type="button" class="mr-10">Annuler</link-base>
+
+                            <button-base
+                                :modifiers="['gum']"
+                                :class="{ 'is-disabled': !changesMade, 'is-loading': isLoading }"
+                                type="submit"
+                                :attrs="{ form: 'mainForm' }"
+                            >
+                                Sauvegarder
+                            </button-base>
+                        </div>
+                    </template>
+                </action-fixed>
             </div>
             <div class="fx-grow fx-no-shrink fx-shrink@s max-width-l" v-else>
                 <placeholder class="br-s mb-10" :modifiers="['simple', 'h', 'xs']" />
@@ -107,7 +116,7 @@
                 <placeholder class="br-s mb-20" :modifiers="['simple', 'h']" />
             </div>
 
-            <div class="PageEditor_previewContainer">
+            <div class="PageEditor_previewContainer" :class="{ 'is-active': isPreview }">
                 <div class="PageEditor_preview fx-no-shrink">
                     <template v-if="isInit">
                         <div class="PageEditor_contentScroll">
@@ -117,6 +126,9 @@
                         </div>
                     </template>
                     <placeholder v-else />
+                </div>
+                <div class="PageEditor_previewClose" @click="isPreview = false">
+                    <i class="fal fa-times color-ft-light"></i>
                 </div>
             </div>
         </div>
@@ -146,6 +158,7 @@ export default {
     data: () => ({
         _id: '',
         isLoading: true,
+        isPreview: false,
         isModuleLibraryActive: false,
         isInit: false,
         photoColor: '',
@@ -345,22 +358,6 @@ export default {
         }
     }
 
-    .fixedSubmit {
-        position: sticky;
-        z-index: 6;
-        border-top: 1px solid var(--color-border);
-        padding: 20px 0;
-        bottom: 0;
-        background-color: var(--color-bg-light);
-        transform: translateY(100%);
-        transition: all 200ms ease;
-
-        &.is-active {
-            margin-top: 20px;
-            transform: translateY(0);
-        }
-    }
-
     .Button {
         cursor: pointer;
         transition: all 150ms;
@@ -370,10 +367,61 @@ export default {
         }
     }
 
+    .PageEditor_previewClose {
+        display: none;
+    }
+
     @include breakpoint-s {
         
         .PageEditor_previewContainer {
-            display: none;
+            position: fixed;
+            z-index: 10;
+            bottom: 0;
+            margin: 0;
+            min-width: 0;
+            width: 100%;
+            height: 100%;
+            left: 0;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+            overflow: hidden;
+            top: 20px;
+            box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0);
+            transform: translateY(100%);
+            transition: all 300ms ease;
+
+            &.is-active {
+                box-shadow: 0 0 0 200px rgba(0, 0, 0, 0.5);
+                transform: translateY(0);
+            }
+        }
+
+        .PageEditor_previewClose {
+            display: block;
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            line-height: 1;
+            z-index: 5;
+            padding: 10px;
+            font-size: 30px;
+        }
+
+        .PageEditor_preview {
+            margin: 0;
+            border: 0;
+            transform: none;
+            height: 100%;
+            top: 0;
+            position: relative;
+            display: block;
+        }
+
+        .PageEditor_contentScroll {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 0;
         }
     }
 

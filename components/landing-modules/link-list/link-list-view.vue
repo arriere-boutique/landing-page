@@ -2,7 +2,7 @@
     <transition-group tag="div" name="default" class="LinkList">
         <button-base
             class="LinkList_item"
-            :modifiers="['full']"
+            :modifiers="['full', 'light']"
             v-for="link in links.filter(l => l.active)"
             tag="a"
             :link="link.href"
