@@ -71,6 +71,24 @@ exports.linkShop  = async function (req, res) {
         errors.push(e.message)
     }
 
+    if (process.env.NODE_ENV == "PRODUCTION" && data) {
+        try {
+            let apiInstance = new req.app.locals.sendinBlue.ContactsApi()
+            let updateContact = new req.app.locals.sendinBlue.UpdateContact()
+
+            updateContact.email = req.body.email
+            updateContact.listIds = req.body.newsletter ? [9, 6] : [9]
+
+            updateContact.attributes = {
+                NOMBOUTIQUE: data.name
+            }
+            
+            await apiInstance.updateContact(user.email, updateContact)
+        } catch (e) {
+            console.error(e)
+        }
+    }
+
     res.send({
         data, errors,
         status: errors.length > 0 ? 0 : 1

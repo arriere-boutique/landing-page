@@ -27,7 +27,7 @@ exports.logUser = async function (req, res) {
         } else {
             if (!req.body.email || !req.body.password || !req.body.token) throw Error('missingFields')
             
-            if (process.env.NODE_ENV == "PRODUCTION") {
+            if (process.env.RECAPTCHA_BYPASS != "true") {
                 const challenge = await $fetch(`https://www.google.com/recaptcha/api/siteverify?secret=${process.env.RECAPTCHA_SECRET}&response=${req.body.token}`)
 
                 if (!challenge.success) throw Error('challenge-failed')
@@ -46,9 +46,6 @@ exports.logUser = async function (req, res) {
                     password: req.body.password,
                     name: req.body.name,
                     surname: req.body.surname,
-                    category: req.body.shopCategory,
-                    categoryCustom: req.body.shopCategoryCustom,
-                    shopName: req.body.shopName,
                     address: req.body.address,
                     address2: req.body.address2,
                     postalCode: req.body.postalCode,
@@ -72,10 +69,7 @@ exports.logUser = async function (req, res) {
                     createContact.listIds = req.body.newsletter ? [9, 6] : [9]
 
                     createContact.attributes = {
-                        PRENOM: req.body.name,
-                        DOMAINE: req.body.shopCategory ? req.body.shopCategory : 0,
-                        DOMAINECUSTOM: req.body.shopCategoryCustom ? req.body.shopCategoryCustom : '',
-                        NOMBOUTIQUE: req.body.shopName ? req.body.shopName : ''
+                        PRENOM: req.body.name
                     }
                     
                     if (process.env.NODE_ENV == "PRODUCTION") await apiInstance.createContact(createContact)
