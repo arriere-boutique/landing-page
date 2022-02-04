@@ -1,9 +1,9 @@
 <template>
     <popin-base :is-active="isActive" :modifiers="['panel']" @close="$emit('close')">
         <template slot="content">
-            <div class="p-60">
+            <div class="p-60 p-40@s">
                 <div class="row-xs">
-                    <div class="col-4 mb-10" v-for="module in availableModules" :key="module.name">
+                    <div class="col-4 mb-10 col-6@m col-12@s" v-for="module in availableModules" :key="module.name">
                         <module-tile v-bind="module" @click.native="$emit('close'); $emit('add', module)" />
                     </div>
                 </div>
@@ -12,7 +12,7 @@
                     <p class="mt-40 mb-10 ft-s-bold">Non-disponibles</p>
 
                     <div class="row-xs">
-                        <div class="col-4 mb-10" v-for="module in unavailableModules" :key="module.name">
+                        <div class="col-4 mb-10 col-6@m col-12@s" v-for="module in unavailableModules" :key="module.name">
                             <module-tile  v-bind="module" :has-requirements="hasRequirements(module)" />
                         </div>
                     </div>
@@ -22,7 +22,7 @@
                     <p class="mt-40 mb-10 ft-s-bold">En cours en développement</p>
 
                     <div class="row-xs">
-                        <div class="col-4 mb-10" v-for="module in developingModules" :key="module.name">
+                        <div class="col-4 mb-10 col-6@m col-12@s" v-for="module in developingModules" :key="module.name">
                             <module-tile v-bind="module" />
                         </div>
                     </div>

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="Wrapper Wrapper--left">
+        <div class="Wrapper Wrapper--left pb-100">
             <p class="Title--l ft-bold mv-40">Bonjour {{ user.name }} ! <i class="ml-5 fal fa-sparkles"></i></p>
 
             <div class="Grid">

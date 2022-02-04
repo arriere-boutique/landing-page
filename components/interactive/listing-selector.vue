@@ -2,7 +2,7 @@
     <div class="ListingSelector">
         <p class="ft-s-medium mb-10">Tes fiches produit ({{ availableListings.length }})</p>
         <transition-group name="fade" tag="div" class="ListingSelector_container row-xs p-relative">
-            <div class="col-6 mb-10 col-12@s" v-for="listing in showingListings" :key="listing._id">
+            <div class="col-6 mb-5 col-12@s" v-for="listing in showingListings" :key="listing._id">
                 <div class="ListingSelector_item">
                     <img :src="listing.thumbnail ? listing.thumbnail : ''">
 
@@ -17,7 +17,7 @@
             </div>
         </transition-group>
 
-        <div class="d-flex fx-justify-end fx-align-center">
+        <div class="mt-5 d-flex fx-justify-end fx-align-center">
             <button-base icon-before="angle-left" type="button" :modifiers="['light', 'round', 'xs']" @click="offset -= limit" v-show="this.offset > 0" />
 
             <p class="ft-xs-medium mh-10">{{ (this.offset / this.limit) + 1 }} / {{ this.maxPages }}</p>
@@ -28,7 +28,7 @@
         <div v-if="selectedListings.length > 0" class="mt-30@s">
             <p class="ft-s-medium mb-10">Fiches sélectionnées ({{ selectedListings.length }})</p>
             <transition-group name="default" tag="div" class="p-relative">
-                <div class="ListingSelector_item mb-10" v-for="listing in selectedListings" :key="listing._id">
+                <div class="ListingSelector_item mb-5" v-for="listing in selectedListings" :key="listing._id">
                     <img :src="listing.thumbnail ? listing.thumbnail : ''">
 
                     <div class="ListingSelector_content">
@@ -78,10 +78,6 @@ export default {
 
 <style lang="scss" scoped>
     .ListingSelector {
-        border-radius: 10px;
-        padding: 25px;
-        border: 1px solid var(--color-current-weak, var(--color-border));
-        background-color: var(--color-bg-light);
     }
 
     .ListingSelector_item {

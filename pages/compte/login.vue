@@ -2,7 +2,7 @@
     <div class="bg-bg-light o-hidden">
         <div class="Wrapper Wrapper--m">
             <div class="row-xl">
-                <div class="col-6 pv-60">
+                <div class="col-6 pv-60 col-12@s pv-20@s">
                     <div class="pv-30 br-m">
                         <p class="ft-2xl-bold"><i class="fal fa-sparkles mr-5"></i> Se connecter</p>
 
@@ -23,7 +23,7 @@
                         </form>
                     </div>
                 </div>
-                <div class="col-6 pv-60 p-relative">
+                <div class="col-6 pv-60 p-relative col-12@s">
                     <div class="bg-to-right bg-gum-xweak"></div>
 
                     <form autocomplete="off" @submit.prevent="submitForm('register')" class="p-30 bg-bg-light br-m p-relative">

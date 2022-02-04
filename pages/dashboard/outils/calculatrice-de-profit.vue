@@ -3,7 +3,7 @@
         <div class="Wrapper Wrapper--left pb-100">
             <div class="mv-40">
                 <breadcrumbs :items="[
-                    { label: 'Outils', to: { name: 'dashboard-outils' } },
+                    { label: 'Outils', to: { name: 'outils' } },
                     { label: 'Calculatrice de profits', active: true },
                 ]" />
                 

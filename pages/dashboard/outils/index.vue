@@ -4,7 +4,7 @@
             <p class="ft-2xl-bold mv-40">Outils</p>
 
             <div class="Grid">
-                <div class="Tile bg-precious-xweak cell-width-6 cell-height-2">
+                <div class="Tile bg-precious-xweak cw-6 ch-2 cw-12@s">
                     <div class="mb-20">
                         <i class="fal fa-magnifying-glass"></i>
                         <p class="ft-xl-bold mv-5">Trouver de nouveaux mots-clés</p>
@@ -22,7 +22,7 @@
                     </div>
                 </div>
                 
-                <div class="Tile bg-duck-xweak cell-width-6 cell-height-2">
+                <div class="Tile bg-duck-xweak cw-6 ch-2 cw-12@s">
                     <div class="mb-20">
                         <i class="fal fa-chart-column"></i>
                         <p class="ft-xl-bold mv-5">Calculer mon profit</p>
@@ -45,7 +45,7 @@
 
             <div class="Grid">
 
-                <div class="Tile bg-bg-xweak cell-width-6 cell-height-2">
+                <div class="Tile bg-bg-xweak cw-6 ch-2 cw-12@s">
                     <div class="mb-20">
                         <i class="fal fa-chart-line-up"></i>
                         <p class="ft-xl-bold mv-5">Comparer mes prix</p>
@@ -62,7 +62,7 @@
                     </div>
                 </div>
 
-                <div class="Tile bg-bg-xweak cell-width-6 cell-height-2">
+                <div class="Tile bg-bg-xweak cw-6 ch-2 cw-12@s">
                     <div class="mb-20">
                         <i class="fal fa-image-landscape"></i>
                         <p class="ft-xl-bold mv-5">Créer une bannière de boutique</p>
@@ -79,7 +79,7 @@
                     </div>
                 </div>
 
-                <div class="Tile bg-bg-xweak cell-width-6 cell-height-2">
+                <div class="Tile bg-bg-xweak cw-6 ch-2 cw-12@s">
                     <div class="mb-20">
                         <i class="fal fa-gift-card"></i>
                         <p class="ft-xl-bold mv-5">Vendre des cartes cadeau</p>
@@ -96,7 +96,7 @@
                     </div>
                 </div>
 
-                <div class="Tile bg-bg-xweak cell-width-6 cell-height-2">
+                <div class="Tile bg-bg-xweak cw-6 ch-2 cw-12@s">
                     <div class="mb-20">
                         <i class="fal fa-trophy-star"></i>
                         <p class="ft-xl-bold mv-5">Organiser un jeu-concours</p>
