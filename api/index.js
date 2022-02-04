@@ -20,7 +20,7 @@ const app = express()
 
 require('./entities/index')
 const { createEntity, getEntities, deleteEntity } = require('./api/entity');
-const { logUser, logOut, getUser } = require('./api/user');
+const { logUser, logOut, getUser, requestResetPassword, resetPassword } = require('./api/user');
 const { createOrder, checkoutOrder } = require('./api/order');
 const { webhooks } = require('./api/webhooks');
 const { createSubscriber, getSubscribers, deleteSubscriber } = require('./api/subscribe')
@@ -68,6 +68,8 @@ mongoose.connection.once('open', async () => {
     app.post('/user', logUser)
     app.get('/user', getUser)
     app.post('/user/logout', logOut)
+    app.post('/user/reset', requestResetPassword)
+    app.post('/user/reset/confirm', resetPassword)
 
     app.post('/subscribe', createSubscriber)
     app.get('/subscribers', getSubscribers)

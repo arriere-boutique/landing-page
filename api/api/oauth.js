@@ -1,7 +1,5 @@
 const Entities = require('../entities')
-const shortid = require('shortid')
 const { $fetch } = require('ohmyfetch/node')
-const { authenticate, accessCheck, fieldsCheck } = require('../utils/user')
 
 exports.redirect = async function (req, res) {
     let response = null

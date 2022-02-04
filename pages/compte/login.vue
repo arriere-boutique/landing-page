@@ -9,12 +9,12 @@
                         <form @submit.prevent="submitForm('login')" class="mt-30">
                             <input-base label="Ton adresse e-mail" class="mb-10" :attrs="{ required: true }" v-model="loginForm.email" type="email" />
 
-                            <input-base label="Mot de passe" class="mb-10" type="password" v-model="loginForm.password" />
+                            <input-base label="Mot de passe" class="mb-10" type="password" :helpers="['reveal']" v-model="loginForm.password" />
 
                             <errors :items="loginErrors" />
 
                             <div class="text-right mt-10">
-                                <link-base class="mr-5">Mot de passe oublié ?</link-base>
+                                <link-base class="mr-5" @click="resetPassword" type="button">Mot de passe oublié ?</link-base>
 
                                 <button-base type="submit" :modifiers="['secondary']" :class="{ 'is-disabled': state.isSuccess || state.loading }">
                                     Je me connecte
@@ -73,6 +73,10 @@ export default {
                 ...v
             }
         },
+        async resetPassword () {
+            const response = await this.$store.dispatch('user/requestPassword', this.loginForm.email)
+            console.log(response)
+        },
         async submitForm (type) {
             this.loginErrors = []
             this.registerErrors = []
@@ -90,7 +94,7 @@ export default {
                     this.registerErrors = response.data.errors
                 }
             } else {
-                this.$router.push({ path: this.localePath({ name: 'dashboard' }) });
+                window.location = process.env.dashboardUrl
             }
         }
     }

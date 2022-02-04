@@ -1,7 +1,10 @@
 <template>
     <div class="Layout" :class="[`is-${color}`, classes ]">
         <Nuxt />
+        
         <tooltip-manager />
+        <flashes-manager />
+        <popin-manager />
     </div>
 </template>
 
