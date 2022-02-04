@@ -18,7 +18,7 @@
             </div>
 
             <div class="HomePage_section1right">
-                <video class="HomePage_section1video" autoplay loop>
+                <video class="HomePage_section1video" autoplay loop muted>
                     <source :src="assets.video1" type="video/mp4">
                 </video>
 
@@ -52,7 +52,6 @@
                                     <p class="mt-10 d-flex"><i class="fal fa-chart-line mr-10 mt-3"></i> Compare tes prix à la concurrence</p>
                                     <p class="mt-10 d-flex"><i class="fal fa-rectangle-vertical-history mr-10 mt-3"></i> Gére plusieurs boutiques au même endroit</p>
                                     <p class="mt-10 d-flex"><i class="fal fa-gift-card mr-10 mt-3"></i> Imprime les messages cadeau en un clic</p>
-                                    <p class="mt-10 d-flex"><i class="fal fa-truck mr-10 mt-3"></i> Propose la livraison avec Mondial Relay</p>
                                 </div>
                                 <div class="col-6 col-12@s">
                                     <p class="mt-10 d-flex"><i class="fal fa-trophy mr-10 mt-3"></i> Organise des jeux-concours interactifs</p>

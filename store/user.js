@@ -64,6 +64,32 @@ export default {
                 console.error(e)
                 return null
             }
+        },
+        async requestPassword ({ commit }, email) {
+            try {
+                const response = await this.$axios.$post('/user/reset', {
+                    email
+                })
+
+                if (response.errors.length > 0) throw Error(response.errors[0])
+
+                return response.data
+            } catch (e) {
+                return storeUtils.handleErrors(e, commit, `Échec de l'envoi du mot de passe`)
+            }
+        },
+        async resetPassword ({ commit }, data) {
+            try {
+                const response = await this.$axios.$post('/user/reset/confirm', {
+                    ...data
+                })
+
+                if (response.errors.length > 0) throw Error(response.errors[0])
+
+                return response
+            } catch (e) {
+                return storeUtils.handleErrors(e, commit, `Échec de la modification du mot de passe`)
+            }
         }
     }
 }

@@ -10,6 +10,8 @@
         </div>
 
         <tooltip-manager />
+        <flashes-manager />
+        <popin-manager />
     </div>
 </template>
 

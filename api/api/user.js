@@ -1,7 +1,8 @@
-const mongoose = require('mongoose')
 const jwt = require('jsonwebtoken')
 const { $fetch } = require('ohmyfetch/node')
 const Entities = require('../entities')
+const shortid = require('shortid')
+const moment = require('moment')
 
 const { authenticate } = require('../utils/user')
 const { ErrorModel } = require('sib-api-v3-sdk')
@@ -124,6 +125,68 @@ exports.logOut = async function (req, res) {
 
     res.send({
         token: null, status: errors.length > 0 ? 0 : 1,
+        errors
+    })
+}
+
+exports.requestResetPassword = async function (req, res) {
+    let errors = []
+    
+    try {
+        let user = await Entities.user.model.findOne({ email: req.body.email })
+
+        if (!user) throw Error('user-not-found')
+
+        let token = await Entities.token.model.create({
+            id: shortid.generate(),
+            value: req.body.email,
+            expiration: moment().add(2, 'days').toDate()
+        })
+
+        let apiInstance = new req.app.locals.sendinBlue.TransactionalEmailsApi()
+        let sendSmtpEmail = new req.app.locals.sendinBlue.SendSmtpEmail()
+
+        sendSmtpEmail.templateId  = 19
+        sendSmtpEmail.to = [{ email: req.body.email }]
+        sendSmtpEmail.params = { LINK: `${process.env.BASE_URL}/compte/reset?token=${token.id}` }
+
+        await apiInstance.sendTransacEmail(sendSmtpEmail)
+    } catch (e) {
+        console.error(e)
+        errors.push(e.message)
+    }
+
+    res.send({
+        status: errors.length > 0 ? 0 : 1,
+        errors
+    })
+}
+
+exports.resetPassword = async function (req, res) {
+    let errors = []
+    
+    try {
+        let token = await Entities.token.model.findOne({
+            id: req.body.token
+        })
+        
+        if (!token) throw Error('token-expired')
+
+        await Entities.token.model.findByIdAndDelete(token._id)
+
+        let user = await Entities.user.model.findOne({ email: token.value })
+
+        if (!user) throw Error('user-not-found')
+
+        user.password = req.body.password
+        user.save()
+    } catch (e) {
+        console.error(e)
+        errors.push(e.message)
+    }
+
+    res.send({
+        status: errors.length > 0 ? 0 : 1,
         errors
     })
 }
