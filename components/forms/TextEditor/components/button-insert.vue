@@ -20,8 +20,11 @@
 </template>
 
 <script>
+import ButtonEditor from './button-editor'
+
 export default {
     name: 'ButtonInsert',
+    components: { ButtonEditor },
     props: {
         currentNode: { type: [Object, Boolean], default: false },
         options: { type: Array, default: () => ([

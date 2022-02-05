@@ -24,8 +24,11 @@
 </template>
 
 <script>
+import ButtonEditor from './button-editor'
+
 export default {
     name: 'ButtonHeadings',
+    components: { ButtonEditor },
     props: {
         sample: { type: String, default: 'Voyez ce koala fou qui mange des journaux et des photos dans un bungalow. ' },
         currentNode: { type: [Object, Boolean], default: false },
