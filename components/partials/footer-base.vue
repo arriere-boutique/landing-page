@@ -58,15 +58,15 @@ export default {
     },
     data: () => ({
         items: [
+            { label: "Ton Arrière Boutique", items: [
+                { label: `Créer ton Arrière Boutique`, href: "https://www.arriere-boutique.fr" },
+                { label: `Fournitures pour vendeurs`, href: "https://arriereboutiquefr.etsy.com/" },
+                { label: `Qui suis-je ?`, href: "https://blog.arriere-boutique.fr/moi-moi-moi"},
+            ] },
             { label: `Apprenons ensemble !`, items: [
                 { label: `Apprendre sur Youtube`, href: "https://www.youtube.com/channel/UCn1oYqWvUQvbE9DwlEVTgNg" },
                 { label: `Me suivre sur Instagram`, href: "https://www.instagram.com/arriereboutiquefr" },
-                { label: `Rejoindre notre groupe d'entraide`, href: "https://www.facebook.com/groups/etsy.en.france" },
-                { label: `Se lancer sur Etsy`, href: "https://etsy.me/3vbM7TP" }
-            ] },
-            { label: "À propos", items: [
-                { label: `Qui suis-je ?`, path: { name: 'moi-moi-moi' } },
-                { label: `Fournitures pour vendeurs`, href: "https://arriereboutiquefr.etsy.com/" }
+                { label: `Rejoindre notre groupe d'entraide`, href: "https://www.facebook.com/groups/etsy.en.france" }
             ] }
         ]
     })

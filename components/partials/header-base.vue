@@ -16,12 +16,6 @@
                     </div>
                 </nav>
 
-                <div v-for="(item, key) in itemsRight" class="HeaderBase_navParent" :class="{ 'is-parent': item.items != undefined }"  :key="key">
-                    <component  class="HeaderBase_navLink" :is="item.path ? 'nuxt-link' : 'a'" :to="localePath(item.path)" :href="item.href" :target="item.target ? item.target : ''">
-                        {{ item.label }}
-                    </component>
-                </div>
-
                 <a :href="$dashboardUrl" class="HeaderBase_button ml-20" v-if="user && user.role != 'guest'">
                     <i class="fal fa-store"></i>
                 </a>
@@ -32,7 +26,7 @@
             </div>
 
             <div class="HeaderBase_menu" :class="{ 'is-active': state.isMenu }">
-                <div class="HeaderBase_navParent" v-for="(item, key) in { ...itemsLeft, ...itemsRight }" :key="key">
+                <div class="HeaderBase_navParent" v-for="(item, key) in itemsLeft" :key="key">
                     <component
                         class="HeaderBase_navLink"
                         :is="item.path ? 'nuxt-link' : 'a'"
@@ -83,10 +77,6 @@ export default {
             register: { label: 'Créer mon Arrière Boutique', href: process.env.dashboardUrl + '/register' },
             blog: { label: 'Le blog', href: process.env.blogUrl },
             login: { label: 'Se connecter', href: process.env.dashboardUrl }
-        }
-
-        this.$data.itemsRight = {
-            // shop: { label: `La boutique`, path: { name: 'shop' } }
         }
 
         if (process.server) return

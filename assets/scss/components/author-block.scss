@@ -27,3 +27,17 @@
         background-size: cover;
     }
 }
+
+@include breakpoint-s {
+
+    .AuthorBlock {
+        display: block;
+        padding: 20px;
+    }
+
+    .AuthorBlock_image {
+        width: 75px;
+        height: 75px;
+        margin: 0 20px 20px 0;
+    }
+}
