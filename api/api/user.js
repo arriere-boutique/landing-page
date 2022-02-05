@@ -77,6 +77,9 @@ exports.logUser = async function (req, res) {
                 } catch (e) {
                     console.error(e)
                 }
+
+                
+                await $fetch(`https://wirepusher.com/send?id=kjKEmppaj&title=Nouvel%20utilisateur%20&message=${encodeURI(user.email)}&type=UserRegistered`)
             }
 
             if (authenticated) {
