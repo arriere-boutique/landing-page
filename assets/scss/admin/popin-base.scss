@@ -145,3 +145,12 @@
         display: none;
     }
 }
+
+
+@include breakpoint-xs {
+
+    .PopinBase_body {
+        height: 100vh;
+        border-radius: 0;
+    }
+}

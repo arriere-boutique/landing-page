@@ -29,6 +29,8 @@ export default {
             wrongCredentials: `Ton mot de passe est incorrect, peux-tu réessayer s'il-te-plaît ?`,
             missingFields: `On dirait qu'il me manque des informations, tu veux bien vérifier s'il-te-plaît ?`,
             alreadyRegistered: `Merveilleux, tu as déjà un compte ! Essaye plutôt de te connecter.`,
+            'user-not-found': `On dirait que cet utilisateur n'existe pas.`,
+            'token-expired': `Cette demande a expiré, merci de réessayer.`
         }
     },
     EmailingForm: {
@@ -37,8 +39,6 @@ export default {
             'invalid-parameter': `Je crois qu'il y a une erreur dans ton adresse mail, tu veux bien vérifier s'il-te-plaît ?`,
             'duplicate-parameter': `J'admire beaucoup ton enthousiasme mais tu fais déjà partie de la liste !`,
             'challenge-failed': `Oh oh, on dirait que notre système de sécurité te considère comme un robot... Peux-tu réessayer plus tard ?`,
-            'user-not-found': `On dirait que cet utilisateur n'existe pas.`,
-            'token-expired': `Cette demande a expiré, merci de réessayer.`
         }
     },
     tiers: {

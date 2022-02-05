@@ -149,7 +149,7 @@
                 </div>
                 <div class="Section5_right fx-no-shrink ml-60 ml-0@s mt-40@s">
                     <div class="bg-bg-light p-20 br-m text-center">
-                        <video class="mb-20 br-s" autoplay loop height="200">
+                        <video class="mb-20 br-s" autoplay loop muted height="200">
                             <source :src="assets.catWork" type="video/mp4">
                         </video>
                     

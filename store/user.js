@@ -73,9 +73,9 @@ export default {
 
                 if (response.errors.length > 0) throw Error(response.errors[0])
 
-                return response.data
+                return response
             } catch (e) {
-                return storeUtils.handleErrors(e, commit, `Échec de l'envoi du mot de passe`)
+                return storeUtils.handleErrors(e, commit, `Échec de l'envoi du mot de passe`, this)
             }
         },
         async resetPassword ({ commit }, data) {
@@ -88,7 +88,7 @@ export default {
 
                 return response
             } catch (e) {
-                return storeUtils.handleErrors(e, commit, `Échec de la modification du mot de passe`)
+                return storeUtils.handleErrors(e, commit, `Échec de la modification du mot de passe`, this)
             }
         }
     }
