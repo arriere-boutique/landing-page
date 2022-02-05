@@ -7,7 +7,7 @@
                         <input-base type="text" label="Que veux-tu vendre ?" v-model="search" :attrs="{ required: true }" />
                     </div>
 
-                    <div class="bg-bg-xweak p-15 ph-20" v-if="saved.length > 0">
+                    <div class="bg-bg-xweak p-15 ph-20 d-none@s" v-if="saved.length > 0">
                         <div class="d-flex fx-align-center fx-wrap mb-10">
                             <div class="ft-s-medium fx-grow">
                                 <span class="round-s bg-bg-light mr-3">{{ saved.length }}</span> Mots-clés sélectionnés 
@@ -53,6 +53,30 @@
                             </button-base>
                         </div>
                     </div>
+                </div>
+
+                <div class="bg-bg-xweak p-15 ph-20 br-s mt-20 d-none d-block@s" v-if="saved.length > 0">
+                    <div class="d-flex fx-align-center fx-wrap mb-10">
+                        <div class="ft-s-medium fx-grow">
+                            <span class="round-s bg-bg-light mr-3">{{ saved.length }}</span> Mots-clés sélectionnés 
+                        </div>
+
+                        <link-base @click="$copy(saved.join(', '))">Tout copier</link-base>
+                    </div>
+                    
+                    <transition-group tag="div" name="tag">
+                        <div class="ShopTag mv-5 mh-3" v-for="tag in saved" @click="$copy(tag)" :key="tag">
+                            <span>
+                                <i class="fal fa-magnifying-glass" @click.stop="generate(tag)"></i>
+
+                                <span>{{ tag }}</span>
+                                
+                                <i class="fal fa-times ml-10" @click.stop="removeTag(tag)"></i>
+                            </span>
+                        </div>
+                    </transition-group>
+
+                    <p class="mt-20 ft-xs-medium">Attention, cette liste est perdue quand tu quittes la page. Pense à les copier en sécurité !</p>
                 </div>
 
                 <div class="b mt-20 p-20 br-m" v-if="excluded.length > 0">
