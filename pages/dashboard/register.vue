@@ -139,9 +139,10 @@ export default {
             this.initData = { ...this.initData, email: this.$route.query.email }
             
             setTimeout(() => this.isPopinActive = true, 1000)
-            setTimeout(() => this.isSkippable = true, 5000)
+            setTimeout(() => this.isSkippable = true, 3000)
 
             if (this.$route.query.token) {
+                this.isPopinActive = true
                 this.isLoading = true
                 this.step = 2
 
