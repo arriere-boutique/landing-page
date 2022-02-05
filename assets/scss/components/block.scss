@@ -6,17 +6,10 @@
 @each $color in $main-colors {
 
     .Block--#{$color} {
-        --color-current: var(--color-#{$color});
-        --color-current-weak: var(--color-#{$color}-weak);
-        --color-current-xweak: var(--color-#{$color}-xweak);
-
-        --color-accent: var(--color-#{map-get($accent-colors, $color)});
-        --color-accent-weak: var(--color-#{map-get($accent-colors, $color)}-weak);
-
         background-color: var(--color-current-xweak);
 
         b, strong {
-            color: var(--color-accent);
+            color: var(--color-current);
         }
     }
 
@@ -24,7 +17,7 @@
 
 .TextBody .Block.Block--checklist,
 .TextBody--simple .Block.Block--checklist {
-    background-color: var(--color-accent-xweak);
+    background-color: var(--color-current-xweak);
     border-radius: 12px;
     border: 1px solid var(--color-border-light);
     margin: 20px 0;
@@ -50,7 +43,7 @@
         }
 
         b, strong {
-            color: var(--color-accent);
+            color: var(--color-current);
         }
     }
 }

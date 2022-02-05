@@ -2,8 +2,6 @@
     transition: all 150ms ease;
     text-align: left;
     display: block;
-    background-color: var(--color-bg-light);
-    border: 1px solid var(--color-border-weak);
     position: relative;
     
     &:hover {
@@ -26,8 +24,7 @@
     flex-shrink: 0;
     transition: all 150ms ease;
     position: relative;
-    border-radius: 5px;
-    margin: 10px 10px 0 10px;
+    border: 1px solid var(--color-border-weak);
 
     &::before {
         content: "";
@@ -37,14 +34,13 @@
 
 .ProductBlock_attributes {
     position: absolute;
-    top: 18px;
+    top: 10px;
     left: -5px;
 }
 
 .ProductBlock_subtitle {
     font: var(--ft-xs-medium);
     color: var(--color-ft-light);
-    border-radius: 3px;
     text-transform: uppercase;
     background-color: var(--color-gum);
     padding: 5px 10px;
@@ -55,7 +51,7 @@
 
 .ProductBlock_content {
     text-align: left;
-    padding: 15px;
+    padding: 15px 0;
 }
 
 .ProductBlock_title {
@@ -64,8 +60,9 @@
 }
 
 .ProductBlock_footer {
-    border-top: 1px solid var(--color-border-weak);
-    background-color: var(--color-bg-xweak);
+    border-radius: 4px;
+    background-color: var(--color-onyx);
+    color: var(--color-ft-light);
     padding: 10px 10px;
     display: flex;
     align-items: center;

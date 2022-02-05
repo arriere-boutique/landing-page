@@ -106,7 +106,7 @@ const TYPES = [
     { id: 1, label: 'Youtube', value: 'youtube' },
 ]
 
-import { InputBase, SelectBase } from '@instant-coffee/core'
+import { InputBase, SelectBase } from 'instant-coffee-core'
 import slugify from 'slugify'
 
 export default {

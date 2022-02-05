@@ -42,40 +42,75 @@ $gutters: (
 
 $colors: (
     "ft-strong": #000000,
-    "ft": #363636,
+    "ft": #000000,
     "ft-weak": #757575,
-    "ft-xweak": #ddd9e8,
+    "ft-xweak": #c9c9c9,
     "ft-light": #ffffff,
     
+    "white-strong": #ffffff,
     "white": #ffffff,
-
+    "white-weak": #ffffff,
+    "white-xweak": #ffffff,
+    
+    "precious-xstrong": #3811bc,
+    "precious-strong": #4b39f6,
     "precious": #6b4bff,
-    "precious-weak": #b3a3ff,
-    "precious-xweak": #fff4fd,
+    "precious-weak": #e7d2ff,
+    "precious-xweak": #ffeffc,
 
-    "skylight": #5b70c6,
-    "skylight-weak": #94b1e9,
-    "skylight-xweak": #F9F9FF,
+    "ice-xstrong": #0026a2,
+    "ice-strong": #2978ef,
+    "ice": #3399ff,
+    "ice-weak": #ceeeff,
+    "ice-xweak": #e6ffff,
 
+    "pond-xstrong": #005d7a,
+    "pond-strong": #48b0bc,
     "pond": #3ec9ce,
-    "pond-weak": #7adde4,
-    "pond-xweak": #f6fffd,
+    "pond-weak": #cefffd,
+    "pond-xweak": #eefefa,
     
+    "gum-xstrong": #950b27,
+    "gum-strong": #e65380,
     "gum": #ff5482,
-    "gum-weak": #ff87ab,
-    "gum-xweak": #fff6f8,
-    "gum-alt-xweak": #fffdf6,
+    "gum-weak": #ffe2ef,
+    "gum-xweak": #fff1f4,
     
-    "mango": #ffd341,
-    "mango-weak": #ffe353,
-    "mango-xweak": #feffef,
+    "duck-xstrong": #a15e07,
+    "duck-strong": #f5c62d,
+    "duck": #ffde3b,
+    "duck-weak": #fff69c,
+    "duck-xweak": #ffffe1,
+    
+    "emerald-xstrong": #006e2c,
+    "emerald-strong": #33d283,
+    "emerald": #43de9b,
+    "emerald-weak": #ceffda,
+    "emerald-xweak": #f0ffef,
+    
+    "sunset-xstrong": #c43600,
+    "sunset-strong": #e97d35,
+    "sunset": #ff913d,
+    "sunset-weak": #ffe4c6,
+    "sunset-xweak": #fff5e5,
+
+    "pepper-xstrong": #7d0012,
+    "pepper-strong": #e81a36,
+    "pepper": #ff2a38,
+    "pepper-weak": #ffc5c5,
+    "pepper-xweak": #ffdcd9,
+    
+    "onyx": #000000,
+    "onyx-weak": #4b4b4b,
+    "onyx-xweak": #c2c2c2,
+    "onyx-2xweak": #f0f0f0,
 
     "bg-light": #ffffff,
     "bg-weak": #C6C6C6,
-    "bg-xweak": #FBFBFB,
+    "bg-xweak": #f5f5f5,
 
     "border": #e4e4e4,
-    "border-weak": #f1f1f1,
+    "border-weak": #fafafa,
     "border-strong": #B3B3B3,
 
     "disabled": #d3d4dc,
@@ -86,43 +121,10 @@ $colors: (
     "canva-blue": #3034a6,
     "canva-purple": #7b28e5,
 
-    "shadow": rgba(207, 215, 231, 0.3),
-
-    // DEPRECATED
-
-    "onyx": #000000,
-    "onyx-weak": #4b4b4b,
-    "onyx-xweak": #c2c2c2,
-    "onyx-2xweak": #f0f0f0,
-
-    "amethyst": #5D0B64,
-    "amethyst-weak": #AB83AC,
-    "amethyst-xweak": #E6CEE8,
-    "amethyst-2xweak": #FEF1FF,
-
-    "amber": #FFB400,
-    "amber-weak": #FFC757,
-    "amber-xweak": #FFF1D2,
-    "amber-2xweak": #fffaf3,
-    
-    "malachite": #196051,
-    "malachite-weak": #75A5A8,
-    "malachite-xweak": #D0F2EA,
-    "malachite-2xweak": #EEFEFB,
-
-    "ruby": #9E0745,
-    "ruby-weak": #D1416D,
-    "ruby-xweak": #FBBDC4,
-    "ruby-2xweak": #fff0f4
+    "shadow": rgba(207, 215, 231, 0.3)
 );
 
-$main-colors: ("gum", "mango", "pond", "skylight", "precious");
-$accent-colors: (
-    "gum": "pond",
-    "mango": "gum",
-    "skylight": "precious",
-    "pond": "precious"
-);
+$main-colors: ("gum", "duck", "pond", "ice", "precious", "sunset", "emerald", "pepper", "onyx", "white");
 
 $fonts: (
     "ft": (
@@ -132,10 +134,12 @@ $fonts: (
             "xs": "12px/1.5",
             "s": "14px/1.5",
             "m": "16px/1.5",
-            "l": "18px/1.5",
-            "xl": "20px/1.5",
-            "2xl": "26px/1.5",
+            "l": "18px/1.4",
+            "xl": "20px/1.4",
+            "2xl": "26px/1.4",
             "3xl": "34px/1.25",
+            "4xl": "40px/0.75",
+            "5xl": "70px/0.75",
         ),
         "weights": (
             "regular": 400,
@@ -146,6 +150,7 @@ $fonts: (
     "ft-hand": (
         "name": "'Lazydog'",
         "sizes": (
+            "2xs": "18px/1",
             "xs": "25px/1",
             "s": "30px/1.1",
             "m": "35px/1",

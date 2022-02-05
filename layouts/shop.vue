@@ -15,25 +15,42 @@
 </template>
 
 <script>
-import { TooltipManager } from '@instant-coffee/core'
+import { TooltipManager } from 'instant-coffee-core'
 
 export default {
     name: 'LayoutDefault',
     components: { TooltipManager },
+    async fetch () {
+        try {
+            await this.$store.dispatch('products/fetch')
+            await this.$store.dispatch('order/recover')
+        } catch (e) {
+            console.error(e)
+        }
+    },
     computed: {
         color () { return this.$store.state.page.body.color },
         isCartActive () { return this.$store.state.page.isCartActive },
-        classes () { return this.$store.state.page.body.classes }
+        classes () { return this.$store.state.page.body.classes },
+        user () { return this.$store.state.auth.user },
+        order () { return this.$store.getters['order/get'] },
+    },
+    watch: {
+        cart: {
+            immediate: true,
+            handler (v) {
+                console.log('order : ' + (v ? v.id : 'null'))
+            }
+        },
+        user: {
+            immediate: true,
+            handler (v) {
+                this.$store.commit('user/update', v)
+            }
+        }
     },
     async mounted () {
-        try {
-            await this.$recaptcha.init()
-            await this.$store.dispatch('products/fetch')
-
-            this.$store.commit('cart/recover')
-        } catch (e) {
-            console.error(e);
-        }
+        await this.$recaptcha.init()
     },
     beforeDestroy() {
        this.$recaptcha.destroy()

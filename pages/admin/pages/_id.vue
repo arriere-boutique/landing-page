@@ -63,7 +63,7 @@
 </template>
 
 <script>
-import { InputBase, SelectBase } from '@instant-coffee/core'
+import { InputBase, SelectBase } from 'instant-coffee-core'
 import {} from '@/utils/base'
 import moment from 'moment'
 

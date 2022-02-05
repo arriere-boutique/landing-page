@@ -4,34 +4,37 @@
     line-height: 1;
     color: var(--color-ft-light);
     padding: 0;
-    border: 1px solid transparent;
-    transition: all 100ms ease;
-    border-radius: 4px;
+    border-radius: 40px;
     background-color: var(--color-pond);
-
+    position: relative;
+    box-shadow: 0 3px 8px 0 var(--color-pond-50);
+    transition: box-shadow 100ms ease, background-color 100ms ease, color 100ms ease, transform 100ms ease, opacity 100ms ease;
+    
     &:hover {
-        box-shadow: 0 0 0 2px var(--color-pond-weak);
+        transform: scale(0.98);
+        box-shadow: 0 1px 4px 0 var(--color-pond-75);
 
         .ButtonBase_content {
             opacity: 0.75;
-            transform: scale(0.98);
         }
     }
 
     &:active {
-        box-shadow: 0 0 0 2px var(--color-onyx-weak);
-        border: 1px solid var(--color-onyx-xweak);
+        transform: scale(0.95);
+        box-shadow: 0 0px 3px 0 var(--color-pond);
+        background-color: var(--color-pond-strong);
 
         .ButtonBase_content {
             opacity: 0.5;
             transform: scale(0.95);
+            filter: blur(1px);
         }
     }
 }
 
 .ButtonBase_content {
     min-height: 45px;
-    padding: 5px 20px;
+    padding: 10px 20px;
     transition: all 100ms ease;
 }
 
@@ -48,15 +51,16 @@
 @each $color in $main-colors {
 
     .ButtonBase--#{$color} {
-        background-color: var(--color-#{$color});
-
+        background-color: var(--color-#{$color}-strong);
+        box-shadow: 0 3px 8px 0 var(--color-#{$color}-50);
+    
         &:hover {
-            box-shadow: 0 0 0 2px var(--color-#{$color}-xweak);
+            box-shadow: 0 1px 4px 0 var(--color-#{$color}-75);
         }
 
         &:active {
-            box-shadow: 0 0 0 2px var(--color-#{$color}-weak);
-            border-color: var(--color-#{$color}-xweak);
+            box-shadow: 0 0px 3px 0 var(--color-#{$color});
+            background-color: var(--color-#{$color}-strong);
         }
     }
 
@@ -69,16 +73,118 @@
     }
 }
 
-.ButtonBase--accent {
-    background-color: var(--color-accent);
+.ButtonBase--light {
+    background-color: var(--color-bg-light);
+    border: 1px solid var(--color-border);
+    color: var(--color-ft);
+    box-shadow: none;
 
     &:hover {
-        box-shadow: 0 0 0 2px var(--color-accent-xweak);
+        box-shadow: none;
     }
 
     &:active {
-        box-shadow: 0 0 0 2px var(--color-accent-weak);
-        border-color: var(--color-accent-xweak);
+        box-shadow: none;
+        color: var(--color-ft);
+        background-color: var(--color-border);
+    }
+}
+
+.ButtonBase--round {
+
+    .ButtonBase_iconAfter,
+    .ButtonBase_iconBefore {
+        margin: 0;
+    }
+
+    .ButtonBase_content {
+        width: 45px;
+        height: 45px;
+    }
+
+    &.ButtonBase--l {
+
+        .ButtonBase_content {
+            width: 60px;
+            height: 60px;
+        }
+    
+        .ButtonBase_iconAfter,
+        .ButtonBase_iconBefore {
+            margin: 0;
+        }
+
+    }
+
+    &.ButtonBase--s {
+
+        .ButtonBase_content {
+            width: 40px;
+            height: 40px;
+        }
+    
+        .ButtonBase_iconAfter,
+        .ButtonBase_iconBefore {
+            margin: 0;
+        }
+
+    }
+
+    &.ButtonBase--xs {
+
+        .ButtonBase_content {
+            width: 35px;
+            height: 35px;
+        }
+    
+        .ButtonBase_iconAfter,
+        .ButtonBase_iconBefore {
+            margin: 0;
+        }
+    }
+
+    &.ButtonBase--2xs {
+
+        .ButtonBase_content {
+            width: 30px;
+            height: 30px;
+            min-height: 0;
+            min-width: 0;
+            padding: 0;
+        }
+    
+        .ButtonBase_iconAfter,
+        .ButtonBase_iconBefore {
+            margin: 0;
+            font-size: 14px;
+        }
+    }
+}
+
+.ButtonBase--s {
+
+    .ButtonBase_content {
+        min-height: 40px;
+        padding: 3px 12px;
+    }
+}
+
+.ButtonBase--xs {
+    font: var(--ft-xs-medium);
+
+    .ButtonBase_content {
+        min-height: 35px;
+        padding: 5px 10px;
+    }
+
+    .ButtonBase_iconAfter {
+        margin-left: 6px;
+        font-size: 14px;
+    }
+
+    .ButtonBase_iconBefore {
+        margin-right: 6px;
+        font-size: 14px;
     }
 }
 
@@ -97,8 +203,13 @@
 .ButtonBase--secondary {
     color: var(--color-onyx);
     background-color: transparent;
+    border: 2px solid var(--color-onyx);
+    box-shadow: none;
 
     &:hover {
+        color: var(--color-ft-light);
+        background-color: var(--color-pond);
+        border-color: var(--color-pond);
 
         .ButtonBase_content {
             opacity: 1;
@@ -118,11 +229,12 @@
 
         &.ButtonBase--#{$color} {
             color: var(--color-#{$color});
-            border: 1px solid var(--color-#{$color});
+            border-color: var(--color-#{$color});
 
             &:hover {
                 color: var(--color-ft-light);
                 background-color: var(--color-#{$color});
+                border-color: var(--color-#{$color});
 
                 .ButtonBase_iconBefore {
                     color: var(--color-ft-light);
@@ -142,7 +254,6 @@
     border: none;
     font: var(--ft-s-medium);
     color: var(--color-ft);
-    box-shadow: none;
     position: relative;
     opacity: 1;
     transition: none;
@@ -159,7 +270,7 @@
         position: absolute;
         left: 0%;
         right: 0%;
-        bottom: calc(50% - 12px);
+        bottom: calc(50% - 10px);
         height: 1px;
         opacity: 0.25;
         transition: all 150ms ease;
@@ -174,8 +285,8 @@
     }
 
     &:hover {
-        color: var(--color-accent);
-        box-shadow: none;
+        color: var(--color-current);
+        transform: none;
 
         .ButtonBase_content {
             transform: none;
@@ -183,7 +294,7 @@
         }
 
         &::before, &::after {
-            background: var(--color-accent);
+            background: var(--color-current);
         }
 
         &::after {
@@ -192,17 +303,13 @@
     }
 
     &:active {
-        color: var(--color-accent-weak);
+        transform: none;
         border: none;
     }
 
     .ButtonBase_iconBefore {
         margin-right: 5px;
         font-size: 16px;
-    }
-
-    &.ButtonBase--accent {
-        color: var(--color-accent);
     }
 
     &.ButtonBase--strong {
@@ -224,10 +331,60 @@
             }
         }
     }
-}
 
+    &.ButtonBase--light {
+        color: var(--color-ft-light);
+        &::before {
+            background-color: var(--color-ft-light);
+        }
+
+        &::after {
+            background-color: var(--color-ft-light);
+        }
+    }
+
+    &.ButtonBase--m {
+        font: var(--ft-m-medium);
+    }
+}
 
 .ButtonBase.is-disabled {
     opacity: 0.5;
     pointer-events: none;
+}
+
+.ButtonBase.is-loading {
+    pointer-events: none;
+    transform: scale(0.95);
+    box-shadow: 0 0px 3px 0 var(--color-pond);
+    background-color: var(--color-pond-strong);
+
+    .ButtonBase_content {
+        filter: blur(1px);
+        opacity: 0.35;
+    }
+
+    @each $color in $main-colors {
+    
+        &.ButtonBase--#{$color} {
+            box-shadow: 0 0px 3px 0 var(--color-#{$color});
+            background-color: var(--color-#{$color}-strong);
+        }
+    }
+
+    &.ButtonBase--secondary {
+        color: var(--color-ft-light);
+        border-color: var(--color-pond-strong);
+
+        .ButtonBase_iconBefore {
+            color: var(--color-ft-light);
+        }
+    }
+
+    @each $color in $main-colors {
+
+        &.ButtonBase--secondary.ButtonBase--#{$color} {
+            border-color: var(--color-#{$color}-strong);
+        }
+    }
 }

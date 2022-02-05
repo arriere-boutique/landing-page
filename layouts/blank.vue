@@ -1,12 +1,15 @@
 <template>
     <div class="Layout" :class="[`is-${color}`, classes ]">
         <Nuxt />
+        
         <tooltip-manager />
+        <flashes-manager />
+        <popin-manager />
     </div>
 </template>
 
 <script>
-import { TooltipManager } from '@instant-coffee/core'
+import { TooltipManager } from 'instant-coffee-core'
 
 export default {
     name: 'LayoutBlank',

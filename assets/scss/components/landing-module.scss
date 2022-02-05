@@ -1,0 +1,33 @@
+.LandingModule {
+    padding: 20px;
+    border-radius: 20px;
+    background-color: var(--color-current-xweak);
+    border: 1px solid var(--color-current-xweak);
+    transition: all 100ms ease;
+
+    &.is-programmed {
+        background-color: var(--color-bg-light);
+        border-color: var(--color-current);
+    }
+
+    &.is-disabled {
+        opacity: 0.5;
+
+        &:hover {
+            opacity: 1;
+        }
+    }
+}
+
+.LandingModule_header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--color-current-weak);
+
+    & > p {
+        line-height: 1;
+    }
+}

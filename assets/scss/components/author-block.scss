@@ -8,7 +8,7 @@
     margin: 0 auto;
     max-width: 600px;
     border-radius: 10px;
-    border: 1px solid var(--color-border-weak);
+    border: 1px solid var(--color-border);
 }
 
 .AuthorBlock_image {
@@ -25,5 +25,19 @@
         @include absolute-fill;
         background-image: url("../img/blob/blob-cache-1.png");
         background-size: cover;
+    }
+}
+
+@include breakpoint-s {
+
+    .AuthorBlock {
+        display: block;
+        padding: 20px;
+    }
+
+    .AuthorBlock_image {
+        width: 75px;
+        height: 75px;
+        margin: 0 20px 20px 0;
     }
 }

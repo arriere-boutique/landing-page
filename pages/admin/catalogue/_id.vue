@@ -86,6 +86,16 @@
                                 class="mr-5"
                                 v-model="variation.stripeId"
                             />
+
+                            <label class="d-flex fx-align-center fx-no-shrink mr-5">
+                                <input type="checkbox" class="mr-10" v-model="variation.digital">
+                                Article numérique
+                            </label>
+
+                            <label class="d-flex fx-align-center">
+                                <input type="checkbox" class="mr-10" v-model="variation.available">
+                                Activé
+                            </label>
                         </div>
 
                         <div class="mt-20">
@@ -151,7 +161,7 @@ const CATEGORIES = [
     { id: 2, label: 'Formation', value: 'course' }
 ]
 
-import { InputBase, SelectBase } from '@instant-coffee/core'
+import { InputBase, SelectBase } from 'instant-coffee-core'
 import slugify from 'slugify'
 
 export default {
@@ -269,13 +279,21 @@ export default {
 
             return {
                 ...form,
-                category: CATEGORIES.find(i => i.value == form.category)?.id
+                category: CATEGORIES.find(i => i.value == form.category)?.id,
+                variations: form.variations.map(variation => ({
+                    ...variation,
+                    price: variation.price / 100
+                }))
             }
         },
         parseForm (form) {
             return {
                 ...form,
-                category: CATEGORIES.find(i => i.id == this.$data.formData.category).value
+                category: CATEGORIES.find(i => i.id == this.$data.formData.category).value,
+                variations: form.variations.map(variation => ({
+                    ...variation,
+                    price: Math.round(((variation.price * 100) * 100) / 100)
+                }))
             }
         },
         generateSlug () {
@@ -285,7 +303,7 @@ export default {
         addVariation () {
             this.formData.variations = [
                 ...this.formData.variations,
-                { title: '', price: '', stripeId: '', available: true }
+                { title: '', price: '', stripeId: '', parent: this._id, digital: false, available: true }
             ]
         },
         async deleteEntity () {

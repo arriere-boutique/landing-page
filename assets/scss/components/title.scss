@@ -1,3 +1,45 @@
+.Title--xl {
+    font: var(--ft-4xl);
+    line-height: 1.2;
+    color: var(--color-current-xstrong, var(--color-ft));
+
+    b {
+        font-weight: 500;
+    }
+
+    strong {
+        font-weight: bold;
+    }
+}
+
+.Title--l {
+    font: var(--ft-3xl);
+    line-height: 1.2;
+    color: var(--color-current-xstrong, var(--color-ft));
+
+    b {
+        font-weight: 500;
+    }
+
+    strong {
+        font-weight: bold;
+    }
+}
+
+.Title--s {
+    font: var(--ft-2xl);
+    line-height: 1.2;
+    color: var(--color-current-xstrong, var(--color-ft));
+
+    b {
+        font-weight: 500;
+    }
+
+    strong {
+        font-weight: bold;
+    }
+}
+
 .Title_secondary {
     font: var(--ft-m-medium);
     text-transform: uppercase;
@@ -8,4 +50,15 @@
     font: var(--ft-s-medium);
     text-transform: uppercase;
     letter-spacing: 1px;
+}
+
+@include breakpoint-s {
+
+    .Title--xl {
+        font: var(--ft-3xl);
+    }
+
+    .Title--l {
+        font: var(--ft-2xl);
+    }
 }

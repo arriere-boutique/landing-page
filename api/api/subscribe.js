@@ -11,11 +11,11 @@ exports.createSubscriber = async function (req, res) {
     let data = []
 
     try {
-        if (!req.body.email || !req.body.token) throw 'missing-fields'
+        if (!req.body.email || !req.body.token) throw Error('missingFields')
 
         const challenge = await $fetch(`https://www.google.com/recaptcha/api/siteverify?secret=${process.env.RECAPTCHA_SECRET}&response=${req.body.token}`)
 
-        if (!challenge.success) throw 'challenge-failed'
+        if (!challenge.success) throw Error('challenge-failed')
 
         let sendinBlue = SibApiV3Sdk.ApiClient.instance;
         let apiKey = sendinBlue.authentications['api-key']
@@ -36,11 +36,12 @@ exports.createSubscriber = async function (req, res) {
         let response = await apiInstance.createContact(createContact)
         data = JSON.stringify(response)
 
-        if (!data) throw 'error'
-    } catch (err) {
-        console.warn(err)
-        if (err.response) err = err.response.body.code.replace(/_/g, '-');
-        errors.push(err)
+        if (!data) throw Error('error')
+    } catch (e) {
+        console.warn(e)
+        if (e.response) e = e.response.body.code.replace(/_/g, '-');
+
+        errors.push(e.message)
     }
     
     res.send({
@@ -55,12 +56,13 @@ exports.getSubscribers = async function (req, res) {
     let data = []
 
     try {
-        if (!user || user.role !== 'admin') throw 'not-authorized'
+        if (!user || user.role !== 'admin') throw Error('not-authorized')
 
         data = await Entities['subscriber'].model.find()
-    } catch (err) {
-        console.error(err)
-        errors.push(err)
+    } catch (e) {
+        console.error(e)
+
+        errors.push(e.message)
     }
 
     res.send({

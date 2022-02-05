@@ -23,12 +23,12 @@
     overflow: hidden;
     display: flex;
     align-items: center;
-    background: var(--color-gum-xweak);
+    background: var(--color-bg-light);
 }
 
 .LayoutAdmin_title {
     font: var(--ft-2xl-bold);
-    color: var(--color-pond);
+    color: var(--color-ft);
     padding: 0 3.5%;
 }
 
@@ -84,9 +84,4 @@
 
 .Page_content {
     display: flex;
-}
-
-.Page_side {
-    flex-shrink: 0;
-    padding-left: 40px;
 }

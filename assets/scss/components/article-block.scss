@@ -32,7 +32,7 @@
 
 .ArticleBlock_category {
     font: var(--ft-xs-medium);
-    color: var(--article-accent-color-weak);
+    color: var(--color-current-strong);
     text-transform: uppercase;
     letter-spacing: 1px;
     margin-bottom: 5px;
@@ -73,7 +73,11 @@
     }
 
     .ArticleBlock_excerpt {
-        @extend .ellipsis-3;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
         margin-top: 10px;
     }
 }
@@ -102,30 +106,15 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background: linear-gradient(180deg, var(--article-color-xweak-0) 0%, var(--article-color-xweak-50) 40%, var(--article-color-xweak-90) 60%, var(--article-color-xweak) 100%);
+        background: linear-gradient(180deg, var(--color-current-xweak-0) 0%, var(--color-current-xweak-50) 40%, var(--color-current-xweak-75) 60%, var(--color-current-xweak) 100%);
     }
 
     .ArticleBlock_title {
         font: var(--ft-l-bold);
-        color: var(--article-accent-color);
+        color: var(--color-current);
         line-height: 1.25;
     }
-}
-
-@each $color in $main-colors {
-
-    .ArticleBlock--#{$color} {
-        --article-accent-color: var(--color-#{map-get($accent-colors, $color)});
-        --article-accent-color-weak: var(--color-#{map-get($accent-colors, $color)}-weak);
-
-        --article-color: var(--color-#{$color});
-        --article-color-weak: var(--color-#{$color}-weak);
-        --article-color-xweak: var(--color-#{$color}-xweak);
-        
-        --article-color-xweak-90: #{scale-color(map-get($colors, unquote($color + "-xweak")),  $alpha: -10%)};
-        --article-color-xweak-50: #{scale-color(map-get($colors, unquote($color + "-xweak")),  $alpha: -50%)};
-        --article-color-xweak-0: #{scale-color(map-get($colors, unquote($color + "-xweak")),  $alpha: -100%)};
-    }
+    
 }
 
 @include breakpoint-xs {

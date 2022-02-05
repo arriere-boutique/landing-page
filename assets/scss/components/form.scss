@@ -14,8 +14,16 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
+.InputBase_element {
+  background-color: var(--color-bg-light);
+}
+
 input[type=number] {
   -moz-appearance: textfield;
+}
+
+input, select {
+  outline: none;
 }
 
 .InputChoice {
@@ -29,12 +37,60 @@ input[type=number] {
     }
 }
 
+.InputBase, .SelectBase {
+  min-width: 60px;
+}
+
+.InputBase.is-disabled {
+  color: var(--color-ft-weak);
+
+  input {
+    font-style: italic;
+    cursor: not-allowed;
+  }
+}
+
 .SelectBase_value {
     font: var(--ft-m);
     border: none;
     padding-left: 10px;
     padding-right: 10px;
     width: 100%;
+}
+
+textarea {
+  border-radius: 5px;
+  border: 1px solid var(--color-border);
+  background-color: var(--color-bg-light);
+  padding: 10px 15px;
+  resize: none;
+}
+
+.InputBase_label, .SelectBase_label {
+  font: var(--ft-s-medium);
+  background-color: transparent;
+  color: var(--color-ft-weak);
+}
+
+.InputBase_errorPopin {
+  z-index: 5;
+  border-radius: 10px;
+}
+
+.InputBase.is-value,
+.InputBase.is-focused {
+
+    .InputBase_label {
+        transform: translate3d(-6px, -100%, 0) scale(0.95);
+        color: var(--color-ft);
+    }
+
+    .InputBase_element {
+
+        &::placeholder {
+            opacity: 1;
+        }
+    }
 }
 
 .InputBase--s {
@@ -55,5 +111,35 @@ input[type=number] {
   .InputBase_element {
     padding: 5px 10px;
     flex-grow: 1;
+  }
+}
+
+
+.InputBase--no-label {
+
+  input {
+    &::placeholder {
+      color: var(--color-ft-weak);
+      opacity: 1;
+    }
+  }
+}
+
+.Toggle_container {
+  background-color: var(--color-bg-weak);
+}
+
+.Toggle_checkbox:checked + .Toggle_container {
+  background-color: var(--color-current, var(--color-pond));
+}
+
+.Toggle--shade {
+
+  .Toggle_container {
+    background-color: var(--color-current, var(--color-pond));
+  }
+
+  .Toggle_checkbox:checked + .Toggle_container {
+    background-color: var(--color-current-strong, var(--color-pond-strong));
   }
 }

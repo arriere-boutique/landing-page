@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import { InputBase } from '@instant-coffee/core'
+import { InputBase } from 'instant-coffee-core'
 import {} from '@/utils/base'
 
 export default {
@@ -36,7 +36,7 @@ export default {
         form: {
             name: '',
             theme: {
-                color: 'amethyst',
+                color: 'gum',
                 icon: 'cat-space'
             }
         }
@@ -53,7 +53,7 @@ export default {
                 this.$data.form = {
                     name: v.name ? v.name : '',
                     theme: v.theme ? v.theme : {
-                        color: 'amethyst',
+                        color: 'gum',
                         icon: 'cat-space'
                     }
                 }

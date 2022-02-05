@@ -1,18 +1,28 @@
 <template>
     <header class="HeaderBase HeaderBase--shop" :class="{ 'is-scrolled': state.isScrolled }">
         <div class="HeaderBase_wrapper">
-            <div class="HeaderBase_button" @click="state.isMenu = true">
+            <nuxt-link class="HeaderBase_button" :to="localePath({ name: '/' })">
                 <i class="fal fa-home"></i>
-            </div>
+            </nuxt-link>
 
-            <nuxt-link class="HeaderBase_logo" :to="localePath({ name: '/' })">
+            <nuxt-link class="HeaderBase_logo" :to="localePath({ name: 'shop' })">
                 <icon-base name="logo/logo-main" :height="state.isScrolled ? 35 : 45" />
             </nuxt-link>
 
-            <div class="HeaderBase_button" @click="toggleCart">
-                <i class="fal fa-shopping-cart"></i>
+            <div>
+                <a :href="localePath({ name: 'admin' })" class="HeaderBase_button mr-5" v-if="user && user.role == 'admin'">
+                    <i class="fal fa-crown"></i>
+                </a>
 
-                {{ cart.items.reduce((p, c) => p + c.quantity, 0) }}
+                <a :href="localePath({ name: 'dashboard' })" class="HeaderBase_button mr-5">
+                    <i class="fal fa-user"></i>
+                </a>
+
+                <div class="HeaderBase_button" @click="toggleCart">
+                    <i class="fal fa-shopping-cart"></i>
+
+                    <span v-if="cart">{{ cart.items.reduce((p, c) => p + c.quantity, 0) }}</span>
+                </div>
             </div>
 
             <div class="HeaderBase_burger" @click="state.isMenu = true">
@@ -79,16 +89,15 @@ export default {
         }
     },
     computed: {
-        cart () {
-            return this.$store.state.cart
-        }
+        cart () { return this.$store.getters['order/get'] },
+        user () { return this.$store.state.auth.user }
     },
     mounted () {
         this.$data.categories = {
-            courses: { label: `Formations`, icon: 'book-heart', path: { name: 'moi-moi-moi' } },
-            coaching: { label: `Coachings`, icon: 'comment-smile', path: { name: 'moi-moi-moi' } },
-            tools: { label: `Boîte à outils`, icon: 'toolbox', path: { name: 'moi-moi-moi' } },
-            sales: { label: `En promo`, icon: 'fire', path: { name: 'moi-moi-moi' } },
+            courses: { label: `Formations`, icon: 'book-heart', path: { name: 'shop-category', params: { category: 'course' } } },
+            coaching: { label: `Coachings`, icon: 'comment-smile', path: { name: 'shop-category', params: { category: 'critique' } } },
+            tools: { label: `Boîte à outils`, icon: 'toolbox', path: { name: 'shop-category', params: { category: 'tools' } } },
+            sales: { label: `En promo`, icon: 'fire', path: { name: 'shop-category', params: { category: 'en-promo' } } },
         }
 
         if (process.server) return

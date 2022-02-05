@@ -23,5 +23,22 @@ export default {
         }, {})
 
         return items
+    },
+    handleErrors: (e, commit, text, parent) => {
+        let message = e.message
+        e = Array.isArray(e) ? e : [ e ]
+
+        if (message && parent && `errors.default[${message}]` !== parent.$i18n.t(`errors.default[${message}]`)) message = parent.$i18n.t(`errors.default[${message}]`)
+
+        e.forEach(e => {
+            commit('flashes/add', {
+                title: text,
+                text: message
+            }, { root: true })
+
+            console.error(e)
+        })
+
+        return null
     }
 }

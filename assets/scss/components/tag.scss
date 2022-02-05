@@ -2,16 +2,26 @@
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    height: 35px;
+    text-align: left;
+    min-height: 35px;
     padding: 5px 15px;
-    border-radius: 20px;
+    border-radius: 35px;
     font: var(--ft-s-medium);
-    color: var(--color-ft);
-    text-transform: uppercase;
-    background-color: var(--color-onyx-2xweak);
+    color: var(--color-current-xstrong, var(--color-ft));
+    background-color: var(--color-current-weak, var(--color-onyx-2xweak));
     transition: all 100ms ease;
+}
 
-    &:hover {
-        color: var(--color-onyx-weak);
-    }
+.Tag--l {
+    min-height: 45px;
+    padding: 10px 20px;
+    font: var(--ft-l-medium);
+    line-height: 1.2;
+}
+
+.Tag--s {
+    min-height: 28px;
+    padding: 7px 12px;
+    font: var(--ft-xs-medium);
+    line-height: 1.2;
 }

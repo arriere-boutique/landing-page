@@ -1,10 +1,3 @@
-.ArticlePage {
-}
-
-.ArticlePage_title {
-    color: var(--color-accent);
-}
-
 .ArticlePage_banner {
     background-color: var(--color-current-xweak);
 }
@@ -23,16 +16,16 @@
 }
 
 .ArticlePage_category {
-    font: var(--ft-m-medium);
+    font: var(--ft-s-bold);
     text-transform: uppercase;
     letter-spacing: 2px;
-    margin-bottom: 15px;
-    color: var(--color-accent-weak);
+    margin-bottom: 20px;
+    color: var(--color-current);
 }
 
 .ArticlePage_cover {
     overflow: hidden;
-    background-color: var(--color-accent-weak);
+    background-color: var(--color-current-weak);
     border-radius: 10px;
     width: 33%;
     max-width: 350px;

@@ -5,7 +5,8 @@
     z-index: 100;
     width: 100%;
     transition: all 150ms ease;
-
+    background-color: var(--color-bg-light);
+    
     --header-height: 75px;
 
     &:hover {
@@ -17,10 +18,8 @@
     height: var(--header-height);
     display: flex;
     align-items: center;
-    width: 100%;
     justify-content: space-between;
     transition: all 150ms ease;
-    padding: 0 20px;
 }
 
 .HeaderBase_right {
@@ -29,6 +28,7 @@
 
 .HeaderBase_right {
     display: flex;
+    align-items: center;
     justify-content: flex-end;
 }
 
@@ -42,7 +42,7 @@
     }
 
     path {
-        fill: var(--color-accent);
+        fill: var(--color-current, var(--color-pond));
     }
 }
 
@@ -73,6 +73,7 @@
 }
 
 .HeaderBase_navParent {
+    margin-left: 30px;
 
     &.is-parent {
         
@@ -105,8 +106,7 @@
     letter-spacing: 1px;
     display: flex;
     align-items: center;
-    padding: 10px 15px;
-    transition: all 100ms ease;
+    padding: 10px 0;
     position: relative;
     cursor: pointer;
 
@@ -114,22 +114,23 @@
         content: "";
         display: block;
         position: absolute;
-        left: 20%;
-        right: 20%;
-        bottom: calc(50% - 15px);
+        left: 0;
+        width: 100%;
+        bottom: calc(50% - 12px);
         height: 1px;
-        background: var(--color-accent); 
-        transform: translateY(5px);
+        background: var(--color-current, var(--color-ft)); 
+        transform: translateX(-10px);
         opacity: 0;
         transition: all 100ms ease;
     }
 
     &:hover, &.is-active {
-        color: var(--color-accent);
+        color: var(--color-current, var(--color-pond));
 
         &::after {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateX(0px);
+            background: var(--color-current, var(--color-pond)); 
         }
     }
 }
@@ -157,10 +158,6 @@
     }
 }
 
-.HeaderBase_navLink--fire {
-    color: red;
-}
-
 .HeaderBase_burger,
 .HeaderBase_close {
     display: none;
@@ -172,7 +169,6 @@
     justify-content: center;
     font-size: 25px;
     color: var(--color-ft);
-    border: 2px solid transparent;
 }
 
 .HeaderBase_menu {
@@ -188,7 +184,6 @@
     pointer-events: none;
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
     transform: translateX(100%);
     transition: all 250ms ease;
@@ -203,12 +198,36 @@
 .HeaderBase_button {
     width: 45px;
     height: 45px;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    background-color: var(--color-precious-xweak);
+    cursor: pointer;
+    border: 1px solid var(--color-border);
     position: relative;
+    transition: all 150ms ease;
+
+    &:hover {
+        color: var(--color-precious);
+        border-color: var(--color-precious-xweak);
+        background-color: var(--color-precious-xweak);
+        transform: translateY(-1px);
+    }
+
+    span {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        font: var(--ft-2xs);
+        width: 18px;
+        height: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--color-ft-light);
+        border-radius: 50%;
+        background-color: var(--color-precious);
+    }
 }
 
 .HeaderBase_cart {
@@ -239,6 +258,13 @@
         justify-content: space-between;
     }
     
+    .HeaderBase_navLink {
+
+        &::after {
+            display: none;
+        }
+    }
+
     .HeaderBase_wrapper--secondary {
         height: auto;
         justify-content: center;
@@ -262,16 +288,10 @@
 
 .HeaderBase.is-scrolled {
     background-color: var(--color-bg-light);
-    @include box-shadow;
-    border: none;
     --header-height: 60px;
 
     .HeaderBase_logo {
         transition: all 250ms ease;
-    }
-
-    .HeaderBase_burger {
-        border-color: var(--color-onyx-2xweak);
     }
 }
 
@@ -283,7 +303,7 @@
     }
 
     .HeaderBase_wrapper {
-        padding: 0px 15px 0 15px;
+        padding: 0px 0 0 15px;
     }
 
     .HeaderBase_burger,
@@ -293,14 +313,21 @@
 
     .HeaderBase_navLink {
         font: var(--ft-l-medium);
+        letter-spacing: normal;
         height: auto;
-        padding: 10px 15px;
-        margin: 15px 0;
+        padding: 10px 30px;
+        width: auto;
+        text-align: left;
+        text-transform: none;
     }
 
     .HeaderBase_close {
         position: absolute;
-        top: 20px;
-        right: 20px;
+        top: 10px;
+        right: 10px;
+    }
+
+    .HeaderBase_navParent {
+        margin: 0;
     }
 }

@@ -1,5 +1,5 @@
 {
-  "name": "instant-coffee",
+  "name": "arriere-boutique-landing",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -10,8 +10,9 @@
     "heroku-postbuild": "nuxt build & node_modules/.bin/migrate up --md ./migrations --autosync"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-pro": "^6.0.0-beta1",
-    "@instant-coffee/core": "^1.2.5",
+    "@babel/plugin-transform-runtime": "^7.16.7",
+    "@babel/runtime": "^7.16.7",
+    "@fortawesome/fontawesome-pro": "^6.0.0-beta3",
     "@nuxtjs/auth": "^4.9.1",
     "@nuxtjs/axios": "^5.12.2",
     "@nuxtjs/recaptcha": "^1.0.4",
@@ -19,13 +20,15 @@
     "bcrypt": "^5.0.1",
     "body-parser": "^1.19.0",
     "cookie-universal-nuxt": "^2.1.5",
-    "core-js": "^3.6.5",
+    "core-js": "^3.20.2",
     "cors": "^2.8.4",
     "cross-env": "^7.0.2",
+    "crypto": "^1.0.1",
     "dotenv": "^8.2.0",
     "express": "^4.16.3",
     "faker": "^5.1.0",
     "fs": "0.0.1-security",
+    "instant-coffee-core": "^1.2.17",
     "js-cookie": "^3.0.1",
     "jsonwebtoken": "^8.5.1",
     "migrate-mongoose": "^4.0.0",
@@ -40,21 +43,28 @@
     "nodemon": "^2.0.6",
     "nuxt": "^2.14.6",
     "nuxt-i18n": "^6.15.4",
+    "nuxt-stripe-module": "^3.2.0",
     "ohmyfetch": "^0.2.0",
     "raw-loader": "^4.0.2",
     "redirect-ssl": "^3.0.0",
+    "regenerator-runtime": "^0.13.9",
     "sequelize": "^4.38.1",
     "sharp": "^0.25.2",
     "shortid": "^2.2.15",
     "sib-api-v3-sdk": "^8.2.1",
     "slugify": "^1.4.0",
+    "string-similarity": "^4.0.4",
     "stripe": "^8.195.0",
     "tiptap": "^1.30.0",
     "tiptap-extensions": "^1.33.2"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.16.7",
     "@nuxtjs/google-analytics": "^2.4.0",
-    "node-sass": "^4.14.1",
+    "@nuxtjs/moment": "^1.6.1",
+    "@nuxtjs/router": "^1.7.0",
+    "@nuxtjs/style-resources": "^1.2.1",
+    "node-sass": "^6.0.1",
     "sass-loader": "^10.0.3"
   }
 }

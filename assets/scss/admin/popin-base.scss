@@ -1,8 +1,91 @@
 .PopinBase {
+    transition: all 350ms ease;
     
     .PopinBase_body {
-        border-radius: 6px;
+        border-radius: 15px;
         overflow: hidden;
+        transition: all 350ms ease;
+    }
+}
+
+.PopinBase_footer {
+    background-color: transparent;
+    border-top: 1px solid var(--color-border);
+    display: flex;
+    padding: 0;
+}
+
+.PopinBase_close {
+    font-size: 26px;
+    color: var(--color-ft);
+}
+
+.PopinBase_footerAction {
+    border-right: 1px solid var(--color-border);
+    font: var(--ft-m-medium);
+    text-align: center;
+    flex: 1 1 0px;
+    padding: 12px 10px;
+    cursor: pointer;
+
+    p {
+        transition: all 200ms ease;
+    }
+
+    &:hover {
+
+        p {
+            opacity: 0.75;
+            transform: scale(0.95);
+        }
+    }
+
+    &:active {
+
+        p {
+            opacity: 0.5;
+            transform: scale(0.9);
+        }
+    }
+
+    &:last-child {
+        border: none;
+    }
+
+    &.is-disabled {
+        pointer-events: none;
+    }
+}
+
+@each $color in $main-colors {
+    
+
+    .PopinBase--#{$color} {
+        
+        &.is-active .PopinBase_hider {
+            background-color: var(--color-#{$color}-xweak-75);
+        }
+
+        .PopinBase_body {    
+            box-shadow: 2px 6px 10px 0 var(--color-#{$color}-strong-25);
+            border-color: var(--color-border);
+        }
+    }
+}
+
+.PopinBase--l {
+    
+    .PopinBase_body {
+        width: 90%;
+        max-width: 1200px;
+    }
+}
+
+
+.PopinBase--m {
+    
+    .PopinBase_body {
+        max-width: 550px;
     }
 }
 
@@ -27,6 +110,7 @@
     }
 }
 
+.PopinBase--panel,
 .PopinBase--absolute-header {
 
     .PopinBase_header {
@@ -39,6 +123,34 @@
     }
     
     .PopinBase_close {
-        padding: 15px;
+        padding: 20px;
+    }
+}
+
+.PopinBase--panel {
+    opacity: 0;
+
+    .PopinBase_body {
+        border-radius: 0;
+    }
+
+    &.is-active {
+        opacity: 1;
+    }
+}
+
+.PopinBase--hide-close {
+
+    .PopinBase_close {
+        display: none;
+    }
+}
+
+
+@include breakpoint-xs {
+
+    .PopinBase_body {
+        height: 100vh;
+        border-radius: 0;
     }
 }

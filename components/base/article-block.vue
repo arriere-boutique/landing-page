@@ -5,7 +5,7 @@
         :href="link"
         :target="link ? '_blank' : undefined"
         class="ArticleBlock"
-        :class="[ $modifiers, `ArticleBlock--${$theme(category).color}` ]"
+        :class="[ $modifiers, `is-${$theme(category).color}` ]"
         :to="path ? path : localePath({ name: 'category-slug', params: { category: $theme(category).slug, slug } })"
     >
         <div class="ArticleBlock_image" :style="{ backgroundImage: `url(${image})` }"></div>
@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import { ModifiersMixin } from '@instant-coffee/core'
+import { ModifiersMixin } from 'instant-coffee-core'
 
 export default {
     name: 'ArticleBlock',
@@ -39,7 +39,7 @@ export default {
         slug: { type: String },
         createdAt: { type: Object },
         updatedAt: { type: Object },
-        path: { type: Object },
+        path: { type: [Object, String] },
         link: { type: String }
     },
     computed: {

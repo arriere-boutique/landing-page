@@ -1,52 +1,79 @@
 .LinkBase {
-    font: var(--ft-m);
+    font: var(--ft-s-medium);
     line-height: 1;
     display: inline-block;
     position: relative;
-    color: var(--color-cherry);
-    font-weight: 500;
     cursor: pointer;
 
     &::before {
         content: "";
         display: block;
         position: absolute;
-        top: 10px;
+        bottom: -3px;
         left: 0;
         width: 100%;
-        height: 50%;
-        border-radius: 20px;
-        background-color: var(--color-current-weak);
-        opacity: 0.5;
-        transform: translate3d(5px, 1px, 0);
+        height: 1px;
+        background-color: var(--color-onyx);
         transition: all 100ms ease;
+        pointer-events: none;
+        transform-origin: left;
     }
 
     &:hover {
-
-        .LinkBase_content {
-            color: var(--color-current);
-        }
+        opacity: 0.75;
 
         &::before {
-            transform: translate3d(0px, 1px, 0);
-            opacity: 0.5;
+            transform: scaleX(0.95);
         }
     }
 
     &:active {
-
-        .LinkBase_content {
-            color: var(--color-current);
-        }
+        opacity: 0.5;
 
         &::before {
-            transform: translate3d(0px, 1px, 0) scale(0.95);
-            opacity: 0.75;
+            transform: scaleX(0.9);
         }
     }
 }
 
 .LinkBase_content {
     position: relative;
+    transition: all 100ms ease;
+}
+
+.LinkBase--s {
+    font: var(--ft-xs-medium);
+    line-height: 1;
+
+    &::before {
+        bottom: -4px;
+    }
+}
+
+.LinkBase--ellipsis {
+    white-space: normal;
+
+    .LinkBase_content {
+        word-break: break-all;
+        @extend .ellipsis-1;
+    }
+}
+
+.LinkBase--light {
+    color: var(--color-ft-light);
+
+    &::before {
+        background-color: var(--color-ft-light);
+    }
+}
+
+@each $color in $main-colors {
+
+    .LinkBase--#{$color} {
+        color: var(--color-#{$color});
+    
+        &::before {
+            background-color: var(--color-#{$color});
+        }
+    }
 }

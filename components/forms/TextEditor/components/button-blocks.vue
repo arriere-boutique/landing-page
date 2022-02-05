@@ -30,7 +30,7 @@ export default {
             { label: 'Checklist', value: 'checklist', classes: ['Block--checklist'] },
             { label: 'Pond', value: 'pond', classes: ['is-pond'] },
             { label: 'Gum', value: 'gum', classes: ['is-gum'] },
-            { label: 'Skylight', value: 'skylight', classes: ['is-skylight'] },
+            { label: 'ice', value: 'ice', classes: ['is-ice'] },
             { label: 'Precious', value: 'precious', classes: ['is-precious'] }
         ]) }
     },

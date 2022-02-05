@@ -7,17 +7,22 @@ let UserEntity = {
     read: 'admin',
     write: 'self',
     fields: new mongoose.Schema({
-        
         email: { type: String, write: 'self' },
         password: { type: String, write: 'self', read: 'private' },
         role: { type: String, write: 'admin', default: 'guest' },
-        
         name: { type: String, write: 'self' },
-        theme: { type: Object, write: 'self' },
-        image: { type: mongoose.Schema.Types.ObjectId, ref: 'media-collection' },
-    
+        surname: { type: String, write: 'self' },
+        address: { type: String, write: 'self' },
+        address2: { type: String, write: 'self' },
+        city: { type: String, write: 'self' },
+        postalCode: { type: String, write: 'self' },
+        country: { type: String, write: 'self' },
+        advices: { type: Array, write: 'self' },
+        shops: [
+            { type: mongoose.Schema.Types.ObjectId, ref: 'shop' }
+        ],
         owner: { type: mongoose.Schema.Types.ObjectId, ref: 'user' }
-    })
+    }, { timestamps: true })
 }
 
 UserEntity.fields.pre('save', async function(next) {
@@ -28,6 +33,10 @@ UserEntity.fields.pre('save', async function(next) {
     user.password = hash
 
     next()
+})
+
+UserEntity.fields.pre('find', function () {
+    this.populate('shops')
 })
 
 UserEntity.fields.methods.comparePassword = function(candidatePassword) {

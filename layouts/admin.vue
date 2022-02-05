@@ -2,7 +2,6 @@
     <div
         class="LayoutAdmin"
         :class="[ ...pageClasses, { 'is-scroll-layout': scroll > 20, 'is-scroll-disabled': disableScroll } ]"
-        :style="{ '--color-user': `var(--color-${color})`, '--color-user-bg': `var(--color-${color}-xweak)` }"
     >
         <header-admin class="LayoutAdmin_header" />
 
@@ -11,7 +10,7 @@
         />
 
         <div class="LayoutAdmin_body">
-            <div class="LayoutAdmin_background" :class="[`is-${color}`]">
+            <div class="LayoutAdmin_background">
                 <div class="LayoutAdmin_title">
                     {{ title }}
                 </div>
@@ -29,12 +28,12 @@
 </template>
 
 <script>
-import { TooltipManager } from '@instant-coffee/core'
+import { TooltipManager } from 'instant-coffee-core'
 
 export default {
     name: 'LayoutAdmin',
     components: { TooltipManager },
-    middleware: 'default',
+    middleware: 'admin',
     data: () => ({
         scroll: 0
     }),
@@ -42,8 +41,6 @@ export default {
         user () { return this.$store.state.user.info },
         savedUser () { return this.$store.state.auth.user },
         title () { return this.$store.state.page.meta.title },
-        icon () { return this.user.theme ? this.user.theme.icon : 'cat-space' },
-        color () { return this.user.theme ? this.user.theme.color : 'amethyst' },
         disableScroll () { return !this.$store.state.utils.window.scroll },
         pageClasses () { return this.$store.state.page.body.classes }
     },

@@ -6,16 +6,53 @@
 .page-leave-active {
   transition: all 250ms;
 }
-.page-enter,
-.page-leave-to {
+.page-enter {
   opacity: 0;
   transform: translateY(3px);
 }
 
+.page-leave-to {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
 .layout-enter-active, .layout-leave-active {
-    transition: all 250ms
+  transition: all 250ms
+}
+
+.layout-enter, .layout-leave-active {
+  opacity: 0;
+  transform: translateY(3px);
+}
+
+.Page_cols {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.Page_side {
+  width: 33%;
+  min-width: 200px;
+  max-width: 300px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  border: 1px solid var(--color-border);
+  background-color: var(--color-bg-light);
+  margin-left: 20px;
+}
+
+@include breakpoint-s {
+
+  .Page_cols {
+    flex-direction: column-reverse;
+    align-items: initial;
   }
-  .layout-enter, .layout-leave-active {
-    opacity: 0;
-    transform: translateY(3px);
+
+  .Page_side {
+    width: auto;
+    min-width: none;
+    max-width: none;
+    margin: 0 0 20px 0;
   }
+}

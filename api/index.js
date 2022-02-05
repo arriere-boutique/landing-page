@@ -11,15 +11,21 @@ const AWS = require('aws-sdk')
 const { Nuxt, Builder } = require('nuxt')
 const AutoIncrementFactory = require('mongoose-sequence');
 const stripe = require('stripe')(process.env.STRIPE)
+const SibApiV3Sdk = require('sib-api-v3-sdk');
+let sendinBlue = SibApiV3Sdk.ApiClient.instance;
+let apiKey = sendinBlue.authentications['api-key']
+apiKey.apiKey = process.env.SENDINBLUE
 
 const app = express()
 
 require('./entities/index')
 const { createEntity, getEntities, deleteEntity } = require('./api/entity');
-const { logUser, logOut, getUser } = require('./api/user');
-const { checkout } = require('./api/checkout');
+const { logUser, logOut, getUser, requestResetPassword, resetPassword } = require('./api/user');
+const { createOrder, checkoutOrder } = require('./api/order');
 const { webhooks } = require('./api/webhooks');
 const { createSubscriber, getSubscribers, deleteSubscriber } = require('./api/subscribe')
+const { ping, syncEtsy, linkShop, unlinkShop, searchListings } = require('./api/etsy')
+const { redirect } = require('./api/oauth')
 
 app.use(morgan('combined'))
 app.use('/webhooks', express.raw({ type: "*/*" }))
@@ -45,11 +51,14 @@ const upload = multer({ storage: storage })
 app.locals.s3 = s3
 app.locals.increment = AutoIncrementFactory(mongoose.connection)
 app.locals.stripe = stripe
+app.locals.sendinBlue = SibApiV3Sdk
 
 mongoose.connection.on('error', console.error.bind(console, 'connection error:'))
 
 mongoose.connection.once('open', async () => {
-    app.post('/checkout', checkout)
+    app.post('/order', createOrder)
+    app.post('/order/checkout', checkoutOrder)
+
     app.post('/webhooks', webhooks)
 
     app.get('/entities', getEntities)
@@ -59,16 +68,27 @@ mongoose.connection.once('open', async () => {
     app.post('/user', logUser)
     app.get('/user', getUser)
     app.post('/user/logout', logOut)
+    app.post('/user/reset', requestResetPassword)
+    app.post('/user/reset/confirm', resetPassword)
 
     app.post('/subscribe', createSubscriber)
     app.get('/subscribers', getSubscribers)
     app.delete('/subscribe', deleteSubscriber)
+
+    app.get('/etsy/ping', ping)
+    app.get('/etsy/search', searchListings)
+    
+    app.post('/etsy/sync', syncEtsy)
+    app.post('/etsy/link', linkShop)
+    app.post('/etsy/unlink', unlinkShop)
+
+    app.get('/oauth/redirect', redirect)
 })
 
 module.exports = app
 
 if (require.main === module) {
-    const port = process.env.PORT || 3001
+    const port = process.env.PORT || 80
     app.listen(port, () => {
         console.log(`API server listening on port ${port}`)
     })

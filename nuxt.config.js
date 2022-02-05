@@ -23,14 +23,54 @@ export default {
         '@/assets/scss/global.scss'
     ],
 
+    styleResources: {
+        scss: [
+            '@/assets/scss/base/config.scss',
+            'instant-coffee-core/assets/scss/variables.scss',
+            'instant-coffee-core/assets/scss/mixins.scss'
+        ]
+    },
+
     plugins: [
         { src: '@/plugins/base.js' }
     ],
 
-    components: true,
+    env: {
+        baseDomain: process.env.BASE_DOMAIN,
+        baseUrl: process.env.BASE_URL,
+        blogUrl: process.env.BLOG_URL,
+        boutiqueUrl: process.env.SHOP_URL,
+        dashboardUrl: process.env.DASHBOARD_URL,
+        PEXELS: process.env.PEXELS,
+        etsy: process.env.ETSY
+    },
+
+    components: {
+        dirs: [
+            '~/components',
+            '~/components/admin',
+            '~/components/base',
+            '~/components/forms',
+            '~/components/inserts',
+            '~/components/interactive',
+            '~/components/partials',
+            '~/components/tools',
+            '~/components/utils',
+            '~/components/landing-module',
+        ]
+    },
 
     buildModules: [
-        '@nuxtjs/google-analytics'
+        '@nuxtjs/google-analytics',
+        '@nuxtjs/moment',
+        [
+            '@nuxtjs/router',
+            {
+                path: 'router',
+                fileName: 'index.js',
+                keepDefaultRouter: true,
+            }
+        ]
     ],
 
     modules: [
@@ -38,13 +78,23 @@ export default {
         'cookie-universal-nuxt',
         'nuxt-i18n',
         '@nuxtjs/auth',
+        '@nuxtjs/moment',
         '@nuxtjs/google-analytics',
+        '@nuxtjs/style-resources',
         [ '@nuxtjs/recaptcha', {
             hideBadge: true,
             version: 3,
             siteKey: process.env.RECAPTCHA
         } ],
+        ['nuxt-stripe-module', {
+            publishableKey: process.env.STRIPE_PUBLIC,
+        }],
     ],
+
+    moment: {
+        defaultLocale: 'fr',
+        locales: ['fr']
+    },
 
     publicRuntimeConfig: {
         recaptcha: {
@@ -63,7 +113,7 @@ export default {
         locales: [
             { code: 'fr', iso: 'fr-FR', file: 'fr.js' }
         ],
-        langDir: '/translations/',
+        langDir: '@/translations/',
         defaultLocale: 'fr',
         lazy: true
     },
@@ -74,10 +124,15 @@ export default {
     ],
 
     auth: {
+        cookie: {
+          options: {
+            domain: '.' + process.env.BASE_DOMAIN
+          }
+        },
         redirect: {
-            logout: '/',
-            login: '/admin/dashboard',
-            home: '/',
+            logout: false,
+            login: '/compte/login',
+            home: false,
             callback: false
         },
         strategies: {
@@ -97,7 +152,20 @@ export default {
                 test: /\.svg.html$/,
                 loader: 'raw-loader'
             })
-        }
+        },
+        babel: {
+            presets(env, [preset, options]) {
+                return [["@babel/preset-env", {}]];
+            },
+            plugins: [
+                [
+                "@babel/plugin-transform-runtime",
+                {
+                    regenerator: true
+                }
+                ]
+            ]
+        }      
     },
     
     axios: {
@@ -106,6 +174,6 @@ export default {
 
     router: {
         linkActiveClass: 'is-active',
-        linkExactActiveClass: 'is-active'
+        linkExactActiveClass: 'is-active-exact'
     }
 }

@@ -25,8 +25,8 @@ MediaCollection.fields.post('findOneAndDelete', async function (doc, next) {
 
         s3.deleteObject({
             Bucket: process.env.S3_BUCKET, Key: media.id
-        }, (err) => {
-            console.log(err)
+        }, (e) => {
+            console.log(e)
         })
 
         await media.remove()

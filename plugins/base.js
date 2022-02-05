@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import moment from 'moment'
-import { ButtonBase, PopinBase } from '@instant-coffee/core'
+import { ButtonBase, PopinBase } from 'instant-coffee-core'
+import Validators from '@/utils/validators'
 import LogoYellow from '@/assets/img/logo/logo-yellow.png'
 
 moment.locale('fr')
@@ -20,26 +21,57 @@ Vue.mixin({
         },
         striptags: (value) => {
             return value ? value.replace(/(<([^>]+)>)/gi, '') : ''
+        },
+        round: (value, decimals = 2) => {
+            return (Math.round(value * Math.pow(10, decimals)) / Math.pow(10, decimals)).toFixed(decimals)
+        },
+        fixed: (value) => {
+            return ('0' + value).slice(-2)
         }
     },
     data: () => ({
         $categories: {
             news: { color: 'gum', fa: 'fa-thumbtack', slug: 'actualite' },
             seo: { color: 'pond', fa: 'fa-search', slug: 'referencement-seo' },
-            identity: { color: 'skylight', fa: 'fa-store', slug: 'identite-de-marque' },
-            value: { color: 'mango', fa: 'fa-gem', slug: 'valeur-percue' }
-        }
-    }),
-    methods: {
-        randomBetween: (min, max) => {
-            Math.floor(Math.random() * (max - min + 1) + min)
+            identity: { color: 'ice', fa: 'fa-store', slug: 'identite-de-marque' },
+            value: { color: 'duck', fa: 'fa-gem', slug: 'valeur-percue' }
         },
-        tooltipOpen (content, e, params = {}) {
+    }),
+    computed: {
+        $baseUrl () { return  process.env.baseUrl },
+        $dashboardUrl () { return process.env.dashboardUrl },
+        $blogUrl () { return process.env.blogUrl },
+        $shopUrl () { return process.env.shopUrl }
+    },
+    methods: {
+        $randomBetween: (min, max) => {
+            return Math.floor(Math.random() * (max - min + 1) + min)
+        },
+        $copy (text) {
+            if (!navigator.clipboard) {
+                this.$store.commit('flashes/add', {
+                    title: `Copié dans le presse-papier (local)`,
+                    text: `"${text}"`,
+                    type: 'success'
+                })
+
+                return 
+            }
+
+            navigator.clipboard.writeText(text).then(() => {
+                this.$store.commit('flashes/add', {
+                    title: `Copié dans le presse-papier`,
+                    text: `"${text}"`,
+                    type: 'success'
+                })
+            })
+        },
+        $tOpen (content, e, params = {}) {
             this.$store.commit('tooltips/open', {
                 content, element: e.target, ...params
             })
         },
-        tooltipClose () {
+        $tClose () {
             this.$store.commit('tooltips/close')
         },
         $theme (value) {
@@ -72,6 +104,32 @@ Vue.mixin({
                     logo: this.$absolute(LogoYellow),
                 }
             }
+        },
+        $round (value, decimals = 2) {
+            return (Math.round(value * Math.pow(10, decimals)) / Math.pow(10, decimals)).toFixed(decimals)
+        },
+        $shuffle (array) {
+            let currentIndex = array.length,  randomIndex;
+            
+            while (currentIndex != 0) {
+            
+                randomIndex = Math.floor(Math.random() * currentIndex);
+                currentIndex--;
+
+                [array[currentIndex], array[randomIndex]] = [
+                array[randomIndex], array[currentIndex]];
+            }
+            
+            return array
+        },
+        $onPopinOpen () {
+            this.$store.commit('page/toggleOverflow', false)
+        },
+        $onPopinClose () {
+            this.$store.commit('page/toggleOverflow', true)
+        },
+        $validator (type) {
+            return Validators[type]
         }
     }
 })
