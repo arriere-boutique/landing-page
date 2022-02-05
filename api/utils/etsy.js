@@ -42,7 +42,7 @@ exports.syncShop = async function (id, syncItems = [], firstSync = false) {
                         logo: shop.logo,
                         slug: 'home',
                         title: `Bienvenue chez ${shop.name} !`,
-                        link: `https://${shop.name}.${process.env.baseDomain}`,
+                        link: `https://${shop.name}.${process.env.BASE_DOMAIN}`,
                         customization: {
                             'background': {
                                 src: 'https://images.pexels.com/photos/62693/pexels-photo-62693.jpeg'
