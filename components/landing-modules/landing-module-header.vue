@@ -1,10 +1,14 @@
 <template>
     <div class="LandingModule_header">
-        <div class="ft-s color-current ellipsis-1">
-            <b class="color-current-strong ft-m-medium"><i class="fal mr-5" :class="[`fa-${metadata.fa}`]"></i> {{ metadata.title }}</b> <span class="ft-s color-current">{{ subtitle }}</span>
+        <div>
+            <div class="ft-s color-current ellipsis-1">
+                <b class="color-current-strong ft-m-medium"><i class="fal mr-5" :class="[`fa-${metadata.fa}`]"></i> {{ metadata.title }}</b>
+            </div>
+
+            <div class="ft-s color-current"><span>{{ subtitle }}</span></div>
         </div>
 
-        <div class="d-flex fx-align-center">
+        <div class="d-flex fx-align-center fx-no-shrink">
             <i class="fal fa-arrow-up c-pointer ml-10" @click="() => $emit('input', value - 1.5)" :class="{ 'is-disabled': false }"></i>
             <i class="fal fa-arrow-down c-pointer ml-10" @click="() => $emit('input', value + 1.5)" :class="{ 'is-disabled': false }"></i>
 
@@ -13,6 +17,7 @@
                 { label: 'Supprimer définitivement', action: () => this.$emit('delete') },
             ]" />
         </div>
+
     </div>
 </template>
 

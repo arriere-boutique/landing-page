@@ -14,7 +14,7 @@
                             <errors :items="loginErrors" />
 
                             <div class="text-right mt-10">
-                                <link-base class="mr-5" @click="resetPassword" type="button">Mot de passe oublié ?</link-base>
+                                <link-base class="mr-5" @click="isReset = true" type="button">Mot de passe oublié ?</link-base>
 
                                 <button-base type="submit" :modifiers="['secondary']" :class="{ 'is-disabled': state.isSuccess || state.loading }">
                                     Je me connecte
@@ -42,6 +42,22 @@
                 </div>
             </div>
         </div>
+
+        <popin-base :modifiers="['s', 'absolute-header']" :is-active="isReset" @close="isReset = false">
+            <template slot="content">
+                <form @submit.prevent="resetPassword" class="p-30">
+                    <p class="ft-l-bold">Réinitialiser ton mot de passe</p>
+                    
+                    <input-base label="Ton adresse e-mail" class="mv-20" type="email" v-model="loginForm.email" :attrs="{ required: true }" v-show="!resetSuccess" />
+
+                    <p class="ft-s-medium color-current bg-current-xweak p-20 br-s mv-20" v-show="resetSuccess">Je viens de t'envoyer un e-mail. N'oublie pas de vérifier dans tes spams !</p>
+
+                    <div class="text-right">
+                        <button-base :class="{ 'is-disabled': resetSuccess }">Envoyer un email</button-base>
+                    </div>
+                </form>
+            </template>
+        </popin-base>
     </div>
 </template>
 
@@ -54,6 +70,8 @@ export default {
     layout: 'default',
     middleware: 'loggedIn',
     data: () => ({
+        isReset: false,
+        resetSuccess: false,
         state: {
             isSuccess: false,
             loading: false
@@ -75,7 +93,8 @@ export default {
         },
         async resetPassword () {
             const response = await this.$store.dispatch('user/requestPassword', this.loginForm.email)
-            console.log(response)
+            
+            if (response.status == 1) this.resetSuccess = true
         },
         async submitForm (type) {
             this.loginErrors = []
