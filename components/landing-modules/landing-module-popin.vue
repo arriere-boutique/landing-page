@@ -1,5 +1,5 @@
 <template>
-    <popin-base :is-active="isActive" :modifiers="['panel']" @close="$emit('close')">
+    <popin-base :is-active="isActive" :modifiers="['panel']" @close="$emit('close'); $emit('reset')">
         <template slot="content">
             <form @submit.prevent="$emit('close'); $emit('submit')" class="p-40 p-20@s">
                 <div class="p-30 bg-current-xweak br-m p-20@s ft-m-medium@m">
@@ -41,20 +41,22 @@
                     </div>
                 </div>
 
-                <div class="d-flex fx-align-center mt-20">
-                    <div class="fx-grow mr-20"></div>
+                <action-fixed :is-active="isModified">
+                    <template slot="actions">
+                        <div></div>
 
-                    <div>
-                        <link-base @click="$emit('close'); $emit('reset')" class="mr-10">Annuler</link-base>
+                        <div>
+                            <link-base @click="$emit('close'); $emit('reset')" class="mr-10">Annuler</link-base>
 
-                        <button-base
+                            <button-base
                             :modifiers="['current']"
                             type="submit"
                         >
                             Appliquer
                         </button-base>
-                    </div>
-                </div>
+                        </div>
+                    </template>
+                </action-fixed>
             </form>
         </template>
     </popin-base>
@@ -67,6 +69,7 @@ export default {
     components: { InputBase, SelectBase, ToggleBase },
     props: {
         value: { type: Object, default: () => ({})  },
+        module: { type: Object, default: () => ({})  },
         metadata: { type: Object, default: () => ({}) },
         isActive: { type: Boolean, default: false }
     },
@@ -74,6 +77,9 @@ export default {
         hasProgrammation: false
     }),
     computed: {
+        isModified () {
+            return JSON.stringify(this.value) != JSON.stringify(this.module)
+        },
         minStartDate () {
             return this.$moment().format('yyyy-MM-DDThh:mm')
         },

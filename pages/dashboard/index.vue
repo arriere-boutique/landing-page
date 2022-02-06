@@ -50,6 +50,27 @@
                         </p>
                     </div>
                 </div>
+                <div class="cw-8 cw-12@s is-sunset" v-if="reviews.length > 0">
+                    <div class="Tile fx-dir-column fx-justify-between">
+                        <div>
+                            <div>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+
+                            <p class="ft-s-medium mt-10">
+                                {{ reviews[randomReview].comment }}
+                            </p>
+                        </div>
+
+                        <p class="ft-s-bold mt-20">
+                            {{ reviews[randomReview].user.name }}
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -68,10 +89,14 @@ export default {
             })
         })
     },
+    data: () => ({
+        randomReview: 0
+    }),
     computed: {
         shops () { return this.$store.state.shop.items },
         user () { return this.$store.state.auth.user },
-        orders () { return this.$store.getters['shop/allOrders'] }
+        orders () { return this.$store.getters['shop/allOrders'] },
+        reviews () { return this.$store.getters['shop/allReviews'] }
     },
     methods: {
         getOrderCount (limit = 30, unit = 'days') {
@@ -81,7 +106,10 @@ export default {
         getTotalProfit (limit = 30, unit = 'days') {
             let selected = this.orders.filter(o => this.$moment().diff(this.$moment.unix(o.orderDate), unit) <= limit)
             return selected.reduce((total, order) => total += order.total.amount, 0) / 100
-        }, 
+        }
+    },
+    mounted () {
+        this.randomReview = this.$randomBetween(0, this.reviews.length - 1)
     }
 }
 </script>

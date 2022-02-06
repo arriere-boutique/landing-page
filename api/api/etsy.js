@@ -26,7 +26,7 @@ exports.syncEtsy = async function (req, res) {
     let user = await authenticate(req.headers)
 
     try {
-        data = await syncShop(req.body.id, req.body.syncItems ? req.body.syncItems : ['info', 'listings', 'orders'])
+        data = await syncShop(req.body.id, req.body.syncItems ? req.body.syncItems : ['info', 'listings', 'orders', 'reviews'])
     } catch (e) {
         console.warn(e)
         errors.push(e.message)
@@ -65,7 +65,7 @@ exports.linkShop  = async function (req, res) {
             await Entities.user.model.findByIdAndUpdate(user._id, { shops })
         }
 
-        data = await syncShop(data._id, ['info', 'listings', 'orders', 'listing-photos'], true)
+        data = await syncShop(data._id, ['info', 'listings', 'orders', 'listing-photos', 'reviews'], true)
     } catch (e) {
         console.warn(e)
         errors.push(e.message)
@@ -108,6 +108,7 @@ exports.unlinkShop  = async function (req, res) {
 
         await Entities.shopListing.model.deleteMany({ owner: user._id, _id: { $in: shop.listings } })
         await Entities.shopOrder.model.deleteMany({ owner: user._id, _id: { $in: shop.orders } })
+        await Entities.shopReview.model.deleteMany({ owner: user._id, _id: { $in: shop.reviews } })
         await Entities.landing.model.deleteMany({ owner: user._id, shop: shop._id })
         await Entities.shop.model.deleteOne({ owner: user._id, _id: shop._id })
 

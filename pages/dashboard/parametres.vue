@@ -83,7 +83,7 @@ export default {
             this.shopsSyncing.push(id)
 
             await this.$store.dispatch('shop/sync', {
-                params: { id, syncItems: [ 'info', 'listings', 'orders', 'listing-photos'] }
+                params: { id, syncItems: [ 'info', 'listings', 'orders', 'listing-photos', 'reviews'] }
             })
 
             this.shopsSyncing = this.shopsSyncing.filter(s => s._id == id)

@@ -136,6 +136,9 @@ export default {
         allOrders: (state) => {
             return state.items.reduce((total, current) => [ ...total, ...current.orders ], [])
         },
+        allReviews: (state) => {
+            return state.items.reduce((total, current) => [ ...total, ...current.reviews ], []).filter(r => r.rating >= 5 && r.comment)
+        },
         allListings: (state) => {
             return state.items.reduce((total, current) => [ ...total, ...current.listings ], []).map(l => ({
                 ...l,

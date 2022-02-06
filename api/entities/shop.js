@@ -16,6 +16,9 @@ let ShopEntity = {
         etsyToken: { type: String, write: 'self', read: 'self' },
         etsyRefreshToken: { type: String, write: 'self', read: 'self' },
         etsyRefreshed: { type: Date, write: 'self', read: 'self' },
+        reviews: [
+            { type: mongoose.Schema.Types.ObjectId, ref: 'shopReview', read: 'self' }
+        ],
         orders: [
             { type: mongoose.Schema.Types.ObjectId, ref: 'shopOrder', read: 'self' }
         ],
@@ -29,6 +32,7 @@ let ShopEntity = {
 ShopEntity.fields.pre('find', function () {
     this.populate('listings')
     this.populate('orders')
+    this.populate('reviews')
 })
 
 ShopEntity.model = global.ShopEntity ? global.ShopEntity.model : mongoose.model('shop', ShopEntity.fields)

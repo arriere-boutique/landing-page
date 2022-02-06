@@ -121,7 +121,7 @@
                     <template v-if="isInit">
                         <div class="PageEditor_contentScroll">
                             <div class="PageEditor_content">
-                                <landing-content :is-preview="true" :content="parseForm(formData)" />
+                                <landing-content :is-preview="true" :content="parseForm(formData)" :shop="currentShop" />
                             </div>
                         </div>
                     </template>

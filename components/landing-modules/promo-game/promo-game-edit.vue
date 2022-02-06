@@ -2,6 +2,7 @@
     <landing-module
         :metadata="$options.metadata"
         :form-data="formData"
+        :module="module"
         :title="``"
     >
 

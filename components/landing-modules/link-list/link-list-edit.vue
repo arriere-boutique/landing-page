@@ -2,6 +2,7 @@
     <landing-module
         :metadata="$options.metadata"
         :form-data="formData"
+        :module="module"
         :title="`${module.links ? module.links.filter(b => b.active).length : 0} boutons actifs`"
     >
         <div class="Link d-flex fx-align-center mv-10 d-block@s mv-20@s" :class="{ 'is-inactive': !link.active }" v-for="link in formData.links" :key="link.id">

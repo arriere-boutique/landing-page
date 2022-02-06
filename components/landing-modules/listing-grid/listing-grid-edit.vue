@@ -2,6 +2,7 @@
     <landing-module
         :metadata="$options.metadata"
         :form-data="formData"
+        :module="module"
         :title="`${module.items.length} sélectionnées`"
     >
         <input-base type="text" label="Titre" class="mb-20" v-model="formData.title" />

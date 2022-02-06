@@ -5,6 +5,7 @@ import TitleBlockView from './title-block/title-block-view.vue'
 import ListingGridEdit from './listing-grid/listing-grid-edit.vue'
 import ListingGridView from './listing-grid/listing-grid-view.vue'
 import RatingBlockEdit from './rating-block/rating-block-edit.vue'
+import RatingBlockView from './rating-block/rating-block-view.vue'
 import CountdownEdit from './countdown/countdown-edit.vue'
 import PromoCodeEdit from './promo-code/promo-code-edit.vue'
 import InstagramEdit from './instagram-grid/instagram-grid-edit.vue'
@@ -18,6 +19,7 @@ export default {
     ListingGridEdit,
     ListingGridView,
     RatingBlockEdit,
+    RatingBlockView,
     CountdownEdit,
     PromoCodeEdit,
     InstagramEdit,

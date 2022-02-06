@@ -15,12 +15,14 @@ const Order = require('./order')
 const Shop = require('./shop')
 const ShopListing = require('./shop-listing')
 const ShopOrder = require('./shop-order')
+const ShopReview = require('./shop-review')
 const Landing = require('./landing')
 
 mongoose.connect(process.env.MONGO, { useNewUrlParser: true, useUnifiedTopology: true })
 
 exports.shopListing = ShopListing
 exports.shopOrder = ShopOrder
+exports.shopReview = ShopReview
 exports.landing = Landing
 exports.shop = Shop
 exports.token = Token

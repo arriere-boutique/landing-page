@@ -33,6 +33,7 @@
             @close="isPopinActive = false"
             @input="$parent.input"
             :value="formData"
+            :module="module"
         >
             <slot></slot>
         </landing-module-popin>
@@ -46,6 +47,7 @@ export default {
         title: { type: String, default: '' },
         metadata: { type: Object, default: () => {} },
         formData: { type: Object, default: () => {} },
+        module: { type: Object, default: () => {} },
         modules: { type: Array, default: () => [] }
     },
     data: () => ({

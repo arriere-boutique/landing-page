@@ -78,6 +78,12 @@ exports.syncShop = async function (id, syncItems = [], firstSync = false) {
                 shop.save()
             }
 
+            if (syncItems.includes('reviews')) {
+                let reviews = await syncReviews(shop)
+                shop.reviews = reviews
+                shop.save()
+            }
+
             resolve(shop)
         } catch (e) {
             console.error(e)
@@ -125,7 +131,7 @@ const syncOrders = async function (shop) {
 
                     return {
                         listingId: existing ? existing._id : null,
-                        title: listing.title,
+                        title: listing.title.replaceAll('&#39;', `'`),
                         price: listing.price,
                         quantity: listing.quantity,
                         sku: listing.sku,
@@ -207,7 +213,7 @@ const syncListings = async function (shop, syncImages = false) {
                 for (let listing of listingData.results) {
                     let data = {
                         id: listing.listing_id,
-                        title: listing.title.replace('&#39;', `'`),
+                        title: listing.title.replaceAll('&#39;', `'`),
                         status: listing.state,
                         price: listing.price,
                         link: listing.url,
@@ -251,8 +257,6 @@ const syncListings = async function (shop, syncImages = false) {
                 return data
             }))
 
-            console.log(listingIds)
-
             let newListings = await Promise.all(listingIds.map(async id => {
                 let corresponding = listingData.find(l => l.id == id)
 
@@ -266,6 +270,78 @@ const syncListings = async function (shop, syncImages = false) {
             }))
 
             resolve([ ...shop.listings, ...newListings.map(l => l._id) ])
+        } catch (e) {
+            console.error(e)
+            reject(e)
+        }
+    })
+}
+
+const syncReviews = async function (shop) {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let reviewsData = await $fetch(`https://openapi.etsy.com/v3/application/shops/${shop.id}/reviews?limit=20&language=fr`, { headers: {
+                'x-api-key': process.env.ETSY,
+                Authorization: `Bearer ${shop.etsyToken}`,
+            }})
+
+            reviewsData = await Promise.all(reviewsData.results.map(async review => {
+                return {
+                    id: review.transaction_id + '-' + review.listing_id,
+                    rating: review.rating,
+                    comment: review.review.replaceAll('&#39;', `'`),
+                    listingId: review.listing_id,
+                    image: review.image_url_fullxfull,
+                    userId: review.buyer_user_id,
+                    reviewDate: new Date(review.create_timestamp)
+                }
+            }))
+
+            async function getReviewData (reviewsData, shop) {
+                let reviews = []
+
+                for (let review of reviewsData) {
+                    let data = await Entities.shopReview.model.findOne({ id: review.id, shop: shop._id })
+
+                    if (data) {
+                        data.rating = review.rating
+                        data.comment = review.comment
+
+                        data.save()
+                    } else {
+                        let listing = await Entities.shopListing.model.findOne({ id: review.listingId, shop: shop._id })
+
+                        data = await Entities.shopReview.model.create({
+                            ...review,
+                            listing: listing ? listing._id : undefined,
+                            shop: shop._id,
+                            owner: shop.owner
+                        })
+                    }
+
+                    if (!data.user) {
+                        let user = await $fetch(`https://openapi.etsy.com/v3/application/users/${data.userId}`, { headers: {
+                            'x-api-key': process.env.ETSY,
+                            Authorization: `Bearer ${shop.etsyToken}`,
+                        }})
+
+                        data.user = {
+                            name: user.first_name,
+                            lastname: user.last_name
+                        }
+
+                        data.save()
+                    }
+
+                    reviews.push(data)
+                }
+
+                return reviews
+            }
+
+            reviewsData = await getReviewData(reviewsData, shop)
+
+            resolve(reviewsData.map(l => l._id))
         } catch (e) {
             console.error(e)
             reject(e)

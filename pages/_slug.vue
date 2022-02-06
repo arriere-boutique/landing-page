@@ -1,6 +1,6 @@
 <template>
     <div class="LandingPage">
-        <landing-content :content="content" v-if="shop && content" />
+        <landing-content :content="content" :shop="shop" v-if="shop && content" />
     </div>
 </template>
 

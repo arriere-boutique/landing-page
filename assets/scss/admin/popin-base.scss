@@ -6,6 +6,14 @@
         overflow: hidden;
         transition: all 350ms ease;
     }
+
+    .PopinBase_content {
+        position: relative;
+    }
+
+    .PopinBase_header {
+        z-index: 2;
+    }
 }
 
 .PopinBase_footer {

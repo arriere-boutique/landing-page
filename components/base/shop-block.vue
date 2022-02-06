@@ -19,6 +19,11 @@
                 </span>
 
                 <span class="mh-5" @mouseenter="(e) => $tOpen(`${orders.length} commandes synchronisées`, e)" @mouseleave="$tClose"><i class="fal fa-receipt mr-3"></i> {{ orders.length }}</span>
+
+                
+                <span class="mh-5" @mouseenter="(e) => $tOpen(`${reviews.length} évaluations synchronisées`, e)" @mouseleave="$tClose">
+                    <i class="fal fa-star mr-3"></i>  {{ reviews.length }}
+                </span>
             </div>
         </div>
 
@@ -44,6 +49,7 @@ export default {
         link: { type: String },
         listings: { type: Array, default: () => [] },
         orders: { type: Array, default: () => [] },
+        reviews: { type: Array, default: () => [] },
         modifiers: { type: Array, default: () => [] },
         isSyncing: { type: Boolean, default: false }
     }

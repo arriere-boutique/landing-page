@@ -8,7 +8,7 @@
 
             <transition-group tag="div" name="default" class="LandingPage_modules">
                 <div v-for="module in orderedModules" :key="module.id">
-                    <component :is="module.type + '-view'" v-bind="module" :is-preview="isPreview" class="mv-20" />
+                    <component :is="module.type + '-view'" v-bind="module" :shop="shop" :is-preview="isPreview" class="mv-20" />
                 </div>
             </transition-group>
         </div>
@@ -40,6 +40,7 @@ export default {
     name: 'LandingContent',
     components: { ...Modules },
     props: {
+        shop: { type: [Object, Boolean], default: false },
         content: { type: [Object, Boolean], default: false },
         isPreview: { type: Boolean, default: false }
     },
