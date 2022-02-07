@@ -17,7 +17,7 @@
                             :modifiers="['precious', 'secondary']"
                             :attrs="{ to: localePath({ name: 'outils-generateur-tags' }) }"
                         >
-                            Trouver des mot-clés
+                            Trouver des mots-clés
                         </button-base>
                     </div>
                 </div>

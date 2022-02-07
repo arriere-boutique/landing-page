@@ -19,7 +19,7 @@
                             :modifiers="['precious', 'secondary']"
                             :attrs="{ to: localePath({ name: 'category-slug', params: { category: 'referencement-seo', slug: 'generateur-de-mot-cles-tags-etsy',  } }) }"
                         >
-                            Trouver des mot-clés
+                            Trouver des mots-clés
                         </button-base>
                     </div>
                 </div>

@@ -66,7 +66,7 @@ export default {
         ['tag-generator']: [
             {
                 title: `Trouve de nouveaux mots-clés en quelques clics`,
-                text: `Commence ta recherche avec un mot-clé général qui décrit ton article (ex : Bijou minimaliste, Carnet voyage...). Sélectionne les mot-clés qui te parlent le plus.`
+                text: `Commence ta recherche avec un mot-clé général qui décrit ton article (ex : Bijou minimaliste, Carnet voyage...). Sélectionne les mots-clés qui te parlent le plus.`
             }, {
                 title: `Explore et précise ta recherche`,
                 text: `Plus ton mot-clé est précis, plus tu as de chances de trouver des termes intéressants. <b>N'hésite pas à relancer fréquemment la recherche avec un mot-clé plus précis.</b>`
