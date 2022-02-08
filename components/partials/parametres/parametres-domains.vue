@@ -19,15 +19,19 @@
                         </div>
                     </div>
 
-                    <form @submit.prevent="onSubmit" class="mt-20 bg-bg-xweak br-s p-20">
-                        <p class="ft-m-bold">Modifier mon nom de domaine</p>
+                    <form @submit.prevent="() => onSubmit(shop._id)" class="mt-20 bg-bg-xweak br-s p-20">
+                        <p class="ft-m-bold">Modifier mon lien</p>
 
-                        <input-base label="Nouveau nom de domaine" class="mt-20" v-model="formData[shop._id].slug" />
+                        <input-base label="Nom de boutique" class="mt-20" v-model="formData[shop._id].slug" />
+
+                        <select-base label="Domaine" class="mv-10" v-model="formData[shop._id].domain" :options="DOMAINS" />
 
                         <transition name="fade">
-                            <div v-show="formData[shop._id].slug != shop.slug">
+                            <div v-show="formData[shop._id].slug != shop.slug || formData[shop._id].domain != shop.domain">
                                 <p class="mt-20 ft-s">Ta page deviendra accessible avec ce lien :</p>
-                                <link-base class="ft-medium" :href="getLink(shop, formData[shop._id].slug)" target="_blank">{{ getLink(shop, formData[shop._id].slug) }}</link-base>
+                                <link-base class="ft-medium" :href="getLink(shop, formData[shop._id].slug, formData[shop._id].domain)" target="_blank">{{ getLink(shop, formData[shop._id].slug, formData[shop._id].domain) }}</link-base>
+
+                                <errors :items="errors" class="mt-20" v-if="errors.length > 0" />
 
                                 <div class="text-right mt-20">
                                     <link-base type="button" class="mr-10" @click="formData[shop._id].slug = shop.slug">Annuler</link-base>
@@ -43,16 +47,22 @@
 </template>
 
 <script>
-import { InputBase } from 'instant-coffee-core'
+import { InputBase, SelectBase } from 'instant-coffee-core'
+const DOMAINS = [
+    { id: 0, label: 'arriere-boutique.local', value: 0 },
+    { id: 1, label: 'mapetite.local', value: 1 },
+]
 
 export default {
     name: 'ParametresDomains',
-    components: { InputBase },
+    components: { InputBase, SelectBase },
     props: {
         shops: { type: Array, default: () => [] },
         user: { type: Object, default: () => ({}) }
     },
     data: () => ({
+        DOMAINS,
+        errors: [],
         formData: {}
     }),
     computed: {
@@ -66,21 +76,32 @@ export default {
                     this.formData = this.shops.reduce((total, current) => {
 
                         return { ...total, [current._id]: {
-                            slug: current.slug
+                            slug: current.slug,
+                            domain: current.domain
                         }}
                     }, {})
-
-                    console.log(this.formData)
                 }
             }
         }
     },
     methods: {
-        getLink (shop, slug) {
-            return `https://${slug ? slug : shop.slug}.${process.env.baseDomain}`
+        getLink (shop, slug, domain) {
+            return `https://${slug ? slug : shop.slug}.${process.env.domains[domain ? domain : shop.domain]}`
         },
-        onSubmit () {
+        async onSubmit (id) {
+            this.errors = []
 
+            try {
+                const response = await this.$store.dispatch('shop/editSlug', {
+                    _id: id,
+                    slug: this.formData[id].slug,
+                    domain: this.formData[id].domain
+                })
+
+                if (response.status == 0) this.errors = [ response.message ]
+            } catch (e) {
+                console.error(e)
+            }
         }
     }
 }

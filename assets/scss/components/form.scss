@@ -14,7 +14,8 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
-.InputBase_element {
+.InputBase_element,
+.SelectBase_value {
   background-color: var(--color-bg-light);
 }
 
@@ -77,10 +78,17 @@ textarea {
   border-radius: 10px;
 }
 
+
+.SelectBase_label {
+  transform: translate3d(-6px, -100%, 0) scale(0.95);
+  color: var(--color-ft);
+}
+
 .InputBase.is-value,
 .InputBase.is-focused {
 
-    .InputBase_label {
+    .InputBase_label,
+    .SelectBase_label {
         transform: translate3d(-6px, -100%, 0) scale(0.95);
         color: var(--color-ft);
     }

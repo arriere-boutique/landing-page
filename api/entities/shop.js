@@ -6,6 +6,7 @@ let ShopEntity = {
     fields: new mongoose.Schema({
         category: { type: String, write: 'self', read: 'self' },
         categoryCustom: { type: String, write: 'self', read: 'self' },
+        domain: { type: Number, default: 0, write: 'self', read: 'public' },
         name: { type: String, write: 'self' },
         id: { type: String, write: 'self', read: 'self' },
         slug: { type: String, write: 'self' },
@@ -17,7 +18,7 @@ let ShopEntity = {
         etsyRefreshToken: { type: String, write: 'self', read: 'self' },
         etsyRefreshed: { type: Date, write: 'self', read: 'self' },
         reviews: [
-            { type: mongoose.Schema.Types.ObjectId, ref: 'shopReview', read: 'self' }
+            { type: mongoose.Schema.Types.ObjectId, ref: 'shopReview', read: 'public' }
         ],
         orders: [
             { type: mongoose.Schema.Types.ObjectId, ref: 'shopOrder', read: 'self' }

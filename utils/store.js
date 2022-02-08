@@ -39,6 +39,6 @@ export default {
             console.error(e)
         })
 
-        return null
+        return { status: 0, error: message }
     }
 }

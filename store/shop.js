@@ -130,7 +130,25 @@ export default {
             } catch (e) {
                 return storeUtils.handleErrors(e, commit, 'Échec lors de la suppression de la boutique')
             }
-        } 
+        },
+        async editSlug ({ commit, dispatch }, data) {
+            try {
+                const response = await this.$axios.$post('/shop/edit-slug', data)
+                
+                if (response.status == 0) throw Error(response.errors[0])
+
+                commit('flashes/add', {
+                    title: 'Mission réussie, ton lien a été modifié.',
+                    type: 'success'
+                }, { root: true })
+
+                dispatch('fetch')
+
+                return response
+            } catch (e) {
+                return storeUtils.handleErrors(e, commit, 'Échec lors de la modification')
+            }
+        }
     },
     getters: {
         allOrders: (state) => {

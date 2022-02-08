@@ -17,6 +17,13 @@ export default {
             this.shop = response[0]
             this.slug = this.$route.params.slug
 
+            let domain = process.env.domains[this.shop.domain ? this.shop.domain : 0]
+            
+            if (!this.domain.includes(domain)) {
+                this.shop = null
+                return
+            }
+
             let content = await this.$store.dispatch('landings/get', {
                 update: false,
                 query: {
@@ -51,10 +58,11 @@ export default {
         content: null
     }),
     computed: {
+        domain () { return this.$store.state.domain },
         subdomain () { return this.$store.state.subdomain }
     },
     mounted () {
-        if (!this.shop) window.location = this.$baseUrl
+        // if (!this.shop) window.location = this.$baseUrl
     },
     head () {
         let meta = {

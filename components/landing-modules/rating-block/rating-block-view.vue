@@ -45,7 +45,7 @@ export default {
     }),
     computed: {
         reviews () {
-            return this.shop.reviews.filter(r => r.rating >= 5 && r.comment && !this.disabled.includes(r._id))
+            return this.shop.reviews && this.shop.reviews.filter(r => r.rating >= 5 && r.comment && !this.disabled.includes(r._id))
         }
     },
     mounted () {

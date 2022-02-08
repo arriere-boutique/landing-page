@@ -33,7 +33,7 @@ export default {
         navItems () {
             return [
                 { label: 'Général', isActive: this.section == 'index', onClick: () => this.section = 'index' },
-                { label: 'Noms de domaine', isActive: this.section == 'domains', onClick: () => this.section = 'domains' },
+                { label: 'Mes liens', isActive: this.section == 'domains', onClick: () => this.section = 'domains' },
                 { label: 'Paramètres', isActive: this.section == 'config', onClick: () => this.section = 'config' },
             ]
         }
