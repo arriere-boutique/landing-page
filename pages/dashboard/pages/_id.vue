@@ -241,6 +241,23 @@ export default {
             }
         }
     },
+    beforeDestroy () {
+        window.removeEventListener('beforeunload', this.checkChanges)
+    },
+    beforeRouteLeave (to, from, next) {
+        if (!this.checkChanges()) {
+            next()
+        } else {
+            if (confirm(`Tes modifications n'ont pas été enregistrées. Veux-tu vraiment quitter cette page ?`)) {
+                next()
+            }
+        }
+    },
+    created () {
+        if (process.client) {
+            window.addEventListener('beforeunload', this.checkChanges)
+        }
+    },
     mounted () {
         this.formData = {
             ...this.decodeForm(this.formData),
@@ -250,6 +267,16 @@ export default {
         this.isLoading = false
     },
     methods: {
+        checkChanges (e) {
+            e = e || window.event
+
+            if (this.changesMade) {
+                if (e) e.returnValue = `Tes modifications n'ont pas été enregistrées`
+                return `Tes modifications n'ont pas été enregistrées`
+            }
+
+            return false
+        },
         deleteModule (id) {
             this.formData.modules = this.formData.modules.filter(m => m.id != id)
         },

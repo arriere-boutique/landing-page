@@ -5,15 +5,15 @@
 
             <div class="Grid">
                 <div class="cw-8 cw-12@s">
-                    <div class="Tile fx-align-end bg-gum-xweak">
+                    <div class="Tile fx-align-end is-gum">
                         <div>
                             <i class="fal fa-xl fa-sparkles"></i>
 
-                            <p class="ft-xl-bold mv-15">
+                            <p class="ft-xl-bold mt-30 mb-10">
                                 Seuls ceux qui prendront le risque d'aller trop loin découvriront jusqu'où on peut aller.
                             </p>
 
-                            <p class="ft-hand-2xs">thomas Stearns eliot</p>
+                            <p class="Tag n-ml-5">Thomas Stearns Eliot</p>
                         </div>
                     </div>
                 </div>
@@ -23,45 +23,45 @@
                     </div>
                 </div>
                 <div class="cw-4 cw-12@s">
-                    <div class="Tile fx-dir-column fx-justify-between bg-emerald-xweak">
+                    <div class="Tile fx-dir-column fx-justify-between is-emerald">
                         <div>
                             <i class="fal fa-lg fa-coin"></i>
 
                             <p class="ft-xl-bold">Chiffre d'affaire</p>
-                            <p class="ft-s-medium text-uppercase">30 derniers jours</p>
+                            <p class="Tag Tag--s n-ml-5 mt-5">30 derniers jours</p>
                         </div>
 
-                        <p class="ft-4xl-bold mt-20">
+                        <p class="ft-4xl-bold mt-30">
                             {{ getTotalProfit()|round }}<span class="ft-xl-bold">€</span>
                         </p>
                     </div>
                 </div>
                 <div class="cw-4 cw-12@s">
-                    <div class="Tile fx-dir-column fx-justify-between bg-precious-xweak">
+                    <div class="Tile fx-dir-column fx-justify-between is-precious">
                         <div>
                             <i class="fal fa-lg fa-box"></i>
 
                             <p class="ft-xl-bold">Commandes</p>
-                            <p class="ft-s-medium text-uppercase">30 derniers jours</p>
+                            <p class="Tag Tag--s n-ml-5 mt-5">30 derniers jours</p>
                         </div>
 
-                        <p class="ft-5xl-bold mt-20">
+                        <p class="ft-5xl-bold mt-30">
                             {{ getOrderCount() }}
                         </p>
                     </div>
                 </div>
-                <div class="cw-8 cw-12@s is-sunset" v-if="reviews.length > 0">
+                <div class="cw-8 cw-12@s is-duck" v-if="reviews.length > 0">
                     <div class="Tile fx-dir-column fx-justify-between">
                         <div>
-                            <div>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
+                            <div class="Tag Tag--s n-ml-5">
+                                <i class="fas fa-star mr-3"></i>
+                                <i class="fas fa-star mr-3"></i>
+                                <i class="fas fa-star mr-3"></i>
+                                <i class="fas fa-star mr-3"></i>
                                 <i class="fas fa-star"></i>
                             </div>
 
-                            <p class="ft-s-medium mt-10">
+                            <p class="ft-m-medium mt-15">
                                 {{ reviews[randomReview].comment }}
                             </p>
                         </div>

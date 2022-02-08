@@ -1,6 +1,6 @@
 <template>
     <div
-        class="LandingBlock"
+        class="LandingBlock is-ice"
         :class="{ 'is-disabled': !isActive, ...$modifiers }"
         @click="goEdit"
     >
@@ -23,8 +23,8 @@
             </div>
 
             <div class="d-flex fx-justify-between fx-align-center mt-20">
-                <div class="ft-s-medium" v-if="isHome">
-                    <span class="round-s bg-bg-xweak mr-5"><i class="fal fa-home"></i></span>
+                <div class="Tag Tag--s n-ml-0" v-if="isHome">
+                    <i class="fal fa-home mr-5"></i>
                     Page d'accueil
                 </div>
                 <div v-else>

@@ -29,8 +29,8 @@
                 </div>
             </div>
             
-            <div class="text-right ft-s-bold mt-20">
-                <span class="ft-m-bold mr-5">Total</span>
+            <div class="d-flex fx-justify-end mt-20">
+                <span class="Tag mr-10 n-mt-3">Total</span>
                 <span class="ft-3xl-bold line-1">{{ totalPrice|round }}<span class="ft-s-bold">€</span></span>
             </div>
         </div>
@@ -48,8 +48,8 @@
                 </input-base>
             </div>
             
-            <div class="text-right ft-s-bold mt-20">
-                <span class="ft-m-bold mr-5">Total</span>
+            <div class="d-flex fx-justify-end mt-20">
+                <span class="Tag mr-10 n-mt-3">Total</span>
                 <span class="ft-3xl-bold line-1">{{ totalShipping|round }}<span class="ft-s-bold">€</span></span>
             </div>
         </div>
@@ -70,13 +70,13 @@
                 </div>
             </div>
             
-            <div class="text-right ft-s-bold mt-20">
-                <span class="ft-m-bold mr-5">Total</span>
+            <div class="d-flex fx-justify-end mt-20">
+                <span class="Tag mr-10 n-mt-3">Total</span>
                 <span class="ft-3xl-bold line-1">{{ totalProduction|round }}<span class="ft-s-bold">€</span></span>
             </div>
         </div>
 
-        <div class="Tile cw-6 bg-sunset-xweak cw-12@s">
+        <div class="Tile cw-6 is-sunset cw-12@s">
             <div>
                 <p class="ft-l-bold mb-10"><i class="fal fa-coin mr-3"></i> Frais de plateforme</p>
 
@@ -97,8 +97,8 @@
                 </div>
             </div>
             
-            <div class="text-right ft-s-bold mt-20">
-                <span class="ft-m-bold mr-5">Total</span>
+            <div class="d-flex fx-justify-end mt-20">
+                <span class="Tag mr-10 n-mt-3">Total</span>
                 <span class="ft-3xl-bold line-1">{{ totalEtsyFees|round }}<span class="ft-s-bold">€</span></span>
             </div>
         </div>
@@ -149,7 +149,8 @@
 
             <div class="mt-20">
                 <div class="d-flex fx-align-center text-right fx-justify-end">
-                    <span class="round mr-10" :class="[ totalRemaining > 0 ? 'bg-emerald-weak' : 'bg-pepper-xweak' ]"><i class="fal fa-coin"></i></span>
+                    <span class="Tag mr-10" :class="[ totalRemaining > 0 ? 'bg-emerald-weak' : 'bg-pepper-xweak' ]"><i class="fal fa-coin mr-5"></i> Profit restant</span>
+
                     <p class="ft-4xl-bold">{{ totalRemaining|round }}<span class="ft-xl-bold">€</span></p>
                 </div>
                     
