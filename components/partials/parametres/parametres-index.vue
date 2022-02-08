@@ -14,7 +14,7 @@
             <div class="col-4 pv-10 d-flex col-12@s" :style="{ minHeight: '325px' }" v-if="!token">
                 <div class="text-center height-100 d-flex width-100 fx-justify-center br-m fx-align-center bg-ice-xweak">
                     <div>
-                        <button-base icon-before="plus" :class="{ 'is-disabled': shops.length >= 1 }" :modifiers="['ice']" @click="connectShop">Connecter une boutique</button-base>
+                        <button-base icon-before="plus" :class="{ 'is-disabled': shops.length >= 2 }" :modifiers="['ice']" @click="connectShop">Connecter une boutique</button-base>
 
                         <p class="ft-s-medium mt-15" v-if="shops.length >= 1">Le multi-boutique n'est pas encore disponible.</p>
                     </div>

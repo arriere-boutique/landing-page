@@ -30,7 +30,8 @@ export default {
             missingFields: `On dirait qu'il me manque des informations, tu veux bien vérifier s'il-te-plaît ?`,
             alreadyRegistered: `Merveilleux, tu as déjà un compte ! Essaye plutôt de te connecter.`,
             'user-not-found': `On dirait que cet utilisateur n'existe pas.`,
-            'token-expired': `Cette demande a expiré, merci de réessayer.`
+            'token-expired': `Cette demande a expiré, merci de réessayer.`,
+            'slug-taken': `Désolé, ce nom de boutique est déjà pris par un autre utilisateur.`
         }
     },
     EmailingForm: {

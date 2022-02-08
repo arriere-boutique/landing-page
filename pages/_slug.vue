@@ -62,7 +62,7 @@ export default {
         subdomain () { return this.$store.state.subdomain }
     },
     mounted () {
-        // if (!this.shop) window.location = this.$baseUrl
+        if (!this.shop) window.location = this.$baseUrl
     },
     head () {
         let meta = {

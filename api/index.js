@@ -25,7 +25,7 @@ const { createOrder, checkoutOrder } = require('./api/order');
 const { webhooks } = require('./api/webhooks');
 const { createSubscriber, getSubscribers, deleteSubscriber } = require('./api/subscribe')
 const { ping, syncEtsy, linkShop, unlinkShop, searchListings } = require('./api/etsy')
-const { editSlug } = require('./api/shop')
+const { editSlug, checkSlug } = require('./api/shop')
 const { redirect } = require('./api/oauth')
 
 app.use(morgan('combined'))
@@ -84,6 +84,7 @@ mongoose.connection.once('open', async () => {
     app.post('/etsy/unlink', unlinkShop)
 
     app.post('/shop/edit-slug', editSlug)
+    app.get('/shop/check-slug', checkSlug)
 
     app.get('/oauth/redirect', redirect)
 })

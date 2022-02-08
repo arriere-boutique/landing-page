@@ -148,6 +148,17 @@ export default {
             } catch (e) {
                 return storeUtils.handleErrors(e, commit, 'Échec lors de la modification')
             }
+        },
+        async checkSlug ({}, slug) {
+            try {
+                const response = await this.$axios.$get(storeUtils.getQuery('/shop/check-slug', { slug }))
+                
+                if (response.status == 0) throw Error(response.errors[0])
+
+                return response.data
+            } catch (e) {
+                return storeUtils.handleErrors(e, commit)
+            }
         }
     },
     getters: {

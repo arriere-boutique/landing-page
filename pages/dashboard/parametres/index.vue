@@ -8,7 +8,7 @@
 
             <div class="p-relative">
                 <transition name="fade">
-                    <parametres-index :shops="shops" :user="user" v-show="section == 'index'" />
+                    <parametres-index :shops="shops" :user="user" v-show="!section || section == 'index'" />
                 </transition>
 
                 <transition name="fade">
@@ -27,12 +27,23 @@ export default {
     data: () => ({ 
         section: 'index',
     }),
+    watch: {
+        section (v) {
+            this.$router.push({query: { section: v }})
+        },
+        ['$route.query.section']: {
+            immediate: true,
+            handler (v) {
+                this.section = v
+            }
+        },
+    },
     computed: {
         user () { return this.$store.state.auth.user },
         shops () { return this.$store.state.shop.items },
         navItems () {
             return [
-                { label: 'Général', isActive: this.section == 'index', onClick: () => this.section = 'index' },
+                { label: 'Général', isActive: !this.section || this.section == 'index', onClick: () => this.section = 'index' },
                 { label: 'Mes liens', isActive: this.section == 'domains', onClick: () => this.section = 'domains' },
                 { label: 'Paramètres', isActive: this.section == 'config', onClick: () => this.section = 'config' },
             ]

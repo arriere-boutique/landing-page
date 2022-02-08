@@ -23,7 +23,26 @@ exports.syncShop = async function (id, syncItems = [], firstSync = false) {
                     Authorization: `Bearer ${shop.etsyToken}`,
                 } })
 
-                if (!shop.slug) shop.slug = shopData.shop_name.toLowerCase()
+                if (!shop.slug) {
+                    let original = shopData.shop_name.toLowerCase()
+                    let slug = null
+                    let offset = 0
+
+                    while (!slug) {
+                        let newSlug = offset == 0 ? original : original + offset.toString()
+
+                        let existing = await Entities.shop.model.find({ slug: newSlug, _id: { $ne: shop._id } })
+
+                        if (existing.length == 0) {
+                            slug = newSlug
+                        }
+                        
+                        offset += 1
+                    }
+
+                    shop.slug = slug
+                }
+
                 shop.name = shopData.shop_name
                 shop.link = shopData.url
                 shop.logo = shopData.icon_url_fullxfull
@@ -35,14 +54,12 @@ exports.syncShop = async function (id, syncItems = [], firstSync = false) {
             
             if (firstSync) {
                 try {
-                    // Check duplicate pages
-                    
                     await Entities.landing.model.create({
                         isHome: true,
                         logo: shop.logo,
                         slug: 'home',
                         title: `Bienvenue chez ${shop.name} !`,
-                        link: `https://${shop.name}.${process.env.baseDomain}`,
+                        link: `https://${shop.slug}.${process.env.BASE_DOMAIN}`,
                         customization: {
                             'background': {
                                 src: 'https://images.pexels.com/photos/62693/pexels-photo-62693.jpeg'

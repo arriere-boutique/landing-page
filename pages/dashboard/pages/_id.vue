@@ -14,7 +14,7 @@
                 <nav-bar class="mb-40" :items="navItems" />
 
                 <transition name="fade">
-                    <div v-if="section == 'modules'">
+                    <div v-if="!section || section == 'modules'">
                         <transition-group name="default" tag="div">
                             <component
                                 v-for="module in orderedModules" :key="module.id" class="mb-10"
@@ -62,26 +62,16 @@
                 
                 <transition name="fade">
                     <div v-if="section == 'config'">
-                        <input-base label="Titre de la page" v-model="formData.title">
+                        <input-base label="Titre de la page" class="mv-10" v-model="formData.title">
                             <tooltip text="Ce titre s'affichera dans les résultats Google." />
                         </input-base>
 
-                        <div class="p-20 b br-m mv-10" v-if="!formData.isHome">
-                            <p class="ft-m-bold mb-10">Personnaliser mon lien</p>
+                        <input-base class="is-disabled mv-10" :value="fullLink" label="Mon lien" />
 
-                            <div class="d-flex fx-align-center">
-                                <select-base
-                                    class="width-auto"
-                                    :options="shops.map(s => ({ id: s._id, label: s.slug.toLowerCase() }))"
-                                    :attrs="{ form: 'mainForm' }"
-                                    v-model="formData.shop"
-                                />
-                                <p class="fx-no-shrink mh-10">.arriere-boutique.fr/</p>
-
-                                <input-base v-model="formData.slug" style="min-width: 120px" :attrs="{ required: true, form: 'mainForm' }"/>
-                            </div>
-
-                            <p class="ft-xs-medium mt-10">Lien final : <span class="text-underline">{{ fullLink }}</span></p>
+                        <div class="mt-10 text-right">
+                            <link-base tag="nuxt-link" :attrs="{ to: localePath({ name: 'parametres', query: { section: 'domains' } }) }">
+                                Personnaliser mon lien
+                            </link-base>
                         </div>
                     </div>
                 </transition>
@@ -209,7 +199,7 @@ export default {
         },
         navItems () {
             return [
-                { label: 'Blocs', isActive: this.section == 'modules', onClick: () => this.section = 'modules' },
+                { label: 'Blocs', isActive: !this.section || this.section == 'modules', onClick: () => this.section = 'modules' },
                 { label: 'Personnalisation', isActive: this.section == 'style', onClick: () => this.section = 'style' },
                 { label: 'Paramètres', isActive: this.section == 'config', onClick: () => this.section = 'config' },
             ]
@@ -238,6 +228,15 @@ export default {
                 if (!this.formData.modules || this.formData.modules.length <= 0) this.formData.modules = this.defaultData.modules
                 
                 this.prevFormData = { ...this.formData }
+            }
+        },
+        section (v) {
+            this.$router.push({query: { section: v }})
+        },
+        ['$route.query.section']: {
+            immediate: true,
+            handler (v) {
+                this.section = v
             }
         }
     },

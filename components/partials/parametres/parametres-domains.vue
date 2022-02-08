@@ -22,7 +22,7 @@
                     <form @submit.prevent="() => onSubmit(shop._id)" class="mt-20 bg-bg-xweak br-s p-20">
                         <p class="ft-m-bold">Modifier mon lien</p>
 
-                        <input-base label="Nom de boutique" class="mt-20" v-model="formData[shop._id].slug" />
+                        <input-base label="Nom de boutique" class="mt-20" v-model="formData[shop._id].slug" :validator="$validator('slug')" />
 
                         <select-base label="Domaine" class="mv-10" v-model="formData[shop._id].domain" :options="DOMAINS" />
 

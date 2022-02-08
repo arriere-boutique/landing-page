@@ -42,6 +42,7 @@ exports.linkShop  = async function (req, res) {
     let errors = []
     let data = null
     let user = await authenticate(req.headers)
+    let existed = false
     
     try {
         if (!req.body.etsyId || !req.body.etsyToken) throw Error('missingToken')
@@ -54,6 +55,7 @@ exports.linkShop  = async function (req, res) {
         }
         
         if (existing) {
+            existed = true
             data = await Entities.shop.model.findByIdAndUpdate(existing._id, params)
         } else {
             data = await Entities.shop.model.create({
@@ -65,7 +67,7 @@ exports.linkShop  = async function (req, res) {
             await Entities.user.model.findByIdAndUpdate(user._id, { shops })
         }
 
-        data = await syncShop(data._id, ['info', 'listings', 'orders', 'listing-photos', 'reviews'], true)
+        data = await syncShop(data._id, ['info', 'listings', 'orders', 'listing-photos', 'reviews'], !existed)
     } catch (e) {
         console.warn(e)
         errors.push(e.message)
