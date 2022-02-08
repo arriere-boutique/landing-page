@@ -213,7 +213,7 @@ const syncListings = async function (shop, syncImages = false) {
                 for (let listing of listingData.results) {
                     let data = {
                         id: listing.listing_id,
-                        title: listing.title.replaceAll('&#39;', `'`),
+                        title: listing.title.replaceAll('&#39;', `'`).replaceAll('&quot;', `"`),
                         status: listing.state,
                         price: listing.price,
                         link: listing.url,
