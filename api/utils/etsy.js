@@ -8,7 +8,8 @@ exports.syncShop = async function (id, syncItems = [], firstSync = false) {
         try {
             const shop = await Entities.shop.model.findById(id)
 
-            if (moment(shop.etsyRefreshed).isBefore(moment())) {
+            if (!shop.etsyRefreshed || moment(shop.etsyRefreshed).isBefore(moment())) {
+                console.log('====> REFRESH')
                 let refresh = await refreshToken(shop)
 
                 shop.etsyToken = refresh.access_token
@@ -18,38 +19,42 @@ exports.syncShop = async function (id, syncItems = [], firstSync = false) {
             }
         
             if (syncItems.includes('info')) {
-                const shopData = await $fetch(`https://openapi.etsy.com/v3/application/users/${shop.etsyId}/shops`, { headers: {
-                    'x-api-key': process.env.ETSY,
-                    Authorization: `Bearer ${shop.etsyToken}`,
-                } })
+                try {
+                    const shopData = await $fetch(`https://openapi.etsy.com/v3/application/users/${shop.etsyId}/shops`, { headers: {
+                        'x-api-key': process.env.ETSY,
+                        Authorization: `Bearer ${shop.etsyToken}`,
+                    } })
 
-                if (!shop.slug) {
-                    let original = shopData.shop_name.toLowerCase()
-                    let slug = null
-                    let offset = 0
+                    if (!shop.slug) {
+                        let original = shopData.shop_name.toLowerCase()
+                        let slug = null
+                        let offset = 0
 
-                    while (!slug) {
-                        let newSlug = offset == 0 ? original : original + offset.toString()
+                        while (!slug) {
+                            let newSlug = offset == 0 ? original : original + offset.toString()
 
-                        let existing = await Entities.shop.model.find({ slug: newSlug, _id: { $ne: shop._id } })
+                            let existing = await Entities.shop.model.find({ slug: newSlug, _id: { $ne: shop._id } })
 
-                        if (existing.length == 0) {
-                            slug = newSlug
+                            if (existing.length == 0) {
+                                slug = newSlug
+                            }
+                            
+                            offset += 1
                         }
-                        
-                        offset += 1
+
+                        shop.slug = slug
                     }
 
-                    shop.slug = slug
+                    shop.name = shopData.shop_name
+                    shop.link = shopData.url
+                    shop.logo = shopData.icon_url_fullxfull
+                    shop.id = shopData.shop_id
+                    shop.openingDate = shopData.create_date
+
+                    shop.save()
+                } catch (e) {
+                    console.error(e)
                 }
-
-                shop.name = shopData.shop_name
-                shop.link = shopData.url
-                shop.logo = shopData.icon_url_fullxfull
-                shop.id = shopData.shop_id
-                shop.openingDate = shopData.create_date
-
-                shop.save()
             }
             
             if (firstSync) {
@@ -110,6 +115,7 @@ exports.syncShop = async function (id, syncItems = [], firstSync = false) {
 }
 
 const refreshToken = async function (shop) {
+    console.log('REFRESH')
     return new Promise(async (resolve, reject) => {
         try {
             const refresh = await $fetch(`https://api.etsy.com/v3/public/oauth/token`, {

@@ -5,7 +5,7 @@
                 <b class="color-current-strong ft-m-medium"><i class="fal mr-5" :class="[`fa-${metadata.fa}`]"></i> {{ metadata.title }}</b>
             </div>
 
-            <div class="ft-s color-current"><span>{{ subtitle }}</span></div>
+            <div class="Tag Tag--s mt-5"><span>{{ subtitle }}</span></div>
         </div>
 
         <div class="d-flex fx-align-center fx-no-shrink">
