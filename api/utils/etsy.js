@@ -9,7 +9,6 @@ exports.syncShop = async function (id, syncItems = [], firstSync = false) {
             const shop = await Entities.shop.model.findById(id)
 
             if (!shop.etsyRefreshed || moment(shop.etsyRefreshed).isBefore(moment())) {
-                console.log('====> REFRESH')
                 let refresh = await refreshToken(shop)
 
                 shop.etsyToken = refresh.access_token

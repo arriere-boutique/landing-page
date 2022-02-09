@@ -9,7 +9,7 @@
 
             <div class="HeaderBase_right">
                 <nav class="HeaderBase_nav">
-                    <div v-for="(item, key) in itemsLeft" class="HeaderBase_navParent" :class="{ 'is-parent': item.items != undefined }"  :key="key">
+                    <div v-for="(item, key) in items.filter(i => !i.isDisabled)" class="HeaderBase_navParent" :class="{ 'is-parent': item.items != undefined }"  :key="key">
                         <component  class="HeaderBase_navLink" :is="item.path ? 'nuxt-link' : 'a'" :to="localePath(item.path)" :href="item.href" :target="item.target ? item.target : ''">
                             {{ item.label }}
                         </component>
@@ -26,7 +26,7 @@
             </div>
 
             <div class="HeaderBase_menu" :class="{ 'is-active': state.isMenu }">
-                <div class="HeaderBase_navParent" v-for="(item, key) in itemsLeft" :key="key">
+                <div class="HeaderBase_navParent" v-for="(item, key) in items.filter(i => !i.isDisabled)" :key="key">
                     <component
                         class="HeaderBase_navLink"
                         :is="item.path ? 'nuxt-link' : 'a'"
@@ -51,8 +51,7 @@ export default {
     name: 'HeaderBase',
     data: () => ({
         scroll: process.client ? window.pageYOffset : 0,
-        itemsLeft: [],
-        itemsRight: [],
+        items: [],
         state: {
             isScrolled: false,
             isMenu: false
@@ -73,11 +72,11 @@ export default {
         user () { return this.$store.state.auth.user }
     },
     mounted () {
-        this.$data.itemsLeft = {
-            register: { label: 'Créer mon Arrière Boutique', href: process.env.dashboardUrl + '/register' },
-            blog: { label: 'Le blog', href: process.env.blogUrl },
-            login: { label: 'Se connecter', href: process.env.dashboardUrl }
-        }
+        this.$data.items = [
+            { label: 'Créer mon Arrière Boutique', href: process.env.dashboardUrl + '/register', isDisabled: this.user && this.user.role !== 'guest' },
+            { label: 'Le blog', href: process.env.blogUrl },
+            { label: 'Se connecter', href: process.env.dashboardUrl, isDisabled: this.user && this.user.role !== 'guest' }
+        ]
 
         if (process.server) return
 
