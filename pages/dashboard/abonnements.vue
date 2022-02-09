@@ -20,7 +20,7 @@
             <div class="mt-30">
                 <p class="Title--s mb-10">Donne + et <b>obtiens des récompenses !</b></p>
 
-                <div class="Gift d-flex" :class="[ `is-${extra.color}`, { 'is-active': i <= selected }]" v-for="(extra, i) in extras" :key="i">
+                <div class="Gift d-flex" :class="[ `is-${extra.color}`, { 'is-active': i <= selected, 'is-hovered': hovered && i <= hovered }]" v-for="(extra, i) in extras" @mouseenter="hovered = i" @mouseleave="hovered = null" :key="i">
                     <div class="Gift_jauge">
                         <p class="Tag mv-10">
                             <i class="fal fa-check" v-if="i <= selected"></i>
@@ -50,12 +50,16 @@
                                 </div>
                             </div>
 
-                            <div class="ft-s-medium bg-current-xweak color-current-strong p-10 br-s mt-10 fx-center" v-if="i >= selected">
-                                Valeur totale : {{ (extra.duration * monthlyPrice) + extrasTotal(i).reduce((t, e) => t + e.value, 0)|round }}€
+                            <div class="ft-s-medium bg-current-xweak color-current-strong p-10 br-s mt-10 fx-center" v-if="i == selected">
+                                Valeur totale : {{ extrasTotalAmount(i)|round }}€
+                            </div>
+
+                            <div class="ft-s-medium bg-current-xweak color-current-strong p-10 br-s mt-10 fx-center" v-if="i > selected">
+                                Valeur : +{{ (extrasTotalAmount(i) - totalExtrasAmount)|round }}€
                             </div>
                         </div>
                         <div class="col-4">
-                            <div class="text-center p-10 d-flex fx-align-center fx-justify-center bg-current-xweak br-s height-100">
+                            <div class="text-center p-10 d-flex fx-align-center fx-justify-center br-s height-100" :class="i <= selected ? ['bg-current-xweak'] : ['b']">
                                 <div @click="selected = i" v-if="i > selected">
                                     <button-base :modifiers="['current']">
                                         Débloquer 
@@ -66,15 +70,9 @@
                                 
                                 <div v-else-if="i >= selected">
                                     <p class="Tag">Mon don : {{ extra.amount }}€</p>
-
-                                    <!-- <p class="Tag mt-10">Valeur totale : {{ ((extra.duration - 3) * 3.33) + extrasTotal(i).reduce((t, e) => t + e.value, 0)|round }}€</p> -->
                                 </div>
 
                                 <div v-else>
-                                    <!-- <div class="mb-20" v-if="i != 0">
-                                        <i class="fal fa-check color-current"></i>
-                                    </div> -->
-
                                     <link-base tag="button" :modifiers="['current']"  @click="selected = i">Rétrograder</link-base>
                                 </div>
                             </div>
@@ -122,19 +120,18 @@ export default {
     layout: 'dashboard',
     data: () => ({
         selected: 1,
-        monthlyPrice: 6.99,
+        hovered: null,
+        monthlyPrice: 8.99,
         extras: [
             { amount: 10, duration: 2, extras: [], color: 'emerald' },
-            { amount: 15, duration: 3, color: 'pond', extras: [
+            { amount: 20, duration: 3, color: 'pond', extras: [
                 {
                     id: 1,
                     value: 11.99,
                     image: 'https://i.etsystatic.com/31300252/r/il/0d5b85/3550914061/il_1588xN.3550914061_hs3x.jpg',
                     text: `24 stickers assortis pour tes commandes`,
                     short: '24 stickers assortis'
-                }
-            ] },
-            { amount: 25, duration: 4, color: 'ice', extras: [
+                },
                 {
                     id: 2,
                     value: 14.99,
@@ -143,22 +140,23 @@ export default {
                     short: '1 calendrier'
                 }
             ] },
-            { amount: 45, duration: 5, color: 'gum', extras: [
+            { amount: 45, duration: 6, color: 'ice', extras: [
+                {
+                    id: 4,
+                    value: 32.99,
+                    image: 'https://i.etsystatic.com/31300252/r/il/4157d4/3503142634/il_794xN.3503142634_cp8w.jpg',
+                    text: `72 stickers personnalisés avec ton logo`,
+                    short: '72 stickers logo'
+                },
                 {
                     id: 3,
-                    value: 11.99,
+                    value: 21.99,
                     image: 'https://i.etsystatic.com/31300252/r/il/74b0d3/3576593512/il_1588xN.3576593512_lkm6.jpg',
-                    text: `1 calepin to-do list de l'Arrière Boutique`,
-                    short: '1 calepin to-do'
-                }, {
-                    id: 4,
-                    value: 24.99,
-                    image: 'https://i.etsystatic.com/31300252/r/il/4157d4/3503142634/il_794xN.3503142634_cp8w.jpg',
-                    text: `48 stickers personnalisés avec ton logo`,
-                    short: '48 stickers logo'
+                    text: `2 calepins to-do list de l'Arrière Boutique`,
+                    short: '2 calepin to-do'
                 },
             ] },
-            { amount: 85, duration: 6, color: 'precious', extras: [
+            { amount: 75, duration: 6, color: 'precious', extras: [
                 {
                     id: 5,
                     value: 59.90,
@@ -176,6 +174,9 @@ export default {
         totalExtras () {
             return this.extrasTotal(this.selected)
         },
+        totalExtrasAmount () {
+            return this.totalExtras.reduce((t, e) => t + e.value, 0) + (this.currentExtra.duration * this.monthlyPrice)
+        },
         allExtras () {
             return this.extras.reduce((t, e) => {
                 return [ ...t, ...e.extras]
@@ -187,6 +188,9 @@ export default {
             return this.extras.reduce((t, e, index) => {
                 return index <= selected ? [ ...t, ...e.extras.map(ex => ({ ...ex, isNew: index == selected })) ] : t
             }, [])
+        },
+        extrasTotalAmount (selected) {
+            return this.extrasTotal(selected).reduce((t, e) => t + e.value, 0) + (this.extras[selected].duration * this.monthlyPrice)
         }
     }
 }
@@ -220,7 +224,8 @@ export default {
 
     .Gift {
 
-        &.is-active {
+        &.is-active,
+        &.is-hovered {
 
             .Gift_content {
                 opacity: 1;
@@ -254,9 +259,6 @@ export default {
 
         &:hover {
             opacity: 1;
-        }
-
-        &:hover {
             transform: translateY(-2px);
         }
 
