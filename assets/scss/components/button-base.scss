@@ -48,6 +48,39 @@
     font-size: 18px;
 }
 
+.ButtonBase--glow {
+    overflow: hidden;
+
+    &::before {
+        content: "";
+        display: block;
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background-color: var(--color-pond-strong);
+        background: linear-gradient(90deg, var(--color-pond), var(--color-pond-weak));
+        transform-origin: center;
+        animation: gradient-glow 6s ease-in-out 0s infinite;
+    }
+
+    .ButtonBase_content {
+        position: relative;
+        z-index: 2;
+    }
+}
+
+@keyframes gradient-glow {
+    0% {transform: rotate(0deg) translate3d(0, 0, 0); }
+    15% {transform: rotate(-8deg) translate3d(8%, -5%, 0); }
+    30% {transform: rotate(5deg) translate3d(-20%, 3%, 0); }
+    50% {transform: rotate(16deg) translate3d(2%, -2%, 0); }
+    65% {transform: rotate(-8deg) translate3d(15%, -6%, 0); }
+    80% {transform: rotate(12deg) translate3d(3%, 3%, 0); }
+    100% {transform: rotate(0deg) translate3d(0, 0, 0); }
+}
+
 @each $color in $main-colors {
 
     .ButtonBase--#{$color} {
@@ -62,6 +95,13 @@
             box-shadow: 0 0px 3px 0 var(--color-#{$color});
             background-color: var(--color-#{$color}-strong);
         }
+
+        &.ButtonBase--glow {
+
+            &::before {
+                background: linear-gradient(90deg, var(--color-#{$color}), var(--color-#{$color}-weak));
+            }
+        }
     }
 
     .ButtonBase--icon-#{$color} {
@@ -70,6 +110,20 @@
         .ButtonBase_iconBefore {
             color: var(--color-#{$color});
         }
+    }
+}
+
+.ButtonBase--current {
+    background-color: var(--color-current-strong);
+    box-shadow: 0 3px 8px 0 var(--color-current-50);
+
+    &:hover {
+        box-shadow: 0 1px 4px 0 var(--color-current-75);
+    }
+
+    &:active {
+        box-shadow: 0 0px 3px 0 var(--color-current);
+        background-color: var(--color-current-strong);
     }
 }
 
@@ -244,6 +298,25 @@
             .ButtonBase_iconBefore {
                 color: var(--color-#{$color});
             }
+        }
+    }
+
+    &.ButtonBase--light {
+        color: var(--color-ft-light);
+        border-color: var(--color-ft-light);
+
+        &:hover {
+            color: var(--color-ft);
+            background-color: var(--color-ft-light);
+            border-color: var(--color-ft-light);
+
+            .ButtonBase_iconBefore {
+                color: var(--color-ft-light);
+            }
+        }
+
+        .ButtonBase_iconBefore {
+            color: var(--color-ft-light);
         }
     }
 }

@@ -247,3 +247,60 @@
 .c-pointer {
     cursor: pointer;
 }
+
+.glow {
+    position: relative;
+    overflow: hidden;
+    color: var(--color-ft-light);
+
+    & > * {
+        position: relative;
+        z-index: 1;
+    }
+
+    &::before {
+        content: "";
+        display: block;
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background-color: var(--color-current-strong);
+        background: linear-gradient(90deg, var(--color-current), var(--color-current-weak));
+        transform-origin: center;
+        animation: glow 6s ease-in-out 0s infinite;
+    }
+}
+
+@keyframes glow {
+    0% {transform: rotate(0deg) translate3d(0, 0, 0); }
+    15% {transform: rotate(-4deg) translate3d(-5%, -5%, 0); }
+    30% {transform: rotate(3deg) translate3d(-20%, 3%, 0); }
+    50% {transform: rotate(5deg) translate3d(8%, -2%, 0); }
+    65% {transform: rotate(-4deg) translate3d(15%, -6%, 0); }
+    80% {transform: rotate(2deg) translate3d(3%, 3%, 0); }
+    100% {transform: rotate(0deg) translate3d(0, 0, 0); }
+}
+
+.checklist {
+    padding: 0;
+
+    li {
+        display: flex;
+        list-style-type: none;
+        margin: 0;
+        font: var(--ft-m-medium);
+
+        &::before {
+            content: "\f00c";
+            font: var(--ft-icon-m);
+            line-height: 1.75;
+            margin-right: 10px;
+        }
+
+        &.is-plus::before {
+            content: "\2b";
+        }
+    }
+}

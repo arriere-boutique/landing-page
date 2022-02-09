@@ -4,6 +4,7 @@
     display: inline-block;
     position: relative;
     cursor: pointer;
+    padding: 0;
 
     &::before {
         content: "";
@@ -75,5 +76,13 @@
         &::before {
             background-color: var(--color-#{$color});
         }
+    }
+}
+
+.LinkBase--current {
+    color: var(--color-current);
+
+    &::before {
+        background-color: var(--color-current);
     }
 }
