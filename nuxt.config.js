@@ -42,7 +42,7 @@ export default {
             name: 'Nuxt.js PWA Coffee Shop',
             short_name: 'Nuxt.js PWA',
             lang: 'fr',
-            display: 'standalone',
+            display: 'fullscreen',
         },
         workbox: {
             runtimeCaching: [ {
