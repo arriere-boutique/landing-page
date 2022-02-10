@@ -51,11 +51,11 @@ exports.checkoutOrder = async function (req, res) {
     let data = {}
 
     try {
-        let order = await Entities.order.model.findById(req.body.id)
-        if (!order) throw Error('order-not-found')
+        let order = req.body.id ? await Entities.order.model.findById(req.body.id) : null
+        if (!order && !req.body.price) throw Error('order-not-found')
         
         let intent = await req.app.locals.stripe.paymentIntents.create({
-            amount: order.price.total,
+            amount: order ? order.price.total : req.body.price,
             currency: 'eur',
             automatic_payment_methods: {
                 enabled: true

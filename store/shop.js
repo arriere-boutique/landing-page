@@ -20,7 +20,7 @@ export default {
         setShops (state, data) {
             state.items = data
         },
-        updateShop(state, data) {
+        updateShop (state, data) {
             state.items = state.items.map(shop => shop._id == data._id ? data : shop)
         }
     },

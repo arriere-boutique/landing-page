@@ -43,10 +43,12 @@ export default {
                 return storeUtils.handleErrors(e, commit, `Une erreur est survenue`)
             }
         },
-        async checkout ({ state }) {
+        async checkout ({ state, commit }, price) {
+
             try {
                 const response = await this.$axios.$post('/order/checkout', {
-                    id: state.order._id
+                    id: price ? null : state.order._id,
+                    price: price
                 })
                 
                 if (response.status == 0) throw Error(response.errors[0])
@@ -56,7 +58,7 @@ export default {
                 return storeUtils.handleErrors(e, commit, `Une erreur est survenue`)
             }
         },
-        async fetch ({ state }, params) {
+        async fetch ({ state, commit }, params) {
             try {
                 const response = await this.$axios.$get(storeUtils.getQuery('/entities', {
                     ...params.query,

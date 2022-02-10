@@ -7,6 +7,12 @@
 .Wrapper--left {
     margin: 0 40px;
     width: auto;
+
+    &.Wrapper--s {
+        margin: 0 40px;
+        width: auto;
+        max-width: 800px;
+    }
 }
 
 .Wrapper--m {
