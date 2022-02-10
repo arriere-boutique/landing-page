@@ -10,7 +10,7 @@
         <div class="d-flex">
             <form id="mainForm" @submit.prevent="update"></form>
 
-            <div class="fx-grow max-width-l" v-if="isInit">
+            <div class="fx-grow" v-if="isInit">
                 <nav-bar class="mb-40" :items="navItems" />
 
                 <transition name="fade">
@@ -98,7 +98,7 @@
                     </template>
                 </action-fixed>
             </div>
-            <div class="fx-grow fx-no-shrink fx-shrink@s max-width-l" v-else>
+            <div class="fx-grow fx-no-shrink fx-shrink@s" v-else>
                 <placeholder class="br-s mb-10" :modifiers="['simple', 'h', 'xs']" />
                 <placeholder class="br-s mb-10" :modifiers="['simple', 'h', 'xs']" />
                 <placeholder class="br-s mb-20" :modifiers="['simple', 'h', 'xs']" />
@@ -334,7 +334,7 @@ export default {
             })
 
             if (response) {
-                this.$router.push({ path: this.localePath({ name: 'pages-id', params: { id: response._id } }) })
+                this.$router.push({ path: this.localePath({ name: 'pages-id', params: { id: response._id }, query: { section: this.section } }) })
             }
         }
     }
@@ -346,8 +346,7 @@ export default {
         position: relative;
         margin-left: 30px;
         border-radius: 10px;
-        min-width: 400px;
-        flex-grow: 1;
+        width: 400px;
         background: var(--color-bg-xweak);
     }
 

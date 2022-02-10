@@ -16,12 +16,12 @@
         }
 
         &.is-active-exact {
-            color: var(--color-pond-strong);
-            background-color: var(--color-pond-xweak);
+            color: var(--color-current-strong);
+            background-color: var(--color-current-xweak);
         }
 
         &:hover:not(.is-disabled) {
-            background-color: var(--color-pond-xweak);
+            background-color: var(--color-current-xweak);
         }
 
         &.is-disabled {
@@ -60,7 +60,7 @@
 }
 
 .LayoutDashboard_logo {
-    background: var(--color-pond-xweak);
+    background: var(--color-current-xweak);
     margin: 20px;
     padding: 10px;
     height: 100px;
@@ -68,7 +68,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--color-pond);
+    color: var(--color-current);
     text-align: center;
 }
 

@@ -16,7 +16,7 @@
                             <div class="text-right mt-10">
                                 <link-base class="mr-5" @click="isReset = true" type="button">Mot de passe oublié ?</link-base>
 
-                                <button-base type="submit" :modifiers="['secondary']" :class="{ 'is-disabled': state.isSuccess || state.loading }">
+                                <button-base type="submit" :modifiers="['secondary']" :class="{ 'is-loading': state.isSuccess || state.loading }">
                                     Je me connecte
                                 </button-base>
                             </div>
@@ -99,6 +99,7 @@ export default {
         async submitForm (type) {
             this.loginErrors = []
             this.registerErrors = []
+            this.state.loading = true
 
             const token = await this.$recaptcha.execute('login')
 
@@ -113,8 +114,10 @@ export default {
                     this.registerErrors = response.data.errors
                 }
             } else {
-                // window.location = process.env.dashboardUrl
+                window.location = process.env.dashboardUrl
             }
+
+            this.state.loading = false
         }
     }
 }

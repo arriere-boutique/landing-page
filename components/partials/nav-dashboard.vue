@@ -1,8 +1,8 @@
 <template>
-    <nav class="LayoutDashboard_nav" :class="{ 'is-active': isActive }">
+    <nav class="LayoutDashboard_nav" :class="{ 'is-active': isActive, 'is-pond': !hasSub, 'is-precious': hasSub }">
         <div class="LayoutDashboard_logo">
             <div class="LayoutDashboard_ab">
-                <icon-base name="logo/logo-main" class="fill-pond" :width="120" />
+                <icon-base name="logo/logo-main" class="fill-current" :width="120" />
                 <p class="ft-xs-medium mt-5">v.0.2</p>
             </div>
             <div class="LayoutDashboard_abCompact">
@@ -54,7 +54,8 @@ export default {
     }),
     computed: {
         isCompact () { return this.$store.state.page.isNavCompact },
-        shops () { return this.$store.state.shop.items }
+        shops () { return this.$store.state.shop.items },
+        hasSub () { return this.$store.state.user.hasSubscription },
     },
     watch: {
         shops: {

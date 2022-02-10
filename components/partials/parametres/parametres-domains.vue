@@ -24,7 +24,7 @@
 
                         <input-base label="Nom de boutique" class="mt-20" v-model="formData[shop._id].slug" :validator="$validator('slug')" />
 
-                        <select-base label="Domaine" class="mv-10" v-model="formData[shop._id].domain" :options="DOMAINS" />
+                        <select-base label="Domaine" class="mv-10" v-model="formData[shop._id].domain" :options="domains" />
 
                         <transition name="fade">
                             <div v-show="formData[shop._id].slug != shop.slug || formData[shop._id].domain != shop.domain">
@@ -48,10 +48,6 @@
 
 <script>
 import { InputBase, SelectBase } from 'instant-coffee-core'
-const DOMAINS = [
-    { id: 0, label: 'arriere-boutique.local', value: 0 },
-    { id: 1, label: 'mapetite.local', value: 1 },
-]
 
 export default {
     name: 'ParametresDomains',
@@ -61,7 +57,7 @@ export default {
         user: { type: Object, default: () => ({}) }
     },
     data: () => ({
-        DOMAINS,
+        domains: process.env.domains.map((d, i) => ({ id: i, value: i, label: d })),
         errors: [],
         formData: {}
     }),
