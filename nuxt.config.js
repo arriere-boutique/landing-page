@@ -44,7 +44,7 @@ export default {
             background_color: '#fff1f4',
             theme_color: '#3ec9ce',
             lang: 'fr',
-            display: 'fullscreen',
+            display: 'standalone',
         },
         workbox: {
             runtimeCaching: [ {
