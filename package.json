@@ -16,6 +16,7 @@
     "@nuxtjs/auth": "^4.9.1",
     "@nuxtjs/axios": "^5.12.2",
     "@nuxtjs/recaptcha": "^1.0.4",
+    "@zxing/library": "^0.19.1",
     "aws-sdk": "^2.664.0",
     "bcrypt": "^5.0.1",
     "body-parser": "^1.19.0",

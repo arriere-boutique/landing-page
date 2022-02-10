@@ -1,90 +1,105 @@
 <template>
-    <div>
-        <div class="test" ref="test"></div>
+    <div class="MainContainer">
+        <div class="VideoContainer">
+            <video class="video" ref="video"></video>
+        </div>
 
-        <p>{{ result }}</p>
+        <div class="content"> 
+            <p>{{ result }}</p>
+
+            <select v-model="selectedDevice">
+                <option v-for="device in devices" :value="device.deviceId" :key="device.deviceId">
+                    {{ device.label }}
+                </option>
+            </select>
+        </div>
     </div>
 </template>
 
 <script>
-import Quagga from 'quagga'
+import { BrowserMultiFormatReader } from '@zxing/library'
 
 export default {
     layout: 'dashboard',
     data: () => ({
-        result: ''
+        result: '',
+        selectedDevice: null,
+        devices: [],
+        codeReader: null
     }),
+    watch: {
+        selectedDevice (v) {
+            if (v !== null) this.initReader()
+        }
+    },
     mounted () {
-        Quagga.init({
-                inputStream : {
-                name : "Live",
-                type : "LiveStream",
-				constraints: {
-					width: {min: 640},
-					height: {min: 480},
-					aspectRatio: {min: 1, max: 100},
-					facingMode: "environment"
-				},
-                target: this.$refs.test
-            },
-            decoder : {
-                readers : ["code_128_reader"]
-            }
-        }, function(err) {
-            if (err) {
-                console.log(err);
-                return
-            }
-            console.log("Initialization finished. Ready to start");
-            Quagga.start();
+        this.codeReader = new BrowserMultiFormatReader()
+
+        this.codeReader.listVideoInputDevices().then(videoInputDevices => {
+            this.selectedDevice = videoInputDevices[0].deviceId
+            this.devices = videoInputDevices
+        }).catch((err) => {
+          console.error(err)
         })
-
-        
-	    Quagga.onProcessed(function(result) {
-            var drawingCtx = Quagga.canvas.ctx.overlay,
-                drawingCanvas = Quagga.canvas.dom.overlay;
-    
-            if (result) {
-                if (result.boxes) {
-                    drawingCtx.clearRect(0, 0, parseInt(drawingCanvas.getAttribute("width")), parseInt(drawingCanvas.getAttribute("height")));
-                    result.boxes.filter(function (box) {
-                        return box !== result.box;
-                    }).forEach(function (box) {
-                        Quagga.ImageDebug.drawPath(box, {x: 0, y: 1}, drawingCtx, {color: "green", lineWidth: 2});
-                    });
-                }
-    
-                if (result.box) {
-                    Quagga.ImageDebug.drawPath(result.box, {x: 0, y: 1}, drawingCtx, {color: "#00F", lineWidth: 2});
-                }
-    
-                if (result.codeResult && result.codeResult.code) {
-                    Quagga.ImageDebug.drawPath(result.line, {x: 'x', y: 'y'}, drawingCtx, {color: 'red', lineWidth: 3});
-                }
-            }
-        })
-
-        Quagga.onDetected((result) => {    		
-            if (result.codeResult.code != this.result){
-                this.result = result.codeResult.code	
-            }
-        })
-
-
+    },
+    methods: {
+        initReader () {
+            this.codeReader.decodeFromVideoDevice(this.selectedDevice, this.$refs.video, (result, err) => {
+                if (result) this.result = result.text
+            })
+        }
     }
 }
 </script>
 
 <style lang="scss">
-    .test {
+    .VideoContainer {
         width: 100%;
-        height: 500px;
         position: relative;
 
-        .drawingBuffer {
+        &::before {
+            content: "";
+            padding-bottom: 100%;
+            display: block;
+        }
+
+        .video {
             position: absolute;
             top: 0;
             left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+
+    @include breakpoint-s {
+        .MainContainer {
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            position: fixed;
+            z-index: 5;
+        }
+
+        .VideoContainer {
+            height: 100vh;
+            
+            &::before {
+                display: none;
+            }
+        }
+
+        .content {
+            padding: 20px;
+            background: white;
+            position: relative;
+            z-index: 5;
+            margin-top: -20px;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
         }
     }
 </style>
