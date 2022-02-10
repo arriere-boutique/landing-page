@@ -1,7 +1,7 @@
 <template>
     <div class="Wrapper Wrapper--left pv-40">
-        <div class="max-width-l">
-            <h1 class="ft-3xl-bold max-width-l">Participer à l'accès anticipé de l'Arrière Boutique</h1>
+        <div class="MaxWidth">
+            <h1 class="ft-3xl-bold">Participer à l'accès anticipé de l'Arrière Boutique</h1>
             
             <div class="glow p-30 br-m is-precious mt-30">
                 <div>
@@ -30,7 +30,9 @@
                     <div class="Gift_content row-s fx-grow pv-20">
                         <div class="col-8 col-12@s">
                             <div class="b p-10 br-s fx-center">
-                                <span class="Tag mr-10 fx-no-shrink">{{ extra.duration }} mois</span>
+                                <div class="Extra_tag fx-no-shrink">
+                                    <span class="Tag">{{ extra.duration }} mois</span>
+                                </div>
                                 <div class="fx-grow">
                                     <p class="ft-s-medium">
                                         Toutes les fonctionnalités de ton Arrière Boutique pendant {{ extra.duration }} mois
@@ -41,14 +43,14 @@
                                 </div>
                             </div>
 
-                            <div class="p-10 b br-s fx-center mt-10" v-for="(gift, i) in extra.extras" :key="i">
+                            <component :is="gift.href ? 'a' : 'div'" :href="gift.href" target="_blank" class="p-10 b br-s fx-center mt-10" v-for="(gift, i) in extra.extras" :key="i">
                                 <div class="Extra_image" :style="{ backgroundImage: `url(${gift.image})` }"></div>
-                                <div>
+                                <div class="fx-grow">
                                     <p class="ft-m-medium">{{ gift.text }}</p>
                                     {{ gift.description }}
                                     <p class="ft-s ft-italic">Valeur : {{ gift.value|round }}€</p>
                                 </div>
-                            </div>
+                            </component>
 
                             <div class="ft-s-medium bg-current-xweak color-current-strong p-10 br-s mt-10 fx-center" v-if="i == selected">
                                 Valeur totale : {{ extrasTotalAmount(i)|round }}€
@@ -59,7 +61,9 @@
                             </div>
                         </div>
                         <div class="col-4">
-                            <div class="text-center p-10 d-flex fx-align-center fx-justify-center br-s height-100" :class="i <= selected ? ['bg-current-xweak'] : ['b']">
+                            <div class="text-center p-10 d-flex fx-align-center fx-dir-column fx-justify-between br-s height-100" :class="i <= selected ? ['bg-current-xweak'] : ['b']">
+                                <div class="mv-10"></div>
+
                                 <div @click="selected = i" v-if="i > selected">
                                     <button-base :modifiers="['current']">
                                         Débloquer 
@@ -74,6 +78,11 @@
 
                                 <div v-else>
                                     <link-base tag="button" :modifiers="['current']"  @click="selected = i">Rétrograder</link-base>
+                                </div>
+
+                                
+                                <div class="ft-s-medium mv-10">
+                                    <template v-if="extra.available <= 10">Plus que </template>{{ extra.available }} disponibles
                                 </div>
                             </div>
                         </div>
@@ -114,55 +123,75 @@
 </template>
 
 <script>
+import calendar from '@/assets/img/pledges/calendar.jpg'
+import todo from '@/assets/img/pledges/todo.jpg'
+import stickers from '@/assets/img/pledges/stickers.jpg'
+import sticker from '@/assets/img/pledges/sticker.jpg'
+import me from '@/assets/img/pledges/me.jpg'
+import cards from '@/assets/img/pledges/cards.jpg'
+
 export default {
     name: 'Abonnements',
     middleware: 'loggedUser',
     layout: 'dashboard',
     data: () => ({
-        selected: 1,
+        selected: 0,
         hovered: null,
         monthlyPrice: 8.99,
         extras: [
-            { amount: 10, duration: 2, extras: [], color: 'emerald' },
-            { amount: 20, duration: 3, color: 'pond', extras: [
+            { amount: 10, duration: 2, available: 50, extras: [], color: 'emerald' },
+            { amount: 25, duration: 3, available: 30, color: 'pond', extras: [
                 {
                     id: 1,
                     value: 11.99,
-                    image: 'https://i.etsystatic.com/31300252/r/il/0d5b85/3550914061/il_1588xN.3550914061_hs3x.jpg',
+                    image: stickers,
                     text: `24 stickers assortis pour tes commandes`,
-                    short: '24 stickers assortis'
+                    short: '24 stickers',
+                    href: 'https://www.etsy.com/shop/arriereboutiquefr?section_id=35533625'
+                },
+                {
+                    id: 10,
+                    value: 11.99,
+                    image: cards,
+                    text: `12 cartes de remerciements assorties`,
+                    short: '12 cartes',
+                    href: 'https://www.etsy.com/shop/arriereboutiquefr?section_id=36011364'
                 },
                 {
                     id: 2,
                     value: 14.99,
-                    image: 'https://i.etsystatic.com/31300252/r/il/8bfde2/3567493198/il_1588xN.3567493198_nwiv.jpg',
+                    image: calendar,
                     text: `1 calendrier des entrepreneurs & entrepreneuses 2022`,
-                    short: '1 calendrier'
+                    short: '1 calendrier',
+                    href: 'https://www.etsy.com/fr/ArriereBoutiqueFr/listing/1138498926'
                 }
             ] },
-            { amount: 45, duration: 6, color: 'ice', extras: [
+            { amount: 45, duration: 6, available: 15, color: 'ice', extras: [
                 {
                     id: 4,
                     value: 32.99,
-                    image: 'https://i.etsystatic.com/31300252/r/il/4157d4/3503142634/il_794xN.3503142634_cp8w.jpg',
+                    image: sticker,
                     text: `72 stickers personnalisés avec ton logo`,
-                    short: '72 stickers logo'
+                    short: '72 stickers logo',
+                    href: 'https://www.etsy.com/fr/ArriereBoutiqueFr/listing/1092507779'
                 },
                 {
                     id: 3,
-                    value: 21.99,
-                    image: 'https://i.etsystatic.com/31300252/r/il/74b0d3/3576593512/il_1588xN.3576593512_lkm6.jpg',
-                    text: `2 calepins to-do list de l'Arrière Boutique`,
-                    short: '2 calepin to-do'
+                    value: 11.99,
+                    image: todo,
+                    text: `1 calepin to-do list de l'Arrière Boutique`,
+                    short: '1 calepin to-do',
+                    href: 'https://www.etsy.com/fr/ArriereBoutiqueFr/listing/1140982632'
                 },
             ] },
-            { amount: 75, duration: 6, color: 'precious', extras: [
+            { amount: 75, duration: 6, available: 5, color: 'precious', extras: [
                 {
                     id: 5,
                     value: 59.90,
-                    image: '',
+                    image: me,
                     text: `45 minutes de coaching par téléphone`,
-                    short: '45 min. de coaching'
+                    short: '45 min. de coaching',
+                    href: 'https://calendly.com/arriere-boutique'
                 }
             ] },
         ]
@@ -220,6 +249,16 @@ export default {
         background-position: center;
         flex-shrink: 0;
         margin-right: 20px;
+    }
+
+    .Extra_tag {
+        width: 80px;
+        margin-right: 20px;
+        text-align: center;
+    }
+
+    .MaxWidth {
+        max-width: 800px;
     }
 
     .Gift {
