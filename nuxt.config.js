@@ -33,6 +33,27 @@ export default {
         ]
     },
 
+    pwa: {
+        meta: {
+            title: 'My PWA',
+            author: 'Me',
+        },
+        manifest: {
+            name: 'Nuxt.js PWA Coffee Shop',
+            short_name: 'Nuxt.js PWA',
+            lang: 'fr',
+            display: 'standalone',
+        },
+        workbox: {
+            runtimeCaching: [ {
+                urlPattern: 'https://fonts.googleapis.com/.*',
+                handler: 'cacheFirst',
+                method: 'GET',
+                strategyOptions: { cacheableResponse: { statuses: [0, 200] } }
+            } ]
+        }   
+    },
+
     plugins: [
         { src: '@/plugins/base.js' }
     ],
@@ -66,6 +87,7 @@ export default {
     buildModules: [
         '@nuxtjs/google-analytics',
         '@nuxtjs/moment',
+        '@nuxtjs/pwa',
         [
             '@nuxtjs/router',
             {
