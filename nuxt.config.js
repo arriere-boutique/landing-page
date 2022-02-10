@@ -35,12 +35,14 @@ export default {
 
     pwa: {
         meta: {
-            title: 'My PWA',
-            author: 'Me',
+            title: 'Mon Arrière Boutique',
+            author: 'Théotime Colin',
         },
         manifest: {
-            name: 'Nuxt.js PWA Coffee Shop',
-            short_name: 'Nuxt.js PWA',
+            name: 'Mon Arrière Boutique',
+            short_name: 'Mon Arrière Boutique',
+            background_color: '#fff1f4',
+            theme_color: '#3ec9ce',
             lang: 'fr',
             display: 'fullscreen',
         },

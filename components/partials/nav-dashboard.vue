@@ -1,5 +1,7 @@
 <template>
-    <nav class="LayoutDashboard_nav" :class="{ 'is-active': isActive, 'is-pond': !hasSub, 'is-precious': hasSub }">
+    <nav class="LayoutDashboard_nav" :class="{ 'is-active': isActive, 'is-mobile': isMobileNav, 'is-pond': !hasSub, 'is-precious': hasSub }">
+        <div class="LayoutDashboard_hider" @click="isMobileNav = false"></div>
+
         <div class="LayoutDashboard_logo">
             <div class="LayoutDashboard_ab">
                 <icon-base name="logo/logo-main" class="fill-current" :width="120" />
@@ -10,14 +12,14 @@
             </div>
         </div>
 
-        <div class="LayoutDashboard_links mt-20">
+        <div class="LayoutDashboard_links">
             <component
                 :is="link.locked || link.dev ? 'div' : 'nuxt-link'"
                 class="NavItem"
-                :class="{ 'is-disabled': link.locked || link.dev }"
+                :class="{ 'is-disabled': link.locked || link.dev, 'is-mobile': link.isMobile }"
                 v-for="link in links"
                 :to="localePath(link.path)"
-                @click.native="$emit('toggle')"
+                @click.native="$emit('toggle'); isMobileNav = false;"
                 :key="link.icon"
             >
                 <div class="NavItem_icon">
@@ -31,6 +33,33 @@
                     <i class="fal fa-lock" v-else-if="link.locked"></i>
                     <i class="fal fa-arrow-right" v-else></i>
                 </div>
+            </component>
+
+            <div
+                class="NavItem NavItem--burger is-mobile"
+                @click="isMobileNav = !isMobileNav"
+            >
+                <div class="NavItem_icon">
+                    <i class="fal fa-bars"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="LayoutDashboard_mobileMenu">
+            <component
+                :is="'nuxt-link'"
+                class="NavItem"
+                :class="{ 'is-disabled': link.locked || link.dev, 'is-mobile': link.isMobile }"
+                v-for="link in links.filter(l => !l.isMobile && !l.dev)"
+                :to="localePath(link.path)"
+                @click.native="isMobileNav = false"
+                :key="link.icon"
+            >
+                <div class="NavItem_icon">
+                    <i class="fal" :class="[`fa-${link.icon}`]"></i>
+                </div>
+
+                <p class="NavItem_label ml-10 fx-grow">{{ link.label }}</p>
             </component>
         </div>
 
@@ -50,7 +79,8 @@ export default {
         isActive: { type: Boolean, default: false }
     },
     data: () => ({
-        links: []
+        links: [],
+        isMobileNav: false
     }),
     computed: {
         isCompact () { return this.$store.state.page.isNavCompact },
@@ -64,13 +94,15 @@ export default {
                 this.links = [
                     {
                         label: `Tableau de bord`,
-                        icon: 'book-heart',
+                        icon: 'home-heart',
+                        isMobile: true,
                         path: { name: '/' }
                     }, {
                         label: `Mes commandes`,
                         dev: true,
                         icon: 'receipt',
                         path: { name: 'commandes' },
+                        isMobile: true,
                         tooltip: `Tu pourras bientôt gérer tes commandes ici. J'y travaille !`
                     }, {
                         label: `Mes fiches produit`,
@@ -78,19 +110,23 @@ export default {
                         locked: !this.shops || this.shops.length <= 0,
                         dev: true,
                         tooltip: `Bientôt, tu pourras gérer des fiches produits en quelques clics.`,
+                        isMobile: false,
                         path: { name: 'fiches' }
                     }, {
                         label: `Mes pages`,
                         icon: 'arrow-pointer',
                         locked: !this.shops || this.shops.length <= 0,
+                        isMobile: true,
                         path: { name: 'pages' }    
                     }, {
                         label: `Outils`,
                         icon: 'rocket-launch',
+                        isMobile: true,
                         path: { name: 'outils' }
                     }, {
                         label: `Paramètres`,
                         icon: 'cog',
+                        isMobile: false,
                         path: { name: 'parametres' }
                     }
                 ]
