@@ -1,5 +1,7 @@
 require('dotenv').config()
 import redirectSSL from 'redirect-ssl'
+import path from 'path'
+import fs from 'fs'
 
 export default {
     head: {
@@ -121,8 +123,15 @@ export default {
 
     serverMiddleware: [
         { path: '/api', handler: '~/api' },
-        redirectSSL.create({ enabled: process.env.NODE_ENV === 'PRODUCTION' })
+        redirectSSL.create()
     ],
+
+    server: {
+        https: {
+            key: fs.readFileSync(path.resolve(__dirname, 'static/arriere-boutique.local+6-key.pem')),
+            cert: fs.readFileSync(path.resolve(__dirname, 'static/arriere-boutique.local+6.pem'))
+        }
+    },
 
     auth: {
         cookie: {

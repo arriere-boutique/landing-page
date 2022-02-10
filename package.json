@@ -45,6 +45,7 @@
     "nuxt-i18n": "^6.15.4",
     "nuxt-stripe-module": "^3.2.0",
     "ohmyfetch": "^0.2.0",
+    "quagga": "^0.12.1",
     "raw-loader": "^4.0.2",
     "redirect-ssl": "^3.0.0",
     "regenerator-runtime": "^0.13.9",

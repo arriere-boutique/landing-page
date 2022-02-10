@@ -1,5 +1,8 @@
 require('dotenv').config()
 
+import fs from 'fs'
+const https = require('https').globalAgent.options.ca = require('ssl-root-cas').create();
+
 const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
@@ -91,11 +94,16 @@ mongoose.connection.once('open', async () => {
     app.get('/oauth/redirect', redirect)
 })
 
+let certs = {
+    key: fs.readFileSync('./static/arriere-boutique.local+6-key.pem'),
+    cert: fs.readFileSync('./static/arriere-boutique.local+6.pem')
+}
+
 module.exports = app
 
 if (require.main === module) {
     const port = process.env.PORT || 80
-    app.listen(port, () => {
-        console.log(`API server listening on port ${port}`)
+    https.createServer(certs, app).listen(port, () => {
+        console.log(`============> API server listening on port ${port}`)
     })
 }

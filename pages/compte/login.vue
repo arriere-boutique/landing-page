@@ -113,7 +113,7 @@ export default {
                     this.registerErrors = response.data.errors
                 }
             } else {
-                window.location = process.env.dashboardUrl
+                // window.location = process.env.dashboardUrl
             }
         }
     }
