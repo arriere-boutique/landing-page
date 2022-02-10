@@ -1,5 +1,8 @@
 <template>
     <div class="MainContainer">
+        <nuxt-link class="MainClose" :to="localePath({ name: 'commandes' })">
+            <i class="fal fa-times"></i>
+        </nuxt-link>
         <div class="VideoContainer">
             <video class="video" ref="video"></video>
         </div>
@@ -56,6 +59,7 @@ export default {
     .VideoContainer {
         width: 100%;
         position: relative;
+        background: var(--color-bg-xweak);
 
         &::before {
             content: "";
@@ -73,6 +77,10 @@ export default {
         }
     }
 
+    .MainClose {
+        display: none;
+    }
+
     @include breakpoint-s {
         .MainContainer {
             top: 0;
@@ -81,7 +89,18 @@ export default {
             height: 100%;
             overflow: auto;
             position: fixed;
+            z-index: 15;
+        }
+
+        .MainClose {
+            color: var(--color-ft-light);
+            position: absolute;
             z-index: 5;
+            font-size: 30px;
+            top: 5px;
+            right: 5px;
+            padding: 15px;
+            display: block;
         }
 
         .VideoContainer {

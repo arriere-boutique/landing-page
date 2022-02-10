@@ -195,6 +195,16 @@
 
 @include breakpoint-s {
     
+    .LayoutDashboard {
+        
+        .NavItem {
+
+            &:hover {
+                background-color: transparent;
+            }
+        }
+    }
+    
     .LayoutDashboard_content {
         margin-left: 0;
     }

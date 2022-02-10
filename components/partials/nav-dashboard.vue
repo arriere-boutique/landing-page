@@ -99,7 +99,6 @@ export default {
                         path: { name: '/' }
                     }, {
                         label: `Mes commandes`,
-                        dev: true,
                         icon: 'receipt',
                         path: { name: 'commandes' },
                         isMobile: true,

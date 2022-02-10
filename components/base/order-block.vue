@@ -31,14 +31,17 @@
             </div>
         </div>
 
-        <!-- <div class="OrderBlock_right">
+        <div class="OrderBlock_right">
             <span class="round b bg-bg-light mv-3">
                 <i class="fal fa-gift-card"></i>
             </span>
-            <span class="round b bg-bg-light mv-3">
+            <nuxt-link :to="localePath({ name: 'test' })" class="round b bg-bg-light mv-3">
+                <i class="fal fa-barcode-read"></i>
+            </nuxt-link>
+            <!-- <span class="round b bg-bg-light mv-3">
                 <i class="fal fa-ellipsis-vertical"></i>
-            </span>
-        </div> -->
+            </span> -->
+        </div>
     </div>
 </template>
 
@@ -149,5 +152,13 @@ export default {
         flex-direction: column;
         align-items: center;
         justify-content: center;
+    }
+
+    @include breakpoint-s {
+
+        .OrderBlock_cover {
+            width:  75px;
+            height: 75px;
+        }
     }
 </style>
