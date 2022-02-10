@@ -127,7 +127,7 @@ export default {
     ],
 
     server: {
-        https: {
+        https: process.env.NODE_ENV == 'PRODUCTION' ? undefined : {
             key: fs.readFileSync(path.resolve(__dirname, 'static/arriere-boutique.local+6-key.pem')),
             cert: fs.readFileSync(path.resolve(__dirname, 'static/arriere-boutique.local+6.pem'))
         }
