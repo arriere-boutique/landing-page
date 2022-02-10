@@ -42,7 +42,7 @@ export default {
             name: 'Mon Arrière Boutique',
             short_name: 'Mon Arrière Boutique',
             background_color: '#fff1f4',
-            theme_color: '#3ec9ce',
+            theme_color: '#ffffff',
             lang: 'fr',
             display: 'standalone',
         },
