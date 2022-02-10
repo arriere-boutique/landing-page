@@ -27,7 +27,7 @@
                 </div>
             </div>
         </div>
-        <form class="mt-20 b p-20 br-s o-hidden p-relative" @submit.prevent="onSubmit">
+        <form class="mt-20 b p-20 br-s o-hidden p-relative" @submit.prevent="onSubmit" v-if="selected != 0">
             <div class="fx-center">
                 <p class="ft-l-bold fx-grow">Mes informations de livraison</p>
                 <button-base type="button" v-if="step != 0" icon-before="pen" :modifiers="['secondary', 's']" @click="step = 0">Modifier</button-base>
@@ -158,6 +158,7 @@ export default {
     },
     created () {
         this.selected = this.$route.query.selected ? this.$route.query.selected : 0
+        if (this.selected == 0) this.step = 1
     },
     mounted () {
         this.initForm()
@@ -188,7 +189,13 @@ export default {
         },
         async initForm () {
             try {
-                let response = await this.$store.dispatch('order/checkout', this.currentExtra.amount * 100)
+                let response = await this.$store.dispatch('order/checkout', {
+                    price: this.currentExtra.amount * 100,
+                    type: 'subscription',
+                    metadata: {
+                        id: this.selected
+                    }
+                })
 
                 if (this.$stripe) {
                     this.elements = this.$stripe.elements({ clientSecret: response.token, locale: 'fr' })
@@ -200,7 +207,20 @@ export default {
             }
         },
         async onCheckout () {
+            this.isLoading = true
 
+            try {
+                const response = await this.$stripe.confirmPayment({
+                    elements: this.elements,
+                    confirmParams: {
+                        return_url: process.env.dashboardUrl + this.localePath({ name: 'abonnements-confirmation' })
+                    }
+                })
+            } catch (e) {
+                console.error(e)
+            }
+
+            this.isLoading = false
         }
     }
 }

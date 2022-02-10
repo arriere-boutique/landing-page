@@ -3,6 +3,7 @@ const { $fetch } = require('ohmyfetch/node')
 const Entities = require('../entities')
 const shortid = require('shortid')
 const moment = require('moment')
+const SUBS = require('../../static/subs.js')
 
 const { authenticate } = require('../utils/user')
 const { ErrorModel } = require('sib-api-v3-sdk')
@@ -186,6 +187,37 @@ exports.resetPassword = async function (req, res) {
     }
 
     res.send({
+        status: errors.length > 0 ? 0 : 1,
+        errors
+    })
+}
+
+exports.getActiveSubscription = async function (req, res) {
+    let user = await authenticate(req.headers)
+    let errors = []
+    let data = null
+    
+    try {
+        let active = await Entities.order.model.findOne({ type: 'subscription', completed: true, owner: user._id })
+        
+        if (!active) throw Error('not-subscription')
+        
+        const sub = SUBS[parseInt(active.metadata.id)]
+        active = { ...active._doc }
+
+        delete active.intent
+        delete active.secret
+        active.metadata = sub
+        active.expiration = moment(active.createdAt).add(sub.duration, 'months').toDate()
+
+        data = moment(active.expiration).isBefore(moment()) ? null : active
+    } catch (e) {
+        console.error(e)
+        errors.push(e.message)
+    }
+
+    res.send({
+        data,
         status: errors.length > 0 ? 0 : 1,
         errors
     })

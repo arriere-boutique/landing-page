@@ -20,8 +20,8 @@ const app = express()
 
 require('./entities/index')
 const { createEntity, getEntities, deleteEntity } = require('./api/entity');
-const { logUser, logOut, getUser, requestResetPassword, resetPassword } = require('./api/user');
-const { createOrder, checkoutOrder } = require('./api/order');
+const { logUser, logOut, getUser, requestResetPassword, resetPassword, getActiveSubscription } = require('./api/user');
+const { createOrder, checkoutOrder, confirmOrder } = require('./api/order');
 const { webhooks } = require('./api/webhooks');
 const { createSubscriber, getSubscribers, deleteSubscriber } = require('./api/subscribe')
 const { ping, syncEtsy, linkShop, unlinkShop, searchListings } = require('./api/etsy')
@@ -59,6 +59,7 @@ mongoose.connection.on('error', console.error.bind(console, 'connection error:')
 mongoose.connection.once('open', async () => {
     app.post('/order', createOrder)
     app.post('/order/checkout', checkoutOrder)
+    app.post('/order/confirm', confirmOrder)
 
     app.post('/webhooks', webhooks)
 
@@ -71,6 +72,7 @@ mongoose.connection.once('open', async () => {
     app.post('/user/logout', logOut)
     app.post('/user/reset', requestResetPassword)
     app.post('/user/reset/confirm', resetPassword)
+    app.post('/user/subscriptions/active', getActiveSubscription)
 
     app.post('/subscribe', createSubscriber)
     app.get('/subscribers', getSubscribers)

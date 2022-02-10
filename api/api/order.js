@@ -47,10 +47,13 @@ exports.createOrder = async function (req, res) {
 }
 
 exports.checkoutOrder = async function (req, res) {
+    let user = await authenticate(req.headers)
     let errors = []
     let data = {}
 
     try {
+        if (!user) throw Error('no-user-no-order')
+
         let order = req.body.id ? await Entities.order.model.findById(req.body.id) : null
         if (!order && !req.body.price) throw Error('order-not-found')
         
@@ -64,7 +67,54 @@ exports.checkoutOrder = async function (req, res) {
 
         if (!intent) throw Error('stripe-intent-failed')
 
+        if (!order && req.body.price) {
+            order = await Entities.order.model.create({
+                id: WORDS[Math.floor(Math.random() * 9)] + '-' + shortid.generate(),
+                intent: intent.id, 
+                secret: intent.client_secret,
+                price: intent.amount,
+                type: req.body.type,
+                metadata: req.body.metadata,
+                owner: user._id
+            })
+        }
+
         data.token = intent.client_secret
+    } catch (e) {
+        console.warn(e)
+
+        errors.push(e.message)
+    }
+
+    res.send({
+        data, errors,
+        status: errors.length > 0 ? 0 : 1
+    })
+}
+
+exports.confirmOrder = async function (req, res) {
+    let user = await authenticate(req.headers)
+    let errors = []
+    let data = {}
+
+    try {
+        if (!req.body.id || !req.body.secret) throw Error('missing-params')
+
+        let order = await Entities.order.model.findOne({ intent: req.body.id, secret: req.body.secret, owner: user._id })
+        if (!order) throw Error('order-not-found')
+        
+        let intent = await req.app.locals.stripe.paymentIntents.retrieve(
+            order.intent
+        )
+
+        if (!intent) throw Error('intent-not-found')
+
+        if (intent.status == 'succeeded') {
+            order.completed = true
+            order.save()
+        }
+
+        data = { success: order.completed }
     } catch (e) {
         console.warn(e)
 

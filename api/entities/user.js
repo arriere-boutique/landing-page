@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
+const Entities = require('../index.js')
 
 const { generatePassword } = require('../utils/user')
 

@@ -16,7 +16,7 @@
             </div>
 
             <div class="HeaderDashboard_right">
-                <button-base icon-before="stars" tag="nuxt-link" :attrs="{ to: localePath({ name: 'abonnements' }) }" :modifiers="['', 'precious', 'glow']">Soutenir le projet</button-base>
+                <button-base icon-before="stars" tag="nuxt-link" :attrs="{ to: localePath({ name: 'abonnements' }) }" :modifiers="['', 'precious', 'glow']" v-if="!hasSub">Soutenir le projet</button-base>
 
                 <div class="HeaderDashboard_burger" @click="$emit('toggle')" v-show="!isActive">
                     <i class="fa-thin fa-bars"></i>
@@ -54,6 +54,9 @@ export default {
     },
     data: () => ({
         isSupportOpen: false
-    })
+    }),
+    computed: {
+        hasSub () { return this.$store.state.user.hasSubscription }
+    }
 }
 </script>

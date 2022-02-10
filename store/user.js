@@ -3,12 +3,18 @@ import storeUtils from '@/utils/store'
 export default {
     namespaced: true,
     state: () => ({
-        guestId: null
+        guestId: null,
+        hasSubscription: false,
+        subscription: null
     }),
     mutations: {
         update (state, user) {
             if (user && user.role == 'guest') state.guestId = user._id
-        } 
+        },
+        setSubscription (state, data) {
+            state.subscription = data
+            state.hasSubscription = state.subscription ? true : false
+        }
     },
     actions: {
         async logOut ({ state }) {
@@ -89,6 +95,17 @@ export default {
                 return response
             } catch (e) {
                 return storeUtils.handleErrors(e, commit, `Échec de la modification du mot de passe`, this)
+            }
+        },
+        async getSubscription ({ commit }) {
+            try {
+                const response = await this.$axios.$post('/user/subscriptions/active')
+
+                commit('setSubscription', response.data)
+
+                return response.data
+            } catch (e) {
+                console.error(e)
             }
         }
     }

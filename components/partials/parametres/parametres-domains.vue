@@ -35,7 +35,7 @@
 
                                 <div class="text-right mt-20">
                                     <link-base type="button" class="mr-10" @click="formData[shop._id].slug = shop.slug">Annuler</link-base>
-                                    <button-base :modifiers="['gum']">Modifier</button-base>
+                                    <button-base :modifiers="['gum']" :class="{ 'is-disabled': !hasSub }">Modifier</button-base>
                                 </div>
                             </div>
                         </transition>
@@ -66,7 +66,7 @@ export default {
         formData: {}
     }),
     computed: {
-
+        hasSub () { return this.$store.state.user.hasSubscription },
     },
     watch: {
         shops: {

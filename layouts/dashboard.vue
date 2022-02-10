@@ -30,7 +30,10 @@ export default {
     components: { TooltipManager },
     async fetch () {
         try {
-            if (this.user && this.user.role != 'guest') await this.$store.dispatch('shop/fetch')
+            if (this.user && this.user.role != 'guest') {
+                await this.$store.dispatch('shop/fetch')
+                await this.$store.dispatch('user/getSubscription')
+            }
         } catch (e) {
             console.error(e)
         }
@@ -40,6 +43,7 @@ export default {
     }),
     computed: {
         user () { return this.$store.state.auth.user },
+        hasSub () { return this.$store.state.user.hasSubscription },
         classes () { return this.$store.state.page.body.classes },
         isCompact () { return this.$store.state.page.isNavCompact }
     },
@@ -47,7 +51,7 @@ export default {
         try {
             await this.$recaptcha.init()
         } catch (e) {
-            console.error(e);
+            console.error(e)
         }
     },
     beforeDestroy() {

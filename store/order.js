@@ -43,13 +43,25 @@ export default {
                 return storeUtils.handleErrors(e, commit, `Une erreur est survenue`)
             }
         },
-        async checkout ({ state, commit }, price) {
-
+        async checkout ({ state, commit }, params) {
             try {
                 const response = await this.$axios.$post('/order/checkout', {
-                    id: price ? null : state.order._id,
-                    price: price
+                    id: params.price ? null : state.order._id,
+                    price: params.price,
+                    type: params.type,
+                    metadata: params.metadata
                 })
+                
+                if (response.status == 0) throw Error(response.errors[0])
+                
+                return response.data
+            } catch (e) {
+                return storeUtils.handleErrors(e, commit, `Une erreur est survenue`)
+            }
+        },
+        async confirm ({ state, commit }, params) {
+            try {
+                const response = await this.$axios.$post('/order/confirm', params)
                 
                 if (response.status == 0) throw Error(response.errors[0])
                 
