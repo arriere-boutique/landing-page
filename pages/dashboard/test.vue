@@ -28,26 +28,30 @@ export default {
         result: '',
         selectedDevice: null,
         devices: [],
-        codeReader: null
+        codeReader: null,
+        codeControls: null
     }),
     watch: {
         selectedDevice (v) {
             if (v !== null) this.initReader()
         }
     },
-    mounted () {
+    beforeDestroy () {
+        if (this.codeReader) this.codeReader.reset()
+    },
+    async mounted () {
         this.codeReader = new BrowserMultiFormatReader()
 
-        this.codeReader.listVideoInputDevices().then(videoInputDevices => {
-            this.selectedDevice = videoInputDevices[0].deviceId
-            this.devices = videoInputDevices
-        }).catch((err) => {
-          console.error(err)
-        })
+        try {
+            this.devices = await this.codeReader.listVideoInputDevices()
+            this.selectedDevice = this.devices[0].deviceId
+        } catch (e) {
+            console.error(e)
+        }
     },
     methods: {
-        initReader () {
-            this.codeReader.decodeFromVideoDevice(this.selectedDevice, this.$refs.video, (result, err) => {
+        async initReader () {
+            this.codeControls = await this.codeReader.decodeFromVideoDevice(this.selectedDevice, this.$refs.video, (result, err) => {
                 if (result) this.result = result.text
             })
         }

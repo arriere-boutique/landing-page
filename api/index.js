@@ -1,7 +1,7 @@
 require('dotenv').config()
 
 import fs from 'fs'
-const https = require('https').globalAgent.options.ca = require('ssl-root-cas').create();
+const https = require('https')
 
 const express = require('express')
 const bodyParser = require('body-parser')

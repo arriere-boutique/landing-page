@@ -22,6 +22,7 @@ let ShopOrderEntity = {
         totalPrice: { type: Object },
         totalShipping: { type: Object },
         total: { type: Object },
+        shipments: { type: Array },
 
         shop: { type: mongoose.Schema.Types.ObjectId, write: 'self', ref: 'shop' },
         owner: { type: mongoose.Schema.Types.ObjectId, write: 'self', ref: 'user' },

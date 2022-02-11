@@ -86,6 +86,8 @@ export default {
         ]
     },
 
+    // mkcert arriere-boutique.local "*.arriere-boutique.local" mapetite.local  "*.mapetite.local" localhost 127.0.0.1 ::1                       
+
     buildModules: [
         '@nuxtjs/google-analytics',
         '@nuxtjs/moment',

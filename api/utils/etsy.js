@@ -90,7 +90,7 @@ exports.syncShop = async function (id, syncItems = [], firstSync = false) {
             if (syncItems.includes('listings')) {
                 let listings = await syncListings(shop, syncItems.includes('listing-photos'))
                 shop.listings = listings
-                shop.save()
+                shop.save()console.log('d')
             }
 
             if (syncItems.includes('orders')) {
@@ -178,6 +178,7 @@ const syncOrders = async function (shop) {
                     status: order.status,
                     isGift: order.is_gift,
                     subTotal: order.subtotal,
+                    shipments: order.shipments,
                     totalDiscount: order.discount_amt,
                     totalGiftWrap: order.gift_wrap_price,
                     totalPrice: order.total_price,
