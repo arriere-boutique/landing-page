@@ -11,9 +11,14 @@ let ShopOrderEntity = {
         adress2: { type: String },
         zip: { type: String },
         city: { type: String },
+        country: { type: String },
+        state: { type: String },
         status: { type: String },
+
+        message: { type: String },
         isGift: { type: Boolean },
         giftMessage: { type: String },
+
         listings: { type: Array },
 
         subTotal: { type: Object },
@@ -22,7 +27,10 @@ let ShopOrderEntity = {
         totalPrice: { type: Object },
         totalShipping: { type: Object },
         total: { type: Object },
-        shipments: { type: Array },
+
+        shipUpgrade: { type: String },
+        shipments: { type: Array, default: () => [] },
+        prepared: { type: Array, default: () => [] },
 
         shop: { type: mongoose.Schema.Types.ObjectId, write: 'self', ref: 'shop' },
         owner: { type: mongoose.Schema.Types.ObjectId, write: 'self', ref: 'user' },

@@ -7,9 +7,17 @@
     padding: 5px 15px;
     border-radius: 35px;
     font: var(--ft-s-medium);
+    border: 1px solid var(--color-current-weak, var(--color-onyx-2xweak));
     color: var(--color-current-xstrong, var(--color-ft));
     background-color: var(--color-current-weak, var(--color-onyx-2xweak));
     transition: all 100ms ease;
+}
+
+.Tag--m {
+    min-height: 40px;
+    padding: 10px 20px;
+    font: var(--ft-m-medium);
+    line-height: 1.2;
 }
 
 .Tag--l {
@@ -25,6 +33,19 @@
     margin-left: -5px;
     font: var(--ft-xs-medium);
     line-height: 1.2;
+}
+
+.Tag--secondary {
+    color: var(--color-ft-weak);
+    border-color: var(--color-border);
+    background-color: var(--color-bg-light);
+    cursor: pointer;
+
+    &:hover {
+        color: var(--color-current-xstrong, var(--color-ft));
+        border-color: var(--color-current-weak, var(--color-onyx-2xweak));
+        background-color: var(--color-current-weak, var(--color-onyx-2xweak));
+    }
 }
 
 .Tag--weak {

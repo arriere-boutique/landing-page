@@ -81,8 +81,7 @@ export default {
             '~/components/interactive',
             '~/components/partials',
             '~/components/tools',
-            '~/components/utils',
-            '~/components/landing-module',
+            '~/components/utils'
         ]
     },
 
@@ -149,11 +148,11 @@ export default {
 
     serverMiddleware: [
         { path: '/api', handler: '~/api' },
-        redirectSSL.create()
+        redirectSSL.create({ enabled: process.env.NODE_ENV === 'PRODUCTION' })
     ],
 
     server: {
-        https: process.env.NODE_ENV == 'PRODUCTION' ? undefined : {
+        https: {
             key: fs.readFileSync(path.resolve(__dirname, 'static/arriere-boutique.local+6-key.pem')),
             cert: fs.readFileSync(path.resolve(__dirname, 'static/arriere-boutique.local+6.pem'))
         }

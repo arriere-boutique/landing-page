@@ -2,6 +2,10 @@
     top: calc(var(--header-base) + var(--offset, 0px));
 }
 
+.br-xs {
+    border-radius: 5px;
+}
+
 .br-s {
     border-radius: 10px;
 }
@@ -227,6 +231,10 @@
     background-color: var(--color-current-xweak);
 }
 
+.text-upper {
+    text-transform: uppercase;
+}
+
 .marker {
     line-height: 1;
     position: absolute;
@@ -302,5 +310,21 @@
         &.is-plus::before {
             content: "\2b";
         }
+    }
+}
+
+.ellipsis-break {
+    word-break: break-all;
+}
+
+.image-block {
+    position: relative;
+    background-size: cover;
+    background-position: center;
+
+    &::before {
+        content: "";
+        display: block;
+        padding-bottom: 100%;
     }
 }

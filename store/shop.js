@@ -165,6 +165,10 @@ export default {
         allOrders: (state) => {
             return state.items.reduce((total, current) => [ ...total, ...current.orders ], [])
         },
+        orderById: (state, getters) => (id) => {
+            let item = getters.allOrders.find(l => l._id == id)
+            return item
+        },
         allReviews: (state) => {
             return state.items.reduce((total, current) => [ ...total, ...current.reviews ], []).filter(r => r.rating >= 5 && r.comment)
         },

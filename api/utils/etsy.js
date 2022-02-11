@@ -90,7 +90,7 @@ exports.syncShop = async function (id, syncItems = [], firstSync = false) {
             if (syncItems.includes('listings')) {
                 let listings = await syncListings(shop, syncItems.includes('listing-photos'))
                 shop.listings = listings
-                shop.save()console.log('d')
+                shop.save()
             }
 
             if (syncItems.includes('orders')) {
@@ -114,7 +114,6 @@ exports.syncShop = async function (id, syncItems = [], firstSync = false) {
 }
 
 const refreshToken = async function (shop) {
-    console.log('REFRESH')
     return new Promise(async (resolve, reject) => {
         try {
             const refresh = await $fetch(`https://api.etsy.com/v3/public/oauth/token`, {
@@ -137,6 +136,10 @@ const refreshToken = async function (shop) {
     })
 }
 
+const cleanString = function (string) {
+    return string ? string.replaceAll('&#39;', `'`).replaceAll('&quot;', `"`).replaceAll('\n', `<br>`) : ''
+}
+
 const syncOrders = async function (shop) {
     return new Promise(async (resolve, reject) => {
         try {
@@ -147,16 +150,25 @@ const syncOrders = async function (shop) {
 
             ordersData = await Promise.all(ordersData.results.map(async order => {
                 let listings = []
-                
+                 
+                if (order.receipt_id == '2376234478') console.log(order)
+
                 listings = await Promise.all(order.transactions.map(async listing => {
                     let existing = await Entities.shopListing.model.findOne({ shop: shop._id, id: listing.listing_id })
 
                     return {
                         listingId: existing ? existing._id : null,
-                        title: listing.title.replaceAll('&#39;', `'`),
+                        title: cleanString(listing.title),
                         price: listing.price,
+                        digital: listing.is_digital,
                         quantity: listing.quantity,
                         sku: listing.sku,
+                        variations: listing.variations.map(v => ({
+                            id: v.property_id,
+                            valueId: v.value_id,
+                            label: cleanString(v.formatted_name),
+                            value: cleanString(v.formatted_value)
+                        })),
                         shipping_cost: listing.shipping_cost
                     }
                 }))
@@ -175,16 +187,20 @@ const syncOrders = async function (shop) {
                     adress2: order.second_line,
                     zip: order.zip,
                     city: order.city,
+                    state: order.state,
+                    country: order.country,
                     status: order.status,
                     isGift: order.is_gift,
                     subTotal: order.subtotal,
                     shipments: order.shipments,
+                    shipUpgrade: transaction ? transaction.shipping_upgrade : undefined,
+                    message: cleanString(order.message_from_buyer),
                     totalDiscount: order.discount_amt,
                     totalGiftWrap: order.gift_wrap_price,
                     totalPrice: order.total_price,
                     totalShipping: order.total_shipping_cost,
                     total: order.grandtotal,
-                    giftMessage: order.gift_message
+                    giftMessage: cleanString(order.gift_message)
                 }
             }))
 
@@ -236,7 +252,7 @@ const syncListings = async function (shop, syncImages = false) {
                 for (let listing of listingData.results) {
                     let data = {
                         id: listing.listing_id,
-                        title: listing.title.replaceAll('&#39;', `'`).replaceAll('&quot;', `"`),
+                        title: cleanString(listing.title),
                         status: listing.state,
                         price: listing.price,
                         link: listing.url,
@@ -312,7 +328,7 @@ const syncReviews = async function (shop) {
                 return {
                     id: review.transaction_id + '-' + review.listing_id,
                     rating: review.rating,
-                    comment: review.review.replaceAll('&#39;', `'`),
+                    comment: cleanString(review.review),
                     listingId: review.listing_id,
                     image: review.image_url_fullxfull,
                     userId: review.buyer_user_id,

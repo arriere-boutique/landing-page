@@ -129,7 +129,6 @@
 
 .ButtonBase--light {
     background-color: var(--color-bg-light);
-    border: 1px solid var(--color-border);
     color: var(--color-ft);
     box-shadow: none;
 
@@ -223,7 +222,7 @@
     }
 
     .ButtonBase_iconBefore {
-        margin-right: 5px;
+        margin-right: 8px;
         font-size: 15px;
     }
 }
@@ -302,6 +301,44 @@
     
             .ButtonBase_iconBefore {
                 color: var(--color-#{$color});
+            }
+        }
+    }
+
+    &.ButtonBase--current {
+        color: var(--color-current);
+        border-color: var(--color-current);
+
+        &:hover {
+            color: var(--color-ft-light);
+            background-color: var(--color-current);
+            border-color: var(--color-current);
+
+            .ButtonBase_iconBefore {
+                color: var(--color-ft-light);
+            }
+        }
+
+        .ButtonBase_iconBefore {
+            color: var(--color-current);
+        }
+    }
+
+    &.ButtonBase--current-mute {
+        color: var(--color-ft-weak);
+        border-color: var(--color-ft-weak);
+
+        .ButtonBase_iconBefore {
+            color: var(--color-ft-weak);
+        }
+
+        &:hover {
+            color: var(--color-ft-light);
+            background-color: var(--color-current);
+            border-color: var(--color-current);
+
+            .ButtonBase_iconBefore {
+                color: var(--color-ft-light);
             }
         }
     }
@@ -412,6 +449,7 @@
 
     &.ButtonBase--light {
         color: var(--color-ft-light);
+        
         &::before {
             background-color: var(--color-ft-light);
         }

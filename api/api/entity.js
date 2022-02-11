@@ -78,6 +78,7 @@ exports.createEntity = async function (req, res) {
         if (typeSetters[req.body.type]) fields = await typeSetters[req.body.type](fields, req)
 
         fields = parseQuery(fields, user)
+
         
         if (Entity.unique && fields.query[Entity.unique]) {
             let params = [ Entity.unique, ...Entity.uniqueConditions].reduce((params, key) => {
