@@ -23,16 +23,16 @@
 
                 <div class="OrderBlock_content pl-20">
                     <div class="fx-center">
-                        <p class="ft-l-medium fx-grow ellipsis-1 ellipsis-break">
+                        <p class="ft-l-medium fx-grow ellipsis-1 ellipsis-break ft-m-medium@s">
                             {{ name }}
                         </p>
 
-                        <div class="ft-s fx-no-shrink">
+                        <div class="ft-s fx-no-shrink ml-10">
                             {{ $moment.unix(orderDate).format('DD MMM YYYY') }}
                         </div>
                     </div>
 
-                    <div class="mt-10 d-flex ft-s-medium fx-wrap">
+                    <div class="mt-10 d-flex ft-s-medium fx-wrap mt-5@s">
                         <div v-for="(tag, i) in tags" class="Tag Tag--s ml-0 mb-5 mr-5" :class="[`is-${tag.color}`]" :key="i">
                             <i class="fal mr-10" :class="[`fa-${tag.fa}`]"></i> {{ tag.label }}
                         </div>
@@ -49,7 +49,7 @@
                         </span>
                     </div>
                     
-                    <div>
+                    <div> 
                         <span class="Tag Tag--s is-gum ml-3" :class="[timeLeft.days <= 1 ? 'is-pepper' : 'is-ice']">
                             {{ timeLeft.label }}
                         </span>
@@ -59,10 +59,10 @@
                         </span>
                     </div>
                 </div>
-                <div class="OrderBlock_shipment" v-for="shipment in shipments" :key="shipment.shipment">
+                <div class="OrderBlock_shipment is-emerald" v-for="shipment in shipments" :key="shipment.shipment">
                     <div>
-                        {{ shipment.carrier_name }}
-                        <span class="Tag Tag--s ml-5 is-pond">{{ shipment.tracking_code ? shipment.tracking_code : `Pas de suivi` }}</span>
+                        <p class="mr-5">{{ shipment.carrier_name }}</p>
+                        <span class="Tag Tag--s is-emerald">{{ shipment.tracking_code ? shipment.tracking_code : `Pas de suivi` }}</span>
                     </div>
 
                     Envoyé le {{ $moment.unix(shipment.shipment_notification_timestamp).format('D MMM YYYY') }}
@@ -71,11 +71,11 @@
         </div>
                 
         <div class="OrderBlock_right">
-            <button-base :modifiers="['round', 'light']" class="mv-3" @click.native="$emit('action', 'add-tracking')">
+            <button-base :modifiers="['round', 'light']" class="m-3" @click.native="$emit('action', 'add-tracking')">
                 <i class="fal fa-gift-card"></i>
             </button-base>
 
-            <button-base :modifiers="['round', 'light']" class="mv-3" @click.native="$emit('action', 'add-tracking')">
+            <button-base :modifiers="['round', 'light']" class="m-3" @click.native="$emit('action', 'add-tracking')">
                 <i class="fal fa-barcode-read"></i>
             </button-base>
         </div>
@@ -131,8 +131,8 @@ export default {
             let tags = [
                 { fa: 'box-full', color: 'onyx', label: `${this.totalQuantity} article(s)` },
                 this.status != 'Completed' ? { fa: 'check', color: 'emerald', label: `${this.prepared.length}/${this.listings.length} préparé(s)` } : null,
-                this.isGift || this.giftMessage ? { fa: 'gift', color: 'precious', label: this.giftMessage ? `Message cadeau` : `Marqué comme cadeau` } : null,
-                this.message ? { fa: 'envelope-open-text', color: 'sunset', label: `Message de l'acheteur` } : null,
+                this.isGift || this.giftMessage ? { fa: 'gift', color: 'precious', label: this.giftMessage ? `Message cadeau` : `Cadeau` } : null,
+                this.message ? { fa: 'envelope-open-text', color: 'sunset', label: `Message` } : null,
             ]
 
             return tags.filter(t => t)
@@ -254,10 +254,22 @@ export default {
     }
 
     @include breakpoint-s {
-
+        .OrderBlock {
+            display: block;
+        }
+        
         .OrderBlock_cover {
-            width:  75px;
-            height: 75px;
+            width:  60px;
+            height: 60px;
+            border-radius: 5px;
+        }
+
+        .OrderBlock_others {
+            display: none;
+        }
+
+        .OrderBlock_right {
+            flex-direction: row;
         }
     }
 </style>

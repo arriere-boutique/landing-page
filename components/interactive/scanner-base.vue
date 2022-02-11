@@ -1,9 +1,10 @@
 <template>
     <div class="Scanner">
         <div class="Scanner_container">
-            <video ref="video"></video>
+            <video ref="video" v-show="!isLoading"></video>
 
-            <div class="Scanner_overlay"></div>
+            <div class="Scanner_overlay" v-if="!isLoading"></div>
+            <i class="fal fa-spinner-third spin" v-else></i>
         </div>
 
         <div class="Scanner_actions" v-if="devices.length > 0">
@@ -16,6 +17,10 @@
                     value: d.deviceId
                 }))"
             />
+
+            <button-base class="Scanner_switch" :modifiers="['round', 'light']" @click="nextDevice">
+                <i class="fal fa-camera-rotate"></i>
+            </button-base>
         </div>
     </div>
 </template>
@@ -28,6 +33,7 @@ export default {
     name: 'ScannerBase',
     components: { SelectBase },
     data: () => ({
+        isLoading: true,
         result: null,
         selectedDevice: null,
         devices: [],
@@ -50,16 +56,23 @@ export default {
 
         try {
             this.devices = await this.codeReader.listVideoInputDevices()
-            // this.selectedDevice = this.devices[0].deviceId
+            this.selectedDevice = this.devices[0].deviceId
         } catch (e) {
             console.error(e)
         }
     },
     methods: {
+        nextDevice () {
+            let currentIndex = this.devices.indexOf(this.devices.find(d => d.deviceId == this.selectedDevice))
+
+            this.selectedDevice = this.devices[currentIndex + 1] ? this.devices[currentIndex + 1].deviceId : this.devices[0].deviceId
+        },
         async initReader () {
             this.codeControls = await this.codeReader.decodeFromVideoDevice(this.selectedDevice, this.$refs.video, (result, err) => {
                 if (result) this.result = result.text
             })
+
+            this.isLoading = false
         }
     }
 }
@@ -76,6 +89,10 @@ export default {
         border-radius: 10px;
         overflow: hidden;
         position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 22px;
 
         &::before {
             content: "";
@@ -130,5 +147,29 @@ export default {
     .Scanner_actions {
         margin-top: 10px;
         width: 100%;
+    }
+
+    .Scanner_switch {
+        display: none;
+    }
+
+    @include breakpoint-s {
+        
+        .Scanner_actions {
+            position: absolute;
+            z-index: 10;
+            top: 0;
+            left: 0;
+            text-align: right;
+            padding: 5px 15px;
+        }
+
+        .Scanner_switch {
+            display: inline-flex;
+        }
+
+        .Scanner_select {
+            display: none;
+        }
     }
 </style>

@@ -4,39 +4,41 @@
             <p class="ft-xl-bold mb-20">
                 Commande n°{{ order.id }}
 
-                <span class="ft-m ml-5">du {{ $moment.unix(order.orderDate).format('D MMMM YYYY') }}</span>
+                <span class="ft-m ml-5 d-block@s ml-0@s">du {{ $moment.unix(order.orderDate).format('D MMMM YYYY') }}</span>
             </p>
 
             <div class="OrderListing" :class="[ isItemPrepared(listing.id) ? 'is-emerald' : 'is-onyx' ]" v-for="listing in fullListings" :key="listing._id">
                 <div>
-                    <div class="image-block br-xs width-3xs" :style="{ backgroundImage: `url(${listing.images ? listing.images[0].thumbnail : 0})` }"></div>
-                </div>
+                    <div class="d-flex fx-align-start">
+                        <div class="image-block fx-no-shrink mr-15 br-s width-4xs width-5xs@s" :style="{ backgroundImage: `url(${listing.images ? listing.images[0].thumbnail : 0})` }"></div>
 
-                <div class="fx-center ml-15">
-                    <div>
-                        <p class="ft-medium ellipsis-1 ellipsis-break">
-                            {{ listing.title }}
-                        </p>
+                        <div>
+                            <p class="ft-medium ellipsis-1 ellipsis-break">
+                                {{ listing.title }}
+                            </p>
 
-                        <div class="fx-center mt-10">
-                            <div>
-                                <div v-for="variation in listing.variations.filter(l => l.valueId != null)" :key="variation.id">
-                                    {{ variation.label }} :
-                                    <b class="ft-m-medium">{{ variation.value }}</b>
+                            <div class="d-flex fxa-center fx-justify-between mt-10 mt-5@s d-block@s">
+                                <div v-if="listing.variations">
+                                    <div v-for="variation in listing.variations.filter(l => l.valueId != null)" :key="variation.id">
+                                        {{ variation.label }} :
+                                        <b class="ft-m-medium">{{ variation.value }}</b>
+                                    </div>
                                 </div>
+
+                                <p class="Tag ml-10 fx-no-shrink d-none@s" :class="[ listing.quantity > 1 ? 'is-gum' : 'is-onyx' ]">Quantité : {{ listing.quantity }}</p>
                             </div>
-
-                            <p class="Tag ml-10 fx-no-shrink" :class="[ listing.quantity > 1 ? 'is-gum' : 'is-onyx' ]">Quantité : {{ listing.quantity }}</p>
                         </div>
+                    </div>
 
-                        <div class="bg-ice-xweak p-15 br-s mt-15" v-if="getCustomization(listing)">
-                            <p class="ft-s-bold mb-5">Personnalisation</p>
-                            <div v-html="getCustomization(listing)"></div>
-                        </div>
+                    <div class="bg-ice-xweak p-15 br-s mt-15" v-if="getCustomization(listing)">
+                        <p class="ft-s-bold mb-5">Personnalisation</p>
+                        <div v-html="getCustomization(listing)"></div>
                     </div>
                 </div>
 
-                <div class="p-20 fx-center text-center p-20 bg-current-xweak br-s ml-20">
+                <div class="p-10 fx-center text-center bg-current-xweak br-s ml-20 mt-10@s ml-0@s width-100@s">
+                    <p class="Tag fx-no-shrink d-none d-flex@s" :class="[ listing.quantity > 1 ? 'is-gum' : 'is-onyx' ]">Quantité : {{ listing.quantity }}</p>
+
                     <button-base class="is-emerald" :modifiers="isItemPrepared(listing.id) ? ['s', 'current'] : ['s', 'secondary', 'current-mute']" icon-before="check" @click="toggleItem(listing.id)">
                         Préparé
                     </button-base>
@@ -67,13 +69,13 @@
                     Suivi de la commande
                 </p>
                 
-                <link-base @click="addNewTracking = true" v-if="order.shipments.length > 0">
-                    Ajouter un code de suivi
+                <link-base class="fx-no-shrink" @click="addNewTracking = true" v-if="order.shipments.length > 0">
+                    Ajouter un suivi
                 </link-base>
             </div>
                 
-            <div class="row-s mt-20">
-                <div class="col-6">
+            <div class="row-s mt-20 fx-dir-column-reverse@s">
+                <div class="col-6 col-12@s">
                     <div class="Order_tracking bg-ice-weak br-s">
                         <div class="width-100" v-if="order.shipments.length > 0">
                             <div class="fx-center pv-10 ph-15 bg-bg-light br-s" v-for="shipment in order.shipments" :key="shipment.shipment">
@@ -91,13 +93,13 @@
                         </div>
 
                         <div class="text-center" v-else>
-                            <button-base :modifiers="['s', 'ice']"  icon-before="plus" @click="addNewTracking = true">
-                                Ajouter un code de suivi
+                            <button-base :modifiers="['s', 'ice']"  icon-before="paper-plane" @click="addNewTracking = true">
+                                Marquer comme livrée
                             </button-base>
                         </div>
                     </div>
                 </div>
-                <div class="col-6">
+                <div class="col-6 col-12@s mb-10@s">
                     <div class="bg-bg-light p-20 br-s">
                         <div class="ft-bold">{{ order.name }}</div>
                         <div>{{ order.adress1 }}</div>
@@ -110,7 +112,7 @@
             </div>
 
             <transition name="fade">
-                <div class="mt-20 p-20 bg-bg-light br-s" v-show="addNewTracking">
+                <div class="mt-20 p-20 bg-bg-light br-s" v-if="addNewTracking">
                     <div class="fx-center">
                         <p class="ft-m-bold">
                             Nouveau code de suivi
@@ -121,12 +123,12 @@
                         </div>
                     </div>
                     
-                    <div class="d-flex mt-30">
-                        <div class="fx-grow mr-30">
+                    <div class="d-flex mt-30 fx-dir-column-reverse@s">
+                        <div class="fx-grow mr-30 mr-0@s">
                             <input-base label="Code de suivi" v-model="formData.tracker.trackingCode" />
 
                             <div class="mt-10">
-                                <div class="Tag Tag--m mr-5 mb-5" :class="[`is-${carrier.color}`, { 'Tag--secondary': carrier.id != formData.carrier }]" v-for="carrier in CARRIERS" :key="carrier.id" @click="formData.tracker.carrier = carrier.id">
+                                <div class="Tag mr-5 mb-5" :class="[`is-${carrier.color}`, { 'Tag--secondary': carrier.id != formData.carrier }]" v-for="carrier in CARRIERS" :key="carrier.id" @click="formData.tracker.carrier = carrier.id">
                                     {{ carrier.label }}
                                 </div>
                             </div>
@@ -135,7 +137,7 @@
                                 <toggle-base v-model="formData.bcc" label="Recevoir une copie de l'avis sur mon mail" />
                             </div>
                         </div>
-                        <div class="width-xs">
+                        <div class="width-xs width-100@s mb-20@s">
                             <scanner-base v-model="formData.tracker.trackingCode" />
                         </div>
                     </div>
@@ -234,5 +236,11 @@ export default {
         flex-direction: column;
         align-items: center;
         justify-content: center;
+    }
+
+    @include breakpoint-s {
+        .OrderListing {
+            flex-wrap: wrap;
+        }
     }
 </style>

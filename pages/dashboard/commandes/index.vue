@@ -43,7 +43,7 @@
         <popin-base :modifiers="['panel', 'absolute-header']" :is-active="selectedOrderId ? true : false" @close="onClose">
             <template slot="content">
                 <order-body
-                    class="p-40"
+                    class="p-40 p-20@s"
                     :id="selectedOrderId"
                     v-if="selectedOrderId"
                 />
