@@ -27,6 +27,7 @@ const { createSubscriber, getSubscribers, deleteSubscriber } = require('./api/su
 const { ping, syncEtsy, linkShop, unlinkShop, searchListings } = require('./api/etsy')
 const { editSlug, checkSlug } = require('./api/shop')
 const { redirect } = require('./api/oauth')
+const { sendOrder } = require('./api/shop-order')
 
 app.use(morgan('combined'))
 app.use('/webhooks', express.raw({ type: "*/*" }))
@@ -87,6 +88,8 @@ mongoose.connection.once('open', async () => {
 
     app.post('/shop/edit-slug', editSlug)
     app.get('/shop/check-slug', checkSlug)
+
+    app.post('/shop-order/send', sendOrder)
 
     app.get('/oauth/redirect', redirect)
 })

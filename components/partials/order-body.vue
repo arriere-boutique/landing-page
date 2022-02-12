@@ -93,8 +93,8 @@
                         </div>
 
                         <div class="text-center" v-else>
-                            <button-base :modifiers="['s', 'ice']"  icon-before="paper-plane" @click="addNewTracking = true">
-                                Marquer comme livrée
+                            <button-base :modifiers="['s', 'ice']"  icon-before="check" @click="addNewTracking = true">
+                                Marquer comme envoyée
                             </button-base>
                         </div>
                     </div>
@@ -128,18 +128,24 @@
                             <input-base label="Code de suivi" v-model="formData.tracker.trackingCode" />
 
                             <div class="mt-10">
-                                <div class="Tag mr-5 mb-5" :class="[`is-${carrier.color}`, { 'Tag--secondary': carrier.id != formData.carrier }]" v-for="carrier in CARRIERS" :key="carrier.id" @click="formData.tracker.carrier = carrier.id">
+                                <div class="Tag mr-5 mb-5" :class="[`is-${carrier.color}`, { 'Tag--secondary': carrier.id != formData.tracker.carrier }]" v-for="carrier in CARRIERS" :key="carrier.id" @click="formData.tracker.carrier = carrier.id">
                                     {{ carrier.label }}
                                 </div>
                             </div>
 
                             <div class="mt-10">
-                                <toggle-base v-model="formData.bcc" label="Recevoir une copie de l'avis sur mon mail" />
+                                <toggle-base v-model="formData.tracker.bcc" label="Recevoir une copie de l'avis sur mon mail" />
                             </div>
                         </div>
                         <div class="width-xs width-100@s mb-20@s">
                             <scanner-base v-model="formData.tracker.trackingCode" />
                         </div>
+                    </div>
+
+                    <div class="text-right mt-20">
+                        <button-base @click="onSend" :modifiers="['ice']" icon-before="paper-plane" :class="{ 'is-loading': isLoading }">
+                            Confirmer l'envoi
+                        </button-base>
                     </div>
                 </div>
             </transition>
@@ -150,7 +156,7 @@
 <script>
 import { InputBase, ToggleBase } from 'instant-coffee-core'
 const CARRIERS = [
-    { id: 0, label: 'Courrier La Poste', color: 'duck' },
+    { id: 0, label: 'La Poste', color: 'duck' },
     { id: 1, label: 'Colissimo', color: 'sunset' },
     { id: 2, label: 'Chronopost', color: 'ice' },
 ]
@@ -164,6 +170,7 @@ export default {
     data: () => ({
         CARRIERS,
         addNewTracking: false,
+        isLoading: false,
         formData: {
             tracker: {
                 carrier: 0,
@@ -183,6 +190,12 @@ export default {
         }
     },
     watch: {
+        formData: {
+            deep: true,
+            handler (v) {
+                console.log(v)
+            }
+        },
         order: {
             immediate: true,
             handler (v) {
@@ -211,6 +224,23 @@ export default {
             let variation = listing.variations ? listing.variations.find(v => v.valueId == null) : null
 
             return variation && variation.value != 'Non obligatoire pour cet article.' ? variation.value : null
+        },
+        async onSend () {
+            this.isLoading = true
+
+            try {
+                await this.$store.dispatch('shop-orders/send', {
+                    _id: this.order._id,
+                    ...this.formData.tracker,
+                    carrier: CARRIERS[this.formData.tracker.carrier].label
+                })
+
+                if (response.status == 1) this.addNewTracking = false
+            } catch (e) {
+                console.error(e)
+            }
+            
+            this.isLoading = false
         }
     }
 }

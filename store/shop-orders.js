@@ -47,6 +47,21 @@ export default {
                 return storeUtils.handleErrors(e, commit, `Une erreur est survenue`)
             }
         },
+        async send ({ commit }, params = {}) {
+            try {
+                const response = await this.$axios.$post('/shop-order/send', {
+                    ...params
+                })
+                
+                if (response.status == 0) throw Error(response.errors[0])
+                
+                commit('updateOne', response.data)
+                
+                return response
+            } catch (e) {
+                return storeUtils.handleErrors(e, commit, `Une erreur est survenue`)
+            }
+        }
     },
     getters: {
         items: (state) => {
