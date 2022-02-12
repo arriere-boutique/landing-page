@@ -1,7 +1,7 @@
 <template>
     <div
         class="OrderBlock"
-        :class="[ $modifiers ]"
+        :class="[ $modifiers, { 'is-completed': this.status == 'Completed' } ]"
     >   
         <div class="Orderblock_main">
             <div class="d-flex fx-grow">
@@ -27,7 +27,7 @@
                             {{ name }}
                         </p>
 
-                        <div class="ft-s fx-no-shrink ml-10">
+                        <div class="OrderBlock_date ft-s fx-no-shrink ml-10">
                             {{ $moment.unix(orderDate).format('DD MMM YYYY') }}
                         </div>
                     </div>
@@ -60,12 +60,12 @@
                     </div>
                 </div>
                 <div class="OrderBlock_shipment is-emerald" v-for="shipment in shipments" :key="shipment.shipment">
-                    <div>
-                        <p class="mr-5">{{ shipment.carrier_name }}</p>
+                    <div class="fx-grow">
+                        <span class="mr-10">{{ shipment.carrier_name }}</span>
                         <span class="Tag Tag--s is-emerald">{{ shipment.tracking_code ? shipment.tracking_code : `Pas de suivi` }}</span>
                     </div>
 
-                    Envoyé le {{ $moment.unix(shipment.shipment_notification_timestamp).format('D MMM YYYY') }}
+                    <p class="OrderBlock_shipmentDate">Envoyé le {{ $moment.unix(shipment.shipment_notification_timestamp).format('D MMM YYYY') }}</p>
                 </div>
             </div>
         </div>
@@ -129,7 +129,7 @@ export default {
         },
         tags () {
             let tags = [
-                { fa: 'box-full', color: 'onyx', label: `${this.totalQuantity} article(s)` },
+                { fa: 'box-full', color: '', label: `${this.totalQuantity} article(s)` },
                 this.status != 'Completed' ? { fa: 'check', color: 'emerald', label: `${this.prepared.length}/${this.listings.length} préparé(s)` } : null,
                 this.isGift || this.giftMessage ? { fa: 'gift', color: 'precious', label: this.giftMessage ? `Message cadeau` : `Cadeau` } : null,
                 this.message ? { fa: 'envelope-open-text', color: 'sunset', label: `Message` } : null,
@@ -248,9 +248,27 @@ export default {
         margin: 0 5px 5px 5px;
     }
 
+    .OrderBlock_shipmentDate
+
+
     .OrderBlock_shipment--send {
         border-color: var(--color-border);
         background-color: var(--color-bg-light);
+    }
+
+    .OrderBlock.is-completed {
+        
+        .OrderBlock_right,
+        .OrderBlock_shipmentDate,
+        .OrderBlock_date {
+            display: none;
+        }
+        
+        .OrderBlock_cover {
+            width:  75px;
+            height: 75px;
+            border-radius: 5px;
+        }
     }
 
     @include breakpoint-s {

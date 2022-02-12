@@ -330,3 +330,66 @@
         padding-bottom: 100%;
     }
 }
+
+.vehicle {
+    i {
+        display: block;
+        line-height: 1;
+        animation: vehicle 2500ms ease 0s infinite;
+    }
+
+    &::after {
+        content: "";
+        display: block;
+        margin: 0 auto;
+        width: 50px;
+        height: 1px;
+        background: var(--color-onyx);
+    }
+}
+
+@keyframes vehicle {
+    0% {
+        transform: translate3d(0, 0, 0) rotate(0deg);
+    }
+
+    10% {
+        transform: translate3d(1px, 0, 0) rotate(0deg);
+    }
+
+    20% {
+        transform: translate3d(3px, 1px, 0) rotate(1deg);
+    }
+
+    30% {
+        transform: translate3d(5px, 0, 0) rotate(-2deg);
+    }
+    
+    40% {
+        transform: translate3d(6px, -2px, 0) rotate(-1deg);
+    }
+    
+    50% {
+        transform: translate3d(5px, -1px, 0) rotate(0deg);
+    }
+
+    60% {
+        transform: translate3d(5px, 1px, 0) rotate(1deg);
+    }
+    
+    70% {
+        transform: translate3d(4px, 0, 0) rotate(0deg);
+    }
+    
+    80% {
+        transform: translate3d(3px, 0, 0) rotate(0deg);
+    }
+
+    90% {
+        transform: translate3d(2px, 0, 0) rotate(-1deg);
+    }
+    
+    100% {
+        transform: translate3d(0, 0, 0) rotate(0deg);
+    }
+}

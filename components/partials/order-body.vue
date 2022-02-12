@@ -25,7 +25,7 @@
                                     </div>
                                 </div>
 
-                                <p class="Tag ml-10 fx-no-shrink d-none@s" :class="[ listing.quantity > 1 ? 'is-gum' : 'is-onyx' ]">Quantité : {{ listing.quantity }}</p>
+                                <p class="Tag ml-10 fx-no-shrink d-none@s" :class="[ listing.quantity > 1 ? 'is-gum' : 'Tag--weak' ]">Quantité : {{ listing.quantity }}</p>
                             </div>
                         </div>
                     </div>
@@ -37,7 +37,7 @@
                 </div>
 
                 <div class="p-10 fx-center text-center bg-current-xweak br-s ml-20 mt-10@s ml-0@s width-100@s">
-                    <p class="Tag fx-no-shrink d-none d-flex@s" :class="[ listing.quantity > 1 ? 'is-gum' : 'is-onyx' ]">Quantité : {{ listing.quantity }}</p>
+                    <p class="Tag fx-no-shrink d-none d-flex@s" :class="[ listing.quantity > 1 ? 'is-gum' : 'Tag--weak' ]">Quantité : {{ listing.quantity }}</p>
 
                     <button-base class="is-emerald" :modifiers="isItemPrepared(listing.id) ? ['s', 'current'] : ['s', 'secondary', 'current-mute']" icon-before="check" @click="toggleItem(listing.id)">
                         Préparé

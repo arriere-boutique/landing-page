@@ -1,5 +1,5 @@
 <template>
-    <div class="ActionFixed" :class="{ 'is-active': isActive }">
+    <div class="ActionFixed" :class="{ 'is-active': isActive, 'is-fixed': fixed }">
         <div class="ActionFixed_float">
             <slot name="float"></slot>
         </div>
@@ -14,7 +14,8 @@
 export default {
     name: 'ActionFixed',
     props: {
-        isActive: { type: Boolean, default: false }
+        isActive: { type: Boolean, default: false },
+        fixed: { type: Boolean, default: false }
     }
 }
 </script>
@@ -34,6 +35,8 @@ export default {
     }
 
     .ActionFixed_float {
+        display: flex;
+        justify-content: flex-end;
         margin-bottom: 20px;
     }
 
@@ -45,5 +48,22 @@ export default {
         min-height: 80px;
         border-top: 1px solid var(--color-border);
         padding: 10px 0;
+    }
+
+    .ActionFixed.is-fixed {
+        position: fixed;
+        width: 100%;
+        left: 0;
+        padding: 0 30px;
+    }
+
+    @include breakpoint-s {
+        .ActionFixed {
+            bottom: 70px;
+        }
+
+        .ActionFixed_float {
+            
+        }
     }
 </style>
