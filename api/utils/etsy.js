@@ -93,15 +93,15 @@ exports.syncShop = async function (id, syncItems = [], firstSync = false) {
                 shop.save()
             }
 
-            if (syncItems.includes('orders')) {
-                let orders = await syncOrders(shop)
-                shop.orders = orders
-                shop.save()
-            }
-
             if (syncItems.includes('reviews')) {
                 let reviews = await syncReviews(shop)
                 shop.reviews = reviews
+                shop.save()
+            }
+
+            if (syncItems.includes('orders')) {
+                let orders = await syncOrders(shop)
+                shop.orders = orders
                 shop.save()
             }
 
@@ -151,7 +151,7 @@ const syncOrders = async function (shop) {
             ordersData = await Promise.all(ordersData.results.map(async order => {
                 let listings = []
                  
-                if (order.receipt_id == '2376234478') console.log(order)
+                // if (order.receipt_id == '2376234478') console.log(order)
 
                 listings = await Promise.all(order.transactions.map(async listing => {
                     let existing = await Entities.shopListing.model.findOne({ shop: shop._id, id: listing.listing_id })
@@ -174,26 +174,28 @@ const syncOrders = async function (shop) {
                 }))
 
                 let transaction = order.transactions[0] ? order.transactions[0] : null
-                
+                let countryCodes = new Intl.DisplayNames(['fr'], { type: 'region' })
+
                 return {
                     id: order.receipt_id,
                     listings,
                     email: order.buyer_email,
                     name: order.name,
                     orderDate: order.create_timestamp,
-                    shippedDate: transaction ? transaction.shipped_timestamp : undefined,
-                    expectedDate: transaction ? transaction.expected_ship_date : undefined,
                     adress1: order.first_line,
                     adress2: order.second_line,
                     zip: order.zip,
                     city: order.city,
                     state: order.state,
-                    country: order.country,
+                    country: countryCodes.of(order.country_iso),
                     status: order.status,
                     isGift: order.is_gift,
                     subTotal: order.subtotal,
                     shipments: order.shipments,
+                    transactionId: transaction ? transaction.transaction_id : undefined,
                     shipUpgrade: transaction ? transaction.shipping_upgrade : undefined,
+                    shippedDate: transaction ? transaction.shipped_timestamp : undefined,
+                    expectedDate: transaction ? transaction.expected_ship_date : undefined,
                     message: cleanString(order.message_from_buyer),
                     totalDiscount: order.discount_amt,
                     totalGiftWrap: order.gift_wrap_price,
@@ -211,6 +213,9 @@ const syncOrders = async function (shop) {
                 let corresponding = ordersData.find(o => o.id == order.id)
                 let data = await Entities.shopOrder.model.findByIdAndUpdate(order._id, corresponding)
 
+                data.review = await Entities.shopReview.model.findOne({ order: data._id, shop: shop._id })
+                data.save()
+
                 orderIds = orderIds.filter(o => o != order.id)
 
                 return data
@@ -224,6 +229,9 @@ const syncOrders = async function (shop) {
                     shop: shop._id,
                     owner: shop.owner
                 })
+
+                data.review = await Entities.shopReview.model.findOne({ order: data._id, shop: shop._id })
+                data.save()
 
                 return data
             }))
@@ -330,6 +338,7 @@ const syncReviews = async function (shop) {
                     rating: review.rating,
                     comment: cleanString(review.review),
                     listingId: review.listing_id,
+                    transactionId: review.transaction_id,
                     image: review.image_url_fullxfull,
                     userId: review.buyer_user_id,
                     reviewDate: new Date(review.create_timestamp)
@@ -341,10 +350,12 @@ const syncReviews = async function (shop) {
 
                 for (let review of reviewsData) {
                     let data = await Entities.shopReview.model.findOne({ id: review.id, shop: shop._id })
+                    let order = await Entities.shopOrder.model.findOne({ transactionId: review.transactionId, shop: shop._id })
 
                     if (data) {
                         data.rating = review.rating
                         data.comment = review.comment
+                        data.order = order ? order._id : null,
 
                         data.save()
                     } else {
@@ -354,6 +365,7 @@ const syncReviews = async function (shop) {
                             ...review,
                             listing: listing ? listing._id : undefined,
                             shop: shop._id,
+                            order: order ? order._id : null,
                             owner: shop.owner
                         })
                     }

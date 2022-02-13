@@ -5,6 +5,8 @@ let ShopOrderEntity = {
     write: 'self',
     fields: new mongoose.Schema({
         id: { type: String },
+        transactionId: { type: String },
+        
         email: { type: String },
         name: { type: String },
         adress1: { type: String },
@@ -34,12 +36,17 @@ let ShopOrderEntity = {
 
         shop: { type: mongoose.Schema.Types.ObjectId, write: 'self', ref: 'shop' },
         owner: { type: mongoose.Schema.Types.ObjectId, write: 'self', ref: 'user' },
+        review: { type: mongoose.Schema.Types.ObjectId, write: 'self', ref: 'shopReview' },
 
         orderDate: { type: Number },
         expectedDate: { type: Number },
         shippedDate: { type: Number },
     }, { timestamps: true })
 }
+
+ShopOrderEntity.fields.pre('find', function () {
+    this.populate('review')
+})
 
 ShopOrderEntity.model = global.ShopOrderEntity ? global.ShopOrderEntity.model : mongoose.model('shopOrder', ShopOrderEntity.fields)
 global.ShopOrderEntity = ShopOrderEntity

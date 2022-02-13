@@ -23,7 +23,7 @@
 
                 <div class="OrderBlock_content pl-20">
                     <div class="fx-center">
-                        <p class="ft-l-medium fx-grow ellipsis-1 ellipsis-break ft-m-medium@s">
+                        <p class="ft-m-medium fx-grow ellipsis-1 ellipsis-break">
                             {{ name }}
                         </p>
 
@@ -33,6 +33,10 @@
                     </div>
 
                     <div class="mt-10 d-flex ft-s-medium fx-wrap mt-5@s">
+                        <div class="Tag Tag--s ml-0 mb-5 mr-5 is-duck" v-if="review"> 
+                            <rating :rating="review.rating" />
+                        </div>
+
                         <div v-for="(tag, i) in tags" class="Tag Tag--s ml-0 mb-5 mr-5" :class="[`is-${tag.color}`]" :key="i">
                             <i class="fal mr-10" :class="[`fa-${tag.fa}`]"></i> {{ tag.label }}
                         </div>
@@ -41,7 +45,7 @@
             </div>
 
             
-            <div class="OrderBlock_shipments">
+            <div class="OrderBlock_shipments" v-if="!isDigital && status != 'Completed'">
                 <div class="OrderBlock_shipment OrderBlock_shipment--send" v-if="!shipments || shipments.length <= 0">
                     <div>
                         <span class="ft-s-medium">
@@ -100,9 +104,10 @@ export default {
         shippedDate: { type: Number },
         shipUpgrade: { type: String },
         total: { type: Object },
+        review: { type: Object },
         prepared: { type: Array, default: () => [] },
         shipments: { type: Array, default: () => [] },
-        listings: { type: Array, default: () => [] }
+        listings: { type: Array, default: () => [] },
     },
     data: () => ({
         randomIcon
@@ -129,13 +134,17 @@ export default {
         },
         tags () {
             let tags = [
-                { fa: 'box-full', color: '', label: `${this.totalQuantity} article(s)` },
+                { fa: 'box-full', color: '', label: `${this.totalQuantity} art.` },
                 this.status != 'Completed' ? { fa: 'check', color: 'emerald', label: `${this.prepared.length}/${this.listings.length} préparé(s)` } : null,
-                this.isGift || this.giftMessage ? { fa: 'gift', color: 'precious', label: this.giftMessage ? `Message cadeau` : `Cadeau` } : null,
-                this.message ? { fa: 'envelope-open-text', color: 'sunset', label: `Message` } : null,
+                this.status != 'Completed' && (this.isGift || this.giftMessage) ? { fa: 'gift', color: 'precious', label: this.giftMessage ? `Message cadeau` : `Cadeau` } : null,
+                this.status != 'Completed' && this.message ? { fa: 'envelope-open-text', color: 'sunset', label: `Message` } : null,
+                this.isDigital ? { fa: 'arrow-down-to-line', color: 'precious', label: `Numérique` } : null,
             ]
 
             return tags.filter(t => t)
+        },
+        isDigital () {
+            return this.listings.filter(c => c.digital).length == this.listings.length
         }
     }
 }

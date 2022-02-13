@@ -10,11 +10,13 @@ let ShopReviewEntity = {
         image: { type: String },
         userId: { type: String },
         user: { type: Object },
+        transactionId: { type: String },
         reviewDate: { type: Date },
 
         listing: { type: mongoose.Schema.Types.ObjectId, write: 'self', ref: 'shopListing' },
         shop: { type: mongoose.Schema.Types.ObjectId, write: 'self', ref: 'shop' },
         owner: { type: mongoose.Schema.Types.ObjectId, write: 'self', ref: 'user' },
+        order: { type: mongoose.Schema.Types.ObjectId, write: 'self', ref: 'shopOrder' },
     }, { timestamps: true })
 }
 

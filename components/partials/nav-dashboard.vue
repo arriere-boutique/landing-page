@@ -100,6 +100,7 @@ export default {
                     }, {
                         label: `Mes commandes`,
                         icon: 'receipt',
+                        locked: !this.shops || this.shops.length <= 0,
                         path: { name: 'commandes' },
                         isMobile: true,
                         tooltip: `Tu pourras bientôt gérer tes commandes ici. J'y travaille !`

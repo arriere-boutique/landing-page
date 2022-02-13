@@ -1,5 +1,5 @@
 <template>
-    <div class="PageEditor Wrapper--left pb-100">
+    <div class="PageEditor Wrapper--left Wrapper--m pb-100">
         <div class="d-flex fx-align-center mv-40">
             <breadcrumbs class="fx-no-shrink fx-shrink@s" :items="[
                 { label: 'Pages', to: { name: 'pages' } },
@@ -66,12 +66,24 @@
                             <tooltip text="Ce titre s'affichera dans les résultats Google." />
                         </input-base>
 
-                        <input-base class="is-disabled mv-10" :value="fullLink" label="Mon lien" />
+                        <div class="bg-precious-xweak p-20 br-s">
+                            <div class="fx-center mb-30">
+                                <p class="ft-m-medium color-precious-xstrong">
+                                    <i class="fal fa-stars"></i> Fonctionnalités avancées
+                                </p>
 
-                        <div class="mt-10 text-right">
-                            <link-base tag="nuxt-link" :attrs="{ to: localePath({ name: 'parametres', query: { section: 'domains' } }) }">
-                                Personnaliser mon lien
-                            </link-base>
+                                <link-base tag="nuxt-link" :attrs="{ to: localePath({ name: 'abonnements' }) }" v-if="!hasSub">
+                                    Soutenir le projet
+                                </link-base>
+                            </div>
+
+                            <input-base class="is-disabled mv-10" :value="fullLink" label="Mon lien">
+                                <link-base tag="nuxt-link" :attrs="{ to: localePath({ name: 'parametres', query: { section: 'domains' } }) }">
+                                    Personnaliser
+                                </link-base>
+                            </input-base>
+
+                            <toggle-base class="mt-15" v-model="formData.hideBrand" label="Cacher le logo l'Arrière Boutique" />
                         </div>
                     </div>
                 </transition>
@@ -158,6 +170,7 @@ export default {
         title: '',
         defaultData: {
             slug: 'ma-page',
+            hideBrand: false,
             customization: {
                 'background': {
                     src: 'https://images.pexels.com/photos/62693/pexels-photo-62693.jpeg'
@@ -174,6 +187,7 @@ export default {
         }
     }),
     computed: {
+        hasSub () { return this.$store.state.user.hasSubscription },
         serverEntity () { return this.$store.getters['landings/findOne']({ _id: this._id }, true) },
         shops () { return this.$store.state.shop.items },
         changesMade () {

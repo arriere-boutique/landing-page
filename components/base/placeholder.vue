@@ -173,7 +173,7 @@ export default {
         }
 
         &.Placeholder--xs::before {
-            padding-bottom: 10%;
+            padding-bottom: 15%;
         }
     }
 

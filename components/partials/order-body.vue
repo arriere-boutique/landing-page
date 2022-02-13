@@ -19,9 +19,9 @@
 
                             <div class="d-flex fxa-center fx-justify-between mt-10 mt-5@s d-block@s">
                                 <div v-if="listing.variations">
-                                    <div v-for="variation in listing.variations.filter(l => l.valueId != null)" :key="variation.id">
+                                    <div class="ft-s" v-for="variation in listing.variations.filter(l => l.valueId != null)" :key="variation.id">
                                         {{ variation.label }} :
-                                        <b class="ft-m-medium">{{ variation.value }}</b>
+                                        <b class="ft-medium">{{ variation.value }}</b>
                                     </div>
                                 </div>
 
@@ -44,6 +44,20 @@
                     </button-base>
                 </div>
             </div>
+        </div>
+
+        <div class="mt-20 is-duck bg-current-xweak p-20 br-s" v-if="order.review">
+            <div class="d-flex fxa-center">
+                <p class="ft-l-bold">
+                    Avis laissé par l'acheteur
+                </p>
+                
+                <div class="Tag Tag--s ml-10 is-duck"> 
+                    <rating :rating="order.review.rating" />
+                </div>
+            </div>
+            
+            <div class="mt-20" v-html="order.review.comment" v-if="order.review.comment"></div>
         </div>
 
         <div class="mt-20 is-sunset bg-current-xweak p-20 br-s" v-if="order.message">

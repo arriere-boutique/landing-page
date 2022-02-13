@@ -10,7 +10,11 @@
                             <landing-block v-bind="landing" />
                         </div>
                     </transition-group>
-
+                    <div class="row-s" v-if="isLoading && landings.length == 0">
+                        <div class="col-6 col-12@m mb-20" key="placeholder">
+                            <placeholder :modifiers="['simple']" class="br-s" />
+                        </div>
+                    </div>
                     <template v-if="landings.filter(l => !l.isActive).length > 0">
                         <p class="ft-xl-bold mt-40 mb-20">Pages désactivées</p>
 
@@ -65,7 +69,11 @@ export default {
     layout: 'dashboard',
     async fetch () {
         await this.$store.dispatch('landings/fetch', { owner: '$self' })
+        this.isLoading = false
     },
+    data: () => ({
+        isLoading: true
+    }),
     computed: {
         landings () { return this.$store.getters['landings/items'] }
     },

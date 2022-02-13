@@ -4,17 +4,6 @@
     max-width: 950px;
 }
 
-.Wrapper--left {
-    margin: 0 40px;
-    width: auto;
-
-    &.Wrapper--s {
-        margin: 0 40px;
-        width: auto;
-        max-width: 800px;
-    }
-}
-
 .Wrapper--m {
     margin: 0 auto;
     width: 90%;
@@ -36,6 +25,23 @@
 .Wrapper--l {
     width: 90%;
     max-width: 1200px;
+}
+
+.Wrapper--left {
+    margin: 0 40px;
+    width: auto;
+
+    &.Wrapper--m {
+        margin: 0 40px;
+        width: auto;
+        max-width: 1100px;
+    }
+
+    &.Wrapper--s {
+        margin: 0 40px;
+        width: auto;
+        max-width: 800px;
+    }
 }
 
 @include breakpoint-s {

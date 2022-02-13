@@ -26,7 +26,7 @@
                     </link-base>
                 </div>
             </div>
-            <a class="LandingPage_footerLogo fill-bg-light" :href="$baseUrl" target="_blank">
+            <a class="LandingPage_footerLogo fill-bg-light" :href="$baseUrl" target="_blank" v-if="!content.hideBrand">
                 <icon-base name="logo/logo-main" />
             </a>
         </div>

@@ -43,11 +43,12 @@ input, select {
 }
 
 .InputBase.is-disabled {
-  color: var(--color-ft-weak);
 
   input {
+    color: var(--color-ft-weak);
     font-style: italic;
     cursor: not-allowed;
+    pointer-events: none;
   }
 }
 

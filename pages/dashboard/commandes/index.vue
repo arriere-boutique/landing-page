@@ -5,14 +5,26 @@
 
             <div class="Page_cols">
                 <div class="fx-grow">
-                    <div class="Tile is-emerald text-center ft-l-medium" v-if="pendingOrders.length == 0 && preparedOrders.length == 0">
+                    <template v-if="isLoading">
+                        <p class="ft-xl-medium mb-10">
+                            <span class="Tag Tag--xs is-sunset mr-5"><i class="fal fa-spinner-third spin fa-sm"></i></span> Commandes
+                        </p>
+
+                        <div class="row-s">
+                            <div class="col-12 col-12@m mv-10" v-for="i in 5" :key="i">
+                                <placeholder :modifiers="['h', 'xs', 'simple']" class="br-m" />
+                            </div>
+                        </div>
+                    </template>
+                    
+                    <div class="Tile is-emerald text-center ft-l-medium" v-if="pendingOrders.length == 0 && preparedOrders.length == 0 && !isLoading">
                         <div class="vehicle mb-15">
                             <i class="fal fa-truck"></i>
                         </div>
                         Toutes les commandes ont été traitées, bravo !
                     </div>
 
-                    <template v-if="pendingOrders.length > 0">
+                    <template v-if="pendingOrders.length > 0 && !isLoading">
                         <p class="ft-xl-medium mb-10"><span class="Tag Tag--xs is-sunset mr-5">{{ pendingOrders.length }}</span> Commandes à préparer</p>
 
                         <div class="row-s">
@@ -22,7 +34,7 @@
                         </div>
                     </template>
 
-                    <template v-if="preparedOrders.length > 0">
+                    <template v-if="preparedOrders.length > 0 && !isLoading">
                         <hr class="Separator mv-40" />
 
                         <p class="ft-xl-medium mb-10"><span class="Tag Tag--xs is-ice mr-5">{{ preparedOrders.length }}</span> Commandes préparées</p>
@@ -34,7 +46,7 @@
                         </div>
                     </template>
                     
-                    <template v-if="completedOrders.length > 0">
+                    <template v-if="completedOrders.length > 0 && !isLoading">
                         <hr class="Separator mv-40" />
 
                         <div class="fx-center">
@@ -91,17 +103,20 @@ export default {
     middleware: 'loggedUserAndShop',
     layout: 'dashboard',
     async fetch () {
-        this.shops.forEach(shop => {
-            this.$store.dispatch('shop/sync', {
+        this.shops.forEach(async shop => {
+            await this.$store.dispatch('shop/sync', {
                 notification: false,
                 params: { id: shop._id, syncItems: [ 'orders' ] }
             })
         })
         
-        this.$store.dispatch('shop-orders/fetch', { owner: '$self' })
+        await this.$store.dispatch('shop-orders/fetch', { owner: '$self' })
+
+        this.isLoading = false
     },
     fetchOnServer: false,
     data: () => ({
+        isLoading: true,
         displayCompleted: true,
         completedLimit: 10,
         selectedOrderId: '',

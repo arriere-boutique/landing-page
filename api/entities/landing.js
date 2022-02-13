@@ -11,6 +11,7 @@ let LandingEntity = {
         title: { type: String, write: 'self' },
         description: { type: String, write: 'self' },
         logo: { type: String, write: 'self' },
+        hideBrand: { type: Boolean, write: 'self', default: false },
         link: { type: String, write: 'self' },
         modules: { type: Array },
         customization: { type: Object, write: 'self' },

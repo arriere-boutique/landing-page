@@ -45,17 +45,16 @@ export default {
     }),
     props: {
         height: { type: Number, default: 150 },
-        maxRows: { type: [Number, Boolean], default: 2 },
+        maxRows: { type: [Number, Boolean], default: 1 },
         maxPhotos: { type: [Number, Boolean], default: false }
     },
     computed: {
         displayedRows () {
-            return this.rows.slice(0, 2)
+            return this.rows.slice(0, this.maxRows)
         }
     },  
     mounted () {
         this.$data.maxWidth = this.$refs.container.offsetWidth
-        console.log(this.$refs.container.offsetWidth)
         this.search()
     },
     methods: {
