@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="mb-30">
-            <p class="ft-2xl-bold ft-xl@s">
+            <p class="ft-2xl-bold ft-xl-bold@s">
                 Commande n°{{ order.id }}
 
                 <span class="ft-m ml-5 d-block@s ml-0@s">du {{ $moment.unix(order.orderDate).format('D MMMM YYYY') }}</span>
@@ -36,14 +36,20 @@ export default {
         otherOrders () {
             return this.$store.getters['shop-orders/find']({ userId: this.order.userId }).sort((a, b) => b.orderDate - a.orderDate)
         },
+        isDigital () {
+            return this.order.listings.filter(c => c.digital).length == this.order.listings.length
+        },
         navItems () {
             return [
                 {
                     id: 'preparation',
-                    label: 'Préparation'
+                    label: 'Préparation',
+                    checked: this.order.status == 'Completed' || this.order.prepared.length == this.order.listings.length
                 }, {
                     id: 'delivery',
-                    label: 'Livraison'
+                    label: 'Livraison',
+                    checked: this.order.shipments.length > 0,
+                    disabled: this.isDigital
                 }, {
                     id: 'client',
                     label: 'Fidélisation'

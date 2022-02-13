@@ -139,7 +139,7 @@ export default {
         tags () {
             let tags = [
                 { color: '', label: `${this.$tc('base.articles', this.totalQuantity)}` },
-                this.status != 'Completed' ? { fa: 'check', color: 'emerald', label: `${this.prepared.length}/${this.$tc('order.prepared', this.listings.length)}` } : null,
+                this.status != 'Completed' ? { fa: 'check', color: 'emerald', label: this.prepared.length == this.listings.length ? 'Prête à envoyer' : `${this.prepared.length}/${this.$tc('order.prepared', this.listings.length)}` } : null,
                 this.status != 'Completed' && (this.isGift || this.giftMessage) ? { fa: 'gift', color: 'precious', label: this.giftMessage ? `Message cadeau` : `Cadeau` } : null,
                 this.otherOrders.length > 1 ? { fa: 'star', color: 'pond', label: `Client fidèle`, count: this.otherOrders.length } : null,
                 this.status != 'Completed' && this.message ? { fa: 'envelope-open-text', color: 'sunset', label: `Message` } : null,

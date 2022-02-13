@@ -149,7 +149,6 @@ export default {
             }
         }
     },
-    
     methods: {
         async onSend () {
             this.isLoading = true

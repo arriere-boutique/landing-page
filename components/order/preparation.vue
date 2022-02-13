@@ -2,7 +2,7 @@
     <div>
         <div class="Order_section p-20 b br-s">
             <div v-for="listing in fullListings" :key="listing.id">
-                <div class="d-flex" :class="[ isItemPrepared(listing.id) ? 'is-emerald' : 'is-onyx' ]">
+                <div class="d-flex d-block@s" :class="[ isItemPrepared(listing.id) ? 'is-emerald' : 'is-onyx' ]">
                     <div>
                         <div class="d-flex fx-align-start">
                             <div class="image-block fx-no-shrink mr-15 br-s width-4xs width-5xs@s" :style="{ backgroundImage: `url(${listing.images ? listing.images[0].thumbnail : 0})` }"></div>
@@ -76,7 +76,9 @@ export default {
         order: { type: Object }
     },
     data: () => ({
-
+        formData: {
+            prepared: []
+        }
     }),
     computed: {
         fullListings () {
@@ -89,19 +91,30 @@ export default {
             return this.fullListings.reduce((t, l) => t += l.quantity, 0)
         },
     },
+    watch: {
+        order: {
+            immediate: true,
+            handler (v) {
+                this.formData = {
+                    ...this.formData,
+                    prepared: v.prepared
+                }
+            }
+        }
+    },
     methods: {
         async toggleItem (id) {
-            // this.formData.prepared = this.isItemPrepared(id) ? this.formData.prepared.filter(i => i != id) : [ ...this.formData.prepared, id ]
+            this.formData.prepared = this.isItemPrepared(id) ? this.formData.prepared.filter(i => i != id) : [ ...this.formData.prepared, id ]
 
-            // this.$store.dispatch('shop-orders/update', {
-            //     _id: this.order._id,
-            //     params: {
-            //         prepared: this.formData.prepared
-            //     }
-            // })
+            this.$store.dispatch('shop-orders/update', {
+                _id: this.order._id,
+                params: {
+                    prepared: this.formData.prepared
+                }
+            })
         },
         isItemPrepared (id) {
-            // return this.formData.prepared.includes(id)
+            return this.formData.prepared.includes(id)
         },
         getCustomization (listing) {
             let variation = listing.variations ? listing.variations.find(v => v.valueId == null) : null

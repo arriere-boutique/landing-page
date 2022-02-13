@@ -32,10 +32,11 @@
                                 <order-block v-bind="order" @click.native="selectedOrderId = order._id" @action="onAction" />
                             </div>
                         </div>
+
+                        <hr class="Separator mv-40" />
                     </template>
 
                     <template v-if="preparedOrders.length > 0 && !isLoading">
-                        <hr class="Separator mv-40" />
 
                         <p class="ft-xl-medium mb-10"><span class="Tag Tag--xs is-ice mr-5">{{ preparedOrders.length }}</span> Commandes préparées</p>
 
@@ -44,19 +45,19 @@
                                 <order-block v-bind="order" @click.native="selectedOrderId = order._id" @action="onAction" />
                             </div>
                         </div>
+
+                        <hr class="Separator mv-40" />
                     </template>
                     
                     <template v-if="completedOrders.length > 0 && !isLoading">
-                        <hr class="Separator mv-40" />
-
-                        <div class="fx-center">
+                        <div class="fx-center mb-40">
                             <p class="ft-xl-medium"><span class="Tag Tag--xs is-emerald mr-5">{{ completedOrders.length }}</span> Commandes envoyées</p>
 
-                            <button-base :modifiers="['round', 's', 'light', 'border']" :icon-before="displayCompleted ? 'angle-up' : 'angle-down'" @click="displayCompleted = !displayCompleted" />
+                            <!-- <button-base :modifiers="['round', 's', 'light', 'border']" :icon-before="displayCompleted ? 'angle-up' : 'angle-down'" @click="displayCompleted = !displayCompleted" /> -->
                         </div>
 
                         <transition-group name="fade" is="div" v-if="displayCompleted">
-                            <div class="mt-60" v-for="date in displayedCompletedOrders" :key="date">
+                            <div class="mb-60" v-for="date in displayedCompletedOrders" :key="date">
                                 <div class="d-flex fxa-center mb-10">
                                     <div class="Tag Tag--s mr-10">
                                         {{ $moment(date).fromNow() }}
@@ -74,7 +75,7 @@
                                 </div>
                             </div>
 
-                            <div class="mt-60" key="loader">
+                            <div key="loader">
                                 <button-base :modifiers="['secondary', 's']" icon-before="long-arrow-down" @click="completedLimit += 10" v-if="completedLimit < Object.keys(this.ordersByDate).length">
                                     Afficher les commandes suivantes
                                 </button-base>
