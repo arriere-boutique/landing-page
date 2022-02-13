@@ -3,11 +3,15 @@
         <div class="Scanner_container">
             <video ref="video" v-show="!isLoading"></video>
 
-            <div class="Scanner_overlay" v-if="!isLoading"></div>
-            <i class="fal fa-spinner-third spin" v-else></i>
+            <button-base @click="initReader" v-if="!isInit">
+                Activer caméra
+            </button-base>
+
+            <i class="fal fa-spinner-third spin" v-else-if="isLoading"></i>
+            <div class="Scanner_overlay" v-else></div>
         </div>
 
-        <div class="Scanner_actions" v-if="devices.length > 0">
+        <div class="Scanner_actions" v-if="devices.length > 0 && isInit">
             <select-base
                 class="Scanner_select"
                 v-model="selectedDevice"
@@ -33,6 +37,7 @@ export default {
     name: 'ScannerBase',
     components: { SelectBase },
     data: () => ({
+        isInit: false,
         isLoading: true,
         result: null,
         selectedDevice: null,
@@ -42,7 +47,7 @@ export default {
     }),
     watch: {
         selectedDevice (v) {
-            if (v !== null) this.initReader()
+            if (v !== null && this.isInit) this.initReader()
         },
         result (v) {
             this.$emit('input', v)
@@ -68,6 +73,8 @@ export default {
             this.selectedDevice = this.devices[currentIndex + 1] ? this.devices[currentIndex + 1].deviceId : this.devices[0].deviceId
         },
         async initReader () {
+            this.isInit = true 
+            
             this.codeControls = await this.codeReader.decodeFromVideoDevice(this.selectedDevice, this.$refs.video, (result, err) => {
                 if (result) this.result = result.text
             })

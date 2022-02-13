@@ -90,6 +90,7 @@
                 <order-body
                     class="p-40 p-20@s"
                     :id="selectedOrderId"
+                    @change="onOrderChange"
                     v-if="selectedOrderId"
                 />
             </template>
@@ -160,6 +161,10 @@ export default {
         },
         onClose () {
             this.selectedOrderId = false
+        },
+        onOrderChange (v) {
+            this.selectedOrderId = false
+            setTimeout(() => this.selectedOrderId = v, 200)
         }
     }
 }

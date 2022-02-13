@@ -135,7 +135,7 @@
     align-items: center;
     border-radius: 50%;
     justify-content: center;
-    font: var(--ft-s-bold);
+    font: var(--ft-s-medium);
     line-height: 1;
 }
 
@@ -152,7 +152,7 @@
 .round-xs {
     width: 20px;
     height: 20px;
-    font: var(--ft-xs-bold);
+    font: var(--ft-xs-medium);
     line-height: 1;
 }
 
@@ -195,7 +195,7 @@
 .Separator {
     border: none;
     height: 1px;
-    background-color: var(--color-border);
+    background-color: var(--color-current-weak, var(--color-border));
 }
 
 .color-current { color: var(--color-current, var(--color-pond)); }
@@ -323,6 +323,7 @@
     position: relative;
     background-size: cover;
     background-position: center;
+    background-color: var(--color-current-xweak, var(--color-bg-weak));
 
     &::before {
         content: "";

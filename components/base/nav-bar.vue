@@ -1,12 +1,17 @@
 <template>
     <div class="NavBar">
         <div v-for="(item, i) in items" :key="i">
-            <link-base class="NavBar_item" :class="{ 'is-active': item.isActive }" :modifiers="['m']" :tag="item.href ? 'a' : 'nuxt-link'" :href="item.href" :attrs="{ to: localePath(item.to) }" v-if="item.href || item.to">
+            <component
+                :is="item.href || item.to ? 'link-base' : 'div'"
+                :modifiers="['m']" 
+                :tag="item.href ? 'a' : 'nuxt-link'"
+                :href="item.href" :attrs="{ to: localePath(item.to) }" 
+                class="NavBar_item"
+                :class="{ 'is-active': value == item.id }"
+                @click="() => item.onClick ? item.onClick() : $emit('input', item.id)"
+            >
                 {{ item.label }}
-            </link-base>
-            <div class="NavBar_item" :class="{ 'is-active': item.isActive }" @click="() => item.onClick ? item.onClick() : undefined" v-else>
-                {{ item.label }}
-            </div>
+            </component>
         </div>
     </div>
 </template>
@@ -15,6 +20,7 @@
 export default {
     name: 'NavBar',
     props: {
+        value: { type: String },
         items: { type: Array, default: () => [] }
     }
 }

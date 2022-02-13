@@ -7,6 +7,7 @@ let ShopOrderEntity = {
         id: { type: String },
         transactionId: { type: String },
         
+        userId: { type: String },
         email: { type: String },
         name: { type: String },
         adress1: { type: String },

@@ -4,17 +4,17 @@
 
             <p class="ft-2xl-bold mt-40">Mes paramètres</p>
 
-            <nav-bar class="mb-40" :items="navItems" />
+            <nav-bar class="mb-40" v-model="section" :items="navItems" />
 
-            <div class="p-relative">
-                <transition name="fade">
-                    <parametres-index :shops="shops" :user="user" v-show="!section || section == 'index'" />
-                </transition>
-
-                <transition name="fade">
-                    <parametres-domains :shops="shops" :user="user" v-show="section == 'domains'" />
-                </transition>
-            </div>
+            <transition-group name="fade">
+                <component v-for="sect in navItems"
+                    :is="`parametres-${sect.id}`"
+                    :shops="shops"
+                    :user="user" 
+                    :key="sect.id"
+                    v-show="section == sect.id"
+                />
+            </transition-group>
         </div>
     </div>
 </template>
@@ -29,12 +29,12 @@ export default {
     }),
     watch: {
         section (v) {
-            this.$router.push({query: { section: v }})
+            this.$router.push({ query: { section: v }})
         },
         ['$route.query.section']: {
             immediate: true,
             handler (v) {
-                this.section = v
+                this.section = v ? v : 'index'
             }
         },
     },
@@ -43,9 +43,13 @@ export default {
         shops () { return this.$store.state.shop.items },
         navItems () {
             return [
-                { label: 'Général', isActive: !this.section || this.section == 'index', onClick: () => this.section = 'index' },
-                { label: 'Mes liens', isActive: this.section == 'domains', onClick: () => this.section = 'domains' },
-                { label: 'Paramètres', isActive: this.section == 'config', onClick: () => this.section = 'config' },
+                {
+                    id: 'index',
+                    label: 'Général'
+                }, {
+                    id: 'domains',
+                    label: 'Mes liens'
+                }
             ]
         }
     }

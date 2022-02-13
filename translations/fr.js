@@ -4,7 +4,8 @@ export default {
     },
     base: {
         days: '{n} jour | {n} jours',
-        articles: '{n} article | {n} articles'
+        articles: '{n} article | {n} articles',
+        orders: '{n} commande | {n} commandes',
     },
     blog: {
         categories: {

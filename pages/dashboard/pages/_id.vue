@@ -11,7 +11,7 @@
             <form id="mainForm" @submit.prevent="update"></form>
 
             <div class="fx-grow" v-if="isInit">
-                <nav-bar class="mb-40" :items="navItems" />
+                <nav-bar class="mb-40" v-model="section" :items="navItems" />
 
                 <transition name="fade">
                     <div v-if="!section || section == 'modules'">
@@ -213,9 +213,9 @@ export default {
         },
         navItems () {
             return [
-                { label: 'Blocs', isActive: !this.section || this.section == 'modules', onClick: () => this.section = 'modules' },
-                { label: 'Personnalisation', isActive: this.section == 'style', onClick: () => this.section = 'style' },
-                { label: 'Paramètres', isActive: this.section == 'config', onClick: () => this.section = 'config' },
+                { id: 'modules', label: 'Blocs' },
+                { id: 'style', label: 'Personnalisation' },
+                { id: 'config', label: 'Paramètres' },
             ]
         }
     },
@@ -250,7 +250,7 @@ export default {
         ['$route.query.section']: {
             immediate: true,
             handler (v) {
-                this.section = v
+                this.section = v ? v : 'modules'
             }
         }
     },

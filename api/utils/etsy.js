@@ -151,7 +151,7 @@ const syncOrders = async function (shop) {
             ordersData = await Promise.all(ordersData.results.map(async order => {
                 let listings = []
                  
-                // if (order.receipt_id == '2376234478') console.log(order)
+                if (order.receipt_id == '2376234478') console.log(order)
 
                 listings = await Promise.all(order.transactions.map(async listing => {
                     let existing = await Entities.shopListing.model.findOne({ shop: shop._id, id: listing.listing_id })
@@ -179,6 +179,7 @@ const syncOrders = async function (shop) {
                 return {
                     id: order.receipt_id,
                     listings,
+                    userId: order.buyer_user_id,
                     email: order.buyer_email,
                     name: order.name,
                     orderDate: order.create_timestamp,

@@ -38,13 +38,12 @@
                         </div>
 
                         <div v-for="(tag, i) in tags" class="Tag Tag--s ml-0 mb-5 mr-5" :class="[`is-${tag.color}`]" :key="i">
-                            <i class="fal mr-10" :class="[`fa-${tag.fa}`]"></i> {{ tag.label }}
+                            <i class="fal mr-10" :class="[`fa-${tag.fa}`]" v-if="tag.fa"></i> {{ tag.label }} <span class="round-xs ml-10 bg-bg-light" v-if="tag.count">{{ tag.count }}</span>
                         </div>
                     </div>
                 </div>
             </div>
 
-            
             <div class="OrderBlock_shipments" v-if="!isDigital && status != 'Completed'">
                 <div class="OrderBlock_shipment OrderBlock_shipment--send" v-if="!shipments || shipments.length <= 0">
                     <div>
@@ -94,6 +93,7 @@ export default {
     name: 'OrderBlock',
     mixins: [ ModifiersMixin ],
     props: {
+        _id: { type: String },
         status: { type: String, default: '' },
         name: { type: String },
         isGift: { type: Boolean, default: false },
@@ -103,6 +103,7 @@ export default {
         expectedDate: { type: Number },
         shippedDate: { type: Number },
         shipUpgrade: { type: String },
+        userId: { type: String },
         total: { type: Object },
         review: { type: Object },
         prepared: { type: Array, default: () => [] },
@@ -132,11 +133,15 @@ export default {
 
             return { days, label }
         },
+        otherOrders () {
+            return this.$store.getters['shop-orders/find']({ userId: this.userId })
+        },
         tags () {
             let tags = [
-                { fa: 'box-full', color: '', label: `${this.totalQuantity} art.` },
+                { color: '', label: `${this.$tc('base.articles', this.totalQuantity)}` },
                 this.status != 'Completed' ? { fa: 'check', color: 'emerald', label: `${this.prepared.length}/${this.$tc('order.prepared', this.listings.length)}` } : null,
                 this.status != 'Completed' && (this.isGift || this.giftMessage) ? { fa: 'gift', color: 'precious', label: this.giftMessage ? `Message cadeau` : `Cadeau` } : null,
+                this.otherOrders.length > 1 ? { fa: 'star', color: 'pond', label: `Client fidèle`, count: this.otherOrders.length } : null,
                 this.status != 'Completed' && this.message ? { fa: 'envelope-open-text', color: 'sunset', label: `Message` } : null,
                 this.isDigital ? { fa: 'arrow-down-to-line', color: 'precious', label: `Numérique` } : null,
             ]
