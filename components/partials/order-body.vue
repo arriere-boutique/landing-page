@@ -1,7 +1,7 @@
 <template>
     <div :class="[]">
         <div class="">
-            <p class="ft-xl-bold mb-20">
+            <p class="ft-2xl-bold mb-20 ft-xl@s">
                 Commande n°{{ order.id }}
 
                 <span class="ft-m ml-5 d-block@s ml-0@s">du {{ $moment.unix(order.orderDate).format('D MMMM YYYY') }}</span>
@@ -43,6 +43,10 @@
                         Préparé
                     </button-base>
                 </div>
+            </div>
+
+            <div class="text-right mt-15">
+                {{ this.$tc('base.articles', totalQuantity) }}
             </div>
         </div>
 
@@ -114,13 +118,21 @@
                     </div>
                 </div>
                 <div class="col-6 col-12@s mb-10@s">
-                    <div class="bg-bg-light p-20 br-s">
-                        <div class="ft-bold">{{ order.name }}</div>
-                        <div>{{ order.adress1 }}</div>
-                        <div v-if="order.adress2">{{ order.adress2 }}</div>
-                        <div class="text-upper">{{ order.zip }} {{ order.city }}</div>
-                        <div v-if="order.state">{{ order.state }}</div>
-                        <div>{{ order.country }}</div>
+                    <div class="bg-bg-light p-20 br-s d-flex fxa-start">
+                        <div class="fx-grow">
+                            <div class="ft-bold">{{ order.name }}</div>
+                            <div>{{ order.adress1 }}</div>
+                            <div v-if="order.adress2">{{ order.adress2 }}</div>
+                            <div class="text-upper">{{ order.zip }} {{ order.city }}</div>
+                            <div v-if="order.state">{{ order.state }}</div>
+                            <div>{{ order.country }}</div>
+                        </div>
+
+                        <button-base
+                            :modifiers="['round', 'light', 'xs']"
+                            @click="$copy(formattedAddress)"
+                            icon-before="copy"
+                        />
                     </div>
                 </div>
             </div>
@@ -201,6 +213,19 @@ export default {
                 ...this.$store.getters['shop/listingById'](l.listingId),
                 ...l
             }))
+        },
+        totalQuantity () {
+            return this.fullListings.reduce((t, l) => t += l.quantity, 0)
+        },
+        formattedAddress () {
+            let address = [this.order.name, this.order.adress1]
+
+            if (this.order.adress2) address.push(this.order.adress2)
+            address.push(this.order.zip + ' ' + this.order.city.toUpperCase())
+            if (this.order.state) address.push(this.order.state)
+            address.push(this.order.country)
+
+            return address.join('\n')
         }
     },
     watch: {
@@ -264,7 +289,7 @@ export default {
 
     .OrderListing {
         display: flex;
-        padding: 15px 0;
+        padding: 20px 0;
         border-bottom: 1px solid var(--color-border);
 
         &:last-child {

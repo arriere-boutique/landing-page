@@ -128,14 +128,14 @@ export default {
         timeLeft () {
             let days = this.$moment.duration(this.$moment.unix(this.expectedDate).diff(this.$moment())).days()
 
-            let label = days == 0 ? `Aujourd'hui` : (days < 0 ? `Il y a ${-days} jour(s)`: `Dans ${days} jour(s)`)
+            let label = days == 0 ? `Aujourd'hui` : (days < 0 ? `Il y a ${this.$tc('base.days', -days)}`: `Dans ${this.$tc('base.days', days)}`)
 
             return { days, label }
         },
         tags () {
             let tags = [
                 { fa: 'box-full', color: '', label: `${this.totalQuantity} art.` },
-                this.status != 'Completed' ? { fa: 'check', color: 'emerald', label: `${this.prepared.length}/${this.listings.length} préparé(s)` } : null,
+                this.status != 'Completed' ? { fa: 'check', color: 'emerald', label: `${this.prepared.length}/${this.$tc('order.prepared', this.listings.length)}` } : null,
                 this.status != 'Completed' && (this.isGift || this.giftMessage) ? { fa: 'gift', color: 'precious', label: this.giftMessage ? `Message cadeau` : `Cadeau` } : null,
                 this.status != 'Completed' && this.message ? { fa: 'envelope-open-text', color: 'sunset', label: `Message` } : null,
                 this.isDigital ? { fa: 'arrow-down-to-line', color: 'precious', label: `Numérique` } : null,

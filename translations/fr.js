@@ -2,6 +2,10 @@ export default {
     meta: {
         append: ` | L'Arrière Boutique`
     },
+    base: {
+        days: '{n} jour | {n} jours',
+        articles: '{n} article | {n} articles'
+    },
     blog: {
         categories: {
             news: {
@@ -78,5 +82,8 @@ export default {
                 youtube: `WE60E3YY8KQ` 
             }
         ]
+    },
+    order: {
+        prepared: '{n} préparé | {n} préparés'
     }
 }
