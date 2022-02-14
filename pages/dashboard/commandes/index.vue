@@ -86,10 +86,10 @@
             </div>
         </div>
 
-        <popin-base :modifiers="['panel', 'absolute-header']" :is-active="selectedOrderId ? true : false" @close="onClose" v-if="selectedOrderId">
+        <popin-base :modifiers="['panel', 'absolute-header']" :is-active="selectedOrderId ? true : false" @close="onClose">
             <template slot="content">
                 <order-body
-                    class="p-40 p-20@s"
+                    class="o-hidden"
                     :id="selectedOrderId"
                     @change="onOrderChange"
                     v-if="selectedOrderId"

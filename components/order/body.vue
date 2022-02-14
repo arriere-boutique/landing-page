@@ -1,6 +1,6 @@
 <template>
     <div>
-        <nav-body :items="navItems" :auto-nav="true" v-if="order">
+        <nav-body class="p-40 p-20@s" :items="navItems" :auto-nav="true" v-if="order">
             <p class="ft-2xl-bold ft-xl-bold@s">
                 Commande n°{{ order.id }}
 

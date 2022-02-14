@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="NavBody">
         <div class="mb-30">
             <div>
                 <slot></slot>
@@ -8,23 +8,22 @@
             <nav-bar v-model="section" :items="items" ref="nav" />
         </div>
 
-        <transition-group
+        <div
             class="NavContent"
-            tag="div"
-            :name="`fade-${panAnimation}`"
             :class="{ 'is-reset': panReset }"
             :style="{ '--pos-x': `${pan}px` }"
             v-hammer:pan.horizontal="onPan"
             v-hammer:panend="onPanEnd"
             ref="container"
         >
-            <component v-for="(sect) in items"
-                :is="sect.component"
-                v-bind="sect.props"
-                :key="sect.id"
-                v-show="section == sect.id || !section && sect.id == 'index'"
-            />
-        </transition-group>
+            <transition :name="`fade-${panAnimation}`" mode="out-in">
+                <component
+                    :is="currentSection.component"
+                    v-bind="currentSection.props"
+                    :key="currentSection.id"
+                />
+            </transition>
+        </div>
     </div>
 </template>
 
@@ -36,15 +35,22 @@ export default {
     },
     data: () => ({
         section: '',
+        currentIndex: 0,
         hammer: null,
         pan: 0,
         panReset: false,
         panAnimation: 'left'
     }),
+    computed: {
+        currentSection () {
+            return this.items.find(i => (i.id == this.section || !this.section && i.id == 'index'))
+        }
+    },
     watch: {
         section (v) {
             if (this.$route.query.section !== v) {
                 let query = { ...this.$route.query }
+                let index = this.items.indexOf(this.currentSection)
 
                 if (v) {
                     query.section = v
@@ -52,7 +58,10 @@ export default {
                     delete query.section
                 }
 
+                this.panAnimation = this.currentIndex > index ? 'left' : 'right'
+
                 this.$router.push({ query })
+                this.currentIndex = index
             }
         },
         ['$route.query.section']: {
@@ -72,7 +81,7 @@ export default {
     },
     methods: {
         onPan (v) {
-            let max = this.$refs.container.$el.offsetWidth
+            let max = this.$refs.container.offsetWidth
             let force = Math.max(1 - (Math.abs(v.deltaX * 0.1) / max), 0)
 
             this.pan += v.velocityX * force
@@ -82,10 +91,8 @@ export default {
 
             if (v.deltaX <= -100) {
                 this.$refs.nav.next()
-                this.panAnimation = 'right'
             } else if (v.deltaX >= 100) {
                 this.$refs.nav.prev()
-                this.panAnimation = 'left'
             }
         }
     }
@@ -96,6 +103,7 @@ export default {
     .NavContent {
         transform: translateX(var(--pos-x));
         touch-action: pan-y !important;
+        transition: height 200ms ease-out;
 
         &.is-reset {
             transition: all 150ms ease-out;

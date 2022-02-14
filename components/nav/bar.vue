@@ -71,10 +71,12 @@ export default {
         updateScroll () {
             let element = this.$refs[this.value ? this.value : 'index'][0]
 
-            this.$refs.container.scrollTo({
-                left: element.offsetLeft - 40,
-                behavior: 'smooth'
-            })
+            if (this.$refs.container) {
+                this.$refs.container.scrollTo({
+                    left: element.offsetLeft - 40,
+                    behavior: 'smooth'
+                })
+            }
         },
         next () {
             if (this.navigableItems[this.currentIndex + 1]) this.$emit('input', this.navigableItems[this.currentIndex + 1].id)

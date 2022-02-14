@@ -11,82 +11,11 @@
             <form id="mainForm" @submit.prevent="update"></form>
 
             <div class="fx-grow" v-if="isInit">
-                <nav-bar class="mb-40" v-model="section" :items="navItems" />
-
-                <transition name="fade">
-                    <div v-if="!section || section == 'modules'">
-                        <transition-group name="default" tag="div">
-                            <component
-                                v-for="module in orderedModules" :key="module.id" class="mb-10"
-                                :is="module.type + '-edit'"
-                                :modules="orderedModules"
-                                :module="module"
-                                @input="(v) => setModule(module.id, v)"
-                                @delete="() => deleteModule(module.id)"
-                            />
-                        </transition-group> 
-
-                        <div class="bg-bg-xweak d-flex fx-align-center fx-justify-center br-m p-20">
-                            <link-base fa="plus" @click.native.prevent="isModuleLibraryActive = true">Ajouter un module</link-base>
-                        </div>
-                    </div>
-                </transition>
-
-                <transition name="fade">
-                    <div v-if="section == 'style'">
-                        <div class="p-20 b br-m mv-10">
-                            <div class="mb-20">
-                                <p class="ft-s-medium mb-10">Couleur de fond</p>
-                                <color-picker
-                                    :before="[ { hex: 'auto', display: this.photoColor, fa: 'wand-magic-sparkles' } ]"
-                                    :value="formData.customization['background-color']"
-                                    @input="setColorPicker"
-                                />
-                            </div>
-
-                            <div class="mb-20">
-                                <p class="ft-s-medium mb-10">Transparence de l'image de fond</p>
-                                <div class="d-flex">
-                                    <div class="bg-bg-xweak fx-grow br-m mr-20">
-                                        <input type="range" min="0" max="100" :value="formData.customization['background-opacity']" @input="(e) => updateCustomization('background-opacity', e.target.value)" :attrs="{ form: 'mainForm' }">
-                                    </div>
-
-                                    <p class="ft-m-medium">{{ formData.customization['background-opacity'] }}%</p>
-                                </div>
-                            </div>
-
-                            <pexels-gallery @select="(v) => { setPhotoColor(v.avg_color); updateCustomization('background', { src: v.src.original, photographer: { url: v.photographer_url, name: v.photographer} }); updateCustomization('background-thumbnail', v.src.large) }"/>
-                        </div>
-                    </div>
-                </transition>
-                
-                <transition name="fade">
-                    <div v-if="section == 'config'">
-                        <input-base label="Titre de la page" class="mv-10" v-model="formData.title">
-                            <tooltip text="Ce titre s'affichera dans les résultats Google." />
-                        </input-base>
-
-                        <div class="bg-precious-xweak p-20 br-s">
-                            <div class="fx-center mb-30">
-                                <p class="ft-m-medium color-precious-xstrong">
-                                    <i class="fal fa-stars"></i> Fonctionnalités avancées
-                                </p>
-
-                                <link-base tag="nuxt-link" :attrs="{ to: localePath({ name: 'abonnements' }) }" v-if="!hasSub">
-                                    Soutenir le projet
-                                </link-base>
-                            </div>
-
-                            <input-base class="is-disabled mv-10" :value="fullLink" label="Mon lien">
-                                <link-base tag="nuxt-link" :attrs="{ to: localePath({ name: 'parametres', query: { section: 'domains' } }) }">
-                                    Personnaliser
-                                </link-base>
-                            </input-base>
-
-                            <toggle-base class="mt-15" v-model="formData.hideBrand" label="Cacher le logo l'Arrière Boutique" />
-                        </div>
-                    </div>
-                </transition>
+                <nav-body
+                    class="mb-20"
+                    v-model="section"
+                    :items="navItems"
+                />
 
                 <action-fixed :is-active="changesMade && !isPreview">
                     <template slot="float">
@@ -134,8 +63,6 @@
                 </div>
             </div>
         </div>
-
-        <module-library :is-active="isModuleLibraryActive" @close="isModuleLibraryActive = false" @add="addModule" />
     </div>
 </template>
 
@@ -161,12 +88,9 @@ export default {
         _id: '',
         isLoading: true,
         isPreview: false,
-        isModuleLibraryActive: false,
         isInit: false,
-        photoColor: '',
         prevFormData: {},
         formData: {},
-        section: 'modules',
         title: '',
         defaultData: {
             slug: 'ma-page',
@@ -187,7 +111,6 @@ export default {
         }
     }),
     computed: {
-        hasSub () { return this.$store.state.user.hasSubscription },
         serverEntity () { return this.$store.getters['landings/findOne']({ _id: this._id }, true) },
         shops () { return this.$store.state.shop.items },
         changesMade () {
@@ -195,6 +118,9 @@ export default {
         },
         currentShop () {
             return this.shops.find(s => s._id == this.formData.shop)
+        },
+        moduleList () {
+            return Object.values(Modules).filter(m => m.metadata).map(m => m.metadata.name)
         },
         fullLink () {
             if (!this.currentShop) return ''
@@ -205,17 +131,24 @@ export default {
 
             return link
         },
-        orderedModules () {
-            return [ ...this.formData.modules ].sort((a, b) => a.position - b.position)
-        },
-        moduleList () {
-            return Object.values(Modules).filter(m => m.metadata).map(m => m.metadata.name)
-        },
         navItems () {
             return [
-                { id: 'modules', label: 'Blocs' },
-                { id: 'style', label: 'Personnalisation' },
-                { id: 'config', label: 'Paramètres' },
+                {
+                    id: 'index',
+                    component: 'landing-modules',
+                    props: { formData: this.formData },
+                    label: 'Blocs'
+                }, {
+                    id: 'style',
+                    component: 'landing-customization',
+                    props: { formData: this.formData },
+                    label: 'Personnalisation'
+                }, {
+                    id: 'config',
+                    component: 'landing-settings',
+                    props: { formData: this.formData },
+                    label: 'Paramètres'
+                },
             ]
         }
     },
@@ -242,15 +175,6 @@ export default {
                 if (!this.formData.modules || this.formData.modules.length <= 0) this.formData.modules = this.defaultData.modules
                 
                 this.prevFormData = { ...this.formData }
-            }
-        },
-        section (v) {
-            this.$router.push({query: { section: v }})
-        },
-        ['$route.query.section']: {
-            immediate: true,
-            handler (v) {
-                this.section = v ? v : 'modules'
             }
         }
     },
@@ -289,26 +213,6 @@ export default {
             }
 
             return false
-        },
-        deleteModule (id) {
-            this.formData.modules = this.formData.modules.filter(m => m.id != id)
-        },
-        addModule (module) {
-            this.formData.modules = [ ...this.formData.modules, { id: Math.random(), type: module.name, active: true, position: this.formData.modules.length, ...module.default } ]
-        },  
-        setModule (id, value) {
-            let modules = [ ...this.formData.modules].map(m => ({ ...(m.id == id ? value : m) }))
-            this.formData.modules = modules.sort((a, b) => a.position - b.position).map((m, i) => ({ ...m, position: i }))
-        },
-        setColorPicker (value) {
-            this.formData.customization = { ...this.formData.customization, ['background-color']: value == 'auto' ? this.photoColor : value }
-        },
-        setPhotoColor (value) {
-            if (this.formData.customization['background-color'] == this.photoColor) this.setColorPicker(value)
-            this.photoColor = value
-        },
-        updateCustomization (key, v) {
-            this.formData.customization = { ...this.formData.customization, [key]: v }
         },
         decodeForm (form) {
             if (!form) return {}
