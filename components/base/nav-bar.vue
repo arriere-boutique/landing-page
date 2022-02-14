@@ -39,9 +39,25 @@ export default {
         items: {
             immediate: true,
             handler (v) {
-                let first = v.filter(i => !i.disabled && !i.checked)
-                if (first[0] && first[0].id != this.value) this.$emit('input', first[0].id)
+                if (this.availableItems[0] && this.availableItems[0].id != this.value) this.$emit('input', this.availableItems[0].id)
             }
+        }
+    },
+    computed: {
+        availableItems () {
+            return this.items.filter(i => !i.disabled && !i.checked)
+        },
+        navigableItems () {
+            return this.items.filter(i => !i.disabled)
+        },
+        currentIndex () {
+            let i = 0
+            
+            this.navigableItems.forEach((item, index) => {
+                if (item.id == this.value) i = index
+            })
+
+            return i
         }
     },
     mounted () {
@@ -76,6 +92,12 @@ export default {
                     behavior: 'smooth'
                 })
             }
+        },
+        next () {
+            if (this.navigableItems[this.currentIndex + 1]) this.$emit('input', this.navigableItems[this.currentIndex + 1].id)
+        },
+        prev () {
+            if (this.navigableItems[this.currentIndex - 1]) this.$emit('input', this.navigableItems[this.currentIndex - 1].id)
         }
     }
 }

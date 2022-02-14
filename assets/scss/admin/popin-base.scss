@@ -154,9 +154,12 @@
     }
 }
 
-
 @include breakpoint-xs {
 
+    .PopinBase--panel .PopinBase_body {
+        width: 100%;
+    }
+    
     .PopinBase_body {
         height: 100vh;
         border-radius: 0;

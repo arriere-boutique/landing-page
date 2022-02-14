@@ -3,7 +3,7 @@ import moment from 'moment'
 import { ButtonBase, PopinBase } from 'instant-coffee-core'
 import Validators from '@/utils/validators'
 import LogoYellow from '@/assets/img/logo/logo-yellow.png'
-
+import { NuxtHammer } from 'nuxt-hammer'
 moment.locale('fr')
 
 Vue.mixin({
@@ -136,3 +136,4 @@ Vue.mixin({
 
 Vue.component('ButtonBase', ButtonBase)
 Vue.component('PopinBase', PopinBase)
+Vue.use(NuxtHammer)

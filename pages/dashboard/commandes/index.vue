@@ -100,6 +100,7 @@
 </template>
 
 <script>
+
 export default {
     name: 'DashboardOrders',
     middleware: 'loggedUserAndShop',
