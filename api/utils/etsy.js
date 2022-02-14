@@ -18,41 +18,45 @@ exports.syncShop = async function (id, syncItems = [], firstSync = false) {
             }
         
             if (syncItems.includes('info')) {
-                try {
-                    const shopData = await $fetch(`https://openapi.etsy.com/v3/application/users/${shop.etsyId}/shops`, { headers: {
-                        'x-api-key': process.env.ETSY,
-                        Authorization: `Bearer ${shop.etsyToken}`,
-                    } })
+                if (!shop.lastShopFetch || moment().diff(shop.lastShopFetch, 'minutes') > 5) {
+                    shop.lastShopFetch = new Date()
 
-                    if (!shop.slug) {
-                        let original = shopData.shop_name.toLowerCase()
-                        let slug = null
-                        let offset = 0
-
-                        while (!slug) {
-                            let newSlug = offset == 0 ? original : original + offset.toString()
-
-                            let existing = await Entities.shop.model.find({ slug: newSlug, _id: { $ne: shop._id } })
-
-                            if (existing.length == 0) {
-                                slug = newSlug
+                    try {
+                        const shopData = await $fetch(`https://openapi.etsy.com/v3/application/users/${shop.etsyId}/shops`, { headers: {
+                            'x-api-key': process.env.ETSY,
+                            Authorization: `Bearer ${shop.etsyToken}`,
+                        } })
+    
+                        if (!shop.slug) {
+                            let original = shopData.shop_name.toLowerCase()
+                            let slug = null
+                            let offset = 0
+    
+                            while (!slug) {
+                                let newSlug = offset == 0 ? original : original + offset.toString()
+    
+                                let existing = await Entities.shop.model.find({ slug: newSlug, _id: { $ne: shop._id } })
+    
+                                if (existing.length == 0) {
+                                    slug = newSlug
+                                }
+                                
+                                offset += 1
                             }
-                            
-                            offset += 1
+    
+                            shop.slug = slug
                         }
-
-                        shop.slug = slug
+    
+                        shop.name = shopData.shop_name
+                        shop.link = shopData.url
+                        shop.logo = shopData.icon_url_fullxfull
+                        shop.id = shopData.shop_id
+                        shop.openingDate = shopData.create_date
+    
+                        shop.save()
+                    } catch (e) {
+                        console.error(e)
                     }
-
-                    shop.name = shopData.shop_name
-                    shop.link = shopData.url
-                    shop.logo = shopData.icon_url_fullxfull
-                    shop.id = shopData.shop_id
-                    shop.openingDate = shopData.create_date
-
-                    shop.save()
-                } catch (e) {
-                    console.error(e)
                 }
             }
             
@@ -88,21 +92,33 @@ exports.syncShop = async function (id, syncItems = [], firstSync = false) {
             }
 
             if (syncItems.includes('listings')) {
-                let listings = await syncListings(shop, syncItems.includes('listing-photos'))
-                shop.listings = listings
-                shop.save()
+                if (!shop.lastListingFetch || moment().diff(shop.lastListingFetch, 'minutes') > 5) {
+                    shop.lastListingFetch = new Date()
+
+                    let listings = await syncListings(shop, syncItems.includes('listing-photos'))
+                    shop.listings = listings
+                    shop.save()
+                }
             }
 
             if (syncItems.includes('reviews')) {
-                let reviews = await syncReviews(shop)
-                shop.reviews = reviews
-                shop.save()
+                if (!shop.lastReviewFetch || moment().diff(shop.lastReviewFetch, 'minutes') > 5) {
+                   shop.lastReviewFetch = new Date()
+
+                    let reviews = await syncReviews(shop)
+                    shop.reviews = reviews
+                    shop.save()
+                }
             }
 
             if (syncItems.includes('orders')) {
-                let orders = await syncOrders(shop)
-                shop.orders = orders
-                shop.save()
+                if (!shop.lastOrderFetch || moment().diff(shop.lastOrderFetch, 'minutes') > 2) {
+                    shop.lastOrderFetch = new Date()
+
+                    let orders = await syncOrders(shop)
+                    shop.orders = orders
+                    shop.save()
+                }
             }
 
             resolve(shop)
@@ -151,7 +167,7 @@ const syncOrders = async function (shop) {
             ordersData = await Promise.all(ordersData.results.map(async order => {
                 let listings = []
                  
-                if (order.receipt_id == '2376234478') console.log(order)
+                // if (order.receipt_id == '2376234478') console.log(order)
 
                 listings = await Promise.all(order.transactions.map(async listing => {
                     let existing = await Entities.shopListing.model.findOne({ shop: shop._id, id: listing.listing_id })

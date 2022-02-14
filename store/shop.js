@@ -1,6 +1,5 @@
 import storeUtils from '@/utils/store'
 import { generateCodes } from '@/utils/etsy'
-import moment from 'moment'
 
 export default {
     namespaced: true,
@@ -86,7 +85,9 @@ export default {
                     }, { root: true })
                 }
 
-                dispatch('fetch')
+                console.log(response.data)
+
+                commit('updateShop', response.data)
 
                 return response.data
             } catch (e) {

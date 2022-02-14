@@ -27,6 +27,9 @@ exports.syncEtsy = async function (req, res) {
 
     try {
         data = await syncShop(req.body.id, req.body.syncItems ? req.body.syncItems : ['info', 'listings', 'orders', 'reviews'])
+
+        data = await Entities.shop.model.find({ _id: data._id })
+        data = data[0]
     } catch (e) {
         console.warn(e)
         errors.push(e.message)

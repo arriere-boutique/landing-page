@@ -17,6 +17,12 @@ let ShopEntity = {
         etsyToken: { type: String, write: 'self', read: 'self' },
         etsyRefreshToken: { type: String, write: 'self', read: 'self' },
         etsyRefreshed: { type: Date, write: 'self', read: 'self' },
+
+        lastShopFetch: { type: Date, write: 'self', read: 'self' },
+        lastOrderFetch: { type: Date, write: 'self', read: 'self' },
+        lastReviewFetch: { type: Date, write: 'self', read: 'self' },
+        lastListingFetch: { type: Date, write: 'self', read: 'self' },
+        
         reviews: [
             { type: mongoose.Schema.Types.ObjectId, ref: 'shopReview', read: 'public' }
         ],
