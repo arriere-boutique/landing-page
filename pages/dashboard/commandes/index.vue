@@ -11,13 +11,13 @@
                         </p>
 
                         <div class="row-s">
-                            <div class="col-12 col-12@m mv-10" v-for="i in 5" :key="i">
+                            <div class="col-12 col-12@m mv-5" v-for="i in 5" :key="i">
                                 <placeholder :modifiers="['h', 'xs', 'simple']" class="br-m" />
                             </div>
                         </div>
                     </template>
                     
-                    <div class="Tile is-emerald text-center ft-l-medium" v-if="pendingOrders.length == 0 && preparedOrders.length == 0 && !isLoading">
+                    <div class="Tile is-emerald text-center ft-l-medium mb-60" v-if="pendingOrders.length == 0 && preparedOrders.length == 0 && !isLoading">
                         <div class="vehicle mb-15">
                             <i class="fal fa-truck"></i>
                         </div>
@@ -86,7 +86,7 @@
             </div>
         </div>
 
-        <popin-base :modifiers="['panel', 'absolute-header']" :is-active="selectedOrderId ? true : false" @close="onClose">
+        <popin-base :modifiers="['panel', 'absolute-header']" :is-active="selectedOrderId ? true : false" @close="onClose" v-if="selectedOrderId">
             <template slot="content">
                 <order-body
                     class="p-40 p-20@s"
@@ -124,15 +124,32 @@ export default {
         completedLimit: 10,
         selectedOrderId: '',
     }),
+    watch: {
+        selectedOrderId (v) {
+            if (this.$route.query.order !== v) {
+                let query = { ...this.$route.query }
+
+                if (v) {
+                    query.order = v
+                } else {
+                    delete query.order
+                    delete query.section
+                }
+
+                this.$router.push({ query })
+            }
+        },
+        ['$route.query.order']: {
+            immediate: true,
+            handler (v) {
+                if (v) this.selectedOrderId = v
+            }
+        }
+    },
     computed: {
         user () { return this.$store.state.auth.user },
         shops () { return this.$store.state.shop.items },
-        orders () {
-            // let orders = this.shops.reduce((total, current) => [ ...total, ...current.orders.map(o => ({ ...o, shop: current })) ], [])
-            // return orders.sort((a, b) => b.orderDate.valueOf() - a.orderDate.valueOf())
-
-            return this.$store.getters['shop-orders/items']
-        },
+        orders () { return this.$store.getters['shop-orders/items'] },
         pendingOrders () {
             return this.orders.filter(o => o.listings.length > o.prepared.length && o.status == 'Paid').sort((a, b) => b.orderDate - a.orderDate)
         },

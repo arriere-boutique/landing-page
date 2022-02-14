@@ -9,7 +9,7 @@
                     :tag="item.href ? 'a' : 'nuxt-link'"
                     :href="item.href" :attrs="{ to: localePath(item.to) }" 
                     class="NavBar_item"
-                    :class="{ 'is-done': item.checked, 'is-active': value == item.id }"
+                    :class="{ 'is-done': item.checked, 'is-active': value == item.id || !value && item.id == 'index' }"
                     @click="() => onClick(item)"
                     :ref="item.id"
                 >
@@ -35,14 +35,6 @@ export default {
         value: { type: String },
         items: { type: Array, default: () => [] }
     },
-    watch: {
-        items: {
-            immediate: true,
-            handler (v) {
-                if (this.availableItems[0] && this.availableItems[0].id != this.value) this.$emit('input', this.availableItems[0].id)
-            }
-        }
-    },
     computed: {
         availableItems () {
             return this.items.filter(i => !i.disabled && !i.checked)
@@ -54,7 +46,7 @@ export default {
             let i = 0
             
             this.navigableItems.forEach((item, index) => {
-                if (item.id == this.value) i = index
+                if (item.id == this.value || !this.value && item.id == 'index') i = index
             })
 
             return i
@@ -65,39 +57,34 @@ export default {
 
         this.hasScroll = this.$refs.container.scrollWidth > this.$refs.container.clientWidth
 
-        if (this.hasScroll) {
-            this.$nextTick(() => {
-                let element = this.$refs[this.value][0]
-                
-                this.$refs.container.scrollTo({
-                    left: element.offsetLeft - 40,
-                    behavior: 'smooth'
-                })
-            })
-        }
-
+        if (this.hasScroll) this.$nextTick(() => this.updateScroll())
+        
         this.$refs.container.addEventListener('scroll', () => {
             this.scroll = this.$refs.container.scrollLeft
         })
     },
     methods: {
         onClick (item) {
-            let element = this.$refs[item.id][0]
-
             item.onClick ? item.onClick() : this.$emit('input', item.id)
+            this.$nextTick(() => this.updateScroll())
+        },
+        updateScroll () {
+            let element = this.$refs[this.value ? this.value : 'index'][0]
 
-            if (element) {
-                this.$refs.container.scrollTo({
-                    left: element.offsetLeft - 40,
-                    behavior: 'smooth'
-                })
-            }
+            this.$refs.container.scrollTo({
+                left: element.offsetLeft - 40,
+                behavior: 'smooth'
+            })
         },
         next () {
             if (this.navigableItems[this.currentIndex + 1]) this.$emit('input', this.navigableItems[this.currentIndex + 1].id)
+
+            this.$nextTick(() => this.updateScroll())
         },
         prev () {
             if (this.navigableItems[this.currentIndex - 1]) this.$emit('input', this.navigableItems[this.currentIndex - 1].id)
+
+            this.$nextTick(() => this.updateScroll())
         }
     }
 }
