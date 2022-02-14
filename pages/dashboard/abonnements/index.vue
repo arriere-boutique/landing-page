@@ -1,14 +1,13 @@
 <template>
     <div class="Wrapper Wrapper--left Wrapper--s pv-40">
-        <h1 class="ft-3xl-bold">Participer à l'accès anticipé de l'Arrière Boutique</h1>
+        <h1 class="Title--l ft-bold">Participer à l'accès anticipé de l'Arrière Boutique</h1>
         
         <div class="glow p-30 br-m is-precious mt-30">
             <div>
-                <p class="ft-2xl-bold"><i class="fal fa-stars"></i> Soutiens le projet et obtiens des récompenses</p>
-                <!-- <span class="Tag Tag--s mt-10">Offre limitée aux 100 premiers</span> -->
+                <p class="ft-xl-bold"><i class="fal fa-stars"></i> Soutiens le projet et obtiens des récompenses</p>
 
                 <p class="ft-m-bold mt-20">Pour tous les donateurs & donatrices d'au moins 10€ :</p>
-                <ul class="checklist mt-10 ml-10">
+                <ul class="checklist mt-10">
                     <li>Toutes les fonctionnalités pendant 2 mois</li>
                     <li>Accès anticipé aux nouveautés</li>
                     <li>Donne ton avis et propose tes idées</li>
@@ -16,7 +15,7 @@
             </div>
         </div>
 
-        <div class="mt-30">
+        <div class="mt-60">
             <p class="Title--s mb-10">Donne + et <b>obtiens des récompenses !</b></p>
 
             <div class="Gift d-flex" :class="[ `is-${extra.color}`, { 'is-active': i <= selected, 'is-hovered': hovered && i <= hovered }]" v-for="(extra, i) in extras" @mouseenter="hovered = i" @mouseleave="hovered = null" :key="i">
@@ -28,6 +27,10 @@
                 </div>
                 <div class="Gift_content row-s fx-grow pv-20">
                     <div class="col-8 col-12@s">
+                        <p class="ft-m-bold mb-15 d-none d-block@s">
+                            Contribution de {{ extra.amount }}€ et plus :
+                        </p>
+
                         <div class="b p-10 br-s fx-center">
                             <div class="Extra_tag fx-no-shrink">
                                 <span class="Tag">{{ extra.duration }} mois</span>
@@ -55,16 +58,16 @@
                             </div>
                         </component>
 
-                        <div class="ft-s-medium bg-current-xweak color-current-strong p-10 br-s mt-10 fx-center" v-if="i == selected">
+                        <div class="ft-s-medium bg-current-xweak color-current-strong p-10 br-s mt-10 fx-center d-none@s" v-if="i == selected">
                             Valeur totale : {{ extrasTotalAmount(i)|round }}€
                         </div>
 
-                        <div class="ft-s-medium bg-current-xweak color-current-strong p-10 br-s mt-10 fx-center" v-if="i > selected">
+                        <div class="ft-s-medium bg-current-xweak color-current-strong p-10 br-s mt-10 fx-center d-none@s" v-if="i > selected">
                             Valeur : +{{ (extrasTotalAmount(i) - totalExtrasAmount)|round }}€
                         </div>
                     </div>
-                    <div class="col-4">
-                        <div class="text-center p-10 d-flex fx-align-center fx-dir-column fx-justify-between br-s height-100" :class="i <= selected ? ['bg-current-xweak'] : ['b']">
+                    <div class="col-4 col-12@s">
+                        <div class="text-center p-10 d-flex fx-align-center fx-dir-column fx-justify-between br-s height-100 mt-10@s height-auto@s" :class="i <= selected ? ['bg-current-xweak'] : ['b']">
                             <div class="mv-10"></div>
 
                             <div @click="selected = i" v-if="i > selected">
@@ -76,7 +79,7 @@
                             </div>
                             
                             <div v-else-if="i >= selected">
-                                <p class="Tag">Mon don : {{ extra.amount }}€</p>
+                                <p class="Tag"><i class="fal fa-check mr-3"></i> Sélectionné : {{ extra.amount }}€</p>
                             </div>
 
                             <div v-else>
@@ -100,19 +103,18 @@
         <action-fixed :is-active="true">
             <template slot="actions">
                 <div class="fx-no-shrink">
-                    <p class="Tag is-precious ml-5" v-if="selected > 0">
-                        <i class="fal fa-truck mr-5"></i> Livré avant le {{ $moment().add(4, 'days').format('DD MMM') }}
+                    <p class="Tag is-precious ml-0 mr-10 d-none@s" v-if="selected > 0">
+                        <i class="fal fa-truck mr-5"></i> Expédié le {{ $moment().add(2, 'days').format('DD MMM') }}
                     </p>
                 </div>
 
                 <div class="fx-center pv-10">
-                    
                     <div class="text-right mr-15">
                         <p class="ft-m-medium">
                             Je participe de {{ currentExtra.amount }}€
                         </p>
 
-                        <p class="ft-m">
+                        <p class="ft-m d-none@s">
                             {{ currentExtra.duration }} mois d'abonnement
                             <template v-if="totalExtras.length > 0"> + {{ totalExtras.map(e => e.short).join(' + ') }}</template>
                         </p>
@@ -264,6 +266,25 @@ export default {
             width: 1px;
             flex-grow: 1;
             background: var(--color-border);
+        }
+    }
+
+    @include breakpoint-s {
+
+        .Gift {
+            margin-top: 20px;
+        }
+
+        .Gift_jauge {
+            display: none;
+        }
+
+        .Gift_content {
+            opacity: 1;
+            margin: 0;
+            padding: 20px 10px;
+            border: 1px solid var(--color-border);
+            border-radius: 5px;
         }
     }
 </style>

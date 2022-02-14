@@ -8,7 +8,7 @@ import cards from '@/assets/img/pledges/cards.jpg'
 
 export default [
     { amount: 10, duration: 2, available: 50, extras: [], color: 'emerald' },
-    { amount: 25, duration: 4, available: 30, color: 'pond', extras: [
+    { amount: 20, duration: 3, available: 30, color: 'pond', extras: [
         {
             id: 1,
             value: 11.99,
@@ -36,7 +36,7 @@ export default [
             href: 'https://www.etsy.com/fr/ArriereBoutiqueFr/listing/1138498926'
         }
     ] },
-    { amount: 45, duration: 6, available: 15, color: 'ice', extras: [
+    { amount: 30, duration: 4, available: 15, color: 'ice', extras: [
         {
             id: 4,
             value: 32.99,
@@ -56,7 +56,7 @@ export default [
             href: 'https://www.etsy.com/fr/ArriereBoutiqueFr/listing/1140982632'
         },
     ] },
-    { amount: 75, duration: 6, available: 5, color: 'precious', extras: [
+    { amount: 60, duration: 6, available: 5, color: 'precious', extras: [
         {
             id: 5,
             value: 59.90,

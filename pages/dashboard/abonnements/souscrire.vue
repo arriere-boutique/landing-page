@@ -1,23 +1,23 @@
 <template>
     <div class="Wrapper Wrapper--left Wrapper--s pt-40 pb-100">
-        <div class="glow p-30 br-m is-precious">
+        <div class="glow p-30 br-m is-precious p-20@s">
             <div class="row-xs">
                 <div class="col-12 mv-5">
-                    <div class="fx-center p-15 bg-bg-light br-s color-ft">
+                    <div class="fx-center p-15 bg-bg-light br-s color-ft d-block@s">
                         <div class="Extra_tag">
                             <span class="Tag">{{ currentExtra.duration }} mois</span>
                         </div>
                         <div class="fx-grow">
-                            <p class="ft-m-medium ellipsis-2">Toutes les fonctionnalités de ton Arrière Boutique pendant {{ currentExtra.duration }} mois</p>
+                            <p class="ft-m-medium ellipsis-2 ft-s-medium@s">Toutes les fonctionnalités de ton Arrière Boutique pendant {{ currentExtra.duration }} mois</p>
                                         
-                            <ul class="checklist mt-5">
+                            <ul class="checklist mt-5 ft-s-medium@s">
                                 <li>Accès anticipé aux nouveautés</li>
                                 <li>Donne ton avis et propose tes idées</li>
                             </ul>
                         </div>
                     </div>
                 </div>
-                <div class="col-4 mv-5" v-for="extra in extrasTotal" :key="extra.id">
+                <div class="col-4 col-12@s mv-5" v-for="extra in extrasTotal" :key="extra.id">
                     <div class="fx-center p-10 bg-bg-light br-s color-ft">
                         <div class="Extra_image" :style="{ backgroundImage: `url(${extra.image})` }"></div>
                         <div class="fx-grow">
@@ -25,6 +25,10 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            
+            <div class="mt-20 text-center">
+                <p class="Tag">Ma contribution : {{ currentExtra.amount }}€</p>
             </div>
         </div>
         <form class="mt-20 b p-20 br-s o-hidden p-relative" @submit.prevent="onSubmit" v-if="selected != 0">
@@ -35,8 +39,8 @@
 
             <transition name="fade-h">
                 <div v-show="step == 0">
-                    <div class="d-flex mt-20 mb-10">
-                        <input-base label="Prénom" type="text" class="mr-10" :attrs="{ required: true }" v-model="form.name" />
+                    <div class="d-flex mt-20 mb-10 d-block@s">
+                        <input-base label="Prénom" type="text" class="mr-10 mr-@s mb-10@s" :attrs="{ required: true }" v-model="form.name" />
                         <input-base label="Nom de famille" type="text" :attrs="{ required: true }" v-model="form.surname" />
                     </div>
                     
@@ -44,8 +48,8 @@
 
                     <input-base label="Bâtiment, numéro d'appartement..." type="text" class="mb-10" v-model="form.address2" />
 
-                    <div class="d-flex mb-10">
-                        <input-base label="Code postal" type="text" :attrs="{ required: true }" class="mr-10" v-model="form.postalCode" />
+                    <div class="d-flex mb-10 d-block@s">
+                        <input-base label="Code postal" type="text" :attrs="{ required: true }" class="mr-10 mr-@s mb-10@s" v-model="form.postalCode" />
                         <input-base label="Ville" type="text" :attrs="{ required: true }" v-model="form.city" />
                     </div>
 
@@ -243,5 +247,14 @@ export default {
         margin-right: 10px;
         flex-shrink: 0;
         text-align: center;
+    }
+
+    @include breakpoint-s {
+        
+        .Extra_tag {
+            width: auto;
+            margin-bottom: 10px;
+            text-align: left;
+        }
     }
 </style>

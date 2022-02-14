@@ -142,7 +142,7 @@ export default {
         ['$route.query.order']: {
             immediate: true,
             handler (v) {
-                if (v) this.selectedOrderId = v
+                this.selectedOrderId = v
             }
         }
     },
