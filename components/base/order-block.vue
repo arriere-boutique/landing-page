@@ -3,8 +3,8 @@
         class="OrderBlock"
         :class="[ $modifiers, { 'is-completed': this.status == 'Completed' } ]"
     >   
-        <div class="Orderblock_main">
-            <div class="d-flex fx-grow">
+        <div class="OrderBlock_main">
+            <div class="OrderBlock_container">
                 <div class="OrderBlock_images">
                     <div class="OrderBlock_cover" :style="{ backgroundImage: `url(${ cover })` }">
                         <i class="fal color-ft-weak" :class="[ `fa-${randomIcon()}` ]" v-if="!cover"></i>
@@ -32,7 +32,7 @@
                         </div>
                     </div>
 
-                    <div class="mt-10 d-flex ft-s-medium fx-wrap mt-5@s">
+                    <div class="OrderBlock_tags mt-10 d-flex ft-s-medium fx-wrap mt-5@s">
                         <div class="Tag Tag--s ml-0 mb-5 mr-5 is-duck" v-if="review"> 
                             <rating :rating="review.rating" />
                         </div>
@@ -170,7 +170,12 @@ export default {
         }
     }
 
-    .Orderblock_main {
+    .OrderBlock_container {
+        display: flex;
+        flex-grow: 1;
+    }
+
+    .OrderBlock_main {
         flex-grow: 1;
         border-top-right-radius: 15px;
         border-bottom-right-radius: 15px;
@@ -271,17 +276,40 @@ export default {
     }
 
     .OrderBlock.is-completed {
+        border-radius: 10px;
+        background-color: var(--color-bg-light);
         
         .OrderBlock_right,
         .OrderBlock_shipmentDate,
         .OrderBlock_date {
             display: none;
         }
+
+        .OrderBlock_container {
+            align-items: center;
+        }
+
+        .OrderBlock_content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px;
+        }
+
+        .OrderBlock_images {
+            padding: 10px 0 10px 10px;
+        }
         
         .OrderBlock_cover {
-            width:  75px;
-            height: 75px;
+            width:  40px;
+            height: 40px;
             border-radius: 5px;
+        }
+
+        .OrderBlock_tags {
+            flex-shrink: 0;
+            max-width: 60%;
+            justify-content: flex-end;
         }
     }
 

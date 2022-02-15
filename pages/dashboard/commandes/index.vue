@@ -58,14 +58,14 @@
 
                         <transition-group name="fade" is="div" v-if="displayCompleted">
                             <div class="mb-60" v-for="date in displayedCompletedOrders" :key="date">
-                                <div class="d-flex fxa-center mb-10">
-                                    <div class="Tag Tag--s mr-10">
+                                <div class="d-flex fxa-center mb-15">
+                                    <p class="ft-m-medium">{{ $moment(date).format('D MMMM YYYY') }}</p>
+
+                                    <div class="Tag Tag--s ml-10">
                                         {{ $moment(date).fromNow() }}
                                     </div>
 
-                                    <p class="ft-s-medium">Envoyées le {{ $moment(date).format('D MMMM YYYY') }}</p>
-
-                                    <hr class="Separator fx-grow ml-20">
+                                    <hr class="Separator fx-grow ml-10">
                                 </div>
 
                                 <div class="row-xs">
