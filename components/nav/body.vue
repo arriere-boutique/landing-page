@@ -31,10 +31,11 @@
 export default {
     props: {
         items: { type: Array },
-        autoNav: { type: Boolean, default: false },
+        value: { type: [String, Boolean], default: false },
     },
     data: () => ({
         section: '',
+        isInit: false,
         currentIndex: 0,
         hammer: null,
         pan: 0,
@@ -47,27 +48,21 @@ export default {
         }
     },
     watch: {
-        section (v) {
-            if (this.$route.query.section !== v) {
-                let query = { ...this.$route.query }
-                let index = this.items.indexOf(this.currentSection)
-
-                if (v) {
-                    query.section = v
-                } else {
-                    delete query.section
-                }
-
-                this.panAnimation = this.currentIndex > index ? 'left' : 'right'
-
-                this.$router.push({ query })
-                this.currentIndex = index
+        section: {
+            handler (v) {
+                if (this.isInit) this.setQuery()
             }
         },
         ['$route.query.section']: {
             immediate: true,
             handler (v) {
                 this.section = v ? v : ''
+            }
+        },
+        value: {
+            immediate: true,
+            handler (v) {
+                if (v && !this.section || v && this.section && this.isInit) this.section = v
             }
         },
         pan (v) {
@@ -78,6 +73,12 @@ export default {
                 }, 150)
             }
         }
+    },
+    mounted () {
+        setTimeout(() => {
+            this.isInit = true
+            this.setQuery()
+        }, 100)
     },
     methods: {
         onPan (v) {
@@ -93,6 +94,23 @@ export default {
                 this.$refs.nav.next()
             } else if (v.deltaX >= 100) {
                 this.$refs.nav.prev()
+            }
+        },
+        setQuery () {
+            if ((this.$route.query.section ? this.$route.query.section : '') !== this.section) {
+                let query = { ...this.$route.query }
+                let index = this.items.indexOf(this.currentSection)
+
+                if (this.section) {
+                    query.section = this.section
+                } else {
+                    delete query.section
+                }
+
+                this.panAnimation = this.currentIndex > index ? 'left' : 'right'
+
+                this.$router.push({ query })
+                this.currentIndex = index
             }
         }
     }

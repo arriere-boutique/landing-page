@@ -2,9 +2,10 @@
     <div>
         <div class="Order_section is-pond bg-current-xweak p-20 br-s">
             <div class="fx-center">
-                <div class="ft-l-bold mb-10">
-                    Fidélisation
-                    <span class="ft-m ml-5">{{ this.$tc('base.orders', otherOrders.length) }}</span>
+                <div class="ft-m-bold mb-10">
+                    <span class="round-s bg-current-weak mr-5">{{ otherOrders.length }}</span>
+
+                    Commandes précédentes
                 </div>
             </div>
             
@@ -18,7 +19,8 @@
                     </div>
                    
                     <div>
-                        <span class="Tag Tag--weak Tag--s mr-5">{{ other.listings.reduce((t, l) => t += l.quantity, 0) }} articles</span>
+                        <span class="Tag Tag--weak Tag--s mr-5 d-none@xs">{{ other.listings.reduce((t, l) => t += l.quantity, 0) }} articles</span>
+
                         <span class="ft-medium">{{ (other.total.amount / order.total.divisor)|round }}€</span>
                     </div>
                 </div>

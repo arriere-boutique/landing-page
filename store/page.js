@@ -1,9 +1,17 @@
+const BREAKPOINTS = [
+    { id: 'xs', size: 0 },
+    { id: 's', size: 600 },
+    { id: 'm', size: 900 },
+    { id: 'l', size: 1200 },
+]
+
 export default {
     namespaced: true,
     state: () => ({
         isCartActive: false,
         isNavCompact: false,
         isBodyOverflow: true,
+        breakpoint: "",
         body: {
             classes: [ 'is-fill' ],
             color: ''
@@ -13,6 +21,11 @@ export default {
         }    
     }),
     mutations: {
+        setBreakpoint (state, v) {
+            state.breakpoint = BREAKPOINTS.reduce((r, b) => {
+                return v > b.size ? b.id : r
+            }, 'l')
+        },
         toggleOverflow (state, v) {
             if (!state.isBodyOverflow || v === true) {
                 state.isBodyOverflow = true
@@ -41,6 +54,11 @@ export default {
                 ...params,
                 title: params.secondary ? params.secondary : params.title
             }
+        }
+    },
+    getters: {
+        lesserThan: (state) => (v) => {
+            return state.breakpoint ? BREAKPOINTS.find(b => b.id == v).size >= BREAKPOINTS.find(b => b.id == state.breakpoint).size : false
         }
     }
 }

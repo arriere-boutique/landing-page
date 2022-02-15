@@ -103,6 +103,10 @@
     display: none;
 }
 
+.NavItem_icon .notification {
+    display: none;
+}
+
 .LayoutDashboard.is-compact {
 
     .LayoutDashboard_content {
@@ -263,16 +267,15 @@
 
         .NavItem {
             height: 75px;
-            display: none;
-
-            &.is-mobile {
-                display: flex;
-            }
         }
 
         .NavItem_label,
         .NavItem_arrow {
             display: none;
+        }
+        
+        .NavItem--burger {
+            display: flex;
         }
     }
 
@@ -297,9 +300,6 @@
         box-shadow: none;
     }
 
-    .NavItem--burger {
-        display: flex;
-    }
 
     .LayoutDashboard_close {
         padding: 10px;
@@ -318,5 +318,12 @@
 
     .LayoutDashboard_toggle {
         display: none;
+    }
+
+    .NavItem_icon .notification {
+        display: block;
+        position: absolute;
+        top: 22px;
+        right: 22px;
     }
 }

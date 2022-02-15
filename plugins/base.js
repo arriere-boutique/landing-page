@@ -130,6 +130,9 @@ Vue.mixin({
         },
         $validator (type) {
             return Validators[type]
+        },
+        $breakpoint (v) {
+            return this.$store.getters['page/lesserThan']('s')
         }
     }
 })

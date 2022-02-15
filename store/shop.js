@@ -84,9 +84,7 @@ export default {
                         type: 'success'
                     }, { root: true })
                 }
-
-                console.log(response.data)
-
+                
                 commit('updateShop', response.data)
 
                 return response.data

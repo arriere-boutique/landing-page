@@ -1,6 +1,6 @@
 <template>
     <div>
-        <nav-body class="p-40 p-20@s" :items="navItems" :auto-nav="true" v-if="order">
+        <nav-body class="p-40 p-20@s" :items="navItems" :value="defaultActive" v-if="order">
             <p class="ft-2xl-bold ft-xl-bold@s">
                 Commande n°{{ order.id }}
 
@@ -27,6 +27,15 @@ export default {
         },
         isDigital () {
             return this.order.listings.filter(c => c.digital).length == this.order.listings.length
+        },
+        defaultActive () {
+            let defaultId = false
+
+            if (this.order.status == 'Completed' || this.order.prepared.length == this.order.listings.length) defaultId = 'delivery'
+            
+            if (this.order.shipments.length > 0 || this.isDigital) defaultId = 'client'
+
+            return defaultId
         },
         navItems () {
             return [

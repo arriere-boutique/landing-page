@@ -54,7 +54,7 @@
             </div>
         </div>
 
-        <div class="Order_section p-20 bg-bg-light b br-s">
+        <div class="Order_section p-20 bg-bg-light b br-s" v-if="order.shipments.length <= 0 || isNewShipment">
             <div class="fx-center mb-20">
                 <p class="ft-l-bold">
                     Envoi de la commande
@@ -90,6 +90,9 @@
                 </button-base>
             </div>
         </div>
+        <div class="Order_section text-center" v-else>
+            <link-base @click.native="isNewShipment = true" icon-before="plus">Ajouter un nouveau suivi</link-base>
+        </div>
     </div>
 </template>
 
@@ -110,6 +113,7 @@ export default {
     data: () => ({
         CARRIERS,
         isLoading: false,
+        isNewShipment: false,
         formData: {
             tracker: {
                 carrier: 0,

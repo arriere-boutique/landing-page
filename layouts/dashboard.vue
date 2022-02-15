@@ -1,6 +1,9 @@
 <template>
     <div class="Layout LayoutDashboard" :class="[ ...classes, { 'is-compact': isCompact } ]">
-        <nav-dashboard :is-active="isNavActive" @toggle="isNavActive = !isNavActive" />
+        <nav-dashboard
+            :is-active="isNavActive"
+            @toggle="isNavActive = !isNavActive"
+        />
 
         <div class="LayoutDashboard_content">
             <header-dashboard @toggle="isNavActive = !isNavActive" :is-active="isNavActive" />
@@ -24,6 +27,7 @@
 
 <script>
 import { TooltipManager } from 'instant-coffee-core'
+import Debounce from 'lodash.debounce'
 
 export default {
     name: 'LayoutDashboard',
@@ -39,7 +43,8 @@ export default {
         }
     },
     data: () => ({
-        isNavActive: false
+        isNavActive: false,
+        onWindowResize: null
     }),
     computed: {
         user () { return this.$store.state.auth.user },
@@ -53,9 +58,20 @@ export default {
         } catch (e) {
             console.error(e)
         }
+
+        if (process.server) return
+
+        this.onWindowResize = Debounce(this.windowResize, 500)
+        window.addEventListener('resize', this.onWindowResize)
     },
     beforeDestroy() {
-       this.$recaptcha.destroy()
+        this.$recaptcha.destroy()
+        window.removeEventListener('resize', this.onWindowResize)
+    },
+    methods: {
+        windowResize () {
+            this.$store.commit('page/setBreakpoint', window.innerWidth)
+        }
     }
 }
 </script>

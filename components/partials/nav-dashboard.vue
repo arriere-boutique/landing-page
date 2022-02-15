@@ -17,16 +17,22 @@
                 :is="link.locked || link.dev ? 'div' : 'nuxt-link'"
                 class="NavItem"
                 :class="{ 'is-disabled': link.locked || link.dev, 'is-mobile': link.isMobile }"
-                v-for="link in links"
+                v-for="link in displayLinks.slice(0, $breakpoint('s') ? 4 : 9999)"
                 :to="localePath(link.path)"
                 @click.native="$emit('toggle'); isMobileNav = false;"
                 :key="link.icon"
             >
                 <div class="NavItem_icon">
                     <i class="fal" :class="[`fa-${link.icon}`]"></i>
+                    
+                    <span class="notification bg-pond-strong" v-if="link.notification"></span>
                 </div>
 
-                <p class="NavItem_label mh-10 fx-grow">{{ link.label }}</p>
+                <p class="NavItem_label mh-10 fx-grow">
+                    {{ link.label }}
+
+                    <span class="notification bg-pond-strong" v-if="link.notification"></span>
+                </p>
 
                 <div class="NavItem_arrow" @mouseenter="(e) => link.tooltip || link.locked ? $tOpen(link.locked ? `Pour accéder à cette page, tu dois avoir au moins une boutique Etsy connectée.` : link.tooltip, e) : undefined" @mouseleave="$tClose">
                     <i class="fal fa-circle-question" v-if="link.dev"></i>
@@ -36,7 +42,7 @@
             </component>
 
             <div
-                class="NavItem NavItem--burger is-mobile"
+                class="NavItem NavItem--burger"
                 @click="isMobileNav = !isMobileNav"
             >
                 <div class="NavItem_icon">
@@ -50,7 +56,7 @@
                 :is="'nuxt-link'"
                 class="NavItem"
                 :class="{ 'is-disabled': link.locked || link.dev, 'is-mobile': link.isMobile }"
-                v-for="link in links.filter(l => !l.isMobile && !l.dev)"
+                v-for="link in displayLinks.slice(4, 999)"
                 :to="localePath(link.path)"
                 @click.native="isMobileNav = false"
                 :key="link.icon"
@@ -85,7 +91,17 @@ export default {
     computed: {
         isCompact () { return this.$store.state.page.isNavCompact },
         shops () { return this.$store.state.shop.items },
+        orders () { return this.$store.getters['shop-orders/find']({ status: 'Paid' }) },
         hasSub () { return this.$store.state.user.hasSubscription },
+        displayLinks () {
+            let links = this.links
+
+            if (this.$breakpoint('s')) {
+                links = links.map(l => ({ ...l, ...l.s }))
+            }
+
+            return links.filter(l => !l.disabled).sort((a, b) => a.order - b.order)
+        }
     },
     watch: {
         shops: {
@@ -95,39 +111,52 @@ export default {
                     {
                         label: `Tableau de bord`,
                         icon: 'home-heart',
-                        isMobile: true,
-                        path: { name: '/' }
+                        path: { name: '/' },
+                        s: {
+                            order: 0
+                        }
                     }, {
                         label: `Mes commandes`,
                         icon: 'receipt',
                         locked: !this.shops || this.shops.length <= 0,
+                        notification: this.orders.length > 0,
                         path: { name: 'commandes' },
-                        isMobile: true,
-                        tooltip: `Tu pourras bientôt gérer tes commandes ici. J'y travaille !`
+                        tooltip: `Tu pourras bientôt gérer tes commandes ici. J'y travaille !`,
+                        s: {
+                            order: 3
+                        }
                     }, {
                         label: `Mes fiches produit`,
                         icon: 'clipboard-list',
                         locked: !this.shops || this.shops.length <= 0,
                         dev: true,
                         tooltip: `Bientôt, tu pourras gérer des fiches produits en quelques clics.`,
-                        isMobile: false,
-                        path: { name: 'fiches' }
+                        path: { name: 'fiches' },
+                        s: {
+                            order: 2
+                        }
                     }, {
                         label: `Mes pages`,
                         icon: 'arrow-pointer',
                         locked: !this.shops || this.shops.length <= 0,
-                        isMobile: true,
-                        path: { name: 'pages' }    
+                        path: { name: 'pages' } ,
+                        s: {
+                            order: 4
+                        }   
                     }, {
                         label: `Outils`,
                         icon: 'rocket-launch',
-                        isMobile: true,
-                        path: { name: 'outils' }
+                        path: { name: 'outils' },
+                        s: {
+                            order: 5
+                        }
                     }, {
                         label: `Paramètres`,
                         icon: 'cog',
-                        isMobile: false,
-                        path: { name: 'parametres' }
+                        path: { name: 'parametres' },
+                        s: {
+                            order: 6
+                        }
                     }
                 ]
             }

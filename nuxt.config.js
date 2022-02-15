@@ -16,7 +16,6 @@ export default {
             { rel: 'stylesheet', href: 'https://assets.calendly.com/assets/external/widget.css' }
         ],
         script: [
-            { src: 'https://assets.calendly.com/assets/external/widget.js', type: 'text/javascript', async: true },
             { src: 'sib.js', type: 'text/javascript', async: true }
         ]
     },
@@ -31,29 +30,6 @@ export default {
             'instant-coffee-core/assets/scss/variables.scss',
             'instant-coffee-core/assets/scss/mixins.scss'
         ]
-    },
-
-    pwa: {
-        meta: {
-            title: 'Mon Arrière Boutique',
-            author: 'Théotime Colin',
-        },
-        manifest: {
-            name: 'Mon Arrière Boutique',
-            short_name: 'Mon Arrière Boutique',
-            background_color: '#fff1f4',
-            theme_color: '#ffffff',
-            lang: 'fr',
-            display: 'standalone',
-        },
-        workbox: {
-            runtimeCaching: [ {
-                urlPattern: 'https://fonts.googleapis.com/.*',
-                handler: 'cacheFirst',
-                method: 'GET',
-                strategyOptions: { cacheableResponse: { statuses: [0, 200] } }
-            } ]
-        }   
     },
 
     plugins: [
@@ -88,17 +64,16 @@ export default {
     // mkcert arriere-boutique.local "*.arriere-boutique.local" mapetite.local  "*.mapetite.local" localhost 127.0.0.1 ::1                       
 
     buildModules: [
-        '@nuxtjs/google-analytics',
         '@nuxtjs/moment',
-        '@nuxtjs/pwa',
-        [
-            '@nuxtjs/router',
-            {
-                path: 'router',
-                fileName: 'index.js',
-                keepDefaultRouter: true,
-            }
-        ]
+        [ '@nuxtjs/router', {
+            path: 'router',
+            fileName: 'index.js',
+            keepDefaultRouter: true,
+        } ],
+        ...(process.env.NODE_ENV == 'PRODUCTION' ? [
+            '@nuxtjs/google-analytics',
+            '@nuxtjs/pwa'
+        ] : [])
     ],
 
     modules: [
@@ -118,6 +93,29 @@ export default {
             publishableKey: process.env.STRIPE_PUBLIC,
         }],
     ],
+    
+    pwa: {
+        meta: {
+            title: 'Mon Arrière Boutique',
+            author: 'Théotime Colin',
+        },
+        manifest: {
+            name: 'Mon Arrière Boutique',
+            short_name: 'Mon Arrière Boutique',
+            background_color: '#fff1f4',
+            theme_color: '#ffffff',
+            lang: 'fr',
+            display: 'standalone',
+        },
+        workbox: {
+            runtimeCaching: [ {
+                urlPattern: 'https://fonts.googleapis.com/.*',
+                handler: 'cacheFirst',
+                method: 'GET',
+                strategyOptions: { cacheableResponse: { statuses: [0, 200] } }
+            } ]
+        }   
+    },
 
     moment: {
         defaultLocale: 'fr',
@@ -190,14 +188,11 @@ export default {
         },
         babel: {
             presets(env, [preset, options]) {
-                return [["@babel/preset-env", {}]];
+                return [ ["@babel/preset-env", {}] ]
             },
             plugins: [
                 [
-                "@babel/plugin-transform-runtime",
-                {
-                    regenerator: true
-                }
+                    "@babel/plugin-transform-runtime", { regenerator: true }
                 ]
             ]
         }      

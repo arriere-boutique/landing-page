@@ -61,9 +61,7 @@
                                 <i class="fas fa-star"></i>
                             </div>
 
-                            <p class="ft-m-medium mt-15">
-                                {{ reviews[randomReview].comment }}
-                            </p>
+                            <p class="ft-m-medium mt-15" v-html="reviews[randomReview].comment"></p>
                         </div>
 
                         <p class="ft-s-bold mt-20">
