@@ -55,7 +55,7 @@
             <component
                 :is="'nuxt-link'"
                 class="NavItem"
-                :class="{ 'is-disabled': link.locked || link.dev, 'is-mobile': link.isMobile }"
+                :class="[ ...(link.classes ? link.classes : []), { 'is-disabled': link.locked || link.dev, 'is-mobile': link.isMobile } ]"
                 v-for="link in displayLinks.slice(4, 999)"
                 :to="localePath(link.path)"
                 @click.native="isMobileNav = false"
@@ -144,18 +144,28 @@ export default {
                             order: 4
                         }   
                     }, {
+                        label: `Débloquer toutes les options`,
+                        icon: 'stars',
+                        path: { name: 'abonnements' },
+                        disabled: true,
+                        s: {
+                            classes: ['bg-precious-xweak', 'color-precious-strong'],
+                            disabled: this.hasSub,
+                            order: 5
+                        }
+                    }, {
                         label: `Outils`,
                         icon: 'rocket-launch',
                         path: { name: 'outils' },
                         s: {
-                            order: 5
+                            order: 10
                         }
                     }, {
                         label: `Paramètres`,
                         icon: 'cog',
                         path: { name: 'parametres' },
                         s: {
-                            order: 6
+                            order: 20
                         }
                     }
                 ]

@@ -61,6 +61,8 @@ export default {
 
         if (process.server) return
 
+        this.windowResize()
+
         this.onWindowResize = Debounce(this.windowResize, 500)
         window.addEventListener('resize', this.onWindowResize)
     },

@@ -5,7 +5,9 @@
 .page-enter-active,
 .page-leave-active {
   transition: all 250ms;
+  overflow: hidden;
 }
+
 .page-enter {
   opacity: 0;
   transform: translateY(3px);

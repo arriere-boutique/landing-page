@@ -24,7 +24,7 @@
 
         <p class="ft-xl-medium mt-40">Mon compte</p>
 
-        <div class="fx-center bg-bg-xweak p-20 mt-20 br-m">
+        <div class="fx-center bg-bg-xweak p-20 mt-20 br-m d-block@s">
             <p>Connecté sous {{ user.email }}</p>
             <link-base tag="nuxt-link" :attrs="{ to: localePath({ name: 'compte-logout' }) }">Se déconnecter</link-base>
         </div>

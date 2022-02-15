@@ -86,7 +86,7 @@
             </div>
         </div>
 
-        <popin-base :modifiers="['panel', 'absolute-header']" :is-active="selectedOrderId ? true : false" @close="onClose">
+        <popin-base :modifiers="['panel', 'absolute-header']" :is-active="selectedOrderId ? true : false" @close="onClose" v-if="selectedOrderId || !isLoading">
             <template slot="content">
                 <order-body
                     class="o-hidden"
