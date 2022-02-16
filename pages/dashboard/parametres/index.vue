@@ -22,13 +22,15 @@ export default {
                 {
                     id: 'index',
                     component: 'parametres-index',
-                    props: { shops: this.shops, user: this.user },
                     label: 'Général'
                 }, {
                     id: 'domains',
                     component: 'parametres-domains',
-                    props: { shops: this.shops, user: this.user },
                     label: 'Mes liens'
+                }, {
+                    id: 'subscriptions',
+                    component: 'parametres-subscriptions',
+                    label: 'Mon abonnement'
                 }
             ]
         }

@@ -34,14 +34,14 @@
 <script>
 export default {
     name: 'ParametresIndex',
-    props: {
-        shops: { type: Array, default: () => [] },
-        user: { type: Object, default: () => ({}) }
-    },
     data: () => ({
         token: null,
         shopsSyncing: []
     }),
+    computed: {  
+        user () { return this.$store.state.auth.user },
+        shops () { return this.$store.state.shop.items },
+    },
     async mounted () {
         this.token = this.$route.query.token
 

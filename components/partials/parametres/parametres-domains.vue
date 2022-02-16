@@ -67,17 +67,14 @@ import { InputBase, SelectBase } from 'instant-coffee-core'
 export default {
     name: 'ParametresDomains',
     components: { InputBase, SelectBase },
-    props: {
-        shops: { type: Array, default: () => [] },
-        user: { type: Object, default: () => ({}) }
-    },
     data: () => ({
         domains: process.env.domains.map((d, i) => ({ id: i, value: i, label: d })),
         errors: [],
         formData: {}
     }),
-    computed: {
-        user () { return this.$store.state.user },
+    computed: {  
+        user () { return this.$store.state.auth.user },
+        shops () { return this.$store.state.shop.items },
     },
     watch: {
         shops: {
