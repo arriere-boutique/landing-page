@@ -12,12 +12,16 @@
 
             <div class="mb-20">
                 <p class="ft-s-medium mb-10">Transparence de l'image de fond</p>
-                <div class="d-flex">
-                    <div class="bg-bg-xweak fx-grow br-m mr-20">
-                        <input type="range" min="0" max="100" :value="formData.customization['background-opacity']" @input="(e) => updateCustomization('background-opacity', e.target.value)" :attrs="{ form: 'mainForm' }">
-                    </div>
 
-                    <p class="ft-m-medium">{{ formData.customization['background-opacity'] }}%</p>
+                <div
+                    class="Tag"
+                    :class="[ formData.customization['background-opacity'] == transparency.value ? 'is-pond' : 'Tag--secondary' ]"
+                    v-for="transparency in transparencies"
+                    form="mainForm"
+                    @click="updateCustomization('background-opacity', transparency.value)"
+                    :key="transparency.value"
+                >
+                    {{ transparency.label }}
                 </div>
             </div>
 
@@ -37,6 +41,13 @@ export default {
     },
     data: () => ({
         photoColor: '',
+        transparencies: [
+            { label: 'Transparente', value: 100 },
+            { label: '25%', value: 75 },
+            { label: '50%', value: 50 },
+            { label: '75%', value: 25 },
+            { label: 'Opaque', value: 0 },
+        ]
     }),
     computed: {
 
@@ -57,6 +68,8 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="scss" scoped>
+    .range {
+        touch-action: none;
+    }
 </style>

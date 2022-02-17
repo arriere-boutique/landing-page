@@ -11,7 +11,7 @@
         <div
             class="NavContent"
             :class="{ 'is-reset': panReset }"
-            :style="{ '--pos-x': `${pan}px` }"
+            :style="pan > 0 ? { transform: `translateX(${pan}px` } : {}"
             v-hammer:pan.horizontal="onPan"
             v-hammer:panend="onPanEnd"
             ref="container"
@@ -119,7 +119,6 @@ export default {
 
 <style lang="scss" scoped>
     .NavContent {
-        transform: translateX(var(--pos-x));
         touch-action: pan-y !important;
         transition: height 200ms ease-out;
 

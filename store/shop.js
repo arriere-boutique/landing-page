@@ -127,7 +127,7 @@ export default {
 
                 return response
             } catch (e) {
-                return storeUtils.handleErrors(e, commit, 'Échec lors de la suppression de la boutique')
+                return storeUtils.handleErrors(e, commit, 'Échec lors de la suppression de la boutique', this)
             }
         },
         async editSlug ({ commit, dispatch }, data) {
@@ -145,7 +145,7 @@ export default {
 
                 return response
             } catch (e) {
-                return storeUtils.handleErrors(e, commit, 'Échec lors de la modification')
+                return storeUtils.handleErrors(e, commit, 'Échec lors de la modification', this)
             }
         },
         async checkSlug ({}, slug) {

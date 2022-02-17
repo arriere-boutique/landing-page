@@ -152,3 +152,11 @@ textarea {
     background-color: var(--color-current-strong, var(--color-pond-strong));
   }
 }
+
+.Toggle.is-disabled {
+  pointer-events: none;
+  
+  .Toggle_label {
+    color: var(--color-ft-weak);
+  }
+}

@@ -16,7 +16,7 @@
                     <div>
                         <button-base icon-before="plus" :class="{ 'is-disabled': shops.length >= 1 && !hasSub }" :modifiers="[shops.length >= 1 && !hasSub ? 'precious' : 'ice']" @click="connectShop">Connecter une boutique</button-base>
 
-                        <p class="ft-s-medium mt-15" v-if="shops.length >= 1">
+                        <p class="ft-s-medium mt-15" v-if="shops.length >= 1 && !hasSub">
                             Gère plusieurs boutiques Etsy en soutenant le projet !
                         </p>
 

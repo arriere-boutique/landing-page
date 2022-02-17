@@ -34,7 +34,7 @@ export default {
     .ColorPicker_item {
         width: 40px;
         height: 40px;
-        border-radius: 4px;
+        border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -71,8 +71,8 @@ export default {
             justify-content: center;
             color: var(--color-ft);
             position: absolute;
-            bottom: 3px;
-            right: 3px;
+            bottom: 0;
+            right: 0;
             width: 14px;
             height: 14px;
             background-color: var(--color-bg-light);

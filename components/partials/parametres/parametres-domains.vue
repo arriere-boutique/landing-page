@@ -37,7 +37,7 @@
 
                                 <errors :items="errors" class="mt-20" v-if="errors.length > 0" />
                                     
-                                <div class="fx-center bg-precious-weak br-s p-10 mt-20 d-block@s" v-if="!user.hasSubscription">
+                                <div class="fx-center bg-precious-weak br-s p-10 mt-20 d-block@s" v-if="!hasSub">
                                     <p class="ft-s-medium color-precious-xstrong mr-10 @mr-0@s">
                                         <i class="fal fa-stars color-precious-xstrong mr-3"></i> Les contributeurs ont accès à cette fonctionnalité.
                                     </p>
@@ -50,7 +50,7 @@
                                 <div class="text-right mt-20">
                                     <link-base tag="button" type="button" class="mr-10" @click="onReset">Annuler</link-base>
                                     
-                                    <button-base :modifiers="['gum']" :class="{ 'is-disabled': !user.hasSubscription }">Modifier</button-base>
+                                    <button-base :modifiers="['gum']" :class="{ 'is-disabled': !hasSub }">Modifier</button-base>
                                 </div>
                             </div>
                         </transition>
@@ -119,7 +119,7 @@ export default {
                     domain: this.formData[id].domain
                 })
 
-                if (response.status == 0) this.errors = [ response.message ]
+                if (response.status == 0) this.errors = [ response ]
             } catch (e) {
                 console.error(e)
             }

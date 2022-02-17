@@ -15,13 +15,17 @@
                 </link-base>
             </div>
 
+            <p class="ft-s-medium color-precious-xstrong mb-20" v-if="!hasSub">
+                Les contributeurs ont accès à ces fonctionnalités.
+            </p>
+
             <input-base class="is-disabled mv-10" :value="formData.link" label="Mon lien">
                 <link-base tag="nuxt-link" :attrs="{ to: localePath({ name: 'parametres', query: { section: 'domains' } }) }">
                     Personnaliser
                 </link-base>
             </input-base>
 
-            <toggle-base class="mt-15" v-model="formData.hideBrand" label="Cacher le logo l'Arrière Boutique" />
+            <toggle-base class="mt-15" v-model="formData.hideBrand" :class="{ 'is-disabled': !hasSub }" label="Cacher le logo l'Arrière Boutique" />
         </div>
     </div>
 </template>

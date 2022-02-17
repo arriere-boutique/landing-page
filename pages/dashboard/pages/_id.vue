@@ -13,7 +13,6 @@
             <div class="fx-grow" v-if="isInit">
                 <nav-body
                     class="mb-20"
-                    v-model="section"
                     :items="navItems"
                 />
 
@@ -251,8 +250,12 @@ export default {
                 },
             })
 
-            if (response) {
-                this.$router.push({ path: this.localePath({ name: 'pages-id', params: { id: response._id }, query: { section: this.section } }) })
+            if (response && response._id != this.$route.params.id) {
+                this.$router.push({ path: this.localePath({
+                    name: 'pages-id',
+                    params: { id: response._id },
+                    query: this.$route.query
+                }) })
             }
         }
     }

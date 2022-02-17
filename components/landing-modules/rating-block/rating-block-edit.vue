@@ -8,7 +8,7 @@
 
         <label class="fx-center bg-bg-light br-s p-20 mb-10" v-for="review in reviews" :key="review._id" >
             <div>
-                <p class="ft-s">{{ review.comment }}</p>
+                <p class="ft-s" v-html="review.comment"></p>
                 <p class="ft-s-medium mt-10">{{ review.user.name }}</p>
             </div>
 
