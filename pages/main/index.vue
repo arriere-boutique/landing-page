@@ -212,7 +212,7 @@ export default {
     },
     methods: {
         onRegister () {
-            window.location.href = process.env.dashboardUrl + '/register?email=' + this.formData.email
+            window.location.href = this.$config.dashboardUrl + '/register?email=' + this.formData.email
         },
         nextLanding () {
             this.currentLanding = this.currentLanding >= this.landings.length - 1 ? 0 : this.currentLanding + 1

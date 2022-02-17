@@ -121,7 +121,6 @@ export default {
                         locked: !this.shops || this.shops.length <= 0,
                         notification: this.orders.length > 0,
                         path: { name: 'commandes' },
-                        tooltip: `Tu pourras bientôt gérer tes commandes ici. J'y travaille !`,
                         s: {
                             order: 3
                         }

@@ -114,7 +114,7 @@ export default {
                     this.registerErrors = response.data.errors
                 }
             } else {
-                window.location = process.env.dashboardUrl
+                window.location = this.$config.dashboardUrl
             }
 
             this.state.loading = false

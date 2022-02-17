@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="Order_section is-pond bg-current-xweak p-20 br-s">
+        <div class="Order_section is-pond bg-current-xweak p-20 br-s" v-if="order.userId">
             <div class="fx-center">
                 <div class="ft-m-bold mb-10">
                     <span class="round-s bg-current-weak mr-5">{{ otherOrders.length }}</span>
@@ -60,7 +60,7 @@ export default {
     }),
     computed: {
         otherOrders () {
-            return this.$store.getters['shop-orders/find']({ userId: this.order.userId }).sort((a, b) => b.orderDate - a.orderDate)
+            return this.order.userId ? this.$store.getters['shop-orders/find']({ userId: this.order.userId }).sort((a, b) => b.orderDate - a.orderDate) : []
         }
     },
     methods: {

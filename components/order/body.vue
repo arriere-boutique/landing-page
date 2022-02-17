@@ -23,7 +23,7 @@ export default {
     computed: {
         order () { return this.$store.getters['shop-orders/findOne']({ _id: this.id }) },
         otherOrders () {
-            return this.$store.getters['shop-orders/find']({ userId: this.order.userId }).sort((a, b) => b.orderDate - a.orderDate)
+            return this.order.userId ? this.$store.getters['shop-orders/find']({ userId: this.order.userId }).sort((a, b) => b.orderDate - a.orderDate) : []
         },
         isDigital () {
             return this.order.listings.filter(c => c.digital).length == this.order.listings.length

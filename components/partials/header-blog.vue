@@ -18,7 +18,7 @@
                     </div>
                 </nav>
 
-                <button-base tag="a" :modifiers="['light']" icon-before="store" :href="$dashboardUrl" class="ml-20" v-if="user && user.role != 'guest'">
+                <button-base tag="a" :modifiers="['light']" icon-before="store" :link="$config.dashboardUrl" class="ml-20" v-if="user && user.role != 'guest'">
                     Mon Arrière Boutique
                 </button-base>
             </div>

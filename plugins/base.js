@@ -38,10 +38,10 @@ Vue.mixin({
         },
     }),
     computed: {
-        $baseUrl () { return  process.env.baseUrl },
-        $dashboardUrl () { return process.env.dashboardUrl },
-        $blogUrl () { return process.env.blogUrl },
-        $shopUrl () { return process.env.shopUrl }
+        $baseUrl () { return  this.$config.baseUrl },
+        $dashboardUrl () { return this.$config.dashboardUrl },
+        $blogUrl () { return this.$config.blogUrl },
+        $shopUrl () { return this.$config.shopUrl }
     },
     methods: {
         $randomBetween: (min, max) => {

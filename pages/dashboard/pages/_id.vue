@@ -125,7 +125,7 @@ export default {
         fullLink () {
             if (!this.currentShop) return ''
 
-            let link = `https://${this.currentShop.slug}.${process.env.domains[this.currentShop.domain]}`
+            let link = `https://${this.currentShop.slug}.${this.$config.domains[this.currentShop.domain]}`
 
             if (this.formData.slug && !this.formData.isHome) link += '/' + this.formData.slug
 

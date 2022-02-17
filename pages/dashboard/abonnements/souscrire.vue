@@ -217,7 +217,7 @@ export default {
                 const response = await this.$stripe.confirmPayment({
                     elements: this.elements,
                     confirmParams: {
-                        return_url: process.env.dashboardUrl + this.localePath({ name: 'abonnements-confirmation' })
+                        return_url: this.$config.dashboardUrl + this.localePath({ name: 'abonnements-confirmation' })
                     }
                 })
             } catch (e) {

@@ -68,13 +68,17 @@ export default {
     name: 'ParametresDomains',
     components: { InputBase, SelectBase },
     data: () => ({
-        domains: process.env.domains.map((d, i) => ({ id: i, value: i, label: d })),
+        domains: [],
         errors: [],
         formData: {}
     }),
     computed: {  
+        hasSub () { return this.$store.state.user.hasSubscription },
         user () { return this.$store.state.auth.user },
         shops () { return this.$store.state.shop.items },
+    },
+    created () {
+        this.domains = this.$config.domains.map((d, i) => ({ id: i, value: i, label: d }))
     },
     watch: {
         shops: {
@@ -94,7 +98,7 @@ export default {
     },
     methods: {
         getLink (shop, slug, domain) {
-            return `https://${slug ? slug : shop.slug}.${process.env.domains[domain ? domain : shop.domain]}`
+            return `https://${slug ? slug : shop.slug}.${this.$config.domains[domain ? domain : shop.domain]}`
         },
         onReset () {
             this.formData = this.shops.reduce((total, current) => ({

@@ -16,7 +16,7 @@
                     </div>
                 </nav>
 
-                <button-base tag="a" :modifiers="['light']" icon-before="store" :href="$dashboardUrl" class="ml-20" v-if="user && user.role != 'guest'">
+                <button-base tag="a" :modifiers="['light']" icon-before="store" :link="$dashboardUrl" class="ml-20" v-if="user && user.role != 'guest'">
                     Mon Arrière Boutique
                 </button-base>
             </div>
@@ -73,9 +73,9 @@ export default {
     },
     mounted () {
         this.$data.items = [
-            { label: 'Créer mon Arrière Boutique', href: process.env.dashboardUrl + '/register', isDisabled: this.user && this.user.role !== 'guest' },
-            { label: 'Le blog', href: process.env.blogUrl },
-            { label: 'Se connecter', href: process.env.dashboardUrl, isDisabled: this.user && this.user.role !== 'guest' }
+            { label: 'Créer mon Arrière Boutique', href: this.$config.dashboardUrl + '/register', isDisabled: this.user && this.user.role !== 'guest' },
+            { label: 'Le blog', href: this.$config.blogUrl },
+            { label: 'Se connecter', href: this.$config.dashboardUrl, isDisabled: this.user && this.user.role !== 'guest' }
         ]
 
         if (process.server) return

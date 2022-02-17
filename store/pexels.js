@@ -14,7 +14,7 @@ export default {
 
                 const response = await this.$axios.$get(storeUtils.getQuery(url, {
                     ...params.query,
-                }), { headers: { Authorization: process.env.PEXELS }})
+                }), { headers: { Authorization: this.$config.PEXELS }})
 
                 if (!response.photos) throw Error('pexels-error')
 

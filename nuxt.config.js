@@ -36,17 +36,6 @@ export default {
         { src: '@/plugins/base.js' }
     ],
 
-    env: {
-        baseDomain: process.env.BASE_DOMAIN,
-        domains: process.env.DOMAINS.split(','),
-        baseUrl: process.env.BASE_URL,
-        blogUrl: process.env.BLOG_URL,
-        boutiqueUrl: process.env.SHOP_URL,
-        dashboardUrl: process.env.DASHBOARD_URL,
-        PEXELS: process.env.PEXELS,
-        etsy: process.env.ETSY
-    },
-
     components: {
         dirs: [
             '~/components',
@@ -123,6 +112,14 @@ export default {
     },
 
     publicRuntimeConfig: {
+        baseDomain: process.env.BASE_DOMAIN,
+        domains: process.env.DOMAINS.split(','),
+        baseUrl: process.env.BASE_URL,
+        blogUrl: process.env.BLOG_URL,
+        boutiqueUrl: process.env.SHOP_URL,
+        dashboardUrl: process.env.DASHBOARD_URL,
+        PEXELS: process.env.PEXELS,
+        etsy: process.env.ETSY,
         recaptcha: {
             siteKey: process.env.RECAPTCHA
         },

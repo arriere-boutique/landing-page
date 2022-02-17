@@ -17,7 +17,7 @@ export default {
             this.shop = response[0]
             this.slug = this.$route.params.slug
 
-            let domain = process.env.domains[this.shop.domain ? this.shop.domain : 0]
+            let domain = this.$config.domains[this.shop.domain ? this.shop.domain : 0]
             
             if (!this.domain.includes(domain)) {
                 this.shop = null

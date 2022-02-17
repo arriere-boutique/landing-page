@@ -12,11 +12,17 @@
             </div>
 
             <div class="col-4 pv-10 d-flex col-12@s" :style="{ minHeight: '325px' }" v-if="!token">
-                <div class="text-center height-100 d-flex width-100 fx-justify-center br-m fx-align-center bg-ice-xweak">
+                <div class="text-center height-100 d-flex width-100 fx-justify-center br-m fx-align-center p-20" :class="[ hasSub || shops.length == 0 ? 'bg-ice-xweak' : 'bg-precious-xweak' ]">
                     <div>
-                        <button-base icon-before="plus" :class="{ 'is-disabled': shops.length >= 2 }" :modifiers="['ice']" @click="connectShop">Connecter une boutique</button-base>
+                        <button-base icon-before="plus" :class="{ 'is-disabled': shops.length >= 1 && !hasSub }" :modifiers="[shops.length >= 1 && !hasSub ? 'precious' : 'ice']" @click="connectShop">Connecter une boutique</button-base>
 
-                        <p class="ft-s-medium mt-15" v-if="shops.length >= 1">Le multi-boutique n'est pas encore disponible.</p>
+                        <p class="ft-s-medium mt-15" v-if="shops.length >= 1">
+                            Gère plusieurs boutiques Etsy en soutenant le projet !
+                        </p>
+
+                        <link-base tag="nuxt-link" class="mt-10" :attrs="{ to: localePath({ name: 'abonnements' }) }" v-if="shops.length >= 1 && !hasSub">
+                            Débloquer
+                        </link-base>
                     </div>
                 </div>
             </div>
@@ -39,6 +45,7 @@ export default {
         shopsSyncing: []
     }),
     computed: {  
+        hasSub () { return this.$store.state.user.hasSubscription },
         user () { return this.$store.state.auth.user },
         shops () { return this.$store.state.shop.items },
     },
