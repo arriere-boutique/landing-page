@@ -115,7 +115,7 @@ export default {
         &::before, &::after {
             content: "";
             display: block;
-            position: absolute;
+            position: fixed;
             top: -5%;
             left: -5%;
             width: 110%;
@@ -220,6 +220,7 @@ export default {
         &::before {
             transition: all 100ms ease;
             filter: none;
+            position: absolute;
         }
 
         &::after {
