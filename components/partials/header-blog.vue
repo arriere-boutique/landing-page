@@ -18,9 +18,9 @@
                     </div>
                 </nav>
 
-                <a :href="$dashboardUrl" class="HeaderBase_button ml-20" v-if="user && user.role != 'guest'">
-                    <i class="fal fa-store"></i>
-                </a>
+                <button-base tag="a" :modifiers="['light']" icon-before="store" :href="$dashboardUrl" class="ml-20" v-if="user && user.role != 'guest'">
+                    Mon Arrière Boutique
+                </button-base>
             </div>
 
             <div class="HeaderBase_burger" @click="state.isMenu = true">

@@ -15,8 +15,8 @@
                     class="GalleryCompact_info"
                     :href="image.link"
                     target="_blank"
-                    @mouseenter="(e) => tooltipOpen(image.title, e)"
-                    @mouseleave="tooltipClose"
+                    @mouseenter="(e) => $tOpen(image.title, e)"
+                    @mouseleave="$tClose"
                     v-if="image.title"
                 >
                     <p>{{ image.title.slice(0, 100) }}</p>
