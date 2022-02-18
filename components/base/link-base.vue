@@ -1,10 +1,10 @@
 <template>
     <component
-        :is="tag ? tag : (link || (node && node.attrs.link) ? 'a' : 'div')"
+        :is="tag ? tag : (href || link || (node && node.attrs.link) ? 'a' : 'div')"
         class="LinkBase"
         :class="[ ...$modifiers ]"
         :target="target"
-        :href="node && node.attrs.link ? node.attrs.link : link"
+        :href="node && node.attrs.link ? node.attrs.link : (link ? link : href)"
         v-bind="attrs"
         @click="$emit('click')"
     >
@@ -27,6 +27,7 @@ export default {
         target: { type: String, defaut: '_self' },
         node: { type: Object, default: () => {} },
         link: { type: [ String ], default: "#" },
+        href: { type: [ String ], default: "#" },
         attrs: { type: Object, default: () => {} },
     }
 }
