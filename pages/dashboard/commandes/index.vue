@@ -109,7 +109,7 @@ export default {
         this.shops.forEach(async shop => {
             await this.$store.dispatch('shop/sync', {
                 notification: false,
-                params: { id: shop._id, syncItems: [ 'orders' ] }
+                params: { id: shop._id, syncItems: [ 'listings', 'orders' ] }
             })
         })
         
@@ -154,7 +154,7 @@ export default {
             return this.orders.filter(o => o.listings.length > o.prepared.length && o.status == 'Paid').sort((a, b) => b.orderDate - a.orderDate)
         },
         preparedOrders () {
-            return this.orders.filter(o => o.listings.length == o.prepared.length && o.status != 'Completed').sort((a, b) => b.orderDate - a.orderDate)
+            return this.orders.filter(o => o.listings.length <= o.prepared.length && o.status != 'Completed').sort((a, b) => b.orderDate - a.orderDate)
         },
         completedOrders () {
             return this.orders.filter(o => o.status == 'Completed').sort((a, b) => b.orderDate - a.orderDate)

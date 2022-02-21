@@ -14,7 +14,7 @@
                         <div
                             class="OrderBlock_image"
                             v-for="(listing, i) in fullListings.slice(1, 4)"
-                            :style="{ backgroundImage: `url(${ listing ? listing.images[0].thumbnail : '' })` }" :key="i"
+                            :style="{ backgroundImage: `url(${ listing && listing.images && listing.images[0] ? listing.images[0].thumbnail : '' })` }" :key="i"
                         >
                             <i class="fal color-ft-weak" :class="[ `fa-${randomIcon()}` ]" v-if="!listing"></i>
                         </div>
@@ -249,6 +249,7 @@ export default {
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        display: none;
     }
 
     .OrderBlock_shipments {
@@ -281,7 +282,8 @@ export default {
         
         .OrderBlock_right,
         .OrderBlock_shipmentDate,
-        .OrderBlock_date {
+        .OrderBlock_date,
+        .OrderBlock_others {
             display: none;
         }
 
@@ -297,12 +299,12 @@ export default {
         }
 
         .OrderBlock_images {
-            padding: 10px 0 10px 10px;
+            padding: 10px;
         }
         
         .OrderBlock_cover {
-            width:  40px;
-            height: 40px;
+            width:  50px;
+            height: 50px;
             border-radius: 5px;
         }
 

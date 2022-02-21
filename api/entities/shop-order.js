@@ -49,6 +49,10 @@ ShopOrderEntity.fields.pre('find', function () {
     this.populate('review')
 })
 
+ShopOrderEntity.fields.pre('findOne', function () {
+    this.populate('review')
+})
+
 ShopOrderEntity.model = global.ShopOrderEntity ? global.ShopOrderEntity.model : mongoose.model('shopOrder', ShopOrderEntity.fields)
 global.ShopOrderEntity = ShopOrderEntity
 

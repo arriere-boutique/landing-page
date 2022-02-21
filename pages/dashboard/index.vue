@@ -83,7 +83,7 @@ export default {
         this.shops.forEach(shop => {
             this.$store.dispatch('shop/sync', {
                 notification: false,
-                params: { id: shop._id, syncItems: [ 'orders' ] }
+                params: { id: shop._id, syncItems: [ 'listings', 'orders' ] }
             })
         })
     },

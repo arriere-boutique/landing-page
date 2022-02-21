@@ -71,13 +71,14 @@ export default {
     computed: {  
         user () { return this.$store.state.auth.user }
     },
-    mounted () {
+    created () {
         this.$data.items = [
             { label: 'Créer mon Arrière Boutique', href: this.$config.dashboardUrl + '/register', isDisabled: this.user && this.user.role !== 'guest' },
             { label: 'Le blog', href: this.$config.blogUrl },
             { label: 'Se connecter', href: this.$config.dashboardUrl, isDisabled: this.user && this.user.role !== 'guest' }
         ]
-
+    },
+    mounted () {
         if (process.server) return
 
         window.addEventListener('scroll', () => {

@@ -11,7 +11,7 @@
                 <div class="col-6 col-12@s">
                     <div class="Order_tracking bg-ice-weak br-s">
                         <div class="width-100" v-if="order.shipments.length > 0">
-                            <div class="fx-center pv-10 ph-15 bg-bg-light br-s" v-for="shipment in order.shipments" :key="shipment.shipment">
+                            <div class="fx-center pv-10 ph-15 bg-bg-light br-s mv-5" v-for="shipment in order.shipments" :key="shipment.shipment">
                                 <div class="ft-m-medium">
                                     {{ shipment.carrier_name }}
 
@@ -67,13 +67,15 @@
             
             <div class="d-flex fx-dir-column-reverse@s">
                 <div class="fx-grow mr-30 mr-0@s">
-                    <input-base label="Code de suivi" v-model="formData.tracker.trackingCode" />
-
-                    <div class="mt-10">
+                    <div class="mb-10">
                         <div class="Tag mr-5 mb-5" :class="[`is-${carrier.color}`, { 'Tag--secondary': carrier.id != formData.tracker.carrier }]" v-for="carrier in CARRIERS" :key="carrier.id" @click="formData.tracker.carrier = carrier.id">
                             {{ carrier.label }}
                         </div>
                     </div>
+
+                    <input-base label="Nom du transporteur" class="mv-10" v-model="formData.tracker.customCarrier" v-if="formData.tracker.carrier == 999" />
+
+                    <input-base label="Code de suivi" class="mv-10" v-model="formData.tracker.trackingCode" v-if="formData.tracker.carrier != 9999" />
 
                     <div class="mt-10">
                         <toggle-base v-model="formData.tracker.bcc" label="Recevoir une copie de l'avis sur mon mail" />
@@ -101,7 +103,12 @@ import { InputBase, ToggleBase } from 'instant-coffee-core'
 const CARRIERS = [
     { id: 0, label: 'La Poste', color: 'duck' },
     { id: 1, label: 'Colissimo', color: 'sunset' },
-    { id: 2, label: 'Chronopost', color: 'ice' },
+    { id: 2, label: 'Chronopost France', color: 'ice' },
+    { id: 3, label: 'GLS', color: 'pond' },
+    { id: 4, label: 'DPD', color: 'pepper' },
+    { id: 5, label: 'Mondial Relay', color: 'gum' },
+    { id: 999, label: 'Autre', color: 'onyx' },
+    { id: 9999, label: 'Pas disponible', color: 'onyx' },
 ]
 
 export default {
@@ -117,6 +124,7 @@ export default {
         formData: {
             tracker: {
                 carrier: 0,
+                customCarrier: '',
                 trackingCode: null,
                 bcc: false
             },
@@ -158,10 +166,11 @@ export default {
             this.isLoading = true
 
             try {
+
                 await this.$store.dispatch('shop-orders/send', {
                     _id: this.order._id,
                     ...this.formData.tracker,
-                    carrier: CARRIERS[this.formData.tracker.carrier].label
+                    carrier: this.formData.tracker.carrier == 999 ? this.formData.tracker.customCarrier : CARRIERS.find(c => c.id == this.formData.tracker.carrier).label
                 })
             } catch (e) {
                 console.error(e)
