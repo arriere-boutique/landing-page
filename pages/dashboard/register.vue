@@ -5,7 +5,7 @@
 
             <popin-base :is-active="isPopinActive" :modifiers="['absolute-header', 'hide-close', 'pond', 'm']">
                 <template slot="content">
-                    <slider-block @next="step += 1" @prev="step -= 1" :step="step" item-class="p-40" :hide-footer="step == 2">
+                    <slider-block @next="step += 1" @prev="step -= 1" :step="step" item-class="p-40 p-30@s" :hide-footer="step == 2">
                         <template slot="step1">
                             <form id="register" @submit.prevent="submitForm">
                                 <p class="ft-xl-bold mb-30">J'ai juste besoin de quelques infos supplémentaires <i class="fal fa-cat ml-3"></i></p>
@@ -22,12 +22,17 @@
                         <template slot="step2">
                             <p class="ft-xl-bold mb-30">Ravi de te rencontrer, {{ formData.name }}. <i class="fal fa-sparkles ml-3"></i></p>
 
-                            <p class="ft-m-medium mv-10">Pour profiter au mieux de ton Arrière Boutique, je te conseille fortement de connecter ta boutique Etsy.</p>
-
-                            <p class="color-ft-weak mv-10">Certaines fonctionnalités ne seront pas disponibles sans cette action de ta part.</p>
+                            <p class="ft-m-medium mv-10">Pour profiter au mieux de ton Arrière Boutique, connecte dès maintenant ta boutique Etsy !</p>
 
                             <div class="text-center br-m mt-30 p-30 bg-ice-xweak">
-                                <button-base icon-before="plus" :modifiers="['ice']" @click="connectShop">Connecter une boutique</button-base>
+                                <button-base icon-before="plus" :modifiers="['ice']" @click="connectShop">Connecter ma boutique</button-base>
+
+                                <div class="mt-20 color-ice-xstrong">
+                                    <div class="round bg-bg-light"><i class="fal fa-lock"></i></div>
+                                    <p class="ft-m-medium mt-5">Cette connexion est sécurisée par Etsy</p>
+
+                                    <p class="ft-s mt-5">Elle ne donne pas accès à tes informations sensibles (mot de passe, compte bancaire...) et tu gardes le contrôle total sur tes actions.</p>
+                                </div>
                             </div>
                         </template>
                         <template slot="step3">
@@ -43,8 +48,10 @@
                             <button-base type="submit" :attrs="{ form: 'register' }" :modifiers="['gum']" :class="{ 'is-loading': isLoading }" v-if="step == 0">
                                 Valider
                             </button-base>
+                            
+                            <p class="ft-xs-medium text-right color-ft-weak mh-10 d-none@s" v-if="step == 1 && isSkippable">Certaines fonctionnalités ne seront pas disponibles</p>
 
-                            <button-base type="button" :modifiers="['xs', 'secondary']" @click="step = 3" :class="{ 'is-loading': isLoading }" v-if="step == 1 && isSkippable">
+                            <button-base type="button" :modifiers="['xs', 'secondary']" @click="step = 3" :class="{ 'is-loading': isLoading || !isSkippable }" v-if="step == 1">
                                 Ignorer cette étape
                             </button-base>
 
@@ -138,8 +145,7 @@ export default {
         if (!this.user || this.user.role == 'guest' || this.user.shops.length <= 0) {
             this.initData = { ...this.initData, email: this.$route.query.email }
             
-            setTimeout(() => this.isPopinActive = true, 1000)
-            setTimeout(() => this.isSkippable = true, 3000)
+            setTimeout(() => this.isPopinActive = true, 500)
 
             if (this.$route.query.token) {
                 this.isPopinActive = true
@@ -148,7 +154,7 @@ export default {
 
                 setTimeout(() => {
                     if (this.isLoading) this.step = 3
-                }, 6000)
+                }, 12000)
 
                 try {
                     let refresh = this.$route.query.refresh
@@ -182,6 +188,11 @@ export default {
     },  
     watch: {
         step (v) {
+            if (v == 1) {
+                this.isSkippable = false
+                setTimeout(() => this.isSkippable = true, 10000)
+            }
+
             if (v == 4) this.$router.push(this.localePath({ name: 'index' }))
         }
     },

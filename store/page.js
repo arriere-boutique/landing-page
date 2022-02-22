@@ -11,6 +11,7 @@ export default {
         isCartActive: false,
         isNavCompact: false,
         isBodyOverflow: true,
+        isPWA: false,
         breakpoint: "",
         body: {
             classes: [ 'is-fill' ],
@@ -21,6 +22,9 @@ export default {
         }    
     }),
     mutations: {
+        setMode (state, v) {
+            state.isPWA = v
+        },
         setBreakpoint (state, v) {
             state.breakpoint = BREAKPOINTS.reduce((r, b) => {
                 return v > b.size ? b.id : r

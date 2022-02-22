@@ -51,6 +51,9 @@ export default {
     },
     async mounted () {
         await this.$recaptcha.init()
+
+        if (process.server) return
+        window.addEventListener('beforeinstallprompt', e => e.preventDefault())
     },
     beforeDestroy() {
        this.$recaptcha.destroy()

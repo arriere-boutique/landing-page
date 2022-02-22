@@ -95,7 +95,7 @@ export default {
                 title: `Si tu déconnectes ta boutique, tu n'auras plus accès à certaines fonctionnalités de ton Arrière Boutique.`,
                 text: 'Es-tu bien sûr·e de vouloir faire ça ?',
                 actions: [
-                    { label: 'Déconnecter', color: 'gum', count: 1, action: () => this.deleteShop(id) }
+                    { label: 'Déconnecter', color: 'pepper', count: 5, action: () => this.deleteShop(id) }
                 ]
             })
         },

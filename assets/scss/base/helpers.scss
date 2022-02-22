@@ -50,6 +50,31 @@
     text-transform: uppercase;
 }
 
+.down-leave-active,
+.down-enter-active,
+.up-leave-active,
+.up-enter-active {
+    transition: all 250ms;
+}
+
+.up-leave-to,
+.up-enter {
+    opacity: 0;
+    transform: translateY(-5px);
+}
+
+.down-enter-to,
+.up-enter-to {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.down-leave-to,
+.down-enter {
+    opacity: 0;
+    transform: translateY(5px);
+}
+
 .fade-h-enter-active,
 .fade-h-leave-active,
 .fade-enter-active {
@@ -279,6 +304,7 @@
 
 @include breakpoint-s {
     .fx-dir-column-reverse\@s { flex-direction: column-reverse; }
+    .height-auto\@s { height: auto; } 
 }
 
 

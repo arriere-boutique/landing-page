@@ -76,6 +76,7 @@
         <form class="mt-20 b p-20 br-s" @submit.prevent="onCheckout" v-show="step == 1">
             <div class="fx-center mb-20">
                 <p class="ft-l-bold fx-grow">Paiement</p>
+                <p class="Tag Tag--s is-precious">Paiement sécurisé par Stripe</p>
             </div>
 
             <div id="card-element">
@@ -88,8 +89,12 @@
                 Valeur totale {{ totalExtrasAmount }}€
             </div> -->
 
-            <div class="fx-center text-right mt-20">
-                <div class="fx-grow mr-20">
+            <div class="fx-center mt-20">
+                <div class="ft-s-medium fx-grow">
+                    <img class="d-block mt-5" :src="assets.stripe" width="80" />
+                </div>
+
+                <div class="text-right mr-20">
                     <p class="ft-2xl-bold line-1">{{ currentExtra.amount }}€</p>
                     <p class="ft-s ft-italic color-ft-weak">Paiement unique.</p>
                 </div>
@@ -103,12 +108,14 @@
 <script>
 import EXTRAS from '@/static/subscriptions.js'
 import { InputBase } from 'instant-coffee-core'
+import stripe from '@/assets/img/partners/stripe.png'
 
 export default {
     name: 'InformationsPage',
     layout: 'dashboard',
     components: { InputBase },
     data: () => ({
+        assets: { stripe },
         errors: [],
         extras: EXTRAS,
         selected: 0,

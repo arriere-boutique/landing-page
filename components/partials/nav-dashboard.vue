@@ -12,7 +12,7 @@
             </div>
         </div>
 
-        <div class="LayoutDashboard_links">
+        <div class="LayoutDashboard_links fx-grow">
             <component
                 :is="link.locked || link.dev ? 'div' : 'nuxt-link'"
                 class="NavItem"
@@ -49,6 +49,24 @@
                     <i class="fal fa-bars"></i>
                 </div>
             </div>
+        </div>
+
+        <div class="LayoutDashboard_footer">
+            <transition name="up">
+                <div class="p-20 br-s bg-sunset-weak" v-show="!$route.name.includes('parametres') && shops.length == 0">
+                    <p class="color-sunset-xstrong ft-m-medium">Fonctionnalités limitées</p>
+                    <p class="ft-s mt-5 mb-10">Pour profiter de ton Arrière Boutique, connecte ta boutique Etsy en deux clics !</p>
+
+                    <button-base
+                        :modifiers="['xs', 'sunset']"
+                        tag="nuxt-link"
+                        icon-before="plus"
+                        :attrs="{ to: localePath({ name: 'parametres' }) }"
+                    >
+                        Connecter ma boutique
+                    </button-base>
+                </div>
+            </transition>
         </div>
 
         <div class="LayoutDashboard_mobileMenu">

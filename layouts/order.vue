@@ -78,6 +78,9 @@ export default {
         } catch (e) {
             console.error(e)
         }
+        
+        if (process.server) return
+        window.addEventListener('beforeinstallprompt', e => e.preventDefault())
     },
     beforeDestroy() {
        this.$recaptcha.destroy()

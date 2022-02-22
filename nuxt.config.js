@@ -54,6 +54,7 @@ export default {
 
     buildModules: [
         '@nuxtjs/moment',
+        '@nuxtjs/pwa',
         [ '@nuxtjs/router', {
             path: 'router',
             fileName: 'index.js',
@@ -61,7 +62,6 @@ export default {
         } ],
         ...(process.env.NODE_ENV == 'PRODUCTION' ? [
             '@nuxtjs/google-analytics',
-            '@nuxtjs/pwa'
         ] : [])
     ],
 

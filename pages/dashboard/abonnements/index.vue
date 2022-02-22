@@ -32,15 +32,16 @@
                         </p>
 
                         <div class="b p-10 br-s fx-center">
-                            <div class="Extra_tag fx-no-shrink">
-                                <span class="Tag">{{ extra.duration }} mois</span>
+                            <div class="Extra_image">
+                                <span class="Tag Tag--s ml-0">{{ extra.duration }} mois</span>
                             </div>
                             <div class="fx-grow">
                                 <p class="ft-s-medium">
-                                    Toutes les fonctionnalités de ton Arrière Boutique pendant {{ extra.duration }} mois
+                                    Toutes les fonctionnalités pendant {{ extra.duration }} mois
                                 </p>
-                                <div class="ft-s ft-italic">
-                                    Valeur : {{ (extra.duration * monthlyPrice)|round }}€*
+
+                                <div class="mt-5">
+                                    <p class="Tag Tag--s">Valeur : {{ (extra.duration * monthlyPrice)|round }}€*</p>
                                 </div>
                             </div>
                         </div>
@@ -58,16 +59,16 @@
                             </div>
                         </component>
 
-                        <div class="ft-s-medium bg-current-xweak color-current-strong p-10 br-s mt-10 fx-center d-none@s" v-if="i == selected">
+                        <!-- <div class="ft-s-medium bg-current-xweak color-current-strong p-10 br-s mt-10 fx-center d-none@s" v-if="i == selected">
                             Valeur totale : {{ extrasTotalAmount(i)|round }}€
                         </div>
 
                         <div class="ft-s-medium bg-current-xweak color-current-strong p-10 br-s mt-10 fx-center d-none@s" v-if="i > selected">
                             Valeur : +{{ (extrasTotalAmount(i) - totalExtrasAmount)|round }}€
-                        </div>
+                        </div> -->
                     </div>
                     <div class="col-4 col-12@s">
-                        <div class="text-center p-10 d-flex fx-align-center fx-dir-column fx-justify-between br-s height-100 mt-10@s height-auto@s" :class="i <= selected ? ['bg-current-xweak'] : ['b']">
+                        <div class="text-center p-10 d-flex fx-align-center fx-dir-column fx-justify-between br-s height-100 mt-10@s height-auto@s" :class="i <= selected ? ['b'] : ['bg-current-xweak']">
                             <div class="mv-10"></div>
 
                             <div @click="selected = i" v-if="i > selected">
@@ -112,6 +113,11 @@
                     <div class="text-right mr-15">
                         <p class="ft-m-medium">
                             Je participe de {{ currentExtra.amount }}€
+                        </p>
+
+                        <p class="d-none d-block@s">
+                            {{ currentExtra.duration }} mois d'abonnement 
+                            <template v-if="totalExtras.length > 0"> + {{ totalExtras.length }} cadeaux</template>
                         </p>
 
                         <p class="ft-m d-none@s">
@@ -195,6 +201,10 @@ export default {
         width: 80px;
         height: 80px;
         border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--color-bg-xweak);
         background-size: cover;
         background-position: center;
         flex-shrink: 0;

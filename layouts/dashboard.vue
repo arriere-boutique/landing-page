@@ -10,6 +10,34 @@
             
             <Nuxt />
         </div>
+        
+        <transition name="down">
+            <banner-base class="is-sunset" v-show="shops.length == 0 && !$route.name.includes('parametres')">
+                Pour profiter de ton Arrière Boutique, connecte ta boutique Etsy en deux clics !
+
+                <template slot="actions">
+                    <button-base :modifiers="['secondary', 'xs', 'light']"  tag="nuxt-link" :attrs="{ to: localePath({ name: 'parametres' }) }">
+                        Connecter
+                    </button-base>
+                </template>
+            </banner-base>
+        </transition>
+        
+        <transition name="down">
+            <banner-base id="install-pwa" class="is-ice" v-show="prompt">
+                Retrouve ton Arrière Boutique plus facilement sur ton portable
+
+                <template slot="actions">
+                    <button-base :modifiers="['secondary', 'xs', 'light']" @click="promptPWA">
+                        Installer en un clic
+                    </button-base>
+
+                    <div class="p-10 ml-5" @click="prompt = null">
+                        <i class="fal fa-times"></i>
+                    </div>
+                </template>
+            </banner-base>
+        </transition>
 
         <popin-base :is-active="false" :modifiers="['absolute-header', 'l']">
             <template slot="content">
@@ -44,13 +72,16 @@ export default {
     },
     data: () => ({
         isNavActive: false,
-        onWindowResize: null
+        onWindowResize: null,
+        prompt: null
     }),
     computed: {
+        shops () { return this.$store.state.shop.items },
         user () { return this.$store.state.auth.user },
         hasSub () { return this.$store.state.user.hasSubscription },
         classes () { return this.$store.state.page.body.classes },
-        isCompact () { return this.$store.state.page.isNavCompact }
+        isCompact () { return this.$store.state.page.isNavCompact },
+        isPWA () { return this.$store.state.page.isPWA }
     },
     async mounted () {
         try {
@@ -65,14 +96,32 @@ export default {
 
         this.onWindowResize = Debounce(this.windowResize, 500)
         window.addEventListener('resize', this.onWindowResize)
+
+        this.$store.commit('page/setMode', window.matchMedia('(display-mode: standalone)').matches)
+
+        if (this.$breakpoint('s')) {
+            window.addEventListener('beforeinstallprompt', this.storePWA)
+        } else {
+            window.addEventListener('beforeinstallprompt', e => e.preventDefault())
+        }
     },
     beforeDestroy() {
         this.$recaptcha.destroy()
+
+        window.removeEventListener('beforeinstallprompt', this.storePWA)
         window.removeEventListener('resize', this.onWindowResize)
     },
     methods: {
         windowResize () {
             this.$store.commit('page/setBreakpoint', window.innerWidth)
+        },
+        storePWA (e) {
+            e.preventDefault()
+            this.prompt = e
+        },
+        promptPWA () {
+            this.prompt.prompt()
+            this.prompt = null
         }
     }
 }

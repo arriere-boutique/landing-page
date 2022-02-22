@@ -8,7 +8,7 @@
         </template>
 
         <template slot="footer">
-            <div class="PopinBase_footerAction" :class="[ `PopinBase_footerAction--${action.color}`, { 'is-disabled': action.count && action.count > count }]" v-for="(action, i) in popin.data.actions" :key="i" @click="() => action.$cancel ? onClose() : onAction(action)">
+            <div class="PopinBase_footerAction" :class="[ `is-${action.color}`, { 'is-disabled': action.count && action.count > count }]" v-for="(action, i) in popin.data.actions" :key="i" @click="() => action.$cancel ? onClose() : onAction(action)">
                 <p>{{ action.count && action.count > count ? (action.count - count) : action.label }}</p>
             </div>
         </template>
