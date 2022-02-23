@@ -92,13 +92,13 @@ exports.syncShop = async function (id, syncItems = [], firstSync = false) {
             }
 
             if (syncItems.includes('listings')) {
-                if (!shop.lastListingFetch || moment().diff(shop.lastListingFetch, 'minutes') > 5) {
+                // if (!shop.lastListingFetch || moment().diff(shop.lastListingFetch, 'minutes') > 5) {
                     shop.lastListingFetch = new Date()
 
                     let listings = await syncListings(shop, syncItems.includes('listing-photos'))
                     shop.listings = listings
                     shop.save()
-                }
+                // }
             }
 
             if (syncItems.includes('reviews')) {
@@ -264,50 +264,57 @@ const syncOrders = async function (shop) {
 const syncListings = async function (shop, syncImages = false) {
     return new Promise(async (resolve, reject) => {
         try {
-            let listingData = await $fetch(`https://openapi.etsy.com/v3/application/shops/${shop.id}/listings?limit=100&language=fr`, { 
+            let limit = 5
+
+            let listingData = await $fetch(`https://openapi.etsy.com/v3/application/shops/${shop.id}/listings?limit=${limit}&language=fr`, { 
                 headers: {
                     'x-api-key': process.env.ETSY,
                     Authorization: `Bearer ${shop.etsyToken}`,
                 }
             })
 
-            async function getListingData () {
-                let results = []
+            let count = listingData.count
 
-                for (let listing of listingData.results) {
-                    let data = {
-                        id: listing.listing_id,
-                        title: cleanString(listing.title),
-                        status: listing.state,
-                        price: listing.price,
-                        link: listing.url,
-                        quantity: listing.quantity,
-                        favorites: listing.num_favorers,
-                        tags: listing.tags
-                    }
+            async function getListingData (data) {
+                let ids = data.results.map(r => r.listing_id)
+                let listingImages = await $fetch(`https://openapi.etsy.com/v3/application/listings/batch?listing_ids=${ids.join(',')}&includes=Images`, { headers: {
+                    'x-api-key': process.env.ETSY,
+                    Authorization: `Bearer ${shop.etsyToken}`,
+                } })
 
-                    if (syncImages) {
-                        let listingImages = await $fetch(`https://openapi.etsy.com/v3/application/shops/${shop.id}/listings/${listing.listing_id}/images`, { headers: {
-                            'x-api-key': process.env.ETSY,
-                            Authorization: `Bearer ${shop.etsyToken}`,
-                        } })
-                        
-                        if (listingImages) {
-                            data.images = listingImages.results.map(r => ({
-                                thumbnail: r.url_75x75,
-                                small: r.url_570xN,
-                                full: r.url_fullxfull,
-                            }))
-                        }
-                    }
+                listingImages = listingImages.results.reduce((t, c) => ({ ...t, [c.listing_id]: c.images }), {})
 
-                    results.push(data)
-                }
-
-                return results
+                return data.results.map(listing => ({
+                    id: listing.listing_id,
+                    title: cleanString(listing.title),
+                    status: listing.state,
+                    price: listing.price,
+                    link: listing.url,
+                    quantity: listing.quantity,
+                    favorites: listing.num_favorers,
+                    tags: listing.tags,
+                    images: listingImages[listing.listing_id].map(r => ({
+                        thumbnail: r.url_75x75,
+                        small: r.url_570xN,
+                        full: r.url_fullxfull,
+                    }))
+                }))
             }
             
-            listingData = await getListingData()
+            listingData = await getListingData(listingData)
+
+            for (let i = 0; i < Math.ceil(count / limit) - 1; i++) {
+                let newData = await $fetch(`https://openapi.etsy.com/v3/application/shops/${shop.id}/listings?limit=${limit}&offset=${limit * (i + 1)}&language=fr`, { 
+                    headers: {
+                        'x-api-key': process.env.ETSY,
+                        Authorization: `Bearer ${shop.etsyToken}`,
+                    }
+                })
+
+                newData = await getListingData(newData)
+
+                listingData = [ ...listingData, ...newData]
+            }
 
             let listingIds = listingData.map(i => i.id)
             let listingsToUpdate = await Entities.shopListing.model.find({ shop: shop._id, id: { $in: listingIds } })

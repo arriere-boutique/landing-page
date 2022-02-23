@@ -124,7 +124,7 @@ export default {
             return this.listings.reduce((t, c) => t += c.quantity, 0)
         },
         cover () {
-            return this.activeListings[0] && this.activeListings[0].images && this.activeListings[0].images[0].small ? this.activeListings[0].images[0].small : ''
+            return this.activeListings[0] && this.activeListings[0].images && this.activeListings[0].images[0] ? this.activeListings[0].images[0].small : ''
         },
         timeLeft () {
             let days = this.$moment.duration(this.$moment.unix(this.expectedDate).diff(this.$moment())).days()
