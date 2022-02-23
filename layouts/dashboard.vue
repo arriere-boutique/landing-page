@@ -99,7 +99,7 @@ export default {
 
         this.$store.commit('page/setMode', window.matchMedia('(display-mode: standalone)').matches)
 
-        if (this.$breakpoint('s')) {
+        if (this.$smallerThan('s')) {
             window.addEventListener('beforeinstallprompt', this.storePWA)
         } else {
             window.addEventListener('beforeinstallprompt', e => e.preventDefault())

@@ -11,10 +11,14 @@
 }
 
 .InputBase_element {
-    // background-color: var(--color-white);
+    border-radius: 6px;
 
     &::placeholder {
         color: var(--color-ft-xweak);
         opacity: 0;
     }
+}
+
+.Inputbase_helpers {
+    border-radius: 6px;
 }

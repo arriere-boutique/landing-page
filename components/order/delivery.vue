@@ -67,21 +67,21 @@
             
             <div class="d-flex fx-dir-column-reverse@s">
                 <div class="fx-grow mr-30 mr-0@s">
-                    <div class="mb-10">
+                    <div class="mb-15">
                         <div class="Tag mr-5 mb-5" :class="[`is-${carrier.color}`, { 'Tag--secondary': carrier.id != formData.tracker.carrier }]" v-for="carrier in CARRIERS" :key="carrier.id" @click="formData.tracker.carrier = carrier.id">
                             {{ carrier.label }}
                         </div>
                     </div>
 
-                    <input-base label="Nom du transporteur" class="mv-10" v-model="formData.tracker.customCarrier" v-if="formData.tracker.carrier == 999" />
+                    <input-base label="Nom du transporteur" class="mv-15" v-model="formData.tracker.customCarrier" v-if="formData.tracker.carrier == 999" />
 
-                    <input-base label="Code de suivi" class="mv-10" v-model="formData.tracker.trackingCode" v-if="formData.tracker.carrier != 9999" />
+                    <input-base label="Code de suivi" class="mv-15" v-model="formData.tracker.trackingCode" v-if="formData.tracker.carrier != 9999" />
 
                     <div class="mt-10">
                         <toggle-base v-model="formData.tracker.bcc" label="Recevoir une copie de l'avis sur mon mail" />
                     </div>
                 </div>
-                <div class="width-xs width-100@s mb-20@s">
+                <div class="width-m width-100@s mb-20@s">
                     <scanner-base v-model="formData.tracker.trackingCode" />
                 </div>
             </div>

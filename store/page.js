@@ -61,8 +61,11 @@ export default {
         }
     },
     getters: {
-        lesserThan: (state) => (v) => {
+        smallerThan: (state) => (v) => {
             return state.breakpoint ? BREAKPOINTS.find(b => b.id == v).size >= BREAKPOINTS.find(b => b.id == state.breakpoint).size : false
+        },
+        biggerThan: (state) => (v) => {
+            return state.breakpoint ? BREAKPOINTS.find(b => b.id == v).size < BREAKPOINTS.find(b => b.id == state.breakpoint).size : false
         }
     }
 }

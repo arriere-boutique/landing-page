@@ -17,7 +17,7 @@
                 :is="link.locked || link.dev ? 'div' : 'nuxt-link'"
                 class="NavItem"
                 :class="{ 'is-disabled': link.locked || link.dev, 'is-mobile': link.isMobile }"
-                v-for="link in displayLinks.slice(0, $breakpoint('s') ? 4 : 9999)"
+                v-for="link in displayLinks.slice(0, $smallerThan('s') ? 4 : 9999)"
                 :to="localePath(link.path)"
                 @click.native="$emit('toggle'); isMobileNav = false;"
                 :key="link.icon"
@@ -25,13 +25,13 @@
                 <div class="NavItem_icon">
                     <i class="fal" :class="[`fa-${link.icon}`]"></i>
                     
-                    <span class="notification bg-pond-strong" v-if="link.notification"></span>
+                    <span class="notification" v-if="link.notification"></span>
                 </div>
 
                 <p class="NavItem_label mh-10 fx-grow">
                     {{ link.label }}
 
-                    <span class="notification bg-pond-strong" v-if="link.notification"></span>
+                    <span class="notification" v-if="link.notification"></span>
                 </p>
 
                 <div class="NavItem_arrow" @mouseenter="(e) => link.tooltip || link.locked ? $tOpen(link.locked ? `Pour accéder à cette page, tu dois avoir au moins une boutique Etsy connectée.` : link.tooltip, e) : undefined" @mouseleave="$tClose">
@@ -114,7 +114,7 @@ export default {
         displayLinks () {
             let links = this.links
 
-            if (this.$breakpoint('s')) {
+            if (this.$smallerThan('s')) {
                 links = links.map(l => ({ ...l, ...l.s }))
             }
 

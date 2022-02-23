@@ -131,8 +131,13 @@ Vue.mixin({
         $validator (type) {
             return Validators[type]
         },
-        $breakpoint (v) {
-            return this.$store.getters['page/lesserThan']('s')
+        $smallerThan (v) {
+            return this.$store.getters['page/smallerThan'](v)
+        },
+        $biggerThan (v) {
+            console.log('bigger')
+            console.log(this.$store.getters['page/biggerThan'](v))
+            return this.$store.getters['page/biggerThan'](v)
         }
     }
 })

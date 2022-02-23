@@ -53,12 +53,36 @@ export default {
                 return null
             }
         },
-        async update ({ commit, rootState }, params) {
+        async update ({ rootState }, params) {
             try {
                 const response = await this.$axios.$post('/entities', {
                     _id: rootState.auth.user._id,
                     ...params,
                     type: 'user'
+                })
+                
+                if (response.errors.length > 0) throw Error(response.errors[0])
+
+                this.$auth.fetchUser()
+    
+                return response
+            } catch (e) {
+                console.error(e)
+                return null
+            }
+        },
+        async updateSettings ({ rootState }, params) {
+            try {
+                let settings = rootState.auth.user.settings ? rootState.auth.user.settings : {}
+
+                settings = { ...settings, ...params }
+
+                console.log(settings)
+
+                const response = await this.$axios.$post('/entities', {
+                    _id: rootState.auth.user._id, params: {
+                        settings
+                    }, type: 'user'
                 })
                 
                 if (response.errors.length > 0) throw Error(response.errors[0])
