@@ -78,7 +78,6 @@ export default {
         this.reset()
     },
     async mounted () {
-
         this.codeReader = new BrowserMultiFormatReader()
 
         try {

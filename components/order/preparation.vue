@@ -1,6 +1,9 @@
 <template>
     <div>
+        <advice-block class="is-emerald mb-20" type="order-prep" :is-ignore="true" />
+
         <div class="Order_section p-20 b br-s">
+
             <div v-for="listing in fullListings" :key="listing.id">
                 <div class="d-flex d-block@s" :class="[ isItemPrepared(listing.id) ? 'is-emerald' : 'is-onyx' ]">
                     <div>

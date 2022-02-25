@@ -171,15 +171,15 @@ export default {
     }
 
     .Flashes_item.is-error {
-        background-color: var(--color-gum);
+        background-color: var(--color-gum-strong);
 
         .Flashes_actions,
         .Flashes_action {
-            border-color: var(--color-gum-strong);
+            border-color: var(--color-gum-xstrong);
         }
 
         .Flashes_progress {
-            background-color: var(--color-gum-strong);
+            background-color: var(--color-gum-xstrong);
         }
 
         .Flashes_itemText {
@@ -188,14 +188,15 @@ export default {
         }
     }
     .Flashes_item.is-success {
-        background-color: var(--color-emerald);
+        background-color: var(--color-emerald-strong);
+
         .Flashes_actions,
         .Flashes_action {
-            border-color: var(--color-emerald-strong);
+            border-color: var(--color-emerald-xstrong);
         }
 
         .Flashes_progress {
-            background-color: var(--color-emerald-strong);
+            background-color: var(--color-emerald-xstrong);
         }
 
         .Flashes_itemText {

@@ -50,13 +50,21 @@
                     </template>
                     
                     <template v-if="completedOrders.length > 0 && !isLoading">
-                        <div class="fx-center mb-40">
+                        <div class="fx-center mb-20">
                             <p class="ft-xl-medium"><span class="Tag Tag--xs is-emerald mr-5">{{ completedOrders.length }}</span> Commandes envoyées</p>
 
                             <!-- <button-base :modifiers="['round', 's', 'light', 'border']" :icon-before="displayCompleted ? 'angle-up' : 'angle-down'" @click="displayCompleted = !displayCompleted" /> -->
                         </div>
 
-                        <transition-group name="fade" is="div" v-if="displayCompleted">
+                        <div class="br-s b p-20 mb-30">
+                            <span class="ft-s-bold d-block@s mb-5@s">Afficher :</span>
+
+                            <span class="Tag Tag--s mr-5 mt-5@s" :class="filter.id == activeFilter ? ['is-ice'] : ['Tag--secondary n']" v-for="filter in filters" @click="activeFilter = filter.id" :key="filter.id">
+                                {{ filter.label }}
+                            </span>
+                        </div>
+
+                        <transition-group name="default" is="div" v-if="displayCompleted">
                             <div class="mb-60" v-for="date in displayedCompletedOrders" :key="date">
                                 <div class="d-flex fxa-center mb-15">
                                     <p class="ft-m-medium">{{ $moment(date).format('D MMMM YYYY') }}</p>
@@ -123,6 +131,16 @@ export default {
         displayCompleted: true,
         completedLimit: 10,
         selectedOrderId: '',
+        activeFilter: 'all',
+        filters: [
+            { id: 'all', label: 'Toutes les commandes' },
+            { id: 'review', label: 'Avec avis', filter: (d) => {
+                return d.review
+            } },
+            { id: 'returning', label: 'Sans avis', filter: (d) => {
+                return !d.review
+            } }
+        ]
     }),
     watch: {
         selectedOrderId (v) {
@@ -150,6 +168,10 @@ export default {
         user () { return this.$store.state.auth.user },
         shops () { return this.$store.state.shop.items },
         orders () { return this.$store.getters['shop-orders/items'] },
+        currentFilter () {
+            let filter = this.filters.find(f => f.id == this.activeFilter)
+            return filter && filter.filter ? filter.filter : null
+        },
         pendingOrders () {
             return this.orders.filter(o => o.listings.length > o.prepared.length && o.status == 'Paid').sort((a, b) => b.orderDate - a.orderDate)
         },
@@ -163,7 +185,11 @@ export default {
             return Object.keys(this.ordersByDate).sort((a, b) => b - a).slice(0, this.completedLimit)
         },
         ordersByDate () {
-            return this.completedOrders.reduce((t, o) => {
+            let orders = this.completedOrders
+
+            if (this.currentFilter) orders = orders.filter(this.currentFilter)
+
+            return orders.reduce((t, o) => {
                 let key = this.$moment.unix(o.shippedDate).format('MM-DD-YYYY')
                 return {
                     ...t,

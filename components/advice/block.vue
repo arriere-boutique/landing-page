@@ -1,17 +1,18 @@
 <template>
-    <div class="AdviceBlock" v-if="currentAdvice">
+    <div class="AdviceBlock" v-if="currentAdvice && isInit">
         <transition-group name="fade">
             <div v-for="(advice, i) in advices" :key="i" v-show="i == current">
-                <p class="ft-xl-bold color-current-xstrong mb-30" v-if="advice.title">{{ advice.title }}</p>
-                <div class="mb-30" v-html="advice.text" v-if="advice.text"></div>
+                <p class="ft-l-bold color-current-xstrong mb-10" v-if="advice.title">{{ advice.title }}</p>
 
-                <youtube-video class="mb-20" :id="advice.youtube" v-if="advice.youtube" />
+                <div v-html="advice.text" v-if="advice.text"></div>
+
+                <youtube-video class="mb-10" :id="advice.youtube" v-if="advice.youtube" />
             </div>
         </transition-group>
 
-        <div class="AdviceBlock_footer fx-center">
+        <div class="AdviceBlock_footer fx-center" v-if="advices.length > 1 || isIgnore">
             <div>
-                <link-base v-if="isIgnore">Ne plus afficher</link-base>
+                <link-base @click="ignore" v-if="isIgnore">Ne plus afficher</link-base>
             </div>
 
             <div v-if="advices.length > 1">
@@ -33,14 +34,32 @@ export default {
         isIgnore: { type: Boolean }
     },
     data: () => ({
+        isInit: false,
         current: 0
     }),
     computed: {
-        advices () {
-            return Advices.advices[this.type]
-        },
+        user () { return this.$store.state.auth.user },
+        advices () { return Advices.advices[this.type] },
         currentAdvice () {
             return this.advices && this.advices[this.current] ? this.advices[this.current] : null
+        }
+    },
+    mounted () {
+        if (this.user.settings && this.user.settings.ignoredAdvices && this.user.settings.ignoredAdvices.includes(this.type)) return
+
+        this.isInit = true
+    },
+    methods: {
+        async ignore () {
+            let ignoredAdvices = this.user.settings && this.user.settings.ignoredAdvices ? this.user.settings.ignoredAdvices : []
+
+            ignoredAdvices.push(this.type)
+
+            this.$store.dispatch('user/updateSettings', {
+                ignoredAdvices
+            })
+
+            this.isInit = false
         }
     }
 }

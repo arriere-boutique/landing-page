@@ -82,6 +82,12 @@ export default {
             }, {
                 youtube: `WE60E3YY8KQ` 
             }
+        ],
+        ['order-prep']: [
+            {
+                title: 'Prépare ta commande, étape par étape',
+                text: `Lorsque tu prépares un article, marque-le comme "Préparé". Ce statut est uniquement pour toi, le client ne sera pas notifié.`
+            }
         ]
     },
     order: {

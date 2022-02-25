@@ -1,7 +1,7 @@
 <template>
     <div
         class="OrderBlock"
-        :class="[ $modifiers, { 'is-completed': this.status == 'Completed' } ]"
+        :class="[ $modifiers, { 'is-completed': status == 'Completed' } ]"
     >   
         <div class="OrderBlock_main">
             <div class="OrderBlock_container">
@@ -22,13 +22,13 @@
                 </div>
 
                 <div class="OrderBlock_content pl-20">
-                    <div class="fx-center">
+                    <div class="">
                         <p class="ft-m-medium fx-grow ellipsis-1 ellipsis-break">
                             {{ name }}
                         </p>
-
-                        <div class="OrderBlock_date ft-s fx-no-shrink ml-10">
-                            {{ $moment.unix(orderDate).format('DD MMM YYYY') }}
+                        
+                        <div class="ft-s">
+                            {{ baseInfo }}
                         </div>
                     </div>
 
@@ -150,6 +150,14 @@ export default {
         },
         isDigital () {
             return this.listings.filter(c => c.digital).length == this.listings.length
+        },
+        baseInfo () {
+            let info = [
+                this.$round(this.total.amount / this.total.divisor) + '€',
+                'Commandé le ' + this.$moment.unix(this.orderDate).format('D MMM YYYY')
+            ]
+
+            return info.join(' · ')
         }
     }
 }
@@ -173,6 +181,7 @@ export default {
     .OrderBlock_container {
         display: flex;
         flex-grow: 1;
+        align-items: flex-start;
     }
 
     .OrderBlock_main {
@@ -287,20 +296,6 @@ export default {
             display: none;
         }
 
-        .OrderBlock_container {
-            align-items: center;
-        }
-
-        .OrderBlock_content {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 10px;
-        }
-
-        .OrderBlock_images {
-            padding: 10px;
-        }
         
         .OrderBlock_cover {
             width:  50px;
@@ -308,11 +303,6 @@ export default {
             border-radius: 5px;
         }
 
-        .OrderBlock_tags {
-            flex-shrink: 0;
-            max-width: 60%;
-            justify-content: flex-end;
-        }
     }
 
     @include breakpoint-s {

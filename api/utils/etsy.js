@@ -14,7 +14,7 @@ exports.syncShop = async function (id, syncItems = [], firstSync = false) {
                 shop.etsyToken = refresh.access_token
                 shop.etsyRefreshed = moment().add(refresh.expires_in - 600, 's')
                 shop.etsyRefreshToken = refresh.refresh_token
-                shop.save()
+                await shop.save()
             }
         
             if (syncItems.includes('info')) {
@@ -53,7 +53,7 @@ exports.syncShop = async function (id, syncItems = [], firstSync = false) {
                         shop.id = shopData.shop_id
                         shop.openingDate = shopData.create_date
     
-                        shop.save()
+                        await shop.save()
                     } catch (e) {
                         console.error(e)
                     }
@@ -97,7 +97,7 @@ exports.syncShop = async function (id, syncItems = [], firstSync = false) {
 
                     let listings = await syncListings(shop, syncItems.includes('listing-photos'))
                     shop.listings = listings
-                    shop.save()
+                    await shop.save()
                 }
             }
 
@@ -107,18 +107,18 @@ exports.syncShop = async function (id, syncItems = [], firstSync = false) {
 
                     let reviews = await syncReviews(shop)
                     shop.reviews = reviews
-                    shop.save()
+                    await shop.save()
                 }
             }
 
             if (syncItems.includes('orders')) {
-                if (!shop.lastOrderFetch || moment().diff(shop.lastOrderFetch, 'minutes') > 2) {
+                // if (!shop.lastOrderFetch || moment().diff(shop.lastOrderFetch, 'minutes') > 2) {
                     shop.lastOrderFetch = new Date()
 
                     let orders = await syncOrders(shop)
                     shop.orders = orders
-                    shop.save()
-                }
+                    await shop.save()
+                // }
             }
 
             resolve(shop)
@@ -159,69 +159,88 @@ const cleanString = function (string) {
 const syncOrders = async function (shop) {
     return new Promise(async (resolve, reject) => {
         try {
-            let ordersData = await $fetch(`https://openapi.etsy.com/v3/application/shops/${shop.id}/receipts?limit=100&language=fr`, { headers: {
+            let limit = 100
+
+            let ordersData = await $fetch(`https://openapi.etsy.com/v3/application/shops/${shop.id}/receipts?limit=${limit}&language=fr`, { headers: {
                 'x-api-key': process.env.ETSY,
                 Authorization: `Bearer ${shop.etsyToken}`,
             }})
 
-            ordersData = await Promise.all(ordersData.results.map(async order => {
-                let listings = []
-                 
-                // if (order.receipt_id == '2376234478') console.log(order)
+            let count = ordersData.count
 
-                listings = await Promise.all(order.transactions.map(async listing => {
-                    let existing = await Entities.shopListing.model.findOne({ shop: shop._id, id: listing.listing_id })
-
+            async function getOrdersData (data) {
+                return await Promise.all(data.results.map(async order => {
+                    let listings = []
+    
+                    listings = await Promise.all(order.transactions.map(async listing => {
+                        let existing = await Entities.shopListing.model.findOne({ shop: shop._id, id: listing.listing_id })
+    
+                        return {
+                            listingId: existing ? existing._id : null,
+                            title: cleanString(listing.title),
+                            price: listing.price,
+                            digital: listing.is_digital,
+                            quantity: listing.quantity,
+                            sku: listing.sku,
+                            variations: listing.variations.map(v => ({
+                                id: v.property_id,
+                                valueId: v.value_id,
+                                label: cleanString(v.formatted_name),
+                                value: cleanString(v.formatted_value)
+                            })),
+                            shipping_cost: listing.shipping_cost
+                        }
+                    }))
+    
+                    let transaction = order.transactions[0] ? order.transactions[0] : null
+                    let countryCodes = new Intl.DisplayNames(['fr'], { type: 'region' })
+    
                     return {
-                        listingId: existing ? existing._id : null,
-                        title: cleanString(listing.title),
-                        price: listing.price,
-                        digital: listing.is_digital,
-                        quantity: listing.quantity,
-                        sku: listing.sku,
-                        variations: listing.variations.map(v => ({
-                            id: v.property_id,
-                            valueId: v.value_id,
-                            label: cleanString(v.formatted_name),
-                            value: cleanString(v.formatted_value)
-                        })),
-                        shipping_cost: listing.shipping_cost
+                        id: order.receipt_id,
+                        listings,
+                        userId: order.buyer_user_id,
+                        email: order.buyer_email,
+                        name: order.name,
+                        orderDate: order.create_timestamp,
+                        adress1: cleanString(order.first_line),
+                        adress2: cleanString(order.second_line),
+                        zip: order.zip,
+                        city: cleanString(order.city),
+                        state: order.state,
+                        country: countryCodes.of(order.country_iso),
+                        status: order.status,
+                        isGift: order.is_gift,
+                        subTotal: order.subtotal,
+                        shipments: order.shipments,
+                        transactionId: transaction ? transaction.transaction_id : undefined,
+                        shipUpgrade: transaction ? transaction.shipping_upgrade : undefined,
+                        shippedDate: transaction ? transaction.shipped_timestamp : undefined,
+                        expectedDate: transaction ? transaction.expected_ship_date : undefined,
+                        message: cleanString(order.message_from_buyer),
+                        totalDiscount: order.discount_amt,
+                        totalGiftWrap: order.gift_wrap_price,
+                        totalPrice: order.total_price,
+                        totalShipping: order.total_shipping_cost,
+                        total: order.grandtotal,
+                        giftMessage: cleanString(order.gift_message)
                     }
                 }))
+            }
 
-                let transaction = order.transactions[0] ? order.transactions[0] : null
-                let countryCodes = new Intl.DisplayNames(['fr'], { type: 'region' })
+            ordersData = await getOrdersData(ordersData)
 
-                return {
-                    id: order.receipt_id,
-                    listings,
-                    userId: order.buyer_user_id,
-                    email: order.buyer_email,
-                    name: order.name,
-                    orderDate: order.create_timestamp,
-                    adress1: cleanString(order.first_line),
-                    adress2: cleanString(order.second_line),
-                    zip: order.zip,
-                    city: cleanString(order.city),
-                    state: order.state,
-                    country: countryCodes.of(order.country_iso),
-                    status: order.status,
-                    isGift: order.is_gift,
-                    subTotal: order.subtotal,
-                    shipments: order.shipments,
-                    transactionId: transaction ? transaction.transaction_id : undefined,
-                    shipUpgrade: transaction ? transaction.shipping_upgrade : undefined,
-                    shippedDate: transaction ? transaction.shipped_timestamp : undefined,
-                    expectedDate: transaction ? transaction.expected_ship_date : undefined,
-                    message: cleanString(order.message_from_buyer),
-                    totalDiscount: order.discount_amt,
-                    totalGiftWrap: order.gift_wrap_price,
-                    totalPrice: order.total_price,
-                    totalShipping: order.total_shipping_cost,
-                    total: order.grandtotal,
-                    giftMessage: cleanString(order.gift_message)
-                }
-            }))
+            for (let i = 0; i < Math.ceil(count / limit) - 1; i++) {
+                let newData = await $fetch(`https://openapi.etsy.com/v3/application/shops/${shop.id}/receipts?limit=${limit}&offset=${limit * (i + 1)}&language=fr`, { 
+                    headers: {
+                        'x-api-key': process.env.ETSY,
+                        Authorization: `Bearer ${shop.etsyToken}`,
+                    }
+                })
+
+                newData = await getOrdersData(newData)
+
+                ordersData = [ ...ordersData, ...newData]
+            }
 
             let orderIds = ordersData.map(i => i.id)
             let ordersToUpdate = await Entities.shopOrder.model.find({ shop: shop._id, id: { $in: orderIds } })
@@ -264,7 +283,7 @@ const syncOrders = async function (shop) {
 const syncListings = async function (shop, syncImages = false) {
     return new Promise(async (resolve, reject) => {
         try {
-            let limit = 5
+            let limit = 100
 
             let listingData = await $fetch(`https://openapi.etsy.com/v3/application/shops/${shop.id}/listings?limit=${limit}&language=fr`, { 
                 headers: {
