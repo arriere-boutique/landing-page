@@ -11,7 +11,7 @@
         <div
             class="NavContent"
             :class="{ 'is-reset': panReset }"
-            :style="pan > 0 ? { transform: `translateX(${pan}px` } : {}"
+            :style="pan != 0 ? { transform: `translateX(${pan}px` } : {}"
             v-hammer:pan.horizontal="onPan"
             v-hammer:panend="onPanEnd"
             ref="container"

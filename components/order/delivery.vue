@@ -166,12 +166,13 @@ export default {
             this.isLoading = true
 
             try {
-
                 await this.$store.dispatch('shop-orders/send', {
                     _id: this.order._id,
                     ...this.formData.tracker,
                     carrier: this.formData.tracker.carrier == 999 ? this.formData.tracker.customCarrier : CARRIERS.find(c => c.id == this.formData.tracker.carrier).label
                 })
+
+                this.isNewShipment = false
             } catch (e) {
                 console.error(e)
             }

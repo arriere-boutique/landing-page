@@ -38,7 +38,7 @@ exports.sendOrder = async function (req, res) {
 
         shopOrder.shipments = orderData.shipments
         shopOrder.status = orderData.status
-        shopOrder.save()
+        await shopOrder.save()
 
         data = await Entities.shopOrder.model.findOne({ _id: shopOrder._id })
     } catch (e) {

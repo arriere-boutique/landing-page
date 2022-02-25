@@ -92,17 +92,17 @@ exports.syncShop = async function (id, syncItems = [], firstSync = false) {
             }
 
             if (syncItems.includes('listings')) {
-                // if (!shop.lastListingFetch || moment().diff(shop.lastListingFetch, 'minutes') > 5) {
+                if (!shop.lastListingFetch || moment().diff(shop.lastListingFetch, 'minutes') > 2) {
                     shop.lastListingFetch = new Date()
 
                     let listings = await syncListings(shop, syncItems.includes('listing-photos'))
                     shop.listings = listings
                     shop.save()
-                // }
+                }
             }
 
             if (syncItems.includes('reviews')) {
-                if (!shop.lastReviewFetch || moment().diff(shop.lastReviewFetch, 'minutes') > 5) {
+                if (!shop.lastReviewFetch || moment().diff(shop.lastReviewFetch, 'minutes') > 2) {
                    shop.lastReviewFetch = new Date()
 
                     let reviews = await syncReviews(shop)
